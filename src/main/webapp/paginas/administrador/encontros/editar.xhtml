@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+
+                <p:fieldset legend="Editar Encontro">
+                    <h:form>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Data do encontro"/><br/>
+                                <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
+                                            mindate="new date()" required="true" pages="3" 
+                                            requiredMessage="O campo Data do Encontro é obrigatorio"/>
+                            </b:column>
+                        </b:row><br/>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
+                                                 label="Local do Encontro" required="true" requiredMessage="O campo Local do Encontro é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 label="Descrição" required="true" requiredMessage="O campo Descrição é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Academico" value="#{encontroController.encontroSelecionado.academico}"
+                                                 required="true" requiredMessage="O campo Academico é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu> 
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}"
+                                                 required="true" requiredMessage="O campo Participante é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu> 
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column span="1" offset-md="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{encontroController.cancelar()}" />
+                            </b:column>
+                            <b:column span="1" offset-md="8">
+                                <b:commandButton value="Enviar" look="info" action="#{encontroController.alterar()}"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </p:fieldset>   
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

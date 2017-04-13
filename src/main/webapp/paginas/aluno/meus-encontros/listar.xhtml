@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+
+                <h:form>
+                    <b:panel look="primary" collapsible="false">
+                        <h4 style="text-align: center;">LISTA ENCONTROS</h4>
+
+                        <b:dataTable value="#{encontroController.listarEncontroQueCadastrei}"
+                                     var="item" searching="true" border="true"
+                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                     styleClass="table table-striped">
+
+                            <h:column>
+                                <f:facet name="header">Data Encontro</f:facet>
+                                <h:outputText value="#{item.dataEncontro}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                </h:outputText>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Local Encontro</f:facet>
+                                <h:outputText value="#{item.localEncontro}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Descrição</f:facet> 
+                                <h:outputText value="#{item.descricao}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Participante</f:facet> 
+                                <h:outputText value="#{item.participante.nome}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Academico</f:facet> 
+                                <h:outputText value="#{item.academico.nome}"/>
+                            </h:column> 
+
+
+                            <h:column>
+                                <f:facet name="header">Ações</f:facet>
+                                <h:commandLink title="Alterar" action="#{encontroController.doEditar()}">                                    
+                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Excluir" action="#{encontroController.doExcluir()}">
+                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Consultar" action="#{encontroController.doConsultar()}">
+                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                </h:commandLink>
+                            </h:column>                            
+                        </b:dataTable>   
+                        <f:facet name="footer">
+                            <b:commandButton value="Incluir" action="#{encontroController.doIncluir()}"
+                                             icon="glyphicon glyphicon-plus"/>
+
+                        </f:facet>
+                    </b:panel>
+                </h:form>             
+            </ui:define>    
+        </ui:composition>
+
+    </body>
+
+</html>

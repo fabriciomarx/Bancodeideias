@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <b:navBar brand="Banco de ideias" brandHref="#" inverse="true" fixed="top">
+            <b:navbarLinks>
+                <b:navLink value="Inicio" href="../../../index.xhtml"/>
+
+                <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ADMINISTRADOR -->
+
+                <b:navLink value="Usuarios" href="../../administrador/usuarios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                <b:navLink value="Cursos" href="../../administrador/cursos/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>  
+                <b:navLink value="Ideias" href="../../administrador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                <b:navLink value="Proposta de TCC" href="../../administrador/proposta-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/> 
+                <b:navLink value="Encontros" href="../../administrador/encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                <b:navLink value="Relatorios" href="../../administrador/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                <b:dropMenu value="Analises" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}">
+                    <b:navLink value="Analise de Ideias" href="../../administrador/analises/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                    <b:navLink value="Analise Proposta TCC" href="../../administrador/analises/proposta-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Admin'}"/>
+                </b:dropMenu>
+
+                <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ALUNO -->
+                <b:navLink value="Cadastro" href="../../aluno/cadastro/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                <b:dropMenu value="Encontros" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}">
+                    <b:navLink value="Meus Encontros" href="../../aluno/meus-encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                    <b:navLink value="Todos Encontros com Orientador" href="../../aluno/encontros-orientador/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                </b:dropMenu>
+
+                <b:navLink value="Minhas Ideias" href="../../aluno/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                <b:navLink value="Ideias" href="../../aluno/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                <b:navLink value="Proposta de TCC" href="../../aluno/proposta-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                <b:navLink value="Relatorios" href="../../aluno/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+
+                <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO COORDENADOR -->
+                <b:navLink value="Cadastro" href="../../coordenador/cadastro/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                <b:navLink value="Encontros" href="../../coordenador/encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                <b:dropMenu value="Ideias" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}">
+                    <b:navLink value="Minhas Ideias" href="../../coordenador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                    <b:navLink value="Ideias" href="../../coordenador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                    <b:navLink value="Ideias Pendentes" href="../../coordenador/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                </b:dropMenu>
+                <b:navLink value="Relatorios" href="../../coordenador/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                <b:dropMenu value="Propostas de TCC" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}">
+                    <b:navLink value="Proposta de TCC" href="../../coordenador/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                    <b:navLink value="Proposta de TCC Pendentes" href="../../coordenador/propostas-tcc-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Coordenador'}"/>
+                </b:dropMenu>
+
+                <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ORIENTADOR -->
+                <b:navLink value="Cadastro" href="../../orientador/cadastro/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                <b:dropMenu value="Encontros" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}">
+                    <b:navLink value="Meus Encontros" href="../../orientador/meus-encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                    <b:navLink value="Todos Encontros com aluno" href="../../orientador/encontros-aluno/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                </b:dropMenu>
+                <b:navLink value="Relatorios" href="../../orientador/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                <b:dropMenu value="Ideias" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}">
+                    <b:navLink value="Minhas Ideias" href="../../orientador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                    <b:navLink value="Ideias" href="../../orientador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                    <b:navLink value="Ideias Pendentes" href="../../orientador/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                </b:dropMenu>
+
+                <b:navLink value="Proposta de TCC" href="../../orientador/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+
+
+
+                <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO UNIVERSIDADE -->
+                <b:navLink value="Cadastro" href="../../universidade/cadastro/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                <b:dropMenu value="Ideias" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}">
+                    <b:navLink value="Todas as Ideias" href="../../universidade/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                    <b:navLink value="Ideias Pendentes" href="../../universidade/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                </b:dropMenu>
+                <b:navLink value="Academicos" href="../../universidade/academicos/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                <b:navLink value="Cursos" href="../../universidade/curso/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                <b:navLink value="Encontros" href="../../universidade/encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                <b:navLink value="Relatorios" href="../../universidade/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                <b:dropMenu value="Proposta de TCC" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}">
+                    <b:navLink value="Todas as Propostas de TCC" href="../../universidade/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                    <b:navLink value="Propostas Pendendentes" href="../../universidade/propostas-tcc-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                    <b:navLink value="Analises de Propostas" href="../../universidade/analise-propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
+                </b:dropMenu>
+            </b:navbarLinks>
+        </b:navBar>
+    </h:body>
+</ui:composition>

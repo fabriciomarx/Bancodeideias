@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+/*Arrumando o tamanho da fonte do menu*/
+.ui-widget, .ui-widget .ui-widget{
+    font-size:100% !important;
+}
+
+.tabela{
+     padding: 20px;
+}

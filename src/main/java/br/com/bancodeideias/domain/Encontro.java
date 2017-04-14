@@ -48,19 +48,19 @@ public class Encontro implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "localEncontro")
-    private String localEncontro;
+    @Column(name = "descricao")
+    private String descricao;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "descricao")
-    private String descricao;
-    @JoinColumn(name = "participante", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario participante;
+    @Column(name = "localEncontro")
+    private String localEncontro;
     @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
+    @JoinColumn(name = "participante", referencedColumnName = "idUsuario")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario participante;
 
     public Encontro() {
     }
@@ -69,11 +69,11 @@ public class Encontro implements Serializable {
         this.idEncontro = idEncontro;
     }
 
-    public Encontro(Integer idEncontro, Date dataEncontro, String localEncontro, String descricao) {
+    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, String localEncontro) {
         this.idEncontro = idEncontro;
         this.dataEncontro = dataEncontro;
-        this.localEncontro = localEncontro;
         this.descricao = descricao;
+        this.localEncontro = localEncontro;
     }
 
     public Integer getIdEncontro() {
@@ -92,14 +92,6 @@ public class Encontro implements Serializable {
         this.dataEncontro = dataEncontro;
     }
 
-    public String getLocalEncontro() {
-        return localEncontro;
-    }
-
-    public void setLocalEncontro(String localEncontro) {
-        this.localEncontro = localEncontro;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -108,12 +100,12 @@ public class Encontro implements Serializable {
         this.descricao = descricao;
     }
 
-    public Usuario getParticipante() {
-        return participante;
+    public String getLocalEncontro() {
+        return localEncontro;
     }
 
-    public void setParticipante(Usuario participante) {
-        this.participante = participante;
+    public void setLocalEncontro(String localEncontro) {
+        this.localEncontro = localEncontro;
     }
 
     public Usuario getAcademico() {
@@ -122,6 +114,14 @@ public class Encontro implements Serializable {
 
     public void setAcademico(Usuario academico) {
         this.academico = academico;
+    }
+
+    public Usuario getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Usuario participante) {
+        this.participante = participante;
     }
 
     @Override

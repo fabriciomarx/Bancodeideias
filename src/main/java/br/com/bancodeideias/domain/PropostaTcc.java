@@ -43,21 +43,24 @@ public class PropostaTcc implements Serializable {
     @Basic(optional = false)
     @Column(name = "idProposta")
     private Integer idProposta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "titulo")
-    private String titulo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "tipoTcc")
-    private String tipoTcc;
+    @Size(max = 2)
+    @Column(name = "aprovacao_orientador")
+    private String aprovacaoOrientador;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "objetivos")
-    private String objetivos;
+    @Column(name = "bibliografia")
+    private String bibliografia;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "cronograma")
+    private String cronograma;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dataInscricao")
+    @Temporal(TemporalType.DATE)
+    private Date dataInscricao;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
@@ -66,50 +69,47 @@ public class PropostaTcc implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "metodologias")
-    private String metodologias;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
     @Column(name = "materias")
     private String materias;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "cronograma")
-    private String cronograma;
+    @Column(name = "metodologias")
+    private String metodologias;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "bibliografia")
-    private String bibliografia;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dataInscricao")
-    @Temporal(TemporalType.DATE)
-    private Date dataInscricao;
+    @Column(name = "objetivos")
+    private String objetivos;
     @Size(max = 2)
     @Column(name = "situacao")
     private String situacao;
-    @Size(max = 2)
-    @Column(name = "aprovacao_orientador")
-    private String aprovacaoOrientador;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "tipoTcc")
+    private String tipoTcc;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "titulo")
+    private String titulo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "propostaTcc", fetch = FetchType.LAZY)
     private List<AnalisePropostatcc> analisePropostatccList;
+    @JoinColumn(name = "problema", referencedColumnName = "idIdeia")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Ideia problema;
     @JoinColumn(name = "participante", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario participante;
     @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
-    @JoinColumn(name = "problema", referencedColumnName = "idIdeia")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Ideia problema;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoTcc", fetch = FetchType.LAZY)
-    private List<SituacaoProjeto> situacaoProjetoList;*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoTcc", fetch = FetchType.LAZY)
+    private List<SituacaoProjeto> situacaoProjetoList;
 
     public PropostaTcc() {
     }
@@ -118,17 +118,17 @@ public class PropostaTcc implements Serializable {
         this.idProposta = idProposta;
     }
 
-    public PropostaTcc(Integer idProposta, String titulo, String tipoTcc, String objetivos, String justificativas, String metodologias, String materias, String cronograma, String bibliografia, Date dataInscricao) {
+    public PropostaTcc(Integer idProposta, String bibliografia, String cronograma, Date dataInscricao, String justificativas, String materias, String metodologias, String objetivos, String tipoTcc, String titulo) {
         this.idProposta = idProposta;
-        this.titulo = titulo;
-        this.tipoTcc = tipoTcc;
-        this.objetivos = objetivos;
-        this.justificativas = justificativas;
-        this.metodologias = metodologias;
-        this.materias = materias;
-        this.cronograma = cronograma;
         this.bibliografia = bibliografia;
+        this.cronograma = cronograma;
         this.dataInscricao = dataInscricao;
+        this.justificativas = justificativas;
+        this.materias = materias;
+        this.metodologias = metodologias;
+        this.objetivos = objetivos;
+        this.tipoTcc = tipoTcc;
+        this.titulo = titulo;
     }
 
     public Integer getIdProposta() {
@@ -139,60 +139,12 @@ public class PropostaTcc implements Serializable {
         this.idProposta = idProposta;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getAprovacaoOrientador() {
+        return aprovacaoOrientador;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getTipoTcc() {
-        return tipoTcc;
-    }
-
-    public void setTipoTcc(String tipoTcc) {
-        this.tipoTcc = tipoTcc;
-    }
-
-    public String getObjetivos() {
-        return objetivos;
-    }
-
-    public void setObjetivos(String objetivos) {
-        this.objetivos = objetivos;
-    }
-
-    public String getJustificativas() {
-        return justificativas;
-    }
-
-    public void setJustificativas(String justificativas) {
-        this.justificativas = justificativas;
-    }
-
-    public String getMetodologias() {
-        return metodologias;
-    }
-
-    public void setMetodologias(String metodologias) {
-        this.metodologias = metodologias;
-    }
-
-    public String getMaterias() {
-        return materias;
-    }
-
-    public void setMaterias(String materias) {
-        this.materias = materias;
-    }
-
-    public String getCronograma() {
-        return cronograma;
-    }
-
-    public void setCronograma(String cronograma) {
-        this.cronograma = cronograma;
+    public void setAprovacaoOrientador(String aprovacaoOrientador) {
+        this.aprovacaoOrientador = aprovacaoOrientador;
     }
 
     public String getBibliografia() {
@@ -203,12 +155,52 @@ public class PropostaTcc implements Serializable {
         this.bibliografia = bibliografia;
     }
 
+    public String getCronograma() {
+        return cronograma;
+    }
+
+    public void setCronograma(String cronograma) {
+        this.cronograma = cronograma;
+    }
+
     public Date getDataInscricao() {
         return dataInscricao;
     }
 
     public void setDataInscricao(Date dataInscricao) {
         this.dataInscricao = dataInscricao;
+    }
+
+    public String getJustificativas() {
+        return justificativas;
+    }
+
+    public void setJustificativas(String justificativas) {
+        this.justificativas = justificativas;
+    }
+
+    public String getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(String materias) {
+        this.materias = materias;
+    }
+
+    public String getMetodologias() {
+        return metodologias;
+    }
+
+    public void setMetodologias(String metodologias) {
+        this.metodologias = metodologias;
+    }
+
+    public String getObjetivos() {
+        return objetivos;
+    }
+
+    public void setObjetivos(String objetivos) {
+        this.objetivos = objetivos;
     }
 
     public String getSituacao() {
@@ -219,12 +211,20 @@ public class PropostaTcc implements Serializable {
         this.situacao = situacao;
     }
 
-    public String getAprovacaoOrientador() {
-        return aprovacaoOrientador;
+    public String getTipoTcc() {
+        return tipoTcc;
     }
 
-    public void setAprovacaoOrientador(String aprovacaoOrientador) {
-        this.aprovacaoOrientador = aprovacaoOrientador;
+    public void setTipoTcc(String tipoTcc) {
+        this.tipoTcc = tipoTcc;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public List<AnalisePropostatcc> getAnalisePropostatccList() {
@@ -233,6 +233,14 @@ public class PropostaTcc implements Serializable {
 
     public void setAnalisePropostatccList(List<AnalisePropostatcc> analisePropostatccList) {
         this.analisePropostatccList = analisePropostatccList;
+    }
+
+    public Ideia getProblema() {
+        return problema;
+    }
+
+    public void setProblema(Ideia problema) {
+        this.problema = problema;
     }
 
     public Usuario getParticipante() {
@@ -251,14 +259,6 @@ public class PropostaTcc implements Serializable {
         this.academico = academico;
     }
 
-    public Ideia getProblema() {
-        return problema;
-    }
-
-    public void setProblema(Ideia problema) {
-        this.problema = problema;
-    }
-
     public Usuario getOrientador() {
         return orientador;
     }
@@ -266,14 +266,14 @@ public class PropostaTcc implements Serializable {
     public void setOrientador(Usuario orientador) {
         this.orientador = orientador;
     }
-/*
+
     public List<SituacaoProjeto> getSituacaoProjetoList() {
         return situacaoProjetoList;
     }
 
     public void setSituacaoProjetoList(List<SituacaoProjeto> situacaoProjetoList) {
         this.situacaoProjetoList = situacaoProjetoList;
-    }*/
+    }
 
     @Override
     public int hashCode() {

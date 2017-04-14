@@ -40,14 +40,14 @@ public class AnalisePropostatcc implements Serializable {
     @Basic(optional = false)
     @Column(name = "idAnalise")
     private Integer idAnalise;
+    @Size(max = 250)
+    @Column(name = "comentarios")
+    private String comentarios;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataAnalise")
     @Temporal(TemporalType.DATE)
     private Date dataAnalise;
-    @Size(max = 250)
-    @Column(name = "comentarios")
-    private String comentarios;
     @JoinColumn(name = "propostaTcc", referencedColumnName = "idProposta")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private PropostaTcc propostaTcc;
@@ -75,20 +75,20 @@ public class AnalisePropostatcc implements Serializable {
         this.idAnalise = idAnalise;
     }
 
-    public Date getDataAnalise() {
-        return dataAnalise;
-    }
-
-    public void setDataAnalise(Date dataAnalise) {
-        this.dataAnalise = dataAnalise;
-    }
-
     public String getComentarios() {
         return comentarios;
     }
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public Date getDataAnalise() {
+        return dataAnalise;
+    }
+
+    public void setDataAnalise(Date dataAnalise) {
+        this.dataAnalise = dataAnalise;
     }
 
     public PropostaTcc getPropostaTcc() {

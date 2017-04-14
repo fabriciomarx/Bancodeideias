@@ -6,23 +6,17 @@
 package br.com.bancodeideias.teste;
 
 import br.com.bancodeideias.domain.AnalisePropostatcc;
-import br.com.bancodeideias.domain.Curso;
-import br.com.bancodeideias.domain.PropostaTcc;
-import br.com.bancodeideias.domain.SituacaoProjeto;
 import br.com.bancodeideias.domain.Usuario;
-import br.com.bancodeideias.repository.CursoDAO;
-import br.com.bancodeideias.repository.SituacaoProjetoDAO;
 import br.com.bancodeideias.repository.UsuarioDAO;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class Teste {
     @Test
+    @Ignore
     public void salvar() throws ParseException { //quando for universidade
        List<AnalisePropostatcc> listaAnalisePropostaTcc = new ArrayList<>();
        listaAnalisePropostaTcc.size();
@@ -45,4 +39,5 @@ public class Teste {
         }
         
     }
+    
 }

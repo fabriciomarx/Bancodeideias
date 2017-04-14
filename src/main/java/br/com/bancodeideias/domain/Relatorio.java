@@ -42,16 +42,6 @@ public class Relatorio implements Serializable {
     private Integer idRelatorio;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "periodoInicio")
-    @Temporal(TemporalType.DATE)
-    private Date periodoInicio;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "periodoFim")
-    @Temporal(TemporalType.DATE)
-    private Date periodoFim;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "atividadesRealizadas")
     private String atividadesRealizadas;
@@ -60,14 +50,24 @@ public class Relatorio implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "autoAvaliacao")
     private String autoAvaliacao;
-    @Size(max = 250)
-    @Column(name = "justificativa")
-    private String justificativa;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataRelatorio")
     @Temporal(TemporalType.DATE)
     private Date dataRelatorio;
+    @Size(max = 250)
+    @Column(name = "justificativa")
+    private String justificativa;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "periodoFim")
+    @Temporal(TemporalType.DATE)
+    private Date periodoFim;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "periodoInicio")
+    @Temporal(TemporalType.DATE)
+    private Date periodoInicio;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
@@ -82,13 +82,13 @@ public class Relatorio implements Serializable {
         this.idRelatorio = idRelatorio;
     }
 
-    public Relatorio(Integer idRelatorio, Date periodoInicio, Date periodoFim, String atividadesRealizadas, String autoAvaliacao, Date dataRelatorio) {
+    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataRelatorio, Date periodoFim, Date periodoInicio) {
         this.idRelatorio = idRelatorio;
-        this.periodoInicio = periodoInicio;
-        this.periodoFim = periodoFim;
         this.atividadesRealizadas = atividadesRealizadas;
         this.autoAvaliacao = autoAvaliacao;
         this.dataRelatorio = dataRelatorio;
+        this.periodoFim = periodoFim;
+        this.periodoInicio = periodoInicio;
     }
 
     public Integer getIdRelatorio() {
@@ -97,22 +97,6 @@ public class Relatorio implements Serializable {
 
     public void setIdRelatorio(Integer idRelatorio) {
         this.idRelatorio = idRelatorio;
-    }
-
-    public Date getPeriodoInicio() {
-        return periodoInicio;
-    }
-
-    public void setPeriodoInicio(Date periodoInicio) {
-        this.periodoInicio = periodoInicio;
-    }
-
-    public Date getPeriodoFim() {
-        return periodoFim;
-    }
-
-    public void setPeriodoFim(Date periodoFim) {
-        this.periodoFim = periodoFim;
     }
 
     public String getAtividadesRealizadas() {
@@ -131,6 +115,14 @@ public class Relatorio implements Serializable {
         this.autoAvaliacao = autoAvaliacao;
     }
 
+    public Date getDataRelatorio() {
+        return dataRelatorio;
+    }
+
+    public void setDataRelatorio(Date dataRelatorio) {
+        this.dataRelatorio = dataRelatorio;
+    }
+
     public String getJustificativa() {
         return justificativa;
     }
@@ -139,12 +131,20 @@ public class Relatorio implements Serializable {
         this.justificativa = justificativa;
     }
 
-    public Date getDataRelatorio() {
-        return dataRelatorio;
+    public Date getPeriodoFim() {
+        return periodoFim;
     }
 
-    public void setDataRelatorio(Date dataRelatorio) {
-        this.dataRelatorio = dataRelatorio;
+    public void setPeriodoFim(Date periodoFim) {
+        this.periodoFim = periodoFim;
+    }
+
+    public Date getPeriodoInicio() {
+        return periodoInicio;
+    }
+
+    public void setPeriodoInicio(Date periodoInicio) {
+        this.periodoInicio = periodoInicio;
     }
 
     public Usuario getOrientador() {

@@ -125,7 +125,7 @@ public class UsuarioController extends GenericController implements Serializable
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("usuarioLogado", usuarioLogado); //Este usuarioLogado é meu objeto modelo que pode ser persistido.
             System.out.println("Usuario logado na sessao: " + usuarioLogado.getEmail()); //provisorio
-            return "/paginas/index.xhtml?faces-redirect=true";
+            return "/paginas/principal/index.xhtml?faces-redirect=true";
           
                      
         } else {

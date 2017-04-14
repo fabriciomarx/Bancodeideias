@@ -45,10 +45,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{situacaoProjetoController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{situacaoProjetoController.cancelar()}" 
+                                                 icon="glyphicon glyphicon-arrow-left"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.salvar()}"
+                                                 icon="glyphicon glyphicon-arrow-right" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

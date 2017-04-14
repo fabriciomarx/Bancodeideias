@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     private String matricula;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 20)
     @Column(name = "tipoUsuario")
     private String tipoUsuario;
     @Basic(optional = false)
@@ -93,9 +93,9 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "universidade", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario universidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
-    private List<Encontro> encontroList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
+    private List<Encontro> encontroList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
     private List<Encontro> encontroList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador", fetch = FetchType.LAZY)
     private List<Relatorio> relatorioList;

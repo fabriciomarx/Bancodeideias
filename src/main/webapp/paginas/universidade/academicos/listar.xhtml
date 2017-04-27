@@ -19,8 +19,8 @@
                     <b:panel look="primary" collapsible="false">
                         <h4 style="text-align: center;">LISTA ACADEMICOS</h4>
 
-                        <b:dataTable value="#{usuarioController.listaUsuario}"
-                                     var="item" searching="true" border="true"
+                        <b:dataTable value="#{usuarioController.listaAcademicos}"
+                                     var="item" searching="true" border="false"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                      styleClass="table table-striped">
 
@@ -41,7 +41,7 @@
                             
                             <h:column>
                                 <f:facet name="header">Universidade</f:facet> 
-                                <h:outputText value="#{item.universidade}"/>
+                                <h:outputText value="#{item.universidade.nome}"/>
                             </h:column> 
                             
                             <h:column>

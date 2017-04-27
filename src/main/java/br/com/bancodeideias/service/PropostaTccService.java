@@ -24,6 +24,12 @@ public class PropostaTccService implements Serializable {
     public void remover(PropostaTcc propostaTcc) {
         this.getPropostaTccDAO().remover(propostaTcc.getIdProposta());
     }
+    /*
+    public List<PropostaTcc> list(String tipoBusca){
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listar(tipoBusca);
+        return lista;
+    }*/
 
     /* Todas propostas */
     public List<PropostaTcc> listar() {
@@ -39,10 +45,46 @@ public class PropostaTccService implements Serializable {
         return lista;
     }
     
-    /* Propostas pendentes */
+     /* Lista de propostas dos alunos do curso que o coordenador coordena */
+    public List<PropostaTcc> listarPropostasParaCoord() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasParaCoord();
+        return lista;
+    }
+    
+    /* Todas Propostas pendentes */
     public List<PropostaTcc> listarPendentes() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPendentes();
+        return lista;
+    }
+    
+    /* lista de propostas pendentes para coordenador*/
+    public List<PropostaTcc> listaPropostasPendentesDaUnivParaCoordenador() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listaPropostasPendentesDaUnivParaCoordenador();
+        return lista;
+    }
+    
+    /* Propostas pendentes da universidade */
+    public List<PropostaTcc> listaPropostasPendentesDaUniv() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listaPropostasPendentesDaUniv();
+        return lista;
+    }
+        
+    
+    /* Propostas que o orientador já aceitou e agora elas são projetos */
+    public List<PropostaTcc> listarProjetos() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarProjetos();
+        return lista;
+    }
+    
+    /* Propostas que o professor foi escolhido para ser orientador */
+    public List<PropostaTcc> listarPropostasParaOrientador() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasParaOrientador();
         return lista;
     }
 

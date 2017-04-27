@@ -30,6 +30,12 @@ public class AnaliseIdeiaService implements Serializable {
         lista = this.getAnaliseIdeiaDAO().listar();
         return lista;
     }
+    
+    public List<AnaliseIdeia> listarAnalisesParaUniversidade() {
+        List<AnaliseIdeia> lista;
+        lista = this.getAnaliseIdeiaDAO().listarAnalisesParaUniversidade();
+        return lista;
+    }
 
     //getts and setts
     public AnaliseIdeiaDAO getAnaliseIdeiaDAO() {

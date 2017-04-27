@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -19,30 +20,30 @@
                     <h:form>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <h:outputLabel value="Data do Encontro"/>
-                                <b:dateTimePicker value="#{encontroController.encontroSelecionado.dataEncontro}"
-                                                  required="true" requiredMessage="O campo data é obrigatorio"
-                                                  show-time="false"/>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Data do Encontro"/><br/>
+                                <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
+                                            mindate="new date()" required="true" requiredMessage="O campo Data do Encontro é obrigatorio" pages="3" />
                             </b:column>
-                        </b:row>
+                        </b:row><br/>
+
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  label="Local do Encontro" required="true" requiredMessage="O campo local é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
                                                  label="Descrição" required="true" requiredMessage="O campo descrição é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{encontroController.listaAcademico}" var="item"
@@ -52,10 +53,10 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{encontroController.doCancelar()}" />
                             </b:column>
-                            <b:column offset-lg="1" span="2">
+                            <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{encontroController.alterar()}"/>
                             </b:column>
                         </b:row>

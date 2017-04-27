@@ -14,14 +14,19 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Editar Analise de Proposta de TCC">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Proposta de TCC" value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}"
-                                                 required="true" requiredMessage="O campo Proposta de TCC é obrigatorio">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                <b:inputText value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc.titulo}" 
+                                                 label="Proposta de TCC" readonly="true"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
                                                    itemLabel="#{item.titulo}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
@@ -37,10 +42,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.alterar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

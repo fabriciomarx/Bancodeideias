@@ -24,8 +24,10 @@ public class RelatorioController extends GenericController implements Serializab
     private List<Relatorio>     listaRelatoriosLogado;     // aluno utiliza esse metodo
     private List<Relatorio>     listaRelatorioUniLogada;   // universidade utiliza esse metodo
     private List<Relatorio>     listaRelatorioCoordLogado; // coordenador utiliza esse metodo
+    private List<Relatorio>     listaRelatoriosOrientadorLogado;
     
-    private List<Usuario>       listaAcademico;
+    private List<Usuario>       listaAcademicos;
+    private List<Usuario>       listaProfessores;
     private UsuarioService      usuarioService;
 
     @PostConstruct
@@ -35,15 +37,17 @@ public class RelatorioController extends GenericController implements Serializab
     }
 
     public void resset() {
-        relatorioSelecionado        = new Relatorio();
-        relatorioService            = new RelatorioService();
-        listaTodosRelatorio         = new ArrayList<>();
-        listaRelatoriosLogado       = new ArrayList<>();
-        listaRelatorioUniLogada     = new ArrayList<>();
-        listaRelatorioCoordLogado   = new ArrayList<>();
+        relatorioSelecionado            = new Relatorio();
+        relatorioService                = new RelatorioService();
+        listaTodosRelatorio             = new ArrayList<>();
+        listaRelatoriosLogado           = new ArrayList<>();
+        listaRelatorioUniLogada         = new ArrayList<>();
+        listaRelatorioCoordLogado       = new ArrayList<>();
+        listaRelatoriosOrientadorLogado = new ArrayList<>();
         
-        usuarioService              = new UsuarioService();
-        listaAcademico              = new ArrayList<>();
+        usuarioService                  = new UsuarioService();
+        listaProfessores                = new ArrayList<>();
+        listaAcademicos                 = new ArrayList<>();
         
     }
 
@@ -63,11 +67,15 @@ public class RelatorioController extends GenericController implements Serializab
                 break;
             case "Coordenador":
                 listaRelatorioCoordLogado   = this.getRelatorioService().listaRelatoriosCoordLogado();
+            case "Professor":
+                listaRelatoriosOrientadorLogado =  this.getRelatorioService().listaRelatoriosOrientadorLogado();
+                    
             default:
                 break;
         }
         
-        listaAcademico                      = this.getUsuarioService().listar();
+        listaProfessores                      = this.getUsuarioService().listaProfessores();
+        listaAcademicos                       = this.getUsuarioService().listaAcademicos();
        }
 
     public String salvar() {
@@ -173,12 +181,12 @@ public class RelatorioController extends GenericController implements Serializab
         this.listaTodosRelatorio = listaTodosRelatorio;
     }
 
-    public List<Usuario> getListaAcademico() {
-        return listaAcademico;
+    public List<Usuario> getListaProfessores() {
+        return listaProfessores;
     }
 
-    public void setListaAcademico(List<Usuario> listaAcademico) {
-        this.listaAcademico = listaAcademico;
+    public void setListaProfessores(List<Usuario> listaProfessores) {
+        this.listaProfessores = listaProfessores;
     }
 
     public UsuarioService getUsuarioService() {
@@ -213,5 +221,24 @@ public class RelatorioController extends GenericController implements Serializab
         this.listaRelatorioCoordLogado = listaRelatorioCoordLogado;
     }
 
+    public List<Relatorio> getListaRelatoriosOrientadorLogado() {
+        return listaRelatoriosOrientadorLogado;
+    }
+
+    public void setListaRelatoriosOrientadorLogado(List<Relatorio> listaRelatoriosOrientadorLogado) {
+        this.listaRelatoriosOrientadorLogado = listaRelatoriosOrientadorLogado;
+    }
+
+    public List<Usuario> getListaAcademicos() {
+        return listaAcademicos;
+    }
+
+    public void setListaAcademicos(List<Usuario> listaAcademicos) {
+        this.listaAcademicos = listaAcademicos;
+    }
+    
+    
+
+    
 
 }

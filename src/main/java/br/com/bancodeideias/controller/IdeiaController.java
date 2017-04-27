@@ -24,6 +24,7 @@ public class IdeiaController extends GenericController implements Serializable {
     private List<Ideia>     listaIdeia;
     private List<Ideia>     listaIdeiasPendente;
     private List<Ideia>     listaIdeiasLogado;
+    private List<Ideia>     listaIdeiasdaUniversidade;
 
     private List<Usuario>   listaUsuario;
     private UsuarioService  usuarioService;
@@ -35,25 +36,32 @@ public class IdeiaController extends GenericController implements Serializable {
     }
 
     public void resset() {
-        ideiaSelecionada    = new Ideia();
-        ideiaService        = new IdeiaService();
+        ideiaSelecionada            = new Ideia();
+        ideiaService                = new IdeiaService();
         
-        listaIdeia          = new ArrayList<>();
-        listaIdeiasPendente = new ArrayList<>();
-        listaIdeiasLogado   = new ArrayList<>();
+        listaIdeia                  = new ArrayList<>();
+        listaIdeiasPendente         = new ArrayList<>();
+        listaIdeiasLogado           = new ArrayList<>();
+        listaIdeiasdaUniversidade   = new ArrayList<>();
 
-        listaUsuario        = new ArrayList<>();
-        usuarioService      = new UsuarioService();
+        listaUsuario                = new ArrayList<>();
+        usuarioService              = new UsuarioService();
     }
 
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
-        listaIdeiasPendente = this.getIdeiaService().listarPendentes(); // pendentes
-        listaIdeia          = this.getIdeiaService().listar(); //  todas ideias 
-        listaIdeiasLogado   = this.getIdeiaService().listarIdeiasLogado(); // somente a do usuario logado
-        listaUsuario        = this.getUsuarioService().listar();
+        if(usuarioLogado.getTipoUsuario().equals("Admin"))
+            listaIdeia                  = this.getIdeiaService().listar(); //  todas ideias 
+        else if(usuarioLogado.getTipoUsuario().equals("Coordenador"))
+            listaIdeiasPendente         = this.getIdeiaService().listarPendentes(); // pendentes
+        else if(usuarioLogado.getTipoUsuario().equals("Universidade"))
+            listaIdeiasdaUniversidade   = this.getIdeiaService().listarIdeiasdaUniversidade();
+        
+        listaIdeiasLogado           = this.getIdeiaService().listarIdeiasLogado(); // somente a do usuario logado
+        listaUsuario                = this.getUsuarioService().listar();
+        
        
     }
 
@@ -201,6 +209,14 @@ public class IdeiaController extends GenericController implements Serializable {
 
     public void setListaIdeiasLogado(List<Ideia> listaIdeiasLogado) {
         this.listaIdeiasLogado = listaIdeiasLogado;
+    }
+
+    public List<Ideia> getListaIdeiasdaUniversidade() {
+        return listaIdeiasdaUniversidade;
+    }
+
+    public void setListaIdeiasdaUniversidade(List<Ideia> listaIdeiasdaUniversidade) {
+        this.listaIdeiasdaUniversidade = listaIdeiasdaUniversidade;
     }
     
     

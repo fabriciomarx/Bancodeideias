@@ -14,17 +14,12 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Excluir Analise de Ideia"> <!--Teste com fildset-->
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Ideia" value="#{analiseIdeiaController.analiseIdeiaSelecionada.ideia}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{analiseIdeiaController.listaIdeia}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{analiseIdeiaController.analiseIdeiaSelecionada.ideia.titulo}" 
+                                                 label="Ideia" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -43,23 +38,21 @@
                             </b:column>
                         </b:row>
 
-                        <b:row>
+                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{analiseIdeiaController.analiseIdeiaSelecionada.academicoAnalista}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{analiseIdeiaController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{analiseIdeiaController.analiseIdeiaSelecionada.academicoAnalista.nome}" 
+                                                 label="Academico analista" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{analiseIdeiaController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{analiseIdeiaController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analiseIdeiaController.remover()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{analiseIdeiaController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

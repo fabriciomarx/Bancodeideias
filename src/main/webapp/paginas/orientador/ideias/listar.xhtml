@@ -4,8 +4,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,13 +14,13 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
+               
                 <h:form>
                     <b:panel look="primary" collapsible="false">
-                        <h4 style="text-align: center;">LISTA IDEIAS</h4>
+                         <h4 style="text-align: center;">MINHAS IDEIA SUGERIDAS</h4>
 
-                        <b:dataTable value="#{ideiaController.listaIdeia}"
-                                     var="item" searching="true" border="true"
+                         <b:dataTable value="#{ideiaController.listaIdeia}"
+                                     var="item" searching="true" border="false"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                      styleClass="table table-striped">
 
@@ -31,12 +30,12 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Tipo Ideia</f:facet>
+                                <f:facet name="header">Tipo de Ideia</f:facet>
                                 <h:outputText value="#{item.tipoIdeia}"/>
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Data Ideia</f:facet>
+                                <f:facet name="header">Data da Ideia</f:facet>
                                 <h:outputText value="#{item.dataIdeia}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                 </h:outputText>
@@ -48,244 +47,26 @@
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Usuario Nome</f:facet>
-                                <h:outputText value="#{item.usuario.nome}"/>
-                            </h:column>
-
-
-                            <h:column>
                                 <f:facet name="header">Ações</f:facet>
-                                <p:commandLink title="Alterar" onclick="PF('dlgAlterar').show();">                                    
+                                <h:commandLink title="Alterar" action="#{ideiaController.doEditar()}">                                    
                                     <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
                                     <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </p:commandLink>
-                                <p:commandLink title="Excluir" onclick="PF('dlgExcluir').show();">
+                                </h:commandLink>
+                                <h:commandLink title="Excluir" action="#{ideiaController.doExcluir()}">
                                     <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
                                     <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </p:commandLink>
-                                <p:commandLink title="Consultar" onclick="PF('dlgConsultar').show();">
+                                </h:commandLink>
+                                <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
                                     <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                     <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </p:commandLink>
+                                </h:commandLink>
                             </h:column>                            
                         </b:dataTable>   
                         <f:facet name="footer">
-                            <p:commandButton value="Incluir" onclick="PF('dlgIncluir').show();"/>
-
+                            <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"/>
                         </f:facet>
                     </b:panel>
-                </h:form> 
-
-                <!-- Dialog incluir ideia inicio -->
-                <p:dialog widgetVar="dlgIncluir" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-                    <b:panel look="primary" title="Incluir Ideia" collapsible="false"
-                             style="width: 700px;">
-                        <h:form>
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 label="Titulo" required="true" requiredMessage="O campo titulo é obrigatorio"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                      label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Estudo de caso" itemValue="Estudo de caso"/>
-                                        <f:selectItem itemLabel="Revisão da bibliografia" itemValue="Revisão da bibliografia"/>
-                                        <f:selectItem itemLabel="Pesquisa de recepção" itemValue="Pesquisa de recepção"/>
-                                        <f:selectItem itemLabel="Projeto arquitetônico e/ou urbanístico" itemValue="Projeto arquitetônico e/ou urbanístico"/>
-                                        <f:selectItem itemLabel="Não sei" itemValue="Não sei"/>
-                                    </b:selectOneMenu>
-                                </b:column>
-                            </b:row>
-                           
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <h:outputLabel value="Data"/>
-                                    <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataIdeia}"
-                                                      required="true" requiredMessage="O campo data é obrigatorio"
-                                                      show-time="false"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Ativo" itemValue="A"/>
-                                        <f:selectItem itemLabel="Pendente" itemValue="P"/>
-                                    </b:selectOneMenu>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column span="1">
-                                    <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
-                                </b:column>
-                                <b:column offset-lg="1" span="2">
-                                    <p:commandButton value="Enviar" action="#{ideiaController.salvar()}"
-                                                     oncomplete="verificar(args, 'dlgIncluir');"/>
-                                </b:column>
-                            </b:row>
-                        </h:form>
-                    </b:panel>    
-                </p:dialog>
-                <!-- Dialog incluir ideia fim -->
-
-                <!-- Dialog editar ideia inicio -->
-                <p:dialog widgetVar="dlgAlterar" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-                    <b:panel look="primary" title="Editar Ideia" collapsible="false"
-                             style="width: 700px;">
-                        <h:form>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 label="Titulo" required="true" requiredMessage="O campo titulo é obrigatorio"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:inputText value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <h:outputLabel value="Data"/>
-                                    <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataIdeia}"
-                                                      required="true" requiredMessage="O campo data é obrigatorio"
-                                                      show-time="false"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Ativo" itemValue="A"/>
-                                        <f:selectItem itemLabel="Pendente" itemValue="P"/>
-                                    </b:selectOneMenu>
-                                </b:column>
-                            </b:row>
-
-
-                            <b:row>
-                                <b:column span="1">
-                                    <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
-                                </b:column>
-                                <b:column offset-lg="1" span="2">
-                                    <p:commandButton value="Enviar" action="#{ideiaController.editar()}"
-                                                     oncomplete="verificar(args, 'dlgAlterar');"/>
-                                </b:column>
-                            </b:row>
-                        </h:form>
-                    </b:panel>     
-                </p:dialog>
-                <!-- Dialog editar ideia fim -->
-
-                <!-- Dialog excluir ideia inicio -->
-                <p:dialog widgetVar="dlgExcluir" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-
-                    <b:panel look="primary" title="Excluir Ideia" collapsible="false"
-                             style="width: 700px;">
-                        <h:form>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 label="Titulo" readonly="true"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:inputText value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" readonly="true"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <h:outputLabel value="Data"/>
-                                    <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataIdeia}"
-                                                      show-time="false"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}"
-                                                     disabled="true">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Ativo" itemValue="A"/>
-                                        <f:selectItem itemLabel="Pendente" itemValue="P"/>
-                                    </b:selectOneMenu>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="9">
-                                    <b:selectOneMenu label="Usuario" value="#{ideiaController.ideiaSelecionada.usuario}"
-                                                     disabled="true">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItems value="#{ideiaController.listaUsuario}" var="item"
-                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                    </b:selectOneMenu> 
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column span="1">
-                                    <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
-                                </b:column>
-                                <b:column offset-lg="1" span="2">
-                                    <b:commandButton value="Enviar" look="info" action="#{ideiaController.excluir()}"/>
-                                </b:column>
-                            </b:row>
-                        </h:form>
-                    </b:panel>      
-                </p:dialog>
-                <!-- Dialog excluir ideia fim -->
-
-               
-                <!-- Inicio dialog consultar-->
-                <p:dialog widgetVar="dlgConsultar" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-                    <b:panel look="primary" title="Consultar Ideia" collapsible="false"
-                             style="width: 700px;">
-                        <h:form>
-                            <b:row>
-                                <b:column>
-                                    <b:thumbnail>
-                                        <f:facet name="caption">
-                                            <h:outputLabel value="Tipo:"/>
-                                            <h3>#{ideiaController.ideiaSelecionada.tipoIdeia}</h3>
-                                            <h:outputLabel value="Titulo:"/>
-                                            <p>#{ideiaController.ideiaSelecionada.titulo}</p>
-                                            <h:outputLabel value="Data:"/>
-                                            <p>#{ideiaController.ideiaSelecionada.dataIdeia}</p>
-                                            <h:outputLabel value="Nome do usuario:"/>
-                                            <p>#{ideiaController.ideiaSelecionada.usuario.nome}</p>
-
-                                            <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" 
-                                                             action="#{ideiaController.doCancelar()}" />
-                                        </f:facet>
-                                    </b:thumbnail>
-                                </b:column>
-                            </b:row>
-                        </h:form>
-                    </b:panel>
-                </p:dialog>
-                <!--Final Dialog consultar-->
+                </h:form>             
             </ui:define>    
         </ui:composition>
 

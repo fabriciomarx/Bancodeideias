@@ -53,10 +53,10 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}"
+                                <b:selectOneMenu label="Professor" value="#{encontroController.encontroSelecionado.participante}"
                                                  required="true" requiredMessage="O campo Participante é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
+                                    <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu> 
                             </b:column>
@@ -64,10 +64,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{encontroController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{encontroController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{encontroController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{encontroController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

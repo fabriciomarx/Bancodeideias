@@ -9,38 +9,41 @@
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+            
+  
     </head>
 
     <body>
-
+        
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
+               
 
                 <h:form>
                     <p:fieldset legend="Lista Curso"> 
+                         
                         <b:panel look="primary" collapsible="false">
 
-                            <b:dataTable value="#{cursoController.listaCurso}"
-                                         var="item" searching="true" border="true"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table">
+                            <p:dataTable value="#{cursoController.listaCurso}"
+                                         var="item">
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">Nome</f:facet> 
                                     <h:outputText value="#{item.nome}"/>
-                                </h:column> 
-                                <h:column>
+                                </p:column> 
+                                <p:column>
                                     <f:facet name="header">Sigla</f:facet> 
                                     <h:outputText value="#{item.sigla}"/>
-                                </h:column> 
-                                <h:column>
+                                </p:column> 
+                                
+                                <p:column>
                                     <f:facet name="header">Universidade</f:facet> 
                                     <h:outputText value="#{item.universidade.nome}"/>
-                                </h:column> 
+                                </p:column> 
 
 
-                                <h:column>
+                                <p:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <h:commandLink title="Alterar" action="#{cursoController.doEditar()}">                                    
                                         <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
@@ -54,8 +57,8 @@
                                         <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                         <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
                                     </h:commandLink>
-                                </h:column>                            
-                            </b:dataTable>  
+                                </p:column>                            
+                            </p:dataTable>  
 
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir" action="#{cursoController.doIncluir()}" 

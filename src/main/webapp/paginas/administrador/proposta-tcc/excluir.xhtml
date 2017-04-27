@@ -28,12 +28,9 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Problema" value="#{propostaTccController.propostaTccSelecionada.problema}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaIdeias}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.problema.titulo}" 
+                                             label="Problema" required="true" required-message="O campo Problema é obrigatorio"
+                                             disabled="true"/>
                             </b:column>
                         </b:row>
 
@@ -118,32 +115,28 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{propostaTccController.propostaTccSelecionada.academico}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}" 
+                                             label="Academico" required="true" required-message="O campo Academico é obrigatorio"
+                                             disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Orientador" value="#{propostaTccController.propostaTccSelecionada.orientador}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.orientador.nome}" 
+                                             label="Orientador" required="true" required-message="O campo Orientador é obrigatorio"
+                                             disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{propostaTccController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.remover()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

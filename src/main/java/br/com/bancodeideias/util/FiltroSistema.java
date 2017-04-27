@@ -2,6 +2,8 @@ package br.com.bancodeideias.util;
 
 import br.com.bancodeideias.domain.Usuario;
 import java.io.IOException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -44,28 +46,28 @@ public class FiltroSistema implements Filter {
         //se o usuario nao estiver logado e quiser ir para /paginas/* ele é redireciando para o login
         if (usuario == null) {
             res.sendRedirect(req.getContextPath() + "/login/login.xhtml");
-
+            
         } else {
             chain.doFilter(request, response);
         }
 
-        /*
-        if(sessao == null &&  req.getRequestURI().endsWith("incluir.xhtml")){
-            res.sendRedirect(req.getContextPath() + "/login/incluir.xhtml");
+        String requestPath;
+        requestPath = req.getRequestURI().toLowerCase(); //o que o usuario registrou para entrar no sistema
+
+/*        if((!usuario.getTipoUsuario().equals("Universidade")) && (requestPath.contains("/paginas/universidade/"))){
+            res.sendRedirect(req.getContextPath() + "/paginas/principal/index.xhtml?faces-redirect=true");
         }*/
- /*String requestPath = null;
-        requestPath = ((HttpServletRequest) request).getRequestURI().toLowerCase(); //o que o usuario registrou para entrar no sistema
         
-        if se o tipo usuario for diferente de Admin e mesmo assim o usuario quiser ir pra pagina do admin
-        ele será redirecionado para a index
-        if ((!"Admin".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/admin"))) {
-            String contextPath = ((HttpServletRequest) request).getContextPath();
-            ((HttpServletResponse) response).sendRedirect(contextPath + "/paginas/index.xhtml?faces-redirect=true");
-            return;
-        }/* else if ((!"Aluno".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/aluno"))) {
-            String contextPath = ((HttpServletRequest) request).getContextPath();
-            ((HttpServletResponse) response).sendRedirect(contextPath + "/paginas/index.xhtml?faces-redirect=true");
-            return;
+        /*if se o tipo usuario for diferente de Admin e mesmo assim o usuario quiser ir pra pagina do admin
+        ele será redirecionado para a index*/
+        /*if ((!"Admin".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/administrador/"))) {
+            String contextPath = req.getContextPath();
+            res.sendRedirect(contextPath + "/paginas/principal/index.xhtml?faces-redirect=true");
+        }else if ((!"Aluno".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/aluno/"))) {
+            String contextPath = req.getContextPath();
+            res.sendRedirect(contextPath + "/paginas/principal/index.xhtml?faces-redirect=true");
+           
+          
         } else if ((!"Universidade".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/universidade"))) {
             String contextPath = ((HttpServletRequest) request).getContextPath();
             ((HttpServletResponse) response).sendRedirect(contextPath + "/paginas/index.xhtml?faces-redirect=true");

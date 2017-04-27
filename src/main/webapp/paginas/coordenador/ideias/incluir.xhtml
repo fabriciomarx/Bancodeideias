@@ -19,14 +19,14 @@
                     <h:form>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
                                                  label="Titulo" required="true" requiredMessage="O campo titulo é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
                                                  label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
@@ -40,10 +40,10 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
                             </b:column>
-                            <b:column offset-lg="1" span="2">
+                            <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{ideiaController.salvar()}"/>
                             </b:column>
                         </b:row>

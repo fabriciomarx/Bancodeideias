@@ -15,54 +15,56 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">INCLUIR ENCONTRO</h4>
-                    <h:form>
+                <p:fieldset legend="Incluir encontro"> 
+                    <h:form >
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
+                                            placeholder="__/__/__"
                                             mindate="new date()" required="true" pages="3" />
                             </b:column>
                         </b:row><br/>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
+                                                 placeholder="Insira o local do Encontro"
                                                  label="Local do Encontro" required="true" requiredMessage="O campo local é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 placeholder="Insira a descrição do Encontro"
                                                  label="Descrição" required="true" requiredMessage="O campo descrição é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}">
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.participante}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
+                                    <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu> 
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{encontroController.doCancelar()}" />
                             </b:column>
-                            <b:column offset-lg="1" span="2">
+                            <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{encontroController.salvar()}"
-                                                 icon="glyphicon glyphicon-arrow-right" icon-align="right"/>
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>
-                </b:panel>    
+                </p:fieldset> 
 
             </ui:define>    
         </ui:composition>

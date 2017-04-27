@@ -24,6 +24,8 @@ public class UsuarioController extends GenericController implements Serializable
     private Usuario             usuarioSelecionado;
     private UsuarioService      usuarioService;
     private List<Usuario>       listaUsuario;
+    private List<Usuario>       listaAcademicos;
+    private List<Usuario>       listaUniversidades;
     
     private Usuario             usuarioLogado;
 
@@ -42,6 +44,8 @@ public class UsuarioController extends GenericController implements Serializable
         usuarioSelecionado  = new Usuario();
         usuarioService      = new UsuarioService();
         listaUsuario        = new ArrayList<>();
+        listaAcademicos     = new ArrayList<>();
+        listaUniversidades  = new ArrayList<>();
 
         usuarioLogado       = new Usuario();
 
@@ -50,8 +54,17 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     private void listar() {
-        listaUsuario        = this.getUsuarioService().listar();
-        listaCurso          = this.getCursoService().listar();
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        //if(usuarioLogador.getTipoUsuario().equals("Admin")){
+            listaUsuario = this.getUsuarioService().listar();
+            listaUniversidades = this.getUsuarioService().listUniversidades();
+       // }
+        
+        listaAcademicos = this.getUsuarioService().listaAcademicos();
+        listaCurso = this.getCursoService().listar();
+
     }
 
     public String salvar() {
@@ -63,9 +76,10 @@ public class UsuarioController extends GenericController implements Serializable
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) {
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador);
                 this.getUsuarioService().salvar(usuarioSelecionado);
-            } else {
-                this.getUsuarioService().salvar(usuarioSelecionado);
             }
+            this.getUsuarioSelecionado().setSituacao("P");
+            this.getUsuarioService().salvar(usuarioSelecionado);
+
             
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
@@ -84,9 +98,10 @@ public class UsuarioController extends GenericController implements Serializable
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) {
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador);
                 this.getUsuarioService().alterar(usuarioSelecionado);
-            } else {
-                this.getUsuarioService().alterar(usuarioSelecionado);
             }
+            this.getUsuarioSelecionado().setSituacao("P");
+            this.getUsuarioService().alterar(usuarioSelecionado);
+
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar usuario: " + usuarioSelecionado.toString());
         }
@@ -151,13 +166,13 @@ public class UsuarioController extends GenericController implements Serializable
             System.out.println("Usuario encontrado: " + usuario.getNome());
             System.out.println("Usuario encontrado CONTROLLER");
             String senha = this.getUsuarioService().gerarNovaSenha();
-            System.out.println("Senha gerada: " + senha + usuario.getEmail());
+            System.out.println("Senha gerada: " + senha + " " + usuario.getEmail());
             usuario.setSenha(senha);
             this.getUsuarioService().alterar(usuario);
             
             /* enviando a senha por email */
             //enviarEmail(usuario.getEmail(),senha);
-            enviarEmail();
+            //enviarEmail();
         } else {
             System.out.println("Usuario nao encontrado CONTROLLER");
         }
@@ -283,5 +298,23 @@ public class UsuarioController extends GenericController implements Serializable
     public void setListaCurso(List<Curso> listaCurso) {
         this.listaCurso = listaCurso;
     }
+
+    public List<Usuario> getListaAcademicos() {
+        return listaAcademicos;
+    }
+
+    public void setListaAcademicos(List<Usuario> listaAcademicos) {
+        this.listaAcademicos = listaAcademicos;
+    }
+
+    public List<Usuario> getListaUniversidades() {
+        return listaUniversidades;
+    }
+
+    public void setListaUniversidades(List<Usuario> listaUniversidades) {
+        this.listaUniversidades = listaUniversidades;
+    }
+    
+    
     
 }

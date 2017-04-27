@@ -31,6 +31,12 @@ public class AnalisePropostaTccService implements Serializable {
         return lista;
     }
 
+    public List<AnalisePropostatcc> listarAnalisesParaUniversidade() {
+        List<AnalisePropostatcc> lista;
+        lista = this.getAnalisePropostaTccDAO().listarAnalisesParaUniversidade();
+        return lista;
+    }
+
     //gets and setts
     public AnalisePropostaTccDAO getAnalisePropostaTccDAO() {
         return analisePropostaTccDAO;

@@ -38,66 +38,70 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <!-- MOSTRAR QUANDO O USUARIO FOR ADMININSTRADOR 
-                        <li><a href="../usuarios/listar.xhtml?faces-redirect=true">Usuarios</a></li>
-                        <li><a href="../cursos/listar.xhtml?faces-redirect=true">Cursos</a></li>
-                        <li><a href="../ideias/listar.xhtml?faces-redirect=true">Ideias</a></li>
-                        <li><a href="../proposta-tcc/listar.xhtml?faces-redirect=true">Proposta de TCC</a></li>
-                        <li><a href="../encontros/listar.xhtml?faces-redirect=true">Encontros</a></li>
-                        <li><a href="../relatorios/listar.xhtml?faces-redirect=true">Relatorios </a></li>
-                        <li><a href="../situacao-projeto/listar.xhtml?faces-redirect=true">Situação Projetos </a></li>
+                        <!-- MOSTRAR QUANDO O USUARIO FOR ADMININSTRADOR -->
+                        <li><a href="#{request.contextPath}/paginas/administrador/usuarios/listar.xhtml?faces-redirect=true">Usuarios</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/cursos/listar.xhtml?faces-redirect=true">Cursos</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/ideias/listar.xhtml?faces-redirect=true">Ideias</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/proposta-tcc/listar.xhtml?faces-redirect=true">Proposta de TCC</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/encontros/listar.xhtml?faces-redirect=true">Encontros</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/relatorios/listar.xhtml?faces-redirect=true">Relatorios </a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/situacao-projeto/listar.xhtml?faces-redirect=true">Situação Projetos </a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analises<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../analises/ideias/listar.xhtml">Analise de ideias</a></li>
-                                <li><a href="../../analises/proposta-tcc/listar.xhtml">Analise proposta de TCC</a></li>
+                                <li><a href="#{request.contextPath}/paginas/administrador/analises/ideias/listar.xhtml">Analise de ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/administrador/analises/proposta-tcc/listar.xhtml">Analise proposta de TCC</a></li>
                             </ul>
                         </li>   
-                        -->
-
-                        <!-- MOSTRAR QUANDO O USUARIO FOR ALUNO -->
-                        <li><a href="../../aluno/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/timeline.xhtml?faces-redirect=true">Timeline</a></li>
+                                 
+                        <!-- MOSTRAR QUANDO O USUARIO FOR ALUNO
+                        <li><a href="#{request.contextPath}/paginas/aluno/cadastro/listar.xhtml">Cadastro</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encontros<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../aluno/meus-encontros/listar.xhtml">Meus encontros</a></li>
-                                <li><a href="../../aluno/encontros-orientador/listar.xhtml">Todos encontros com orientador</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/meus-encontros/listar.xhtml">Editar meus encontros</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/encontros-orientador/listar.xhtml">Todos encontros com orientador</a></li>
                             </ul>
                         </li>
-                        <li><a href="../../aluno/minhas-ideias/listar.xhtml">Minhas Ideias</a></li>
-                        <li><a href="../../aluno/ideias/listar.xhtml">Ideias</a></li>
-                        <li><a href="../../aluno/proposta-tcc/listar.xhtml">Proposta de TCC</a></li>
-                        <li><a href="../../aluno/relatorios/listar.xhtml">Relatorios</a></li>
-                        <li><a href="../../aluno/situacao-projeto/listar.xhtml">Situação do Projeto</a></li>
-
-
-
-                        <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO COORDENADOR 
-                        <li><a href="../../coordenador/cadastro/listar.xhtml">Cadastro</a></li>
-                        <li><a href="../../coordenador/encontros/listar.xhtml">Encontros</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../coordenador/minhas-ideias/listar.xhtml">Minhas Ideias</a></li>
-                                <li><a href="../../coordenador/ideias/listar.xhtml">Ideias</a></li>
-                                <li><a href="../../coordenador/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/minhas-ideias/listar.xhtml" >Editar minhas ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/ideias/listar.xhtml">Todas ideias</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/proposta-tcc/listar.xhtml">Proposta de TCC</a></li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/meus-encontros/agenda.xhtml">Agenda</a></li>
+                         -->
+                        <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO COORDENADOR 
+                        <li><a href="#{request.contextPath}/paginas/coordenador/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li><a href="#{request.contextPath}/paginas/coordenador/encontros/listar.xhtml">Encontros</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/coordenador/minhas-ideias/listar.xhtml">Editar minhas Ideias</a></li>
+                                <li><a href=".#{request.contextPath}/paginas/coordenador/ideias/listar.xhtml">Todas Ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/coordenador/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
                             </ul>
                         </li> 
-                        <li><a href="../../coordenador/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li><a href="#{request.contextPath}/paginas/coordenador/relatorios/listar.xhtml">Relatorios</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propostas de TCC<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../coordenador/propostas-tcc/listar.xhtml">Proposta de TCC</a></li>
-                                <li><a href="../../coordenador/propostas-tcc-pendentes/listar.xhtml">Proposta de TCC Pendentes</a></li>
+                                <li><a href="#{request.contextPath}/paginas/coordenador/propostas-tcc/listar.xhtml">Proposta de TCC</a></li>
+                                <li><a href="#{request.contextPath}/paginas/coordenador/propostas-tcc-pendentes/listar.xhtml">Proposta de TCC Pendentes</a></li>
                             </ul>
-                        </li> -->
-
+                        </li>
+                        <li><a href="#{request.contextPath}/paginas/coordenador/situacao-projeto/listar.xhtml">Situação do Projeto</a></li>
+                        -->
                         <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ORIENTADOR 
                         <li><a href="../../orientador/cadastro/listar.xhtml">Cadastro</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encontros<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../orientador/meus-encontros/listar.xhtml">Meus Encontros</a></li>
+                                <li><a href="../../orientador/meus-encontros/listar.xhtml">Editar Meus Encontros</a></li>
                                 <li><a href="../../orientador/encontros-aluno/listar.xhtml">Todos Encontros com aluno</a></li>
                             </ul>
                         </li>
@@ -105,14 +109,14 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../../orientador/minhas-ideias/listar.xhtml">Minhas ideias</a></li>
+                                <li><a href="../../orientador/minhas-ideias/listar.xhtml">Editar Minhas Ideias</a></li>
                                 <li><a href="../../orientador/ideias/listar.xhtml">Ideias</a></li>
                                 <li><a href="../../orientador/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
                             </ul>
                         </li>
                         <li><a href="../../orientador/propostas-tcc/listar.xhtml">Proposta de TCC</a></li> 
-                        <li><a href="../../orientador/aprovacoes-propostas/listar.xhtml">Aprovações de Proposta de TCC</a></li> -->
-
+                        <li><a href="../../orientador/aprovacoes-propostas/listar.xhtml">Aprovações de Proposta de TCC</a></li>
+                        -->
                         <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO UNIVERSIDADE 
                         <li><a href="../../universidade/cadastro/listar.xhtml">Cadastro</a></li>
                         <li class="dropdown">
@@ -123,7 +127,7 @@
                             </ul>
                         </li>
                         <li><a href="../../universidade/academicos/listar.xhtml">Academicos</a></li>
-                        <li><a href="../../universidade/curso/listar.xhtml">Cursos</a></li>
+                        <li><a href="../../universidade/cursos/listar.xhtml">Cursos</a></li>
                         <li><a href="../../universidade/encontros/listar.xhtml">Encontros</a></li>
                         <li><a href="../../universidade/relatorios/listar.xhtml">Relatorios</a></li>
                         <li class="dropdown">
@@ -133,8 +137,8 @@
                                 <li><a href="../../universidade/propostas-tcc-pendentes/listar.xhtml">Proposta de TCC Pendentes</a></li>
                                 <li><a href="../../universidade/analise-propostas-tcc/listar.xhtml">Analises de Proposta de TCC</a></li>
                             </ul>
-                        </li>-->
-
+                        </li>
+                        -->
 
                     </ul>
 

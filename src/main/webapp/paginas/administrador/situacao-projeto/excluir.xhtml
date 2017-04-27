@@ -34,12 +34,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Projeto TCC" value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{situacaoProjetoController.listaProjetos}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc.titulo}"
+                                             label="Projeto TCC" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -50,7 +46,7 @@
                             </b:column>
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.remover()}"
-                                                 icon="glyphicon glyphicon-arrow-right" icon-align="right"/>
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

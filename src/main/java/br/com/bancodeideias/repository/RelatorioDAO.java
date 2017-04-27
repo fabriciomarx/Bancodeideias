@@ -105,5 +105,20 @@ public class RelatorioDAO implements Serializable {
         return listaRelatorios;
     }
     
-    //falta fazer para o orientador*/
+    /* Lista de relatorios dos alunos do curso que o orientador orienta */
+    public List<Relatorio> listaRelatoriosOrientadorLogado() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Relatorio> listaRelatorios = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.orientador.idUsuario = " + usuarioLogado.getIdUsuario());
+            listaRelatorios = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listaRelatoriosCoordLogado - Classe Relatorio DAO");
+        }
+        entityManager.close();
+        return listaRelatorios;
+    }
 }

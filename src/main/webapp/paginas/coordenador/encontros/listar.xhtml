@@ -19,8 +19,8 @@
                     <b:panel look="primary" collapsible="false">
                         <h4 style="text-align: center;">LISTA ENCONTROS</h4>
 
-                        <b:dataTable value="#{encontroController.listaEncontro}"
-                                     var="item" searching="true" border="true"
+                        <b:dataTable value="#{encontroController.listarEncontrosParaCoord}"
+                                     var="item" searching="true" border="false"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                      styleClass="table table-striped">
 
@@ -54,24 +54,12 @@
 
                             <h:column>
                                 <f:facet name="header">Ações</f:facet>
-                                <h:commandLink title="Alterar" action="#{encontroController.doEditar()}">                                    
-                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Excluir" action="#{encontroController.doExcluir()}">
-                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                </h:commandLink>
                                 <h:commandLink title="Consultar" action="#{encontroController.doConsultar()}">
                                     <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                     <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                 </h:commandLink>
                             </h:column>                            
-                        </b:dataTable>   
-                        <f:facet name="footer">
-                            <b:commandButton value="Incluir" action="#{encontroController.doIncluir()}"/>
-
-                        </f:facet>
+                        </b:dataTable>
                     </b:panel>
                 </h:form>             
             </ui:define>    

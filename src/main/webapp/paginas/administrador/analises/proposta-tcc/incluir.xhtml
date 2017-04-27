@@ -36,10 +36,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

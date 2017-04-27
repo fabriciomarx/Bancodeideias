@@ -12,5 +12,12 @@
                 <li><a href="#">Privacy e Terms</a></li>
             </ul>
         </div>
+        <h:form>
+                    Usuario: #{usuarioController.usuarioLogado.nome}
+                    <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
+                                     icon="glyphicon glyphicon-log-out"
+                                     style="margin-left: 10px;"/>
+
+                </h:form>
     </footer>
 </ui:composition>

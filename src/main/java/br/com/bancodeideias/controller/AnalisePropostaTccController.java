@@ -23,12 +23,11 @@ public class AnalisePropostaTccController extends GenericController implements S
     private AnalisePropostatcc          analisePropTccSelecionada;
     private AnalisePropostaTccService   analisePropostaTccService;
     private List<AnalisePropostatcc>    listaAnalise;
+    private List<AnalisePropostatcc>    listaAnaliseParaUniversidade;
 
     private List<PropostaTcc>           listaProposta;
+    private List<PropostaTcc>           listaPropostaParaUniversidade;
     private PropostaTccService          propostaTccService;
-
-    private List<Usuario>               listaAcademico;
-    private UsuarioService              usuarioService;
 
     @PostConstruct
     public void preRenderPage() {
@@ -37,21 +36,30 @@ public class AnalisePropostaTccController extends GenericController implements S
     }
 
     private void resset() {
-        analisePropTccSelecionada   = new AnalisePropostatcc();
-        analisePropostaTccService   = new AnalisePropostaTccService();
-        listaAnalise                = new ArrayList<>();
+        analisePropTccSelecionada       = new AnalisePropostatcc();
+        analisePropostaTccService       = new AnalisePropostaTccService();
+        listaAnalise                    = new ArrayList<>();
+        listaAnaliseParaUniversidade    = new ArrayList<>();
 
-        listaProposta               = new ArrayList<>();
-        propostaTccService          = new PropostaTccService();
+        listaProposta                   = new ArrayList<>();
+        listaPropostaParaUniversidade   = new ArrayList<>();
+        propostaTccService              = new PropostaTccService();
 
-        listaAcademico              = new ArrayList<>();
-        usuarioService              = new UsuarioService();
     }
 
     private void listar() {
-        listaAnalise    = this.getAnalisePropostaTccService().listar();
-        listaProposta   = this.getPropostaTccService().listar();
-        listaAcademico  = this.getUsuarioService().listar();
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");  //RECUPERANDO O USUARIO SALVO NA SESSÃO    
+        
+        if(usuarioLogado.getTipoUsuario().equals("Admin")){
+            listaAnalise                    = this.getAnalisePropostaTccService().listar();
+            listaProposta                   = this.getPropostaTccService().listarPendentes();
+        }else if(usuarioLogado.getTipoUsuario().equals("Universidade")){
+            listaAnaliseParaUniversidade    = this.getAnalisePropostaTccService().listarAnalisesParaUniversidade();
+            listaPropostaParaUniversidade   = this.getPropostaTccService().listaPropostasPendentesDaUniv();
+        }
+        
+        
     }
 
     public String salvar() {
@@ -98,6 +106,11 @@ public class AnalisePropostaTccController extends GenericController implements S
 
     public String remover() {
         try {
+            //ALTERANDO A SITUAÇÃO DA PROPOSTA PARA PENDENTE..caso a analise seja excluida
+            PropostaTcc propostaTcc = this.analisePropTccSelecionada.getPropostaTcc();
+            propostaTcc.setSituacao("P");
+            this.getPropostaTccService().alterar(propostaTcc);
+            
             this.getAnalisePropostaTccService().remover(analisePropTccSelecionada);
             addSucessMessage("Analise excluida com sucesso");
         } catch (Exception e) {
@@ -190,20 +203,22 @@ public class AnalisePropostaTccController extends GenericController implements S
         this.propostaTccService = propostaTccService;
     }
 
-    public List<Usuario> getListaAcademico() {
-        return listaAcademico;
+    public List<AnalisePropostatcc> getListaAnaliseParaUniversidade() {
+        return listaAnaliseParaUniversidade;
     }
 
-    public void setListaAcademico(List<Usuario> listaAcademico) {
-        this.listaAcademico = listaAcademico;
+    public void setListaAnaliseParaUniversidade(List<AnalisePropostatcc> listaAnaliseParaUniversidade) {
+        this.listaAnaliseParaUniversidade = listaAnaliseParaUniversidade;
     }
 
-    public UsuarioService getUsuarioService() {
-        return usuarioService;
+    public List<PropostaTcc> getListaPropostaParaUniversidade() {
+        return listaPropostaParaUniversidade;
     }
 
-    public void setUsuarioService(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public void setListaPropostaParaUniversidade(List<PropostaTcc> listaPropostaParaUniversidade) {
+        this.listaPropostaParaUniversidade = listaPropostaParaUniversidade;
     }
-
+    
+    
+    
 }

@@ -20,6 +20,7 @@ public class CursoController extends GenericController implements Serializable {
     private Curso           cursoSelecionado;
     private CursoService    cursoService;
     private List<Curso>     listaCurso;
+    private List<Curso>     listaCursoFiltrados;
     private List<Curso>     listaCursoLogado;
 
     private List<Usuario>   listaUniversidade;
@@ -35,6 +36,7 @@ public class CursoController extends GenericController implements Serializable {
         cursoSelecionado    = new Curso();
         cursoService        = new CursoService();
         listaCurso          = new ArrayList<>();
+        listaCursoFiltrados = new ArrayList<>();
         listaCursoLogado    = new ArrayList<>();
 
         listaUniversidade   = new ArrayList<>();
@@ -44,27 +46,31 @@ public class CursoController extends GenericController implements Serializable {
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
+
         /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
-        if(usuarioLogado.getTipoUsuario().equals("Universidade"))
-            listaCursoLogado    = this.getCursoService().listarCursoLogado(); 
-        else{
+        if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
+            listaCursoLogado    = this.getCursoService().listarCursoLogado();
+            
+        } else if (usuarioLogado.getTipoUsuario().equals("Admin")) {
             listaCurso          = this.getCursoService().listar();
-        }  
-        listaUniversidade   = this.getUsuarioService().listar();
+            listaUniversidade   = this.getUsuarioService().listUniversidades();
+            listaCursoFiltrados = this.getCursoService().listar();
+        }
+        
     }
 
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if(usuarioLogado.getTipoUsuario().equals("Admin")){ //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().salvar(cursoSelecionado);
                 
-            }else{
+            } else {
                 this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().salvar(cursoSelecionado);
             }
+            
             addSucessMessage("Curso salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
@@ -97,7 +103,8 @@ public class CursoController extends GenericController implements Serializable {
     public String remover() {
         try {
             this.getCursoService().remover(cursoSelecionado);
-            addSucessMessage("Curso deletado com sucesso");
+           
+           //addSucessMessage("Curso deletado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao deletar curso: " + cursoSelecionado.toString());
         }
@@ -173,7 +180,7 @@ public class CursoController extends GenericController implements Serializable {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
+    
     public List<Curso> getListaCursoLogado() {
         return listaCursoLogado;
     }
@@ -181,7 +188,15 @@ public class CursoController extends GenericController implements Serializable {
     public void setListaCursoLogado(List<Curso> listaCursoLogado) {
         this.listaCursoLogado = listaCursoLogado;
     }
-    
-    
 
+    public List<Curso> getListaCursoFiltrados() {
+        return listaCursoFiltrados;
+    }
+
+    public void setListaCursoFiltrados(List<Curso> listaCursoFiltrados) {
+        this.listaCursoFiltrados = listaCursoFiltrados;
+    }
+   
+    
+    
 }

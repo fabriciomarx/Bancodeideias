@@ -5,7 +5,7 @@ import br.com.bancodeideias.repository.SituacaoProjetoDAO;
 import java.io.Serializable;
 import java.util.List;
 
-public class SituacaoProjetoService implements Serializable{
+public class SituacaoProjetoService implements Serializable {
 
     private SituacaoProjetoDAO situacaoProjetoDAO;
 
@@ -29,6 +29,12 @@ public class SituacaoProjetoService implements Serializable{
     public List<SituacaoProjeto> listar() {
         List<SituacaoProjeto> listaSituacoes;
         listaSituacoes = this.getSituacaoProjetoDAO().listar();
+        return listaSituacoes;
+    }
+
+    public List<SituacaoProjeto> listarSituaçoesCooord() {
+        List<SituacaoProjeto> listaSituacoes;
+        listaSituacoes = this.getSituacaoProjetoDAO().listarSituaçoesCooord();
         return listaSituacoes;
     }
 

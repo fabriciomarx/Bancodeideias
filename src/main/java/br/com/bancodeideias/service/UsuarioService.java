@@ -24,8 +24,14 @@ public class UsuarioService implements Serializable {
     }
 
     public void alterar(Usuario usuario) {
+        //String senhaNaoConvertida = usuario.getSenha();
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
+
+        //if(senhaNaoConvertida.equals(senha))
+        //usuario.setSenha(senhaNaoConvertida);
+        //else
         usuario.setSenha(senha);
+
         this.getUsuarioDAO().alterar(usuario);
     }
 
@@ -41,6 +47,7 @@ public class UsuarioService implements Serializable {
             if (usuario.getSenha().equals(this.convertStringToMd5(senha))) {
                 return usuario;
             } else {
+
                 System.out.println("Usuario e/ou senha invalidos");
             }
         } else {
@@ -67,20 +74,34 @@ public class UsuarioService implements Serializable {
 
     }
 
+    /* Listar todos os usuarios */
     public List<Usuario> listar() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listar();
         return listaUsuario;
     }
 
+    /* Lista de academicos da universidade logada */
+    public List<Usuario> listaAcademicos() {
+        List<Usuario> listaUsuario;
+        listaUsuario = this.getUsuarioDAO().listaAcademicos();
+        return listaUsuario;
+    }
     
-    public Usuario solicitarNovaSenha(String email, String matricula){
+     /* Lista de professoes que estudao na universdade do aluno logado 
+        -> metodo utilizado no encontro controller, para adicionar o participante no encontro*/
+    public List<Usuario> listaProfessores() {
+        List<Usuario> listaUsuario;
+        listaUsuario = this.getUsuarioDAO().listaProfessores();
+        return listaUsuario;
+    }
+
+    public Usuario solicitarNovaSenha(String email, String matricula) {
         Usuario usuario = this.getUsuarioDAO().solicitarNovaSenha(email, matricula);
-        if(usuario != null){
+        if (usuario != null) {
             System.out.println("Usuario encontrado SERVICE"); // provisorio
             return usuario;
-        }   
-        else{
+        } else {
             System.out.println("Usuario nao encontrado SERVICE"); // provisorio
             return null;
         }
@@ -105,44 +126,14 @@ public class UsuarioService implements Serializable {
         return senha;
 
     }
-    
-   
- /*
-    public List<Usuario> listAcademicos() {
-        List<Usuario> listaUsuario = null;
-        listaUsuario = this.getUsuarioDAO().listAcademicos();
-        return listaUsuario;
-    }*/
- /*
-      public List<Usuario> listAcadUniLogada() {
-        List<Usuario> listaUsuario = null;
-        listaUsuario = this.getUsuarioDAO().listAcadUniLogada();
-        return listaUsuario;
-    }*/
- /*
+
+    /* Lista de universidades */
     public List<Usuario> listUniversidades() {
-        List<Usuario> listaUsuario = null;
-        listaUsuario = this.getUsuarioDAO().listUniversidades();
+        List<Usuario> listaUsuario;
+        listaUsuario = this.getUsuarioDAO().listaUniversidades();
         return listaUsuario;
-    }*/
-    //Converter senha para MD5
-    /*Tentanto um novo login
-    public Usuario logar(String email, String senha) {
-        Usuario usuario = this.getUsuarioDAO().buscarLogin(email, senha);
+    }
 
-        if (usuario != null) {
-            if (usuario.getSenha().equals(this.convertStringToMd5(senha))) {
-                return usuario;
-            } else {
-                System.out.println("Usuario e/ou senha invalidos");
-            }
-        } else {
-            System.out.println("Usuario não encontrado");
-
-        }
-        return null;
-    }*/
-    
     /* =========Getts and setts ============= */
     public UsuarioDAO getUsuarioDAO() {
         return usuarioDAO;

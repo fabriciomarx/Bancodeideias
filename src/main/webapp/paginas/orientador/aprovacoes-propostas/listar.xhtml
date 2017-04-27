@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,10 +19,24 @@
                 <h:form>
                     <b:panel look="primary" collapsible="false">
                         <h4 style="text-align: center;">LISTA PROPOSTAS DE TCC</h4>
-                        <b:dataTable value="#{propostaTccController.listaPropostasLogado}"
-                                     var="item" searching="true" border="true"
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="3">
+                                <b:selectOneMenu label="Filtrar por:" value="#{propostaTccController.propostaTccSelecionada.idProposta}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
+                                    <f:selectItem itemLabel="Aluno" itemValue="A"/>
+                                    <f:selectItem itemLabel="Curso" itemValue="C"/>
+                                    <f:ajax render="propostaData" event="change" listener="#{propostaTccController.listaPropostasParaOrientador}"/> 
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        
+                        
+                        <b:dataTable value="#{propostaTccController.listaPropostasParaOrientador}"
+                                     var="item" searching="true" border="false"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                     styleClass="table table-striped">
+                                     styleClass="table table-striped"
+                                     id="propostaData">
 
                             <h:column>
                                 <f:facet name="header">Titulo</f:facet>
@@ -66,24 +81,20 @@
 
                             <h:column>
                                 <f:facet name="header">Ações</f:facet>
-                                <h:commandLink title="Alterar" action="#{propostaTccController.doEditar()}">                                    
-                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                <b:commandButton value="Aceitar" action="#{propostaTccController.doAceitar()}"
+                                                 class="btn-success">  
                                     <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Excluir" action="#{propostaTccController.doExcluir()}">
-                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                </b:commandButton>
+                                <b:commandButton value="Recusar" action="#{propostaTccController.doRecusar()}"
+                                                 class="btn-danger">
                                     <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Consultar" action="#{propostaTccController.doConsultar()}">
-                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                </b:commandButton>
+                                <b:commandButton value="Consultar" action="#{propostaTccController.doConsultar()}"
+                                                 class="btn-primary">
                                     <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                </h:commandLink>
+                                </b:commandButton>
                             </h:column>                            
-                        </b:dataTable>   
-                        <f:facet name="footer">
-                            <b:commandButton value="Incluir" action="#{propostaTccController.doIncluir()}"
-                                             icon="glyphicon glyphicon-plus"/>
-                        </f:facet>
+                        </b:dataTable>  
                     </b:panel>
                 </h:form>             
             </ui:define>    

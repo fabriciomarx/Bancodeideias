@@ -86,12 +86,22 @@
                                                  label="Bibliografia" required="true" required-message="O campo Bibliografia é obrigatorio"/>
                             </b:column>
                         </b:row>
-
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Participante" value="#{propostaTccController.propostaTccSelecionada.participante}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
+                                    <f:selectItems value="#{propostaTccController.listaAcademicos}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Academico" value="#{propostaTccController.propostaTccSelecionada.academico}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademico}" var="item"
+                                    <f:selectItems value="#{propostaTccController.listaAcademicos}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -101,7 +111,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Orientador" value="#{propostaTccController.propostaTccSelecionada.orientador}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademico}" var="item"
+                                    <f:selectItems value="#{propostaTccController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -109,10 +119,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{propostaTccController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

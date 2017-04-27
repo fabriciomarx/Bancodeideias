@@ -38,32 +38,25 @@
                                                  label="Descrição" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{encontroController.encontroSelecionado.academico}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu> 
+                                <b:inputText value="#{encontroController.encontroSelecionado.academico.nome}"
+                                                 label="Academico" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{encontroController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu> 
+                                <b:inputText value="#{encontroController.encontroSelecionado.participante.nome}"
+                                                 label="Professor" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{encontroController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{encontroController.cancelar()}" />
                             </b:column>
                         </b:row>
                     </h:form>

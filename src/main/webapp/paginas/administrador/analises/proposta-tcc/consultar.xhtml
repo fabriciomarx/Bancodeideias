@@ -14,20 +14,15 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Consultar Analise de Proposta de TCC">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Proposta de TCC" value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc.titulo}" 
+                                                 label="Proposta de TCC" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="6" span="10" offset-md="1">
                                 <h:outputLabel value="Data da analise"/>
@@ -42,23 +37,19 @@
                                                  label="Comentario" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{analisePropostaTccController.analisePropTccSelecionada.academicoAnalista}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{analisePropostaTccController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{analisePropostaTccController.analisePropTccSelecionada.academicoAnalista.nome}" 
+                                                 label="Academico Analista" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
                             </b:column>
-
                         </b:row>
                     </h:form>
                 </p:fieldset>

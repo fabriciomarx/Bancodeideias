@@ -51,10 +51,9 @@
                                 <!-- FALTA FAZER QUANDO A UNIVERSIDADE FOR SELECIONADA, CARREGAR SO OS CURSOS 
                                 DELA-->
                                 <h:outputLabel value="Universidade"/>
-                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}"
-                                                 required="true" required-message="O campo universidade é obrigatorio">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
-                                    <f:selectItems value="#{usuarioController.listaUsuario}" var="item"
+                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{usuarioController.listaUniversidades}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -75,11 +74,18 @@
                                                label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
                             </b:column>
                         </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senhaSemCriptografia}"
+                                               label="Digite novamente" required="true" required-message="O campo senha é obrigatorio"/>
+                            </b:column>
+                        </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
@@ -88,10 +94,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{usuarioController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{usuarioController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

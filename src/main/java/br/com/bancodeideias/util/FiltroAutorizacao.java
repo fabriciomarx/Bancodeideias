@@ -50,7 +50,7 @@ public class FiltroAutorizacao implements Filter {
         if (usuario == null) {
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect(req.getContextPath() + "/paginas/index.xhtml");
+            res.sendRedirect(req.getContextPath() + "/paginas/principal/index.xhtml");
         }
     }
 

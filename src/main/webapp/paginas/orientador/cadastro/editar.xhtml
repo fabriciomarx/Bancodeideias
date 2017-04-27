@@ -18,7 +18,7 @@
                     <h4 style="text-align: center;">EDITAR MEUS CADASTRO</h4>
                     <h:form>
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  required="true" required-message="O campo tipo é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
@@ -31,21 +31,21 @@
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
                                  label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
                         
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
                                  label="Matricula" required="true" required-message="O campo matricula é obrigatorio"/>
                             </b:column>
                         </b:row>
                         
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
                                              label="Email" required="true" required-message="O campo email é obrigatorio">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
@@ -54,17 +54,17 @@
                         </b:row>
                         
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
                                    label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
                             </b:column>
                         </b:row>
                      
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{usuarioController.cancelar()}" />
                             </b:column>
-                            <b:column offset-lg="1" span="2">
+                            <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{usuarioController.alterar()}"/>
                             </b:column>
                         </b:row>

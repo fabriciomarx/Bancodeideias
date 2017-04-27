@@ -17,10 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -30,8 +29,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,6 +98,9 @@ public class Usuario implements Serializable {
     private List<Relatorio> relatorioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
     private List<Relatorio> relatorioList1;
+    
+    @Transient
+    private String senhaSemCriptografia;
 
     public Usuario() {
     }
@@ -287,6 +287,14 @@ public class Usuario implements Serializable {
         this.relatorioList1 = relatorioList1;
     }
 
+    public String getSenhaSemCriptografia() {
+        return senhaSemCriptografia;
+    }
+
+    public void setSenhaSemCriptografia(String senhaSemCriptografia) {
+        this.senhaSemCriptografia = senhaSemCriptografia;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

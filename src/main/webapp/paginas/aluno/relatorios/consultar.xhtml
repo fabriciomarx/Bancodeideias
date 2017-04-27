@@ -15,84 +15,74 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">CONSULTAR RELATORIO</h4>
+                <p:fieldset legend="Consultar relatorio"> 
                     <h:form>
                         <b:row>
-                            <b:column medium-screen="6" span="6">
+                            <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
+                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
-                            <b:column medium-screen="6" span="6">
+                            <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
+                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
                                                  label="Atividades Realizadas" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
                                                  label="Auto avaliação" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
                                                  label="Justificativa" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data Relatorio"/>
                                 <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataRelatorio}"
                                                   show-time="false"/>
                             </b:column>
                         </b:row>
 
-
-
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:selectOneMenu label="Academico" value="#{relatorioController.relatorioSelecionado.academico}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{relatorioController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.academico.nome}"
+                                             label="Academico" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:selectOneMenu label="Orientador" value="#{relatorioController.relatorioSelecionado.orientador}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{relatorioController.listaAcademico}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.orientador.nome}"
+                                             label="Orientador" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{relatorioController.cancelar()}" />
                             </b:column>
 
                         </b:row>
                     </h:form>
-                </b:panel>    
-
+                </p:fieldset>
             </ui:define>    
         </ui:composition>
     </body>

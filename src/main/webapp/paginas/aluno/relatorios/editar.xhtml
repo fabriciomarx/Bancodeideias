@@ -15,17 +15,16 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">EDITAR RELATORIO</h4>
+                <p:fieldset legend="Editar relatorio"> 
                     <h:form>
                         <b:row>
-                            <b:column medium-screen="6" span="6">
+                            <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Periodo Inicio"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
-                            <b:column medium-screen="6" span="6">
+                            <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Periodo Fim"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
@@ -33,48 +32,55 @@
                         </b:row><br/>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:inputTextarea placeholder="Type something here..." value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
                                                  label="Atividades Realizadas" required="true" required-message="O campo atividades é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:inputTextarea placeholder="Type something here..." value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a sua auto avaliação" value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
                                                  label="Auto avaliação" required="true" required-message="O campo auto avalição é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:inputTextarea placeholder="Type something here..." value="#{relatorioController.relatorioSelecionado.justificativa}"
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a(s) sua(s) justificativa(s)" value="#{relatorioController.relatorioSelecionado.justificativa}"
                                                  label="Justificativa" required="true" required-message="O campo justificativa é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:selectOneMenu label="Orientador" value="#{relatorioController.relatorioSelecionado.orientador}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{relatorioController.listaAcademico}" var="item"
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.orientador.nome}"
+                                             label="Orientador" readonly="true" id="mudarNome"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu  value="#{relatorioController.relatorioSelecionado.orientador}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                    <f:selectItems value="#{relatorioController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{relatorioController.cancelar()}" />
                             </b:column>
-                            <b:column offset-lg="1" span="2">
+                            <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{relatorioController.alterar()}"
-                                                 icon="glyphicon glyphicon-arrow-right" icon-align="right"/>
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>
-                </b:panel>    
+                </p:fieldset>
 
             </ui:define>    
         </ui:composition>

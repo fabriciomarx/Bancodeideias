@@ -32,28 +32,28 @@
                         </b:row><br/>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
                                                  label="Atividades Realizadas" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
                                                  label="Auto avaliação" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
                                                  label="Justificativa" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data Relatorio"/>
                                 <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataRelatorio}"
                                                   show-time="false"/>
@@ -63,7 +63,7 @@
                    
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Academico" value="#{relatorioController.relatorioSelecionado.academico}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
@@ -74,7 +74,7 @@
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Orientador" value="#{relatorioController.relatorioSelecionado.orientador}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
@@ -85,7 +85,7 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{relatorioController.doCancelar()}" />
                             </b:column>
                             

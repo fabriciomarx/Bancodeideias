@@ -4,6 +4,10 @@
     font-size:100% !important;
 }
 
+.ui-datatable-even{
+    background: red;
+}
+
 .tabela{
     padding: 20px;
 }

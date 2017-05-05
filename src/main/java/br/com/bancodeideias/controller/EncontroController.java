@@ -69,61 +69,60 @@ public class EncontroController extends GenericController implements Serializabl
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
-        
+
         if (usuarioLogado.getTipoUsuario().equals("Admin")) {
             listaEncontro = this.getEncontroService().listar();
-            listaAcademico = this.getUsuarioService().listaAcademicos();
-            
-        } else if(usuarioLogado.getTipoUsuario().equals("Aluno") || usuarioLogado.getTipoUsuario().equals("Professor")){
+        } else if (usuarioLogado.getTipoUsuario().equals("Aluno") || usuarioLogado.getTipoUsuario().equals("Professor")) {
             listarEncontroQueCadastrei = this.getEncontroService().listarEncontrosQueCadastrei();
             listarEncontroQueFuiChamado = this.getEncontroService().listarEncontrosQueFuiChamado();
-        }else if(usuarioLogado.getTipoUsuario().equals("Coordenador") )
+        } else if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
             listarEncontrosParaCoord = this.getEncontroService().listarEncontrosParaCoord();
-        
-            listaProfessores = this.getUsuarioService().listaProfessores();
-            
-        
-        
-        encontros.addEvent(new DefaultScheduleEvent("Titulo", new Date(),new Date()));
-        
+        }
+
+        listaAcademico = this.getUsuarioService().listaAcademicos();
+        listaProfessores = this.getUsuarioService().listaProfessores();
+
+        encontros.addEvent(new DefaultScheduleEvent("Titulo", new Date(), new Date()));
+
     }
-    
+
     public void addEvent(ActionEvent actionEvent) {
-        if(event.getId() == null)
+        if (event.getId() == null) {
             encontros.addEvent(event);
-        else
+        } else {
             encontros.updateEvent(event);
-        
+        }
+
         event = new DefaultScheduleEvent();
     }
-    
+
     public void onEventSelect(SelectEvent evento) {
         event = (ScheduleEvent) evento.getObject();
     }
-    
-    public void novo(SelectEvent evento){
-        encontroSelecionado.setDataEncontro((Date)evento.getObject());
+
+    public void novo(SelectEvent evento) {
+        encontroSelecionado.setDataEncontro((Date) evento.getObject());
     }
 
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
-        
+
         /*Arrumando o erro que salvava uma data antes*/
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(encontroSelecionado.getDataEncontro());
         calendar.add(Calendar.DATE, 1); //somando um dia na data
         encontroSelecionado.setDataEncontro(calendar.getTime()); //data do encontro recebendo a nova data
-        
+
         try {
-            if(usuarioLogado.getTipoUsuario().equals("Admin")){ //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
                 this.getEncontroService().salvar(encontroSelecionado);
-               
-            }else{
+
+            } else {
                 this.getEncontroSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
                 this.getEncontroService().salvar(encontroSelecionado);
             }
-            
+
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar encontro: " + encontroSelecionado.toString());
@@ -137,13 +136,13 @@ public class EncontroController extends GenericController implements Serializabl
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if(usuarioLogado.getTipoUsuario().equals("Admin")){ //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 this.getEncontroService().alterar(encontroSelecionado);
-            }else{
+            } else {
                 this.getEncontroSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
                 this.getEncontroService().alterar(encontroSelecionado);
-            }    
-           
+            }
+
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao editar encontro: " + encontroSelecionado.toString());
@@ -280,12 +279,5 @@ public class EncontroController extends GenericController implements Serializabl
     public void setListaAcademico(List<Usuario> listaAcademico) {
         this.listaAcademico = listaAcademico;
     }
-    
-    
 
-    
-    
-    
-    
-    
 }

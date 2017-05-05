@@ -30,8 +30,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "situacao_projeto")
-@NamedQueries({
-    @NamedQuery(name = "SituacaoProjeto.findAll", query = "SELECT s FROM SituacaoProjeto s")})
 public class SituacaoProjeto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +45,10 @@ public class SituacaoProjeto implements Serializable {
     private Date dataSituacao;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "status")
+    private String status;
+    @Basic(optional = false)
     @Size(min = 1, max = 250)
     @Column(name = "observacoes")
     private String observacoes;
@@ -61,10 +63,11 @@ public class SituacaoProjeto implements Serializable {
         this.idSituacao = idSituacao;
     }
 
-    public SituacaoProjeto(Integer idSituacao, Date dataSituacao, String observacoes) {
+    public SituacaoProjeto(Integer idSituacao, Date dataSituacao, String observacoes, String status) {
         this.idSituacao = idSituacao;
         this.dataSituacao = dataSituacao;
         this.observacoes = observacoes;
+        this.status = status;
     }
 
     public Integer getIdSituacao() {
@@ -98,6 +101,16 @@ public class SituacaoProjeto implements Serializable {
     public void setProjetoTcc(PropostaTcc projetoTcc) {
         this.projetoTcc = projetoTcc;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 
     @Override
     public int hashCode() {

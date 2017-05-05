@@ -50,16 +50,15 @@ public class AnalisePropostaTccController extends GenericController implements S
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");  //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
-        if(usuarioLogado.getTipoUsuario().equals("Admin")){
-            listaAnalise                    = this.getAnalisePropostaTccService().listar();
-            listaProposta                   = this.getPropostaTccService().listarPendentes();
-        }else if(usuarioLogado.getTipoUsuario().equals("Universidade")){
-            listaAnaliseParaUniversidade    = this.getAnalisePropostaTccService().listarAnalisesParaUniversidade();
-            listaPropostaParaUniversidade   = this.getPropostaTccService().listaPropostasPendentesDaUniv();
+
+        if (usuarioLogado.getTipoUsuario().equals("Admin")) {
+            listaAnalise = this.getAnalisePropostaTccService().listar();
+            listaProposta = this.getPropostaTccService().listarPendentes();
+        } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
+            listaAnaliseParaUniversidade = this.getAnalisePropostaTccService().listarAnalisesParaUniversidade();
+            listaPropostaParaUniversidade = this.getPropostaTccService().listaPropostasPendentesDaUniv();
         }
-        
-        
+
     }
 
     public String salvar() {
@@ -68,17 +67,16 @@ public class AnalisePropostaTccController extends GenericController implements S
         try {
             this.getAnalisePropTccSelecionada().setDataAnalise(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
             this.getAnalisePropTccSelecionada().setAcademicoAnalista(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-            
+
             //ALTERANDO A SITUAÇÃO DA PROPOSTA PARA ATIVA
             PropostaTcc propostaTcc = this.analisePropTccSelecionada.getPropostaTcc();
             propostaTcc.setSituacao("A");
             this.getPropostaTccService().alterar(propostaTcc);
-            
+
             /* ASSIM NAO DEU CERTO : 
             this.getAnalisePropTccSelecionada().getPropostaTcc().setSituacao("A");*/
-            
             this.getAnalisePropostaTccService().salvar(analisePropTccSelecionada);
-            
+
             addSucessMessage("Analise salva com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar Analise: " + analisePropTccSelecionada.toString());
@@ -110,7 +108,7 @@ public class AnalisePropostaTccController extends GenericController implements S
             PropostaTcc propostaTcc = this.analisePropTccSelecionada.getPropostaTcc();
             propostaTcc.setSituacao("P");
             this.getPropostaTccService().alterar(propostaTcc);
-            
+
             this.getAnalisePropostaTccService().remover(analisePropTccSelecionada);
             addSucessMessage("Analise excluida com sucesso");
         } catch (Exception e) {
@@ -218,7 +216,5 @@ public class AnalisePropostaTccController extends GenericController implements S
     public void setListaPropostaParaUniversidade(List<PropostaTcc> listaPropostaParaUniversidade) {
         this.listaPropostaParaUniversidade = listaPropostaParaUniversidade;
     }
-    
-    
-    
+
 }

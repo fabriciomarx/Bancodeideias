@@ -15,60 +15,59 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <h:form>
-                    <b:panel look="primary" collapsible="false">
-                        <h4 style="text-align: center;">LISTA IDEIAS PENDENTES</h4>
+                    <p:fieldset legend="Lista ideias pendentes"> 
+                        <b:panel look="primary" collapsible="false">
+                            <b:dataTable value="#{ideiaController.listaIdeiasPendente}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
 
-                        <b:dataTable value="#{ideiaController.listaIdeiasPendente}"
-                                     var="item" searching="true" border="false"
-                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                     styleClass="table table-striped">
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{item.titulo}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Titulo</f:facet>
-                                <h:outputText value="#{item.titulo}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Tipo Ideia</f:facet>
+                                    <h:outputText value="#{item.tipoIdeia}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Tipo Ideia</f:facet>
-                                <h:outputText value="#{item.tipoIdeia}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data Ideia</f:facet>
+                                    <h:outputText value="#{item.dataIdeia}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Data Ideia</f:facet>
-                                <h:outputText value="#{item.dataIdeia}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Situação</f:facet>
-                                <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Usuario Nome</f:facet>
+                                    <h:outputText value="#{item.usuario.nome}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Usuario Nome</f:facet>
-                                <h:outputText value="#{item.usuario.nome}"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Ações</f:facet>
-                                <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
-                                                 class="btn btn-success btn-sm">                                    
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </b:commandButton>
-                                <b:commandButton value="Recusar" action="#{ideiaController.doConsultar()}"
-                                                 class="btn btn-danger btn-sm">
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </b:commandButton>
-                                <b:commandButton value="Consultar" action="#{ideiaController.doConsultar()}"
-                                                 class="btn btn-info btn-sm">
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </b:commandButton>
-                            </h:column>                            
-                        </b:dataTable>   
-                    </b:panel>
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
+                                                     class="btn btn-success btn-sm">                                    
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton value="Recusar" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-danger btn-sm">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton value="Consultar" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-info btn-sm">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                </h:column>                            
+                            </b:dataTable>   
+                        </b:panel>
+                    </p:fieldset>
                 </h:form>
             </ui:define>    
         </ui:composition>

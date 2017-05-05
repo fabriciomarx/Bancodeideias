@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -16,71 +17,71 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <b:panel look="primary" collapsible="false">
-                        <h4 style="text-align: center;">LISTA DE RELATORIOS</h4>
+                    <p:fieldset legend="Lista relatorios"> 
+                        <b:panel look="primary" collapsible="false">
+                            <b:dataTable value="#{relatorioController.listaRelatorioCoordLogado}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
 
-                        <b:dataTable value="#{relatorioController.listaRelatorioCoordLogado}"
-                                     var="item" searching="true" border="false"
-                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                     styleClass="table table-striped">
+                                <h:column>
+                                    <f:facet name="header">Data Inicio</f:facet>
+                                    <h:outputText value="#{item.periodoInicio}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Data Inicio</f:facet>
-                                <h:outputText value="#{item.periodoInicio}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data Fim</f:facet>
+                                    <h:outputText value="#{item.periodoFim}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Data Fim</f:facet>
-                                <h:outputText value="#{item.periodoFim}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Atividade Realizadas</f:facet>
+                                    <h:outputText value="#{item.atividadesRealizadas}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Atividade Realizadas</f:facet>
-                                <h:outputText value="#{item.atividadesRealizadas}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Auto Avaliacao</f:facet>
+                                    <h:outputText value="#{item.autoAvaliacao}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Auto Avaliacao</f:facet>
-                                <h:outputText value="#{item.autoAvaliacao}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Justificativas</f:facet>
+                                    <h:outputText value="#{item.justificativa}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Justificativas</f:facet>
-                                <h:outputText value="#{item.justificativa}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data Relatorio</f:facet>
+                                    <h:outputText value="#{item.dataRelatorio}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Data Relatorio</f:facet>
-                                <h:outputText value="#{item.dataRelatorio}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Orientador</f:facet>
+                                    <h:outputText value="#{item.orientador.nome}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Orientador</f:facet>
-                                <h:outputText value="#{item.orientador.nome}"/>
-                            </h:column>
-                            
-                            <h:column>
-                                <f:facet name="header">Academico</f:facet>
-                                <h:outputText value="#{item.academico.nome}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Academico</f:facet>
+                                    <h:outputText value="#{item.academico.nome}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Ações</f:facet>
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
 
-                                <h:commandLink title="Consultar" action="#{relatorioController.doConsultar()}">
-                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
-                                </h:commandLink>
-                            </h:column>                            
-                        </b:dataTable>   
+                                    <h:commandLink title="Consultar" action="#{relatorioController.doConsultar()}">
+                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
+                                    </h:commandLink>
+                                </h:column>                            
+                            </b:dataTable>   
 
-                    </b:panel>
+                        </b:panel>
+                    </p:fieldset>
                 </h:form>             
             </ui:define>    
         </ui:composition>

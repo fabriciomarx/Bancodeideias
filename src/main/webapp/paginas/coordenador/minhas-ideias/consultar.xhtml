@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,8 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">CONSULTAR IDEIAS</h4>
+                <p:fieldset legend="Consultar ideia"> 
                     <h:form>
 
                         <b:row>
@@ -61,7 +61,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}"
-                                                 label="Usuario" readonly="true"/>
+                                             label="Usuario" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -72,7 +72,7 @@
 
                         </b:row>
                     </h:form>
-                </b:panel>    
+                </p:fieldset>
 
             </ui:define>    
         </ui:composition>

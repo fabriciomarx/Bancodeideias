@@ -4,8 +4,24 @@
     font-size:100% !important;
 }
 
-.ui-datatable-even{
-    background: red;
+/*Ideias Pendentes e Ativas*/
+.ativa{
+    color: black!important;
+    background-color: #0fce33!important;
+}
+.pendente{
+    color: black!important;
+    background-color: yellow!important;
+}
+
+.red_color{
+    background-color: #EF0000!important;
+}
+.bloqueado{
+    background-color: #FF3030!important;
+}
+.cheque{
+    background-color: #008B8B!important;
 }
 
 .tabela{

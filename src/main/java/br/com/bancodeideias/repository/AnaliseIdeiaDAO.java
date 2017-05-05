@@ -52,9 +52,9 @@ public class AnaliseIdeiaDAO implements Serializable {
         }
         entityManager.close();
         return listaAnaliseIdeia;
-        
+
     }
-    
+
     public List<AnaliseIdeia> listarAnalisesParaUniversidade() {
         System.out.println("Universidade");
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -64,14 +64,14 @@ public class AnaliseIdeiaDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM AnaliseIdeia u WHERE u.academicoAnalista.universidade.idUsuario = "
-            + usuarioLogado.getIdUsuario());
+                    + usuarioLogado.getIdUsuario());
             listaAnaliseIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarAnalisesParaUniversidade - Classe AnaliseIdeia DAO");
         }
         entityManager.close();
         return listaAnaliseIdeia;
-        
+
     }
 
 }

@@ -24,6 +24,18 @@
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Status" value="#{situacaoProjetoController.situacaoProjetoSelecionada.status}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Projeto iniciado" itemValue="Projeto iniciado" />
+                                    <f:selectItem itemLabel="Projeto em andamento" itemValue="Projeto em andamento" />
+                                    <f:selectItem itemLabel="Projeto cancelado" itemValue="Projeto cancelado" />
+                                    <f:selectItem itemLabel="Projeto finalizado" itemValue="Projeto finalizado" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -32,7 +44,7 @@
                                                  label="Observações" required="true" required-message="O campo observações é obrigatorio"/>
                             </b:column>
                         </b:row>
-
+                       
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Projeto TCC" value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc}">
@@ -45,10 +57,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{situacaoProjetoController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{situacaoProjetoController.cancelar()}" 
+                                                 icon="glyphicon glyphicon-arrow-left"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

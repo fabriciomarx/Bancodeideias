@@ -38,8 +38,7 @@ public class UsuarioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    
-    
+
     /* Listar todos os usuario */
     public List<Usuario> listar() {
         List<Usuario> listaUsuarios = new ArrayList<>();
@@ -53,7 +52,7 @@ public class UsuarioDAO implements Serializable {
         entityManager.close();
         return listaUsuarios;
     }
-    
+
     public Usuario buscarEmail(String emailUsuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
@@ -68,8 +67,8 @@ public class UsuarioDAO implements Serializable {
             return null;
         }
     }
-   
-    /* Lista de academicos da universidade logada */
+
+    /* Lista de academicos */
     public List<Usuario> listaAcademicos() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -85,7 +84,25 @@ public class UsuarioDAO implements Serializable {
         entityManager.close();
         return listaUsuarios;
     }
-    
+
+    /* Lista de academicos da universidade logada*/
+    public List<Usuario> listaAcademicosUniLogada() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' OR u.tipoUsuario = 'Professor' OR u.tipoUsuario = 'Coordenador'"
+                    + " AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
+            listaUsuarios = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listaAcademicosUniLogada - Classe Usuario DAO");
+        }
+        entityManager.close();
+        return listaUsuarios;
+    }
+
     /* Lista de tdos professores */
     public List<Usuario> listaProfessores() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -102,7 +119,7 @@ public class UsuarioDAO implements Serializable {
         entityManager.close();
         return listaUsuarios;
     }
-    
+
     /* Lista de universidades cadastradas */
     public List<Usuario> listaUniversidades() {
         List<Usuario> listaUsuarios = new ArrayList<>();
@@ -111,12 +128,12 @@ public class UsuarioDAO implements Serializable {
             Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-             System.out.println("Erro no metodo listaUniversidades - Classe Usuario DAO");
+            System.out.println("Erro no metodo listaUniversidades - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
     }
-    
+
     /* Metodo para o usuario solicitar uma nova senha */
     public Usuario solicitarNovaSenha(String emailUsuario, String matriculaUsuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();

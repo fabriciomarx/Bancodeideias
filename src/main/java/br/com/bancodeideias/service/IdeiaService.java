@@ -39,6 +39,13 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasdaUniversidade();
         return lista;
     }
+    
+     public List<Ideia> listarIdeiasPendentesdaUniversidade() {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarIdeiasPendentesdaUniversidade();
+        return lista;
+    }
+    
 
     /* Ideias do usuario logado */
     public List<Ideia> listarIdeiasLogado() {

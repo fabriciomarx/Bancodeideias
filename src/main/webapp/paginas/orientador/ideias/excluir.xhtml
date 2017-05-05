@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,15 +14,14 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-               
-                <b:panel look="primary" collapsible="false">
-                     <h4 style="text-align: center;">EXCLUIR IDEIA</h4>
+
+                <p:fieldset legend="Excluir ideia"> 
                     <h:form>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                             label="Titulo" readonly="true"/>
+                                                 label="Titulo" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -43,7 +43,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data"/>
                                 <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataIdeia}"
-                                                    show-time="false"/>
+                                                  show-time="false"/>
                             </b:column>
                         </b:row>
 
@@ -60,26 +60,23 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Usuario" value="#{ideiaController.ideiaSelecionada.usuario}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{ideiaController.listaUsuario}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu> 
+                                <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}"
+                                             label="Usuario" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{ideiaController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.remover()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>
-                </b:panel>    
-
+                </p:fieldset>
             </ui:define>    
         </ui:composition>
     </body>

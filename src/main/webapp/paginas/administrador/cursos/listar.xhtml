@@ -9,62 +9,54 @@
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-            
-  
     </head>
 
     <body>
-        
+
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-               
 
                 <h:form>
                     <p:fieldset legend="Lista Curso"> 
-                         
-                        <b:panel look="primary" collapsible="false">
+                        <p:dataTable value="#{cursoController.listaCurso}"
+                                     var="item"
+                                     rowStyleClass="#{item.nome == 'dsdsd' ? 'red_color' : null}">
 
-                            <p:dataTable value="#{cursoController.listaCurso}"
-                                         var="item">
+                            <p:column>
+                                <f:facet name="header">Nome</f:facet> 
+                                <h:outputText value="#{item.nome}"/>
+                            </p:column> 
+                            <p:column>
+                                <f:facet name="header">Sigla</f:facet> 
+                                <h:outputText value="#{item.sigla}"/>
+                            </p:column> 
 
-                                <p:column>
-                                    <f:facet name="header">Nome</f:facet> 
-                                    <h:outputText value="#{item.nome}"/>
-                                </p:column> 
-                                <p:column>
-                                    <f:facet name="header">Sigla</f:facet> 
-                                    <h:outputText value="#{item.sigla}"/>
-                                </p:column> 
-                                
-                                <p:column>
-                                    <f:facet name="header">Universidade</f:facet> 
-                                    <h:outputText value="#{item.universidade.nome}"/>
-                                </p:column> 
+                            <p:column>
+                                <f:facet name="header">Universidade</f:facet> 
+                                <h:outputText value="#{item.universidade.nome}"/>
+                            </p:column> 
 
-
-                                <p:column>
-                                    <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{cursoController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{cursoController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{cursoController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                    </h:commandLink>
-                                </p:column>                            
-                            </p:dataTable>  
-
+                            <p:column style="text-align: center;">
+                                <f:facet name="header">Ações</f:facet>
+                                <h:commandLink title="Alterar" action="#{cursoController.doEditar()}">                                    
+                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Excluir" action="#{cursoController.doExcluir()}">
+                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </h:commandLink>
+                                <h:commandLink title="Consultar" action="#{cursoController.doConsultar()}">
+                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </h:commandLink>
+                            </p:column>  
+                            
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir" action="#{cursoController.doIncluir()}" 
                                                  icon="glyphicon glyphicon-plus"/>
                             </f:facet>
-                        </b:panel>
+                        </p:dataTable>  
                     </p:fieldset>
                 </h:form>   
             </ui:define>    

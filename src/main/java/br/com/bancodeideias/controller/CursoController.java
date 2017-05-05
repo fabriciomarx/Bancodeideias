@@ -49,14 +49,14 @@ public class CursoController extends GenericController implements Serializable {
 
         /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
         if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
-            listaCursoLogado    = this.getCursoService().listarCursoLogado();
-            
+            listaCursoLogado = this.getCursoService().listarCursoLogado();
+
         } else if (usuarioLogado.getTipoUsuario().equals("Admin")) {
-            listaCurso          = this.getCursoService().listar();
-            listaUniversidade   = this.getUsuarioService().listUniversidades();
+            listaCurso = this.getCursoService().listar();
+            listaUniversidade = this.getUsuarioService().listUniversidades();
             listaCursoFiltrados = this.getCursoService().listar();
         }
-        
+
     }
 
     public String salvar() {
@@ -65,12 +65,12 @@ public class CursoController extends GenericController implements Serializable {
         try {
             if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().salvar(cursoSelecionado);
-                
+
             } else {
                 this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().salvar(cursoSelecionado);
             }
-            
+
             addSucessMessage("Curso salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
@@ -84,13 +84,13 @@ public class CursoController extends GenericController implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if(usuarioLogado.getTipoUsuario().equals("Admin")){ //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().alterar(cursoSelecionado);
-            }else{
+            } else {
                 this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().alterar(cursoSelecionado);
             }
-            
+
             addSucessMessage("Curso alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar curso: " + cursoSelecionado.toString());
@@ -103,8 +103,8 @@ public class CursoController extends GenericController implements Serializable {
     public String remover() {
         try {
             this.getCursoService().remover(cursoSelecionado);
-           
-           //addSucessMessage("Curso deletado com sucesso");
+
+            //addSucessMessage("Curso deletado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao deletar curso: " + cursoSelecionado.toString());
         }
@@ -180,7 +180,7 @@ public class CursoController extends GenericController implements Serializable {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    
+
     public List<Curso> getListaCursoLogado() {
         return listaCursoLogado;
     }
@@ -196,7 +196,5 @@ public class CursoController extends GenericController implements Serializable {
     public void setListaCursoFiltrados(List<Curso> listaCursoFiltrados) {
         this.listaCursoFiltrados = listaCursoFiltrados;
     }
-   
-    
-    
+
 }

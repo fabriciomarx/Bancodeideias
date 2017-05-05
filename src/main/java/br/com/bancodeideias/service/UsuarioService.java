@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Usuario;
@@ -8,6 +13,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+/**
+ *
+ * @author fabri
+ */
 public class UsuarioService implements Serializable {
 
     private UsuarioDAO usuarioDAO;
@@ -87,8 +96,8 @@ public class UsuarioService implements Serializable {
         listaUsuario = this.getUsuarioDAO().listaAcademicos();
         return listaUsuario;
     }
-    
-     /* Lista de professoes que estudao na universdade do aluno logado 
+
+    /* Lista de professoes que estudao na universdade do aluno logado 
         -> metodo utilizado no encontro controller, para adicionar o participante no encontro*/
     public List<Usuario> listaProfessores() {
         List<Usuario> listaUsuario;

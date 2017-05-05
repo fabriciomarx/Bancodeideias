@@ -24,7 +24,19 @@
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
-
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Status" value="#{situacaoProjetoController.situacaoProjetoSelecionada.status}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Projeto iniciado" itemValue="Projeto iniciado" />
+                                    <f:selectItem itemLabel="Projeto em andamento" itemValue="Projeto em andamento" />
+                                    <f:selectItem itemLabel="Projeto cancelado" itemValue="Projeto cancelado" />
+                                    <f:selectItem itemLabel="Projeto finalizado" itemValue="Projeto finalizado" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea placeholder="Escreva a(s) observação(ões) realizada(s) no periodo" 
@@ -35,8 +47,15 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Projeto TCC" value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                <b:inputText value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc.titulo}"
+                                             label="Projeto TCC" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu  value="#{situacaoProjetoController.situacaoProjetoSelecionada.projetoTcc}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{situacaoProjetoController.listaProjetos}" var="item"
                                                    itemLabel="#{item.titulo}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
@@ -45,10 +64,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{situacaoProjetoController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{situacaoProjetoController.cancelar()}" 
+                                                 icon="glyphicon glyphicon-arrow-left"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.alterar()}"/>
+                                <b:commandButton value="Enviar" look="info" action="#{situacaoProjetoController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

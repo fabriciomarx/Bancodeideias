@@ -71,7 +71,7 @@ and open the template in the editor.
                 <b:navLink value="Relatorios" href="#{request.contextPath}/paginas/orientador/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 <b:dropMenu value="Ideias" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
                     <b:navLink value="Editar minhas Ideias" href="#{request.contextPath}/paginas/orientador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                    <b:navLink value="Todas Ideias" href="#{request.contextPath}/paginas/orientador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Orientador'}"/>
+                    <b:navLink value="Todas Ideias" href="#{request.contextPath}/paginas/orientador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                     <b:navLink value="Ideias Pendentes" href="#{request.contextPath}/paginas/orientador/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 </b:dropMenu>
 

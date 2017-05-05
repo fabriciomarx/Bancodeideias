@@ -55,7 +55,7 @@ public class CursoDAO implements Serializable {
         entityManager.close();
         return listaCurso;
     }
-    
+
     /* Listar todos os cursos cadastrados no sistema */
     public List<Curso> listar() {
         List<Curso> listaCurso = new ArrayList<>();

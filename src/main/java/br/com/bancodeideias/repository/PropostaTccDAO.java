@@ -115,7 +115,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.academico.curso.idCurso = "
+            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'A' AND u.academico.curso.idCurso = "
                     + usuarioLogado.getCurso().getIdCurso());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
@@ -149,8 +149,8 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'P' AND u.academico.universidade.idUsuario = "
-            + usuarioLogado.getUniversidade().getIdUsuario() + " AND u.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
+            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'P' AND u.academico.curso.idCurso = " 
+                    + usuarioLogado.getCurso().getIdCurso());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaPropostasPendentesDaUnivParaCoordenador - Classe PropostaTcc DAO");

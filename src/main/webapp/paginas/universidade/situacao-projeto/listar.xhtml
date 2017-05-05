@@ -16,8 +16,8 @@
             <ui:define name="conteudo">
                 <h:form>
                     <p:fieldset legend="Lista Situações dos projetos">
-                        <b:panel look="primary" collapsible="false">
 
+                        <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{situacaoProjetoController.listaSituacoes}"
                                          var="item" searching="true"  border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
@@ -28,6 +28,11 @@
                                     <h:outputText value="#{item.dataSituacao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Status</f:facet>
+                                    <h:outputText value="#{item.status}"/>
                                 </h:column>
 
                                 <h:column>

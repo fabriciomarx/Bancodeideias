@@ -66,7 +66,7 @@ public class EncontroDAO implements Serializable {
                     + usuarioLogado.getCurso().getIdCurso());
             listaEncontros = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarEncontrosParaCoord - Classe Encontro DAO");
+            System.out.println("Erro no metodo listarEncontrosParaUniv - Classe Encontro DAO");
         }
         entityManager.close();
         return listaEncontros;

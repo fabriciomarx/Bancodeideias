@@ -67,53 +67,51 @@ public class PropostaTccController extends GenericController implements Serializ
     }
 
     private void listar() {
-         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
-        if(usuarioLogado.getTipoUsuario().equals("Aluno"))
-            listaPropostasLogado            = this.getPropostaTccService().listarPropostasLogado();
-        else if(usuarioLogado.getTipoUsuario().equals("Coordenador")){
-            listaPropostasParaCoord         = this.getPropostaTccService().listarPropostasParaCoord();
+
+        if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
+            listaPropostasLogado = this.getPropostaTccService().listarPropostasLogado();
+        } else if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
+            listaPropostasParaCoord = this.getPropostaTccService().listarPropostasParaCoord();
             listaPropostasPendentesDaUnivParaCoordenador = this.getPropostaTccService().listaPropostasPendentesDaUnivParaCoordenador();
         }
-        
-        listaPropostaTcc                = this.getPropostaTccService().listar();
-        listaPropostasPendentes         = this.getPropostaTccService().listarPendentes();
-        listaPropostasPendentesDaUniv   = this.getPropostaTccService().listaPropostasPendentesDaUniv();
-        listaProjetos                   = this.getPropostaTccService().listarProjetos();
-        listaPropostasParaOrientador    = this.getPropostaTccService().listarPropostasParaOrientador();
+
+        listaPropostaTcc = this.getPropostaTccService().listar();
+        listaPropostasPendentes = this.getPropostaTccService().listarPendentes();
+        listaPropostasPendentesDaUniv = this.getPropostaTccService().listaPropostasPendentesDaUniv();
+        listaProjetos = this.getPropostaTccService().listarProjetos();
+        listaPropostasParaOrientador = this.getPropostaTccService().listarPropostasParaOrientador();
         //listaPropostasParaOrientador    = this.getPropostaTccService().list(tipoUsuario);
-        
-        listaProfessores                = this.getUsuarioService().listaProfessores();
-        listaAcademicos                 = this.getUsuarioService().listaAcademicos();
-        
-        listaIdeias                     = this.getIdeiaService().listar();
+
+        listaProfessores = this.getUsuarioService().listaProfessores();
+        listaAcademicos = this.getUsuarioService().listaAcademicos();
+
+        listaIdeias = this.getIdeiaService().listar();
     }
-    
 
     public String salvar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
             //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA PROPOSTA A SITUAÇÃO É PENDENTE COMO DEFAUT
-            if(usuarioLogado.getTipoUsuario().equals("Aluno")){ 
+            if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
                 this.getPropostaTccSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                 this.getPropostaTccSelecionada().setAprovacaoOrientador("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                 this.getPropostaTccSelecionada().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getPropostaTccSelecionada().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
                 this.getPropostaTccService().salvar(propostaTccSelecionada);
-            }else if(usuarioLogado.getTipoUsuario().equals("Admin")){ //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
+            } else if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
                 this.getPropostaTccSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                 this.getPropostaTccSelecionada().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getPropostaTccService().salvar(propostaTccSelecionada);
-            } else{
+            } else {
                 this.getPropostaTccSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                 this.getPropostaTccSelecionada().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getPropostaTccSelecionada().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
                 this.getPropostaTccService().salvar(propostaTccSelecionada);
             }
-            
-           
+
             addSucessMessage("Proposta Tcc salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar proposta Tcc: " + propostaTccSelecionada.toString());
@@ -195,7 +193,7 @@ public class PropostaTccController extends GenericController implements Serializ
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
-    
+
     /* Serve para o orientador aceitar se vai orientar a proposta do aluno */
     public String doAceitar() {
         return "aceitar.xhtml?faces-redirect=true";
@@ -310,8 +308,6 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setListaPropostasPendentesDaUniv(List<PropostaTcc> listaPropostasPendentesDaUniv) {
         this.listaPropostasPendentesDaUniv = listaPropostasPendentesDaUniv;
     }
-    
-    
 
     /*
     public String getTipoUsuario() {
@@ -321,7 +317,6 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }*/
-
     public List<Usuario> getListaAcademicos() {
         return listaAcademicos;
     }
@@ -337,8 +332,5 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setListaPropostasPendentesDaUnivParaCoordenador(List<PropostaTcc> listaPropostasPendentesDaUnivParaCoordenador) {
         this.listaPropostasPendentesDaUnivParaCoordenador = listaPropostasPendentesDaUnivParaCoordenador;
     }
-    
-    
-    
-    
+
 }

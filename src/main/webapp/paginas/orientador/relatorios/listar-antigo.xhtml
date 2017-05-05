@@ -16,28 +16,13 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <b:row>
-                        <b:column medium-screen="3" span="10" offset-md="1">
-                            <b:selectOneMenu id="escolha" label="Escolha um aluno" value="#{relatorioController.relatorioSelecionado}">
-                                <f:selectItem itemLabel="-- Escolha uma opção --" value="#{relatorioController.relatorioSelecionado}"/>
-                                <f:selectItems value="#{relatorioController.listaAcademicos}" var="item"
-                                               itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                <f:ajax render="relatorioData" event="change" listener="#{relatorioController.list()}"/> 
-
-                            </b:selectOneMenu> 
-                        </b:column>
-                    </b:row>
-
-
-
                     <b:panel look="primary" collapsible="false">
                         <h4 style="text-align: center;">LISTA RELATORIOS</h4>
 
                         <b:dataTable value="#{relatorioController.listaRelatoriosOrientadorLogado}"
                                      var="item" searching="true" border="false"
                                      customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                     styleClass="table table-striped"
-                                     id="relatorioData">
+                                     styleClass="table table-striped">
 
                             <h:column>
                                 <f:facet name="header">Data Inicio</f:facet>
@@ -45,8 +30,8 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                 </h:outputText>
                             </h:column>
-
-                            <h:column>
+                            
+                             <h:column>
                                 <f:facet name="header">Data Fim</f:facet>
                                 <h:outputText value="#{item.periodoFim}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
@@ -87,14 +72,14 @@
 
                             <h:column>
                                 <f:facet name="header">Ações</f:facet>
-
+                                
                                 <h:commandLink title="Consultar" action="#{relatorioController.doConsultar()}">
                                     <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                     <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                 </h:commandLink>
                             </h:column>                            
                         </b:dataTable>   
-
+                       
                     </b:panel>
                 </h:form>             
             </ui:define>    

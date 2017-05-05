@@ -69,6 +69,14 @@
                         </b:row>
 
                         <b:row>
+                            <b:column span="10" offset-md="1">
+                                <p:password title="Senha" goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            />   
+                            </b:column>
+                        </b:row>
+                        <b:row>
+
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
                                                label="Senha" required="true" required-message="O campo senha é obrigatorio"/>

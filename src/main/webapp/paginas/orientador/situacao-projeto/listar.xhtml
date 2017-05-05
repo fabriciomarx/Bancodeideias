@@ -16,8 +16,8 @@
             <ui:define name="conteudo">
                 <h:form>
                     <p:fieldset legend="Lista Situações dos projetos">
-                        <b:panel look="primary" collapsible="false">
 
+                        <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{situacaoProjetoController.listaSituacoes}"
                                          var="item" searching="true"  border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
@@ -28,6 +28,11 @@
                                     <h:outputText value="#{item.dataSituacao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Status</f:facet>
+                                    <h:outputText value="#{item.status}"/>
                                 </h:column>
 
                                 <h:column>
@@ -42,12 +47,26 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
+                                    <h:commandLink title="Alterar" action="#{situacaoProjetoController.doEditar()}">                                    
+                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
+                                    </h:commandLink>
+                                    <h:commandLink title="Excluir" action="#{situacaoProjetoController.doExcluir()}">
+                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
+                                    </h:commandLink>
                                     <h:commandLink title="Consultar" action="#{situacaoProjetoController.doConsultar()}">
                                         <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                         <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
                                     </h:commandLink>
                                 </h:column> 
                             </b:dataTable>
+
+                            <f:facet name="footer">
+                                <b:commandButton value="Incluir" action="#{situacaoProjetoController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus"/>
+
+                            </f:facet>
                         </b:panel>
                     </p:fieldset>
                 </h:form>

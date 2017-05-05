@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 
-public class SituacaoProjetoDAO implements Serializable{
+public class SituacaoProjetoDAO implements Serializable {
 
     public SituacaoProjetoDAO() {
     }
@@ -53,7 +53,7 @@ public class SituacaoProjetoDAO implements Serializable{
         entityManager.close();
         return listaSituacoes;
     }
-    
+
     /* Listar todos as situações daquela universidade */
     public List<SituacaoProjeto> listarSituaçoesCooord() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -63,7 +63,7 @@ public class SituacaoProjetoDAO implements Serializable{
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM SituacaoProjeto u WHERE u.projetoTcc.academico.curso.idCurso = "
-            + usuarioLogado.getCurso().getIdCurso());
+                    + usuarioLogado.getCurso().getIdCurso());
             listaSituacoes = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe listarSituaçoesCooord DAO " + e.getMessage());
@@ -71,5 +71,5 @@ public class SituacaoProjetoDAO implements Serializable{
         entityManager.close();
         return listaSituacoes;
     }
-    
+
 }

@@ -19,7 +19,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{analiseIdeiaController.analiseIdeiaSelecionada.ideia.titulo}" 
-                                                 label="Ideia" readonly="true"/>
+                                             label="Ideia" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -38,10 +38,10 @@
                             </b:column>
                         </b:row>
 
-                         <b:row>
+                        <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{analiseIdeiaController.analiseIdeiaSelecionada.academicoAnalista.nome}" 
-                                                 label="Academico analista" readonly="true"/>
+                                             label="Academico analista" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -51,8 +51,8 @@
                                                  immediate="true" action="#{analiseIdeiaController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analiseIdeiaController.remover()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <b:commandButton value="Enviar" look="info" actionListener="#{analiseIdeiaController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right" />
                             </b:column>
                         </b:row>
                     </h:form>

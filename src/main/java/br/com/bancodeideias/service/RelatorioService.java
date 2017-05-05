@@ -45,18 +45,24 @@ public class RelatorioService implements Serializable {
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosUniLogada();
         return listaRelatorios;
     }
-   
+
     /* Lista de relatorios dos alunos do curso que o coordenador coordena */
     public List<Relatorio> listaRelatoriosCoordLogado() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosCoordLogado();
         return listaRelatorios;
     }
-    
+
     /* Lista de relatorios dos alunos do curso que o orientador orienta */
     public List<Relatorio> listaRelatoriosOrientadorLogado() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosOrientadorLogado();
+        return listaRelatorios;
+    }
+
+    public List<Relatorio> listRelatorioAlunoSelecionado(int idUsuario) {
+        List<Relatorio> listaRelatorios;
+        listaRelatorios = this.getRelatorioQuinzenalDAO().listRelatorioAlunoSelecionado(idUsuario);
         return listaRelatorios;
     }
 

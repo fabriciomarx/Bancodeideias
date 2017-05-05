@@ -40,12 +40,29 @@
                                                  immediate="true" action="#{analiseIdeiaController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analiseIdeiaController.salvar()}"
+                                <b:commandButton value="Enviar" look="info" actionListener="#{analiseIdeiaController.salvar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
-                        </b:row>
+                            <b:column span="3">
+                                        <a id="atrigger" class="btn btn-primary btn-lg" href="#amodal" data-toggle="modal">Trigger (HTML A tag)</a>
+                                    </b:column>
+                          </b:row>
                     </h:form>
-                </p:fieldset>    
+                </p:fieldset> 
+
+                <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
+                    <h:form>
+                        <p>Voce tem certeza disso ?</p>
+                          
+                        <b:commandButton value="Enviar" look="info" actionListener="#{analiseIdeiaController.salvar()}"
+                                         icon="glyphicon glyphicon-send" icon-align="right"/>
+                        <b:button value="close" dismiss="modal" onclick="return false;"/>
+                    </h:form>   
+
+                </b:modal>
+
+                    
+
             </ui:define>    
         </ui:composition>
     </body>

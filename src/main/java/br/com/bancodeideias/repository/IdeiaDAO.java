@@ -63,10 +63,28 @@ public class IdeiaDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
-                    + usuarioLogado.getUniversidade().getIdUsuario());
+                    + usuarioLogado.getIdUsuario());
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarIdeiasdaUniversidade - Classe Ideia DAO");
+        }
+        entityManager.close();
+        return listaIdeia;
+    }
+    
+     /* Listar ideias pendentes da universidade logada */
+    public List<Ideia> listarIdeiasPendentesdaUniversidade() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Ideia> listaIdeia = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Ideia u WHERE u.situacao = 'P' AND u.usuario.universidade.idUsuario = "
+                    + usuarioLogado.getIdUsuario());
+            listaIdeia = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarIdeiasPendentesdaUniversidade - Classe Ideia DAO");
         }
         entityManager.close();
         return listaIdeia;

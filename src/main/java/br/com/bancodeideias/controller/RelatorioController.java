@@ -29,6 +29,10 @@ public class RelatorioController extends GenericController implements Serializab
     private List<Usuario>       listaAcademicos;
     private List<Usuario>       listaProfessores;
     private UsuarioService      usuarioService;
+    
+    
+    private List<Relatorio>     listRelatorioAlunoSelecionado; 
+    
 
     @PostConstruct
     public void preRenderPage() {
@@ -48,35 +52,42 @@ public class RelatorioController extends GenericController implements Serializab
         usuarioService                  = new UsuarioService();
         listaProfessores                = new ArrayList<>();
         listaAcademicos                 = new ArrayList<>();
+        listRelatorioAlunoSelecionado   = new ArrayList<>();
         
     }
 
     public void listar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
+
         switch (usuarioLogado.getTipoUsuario()) {
             case "Admin":
-                listaTodosRelatorio         = this.getRelatorioService().listar();
+                listaTodosRelatorio = this.getRelatorioService().listar();
                 break;
             case "Aluno":
-                listaRelatoriosLogado       = this.getRelatorioService().listaRelatorioLogado();
+                listaRelatoriosLogado = this.getRelatorioService().listaRelatorioLogado();
                 break;
             case "Universidade":
-                listaRelatorioUniLogada     = this.getRelatorioService().listaRelatoriosUniLogada();
+                listaRelatorioUniLogada = this.getRelatorioService().listaRelatoriosUniLogada();
                 break;
             case "Coordenador":
-                listaRelatorioCoordLogado   = this.getRelatorioService().listaRelatoriosCoordLogado();
+                listaRelatorioCoordLogado = this.getRelatorioService().listaRelatoriosCoordLogado();
             case "Professor":
-                listaRelatoriosOrientadorLogado =  this.getRelatorioService().listaRelatoriosOrientadorLogado();
-                    
+                listaRelatoriosOrientadorLogado = this.getRelatorioService().listaRelatoriosOrientadorLogado();
+
             default:
                 break;
         }
+
+        listaProfessores = this.getUsuarioService().listaProfessores();
+        listaAcademicos = this.getUsuarioService().listaAcademicos();
         
-        listaProfessores                      = this.getUsuarioService().listaProfessores();
-        listaAcademicos                       = this.getUsuarioService().listaAcademicos();
-       }
+        
+    }
+    
+    public void list(){
+        listRelatorioAlunoSelecionado = this.getRelatorioService().listRelatorioAlunoSelecionado(relatorioSelecionado.getIdRelatorio());
+    }
 
     public String salvar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -86,12 +97,12 @@ public class RelatorioController extends GenericController implements Serializab
             if (usuarioLogado.getTipoUsuario().equals("Admin")) {
                 this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getRelatorioService().salvar(relatorioSelecionado);
-            }else{
+            } else {
                 this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getRelatorioSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
                 this.getRelatorioService().salvar(relatorioSelecionado);
             }
-            
+
             addSucessMessage("Relatorio salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar Relatorio: " + relatorioSelecionado.toString());
@@ -236,9 +247,16 @@ public class RelatorioController extends GenericController implements Serializab
     public void setListaAcademicos(List<Usuario> listaAcademicos) {
         this.listaAcademicos = listaAcademicos;
     }
-    
-    
 
+    public List<Relatorio> getListRelatorioAlunoSelecionado() {
+        return listRelatorioAlunoSelecionado;
+    }
+
+    public void setListRelatorioAlunoSelecionado(List<Relatorio> listRelatorioAlunoSelecionado) {
+        this.listRelatorioAlunoSelecionado = listRelatorioAlunoSelecionado;
+    }
+
+   
     
 
 }

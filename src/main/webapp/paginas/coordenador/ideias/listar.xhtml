@@ -17,50 +17,58 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <b:panel look="primary" collapsible="false">
-                        <h4 style="text-align: center;">LISTA DE IDEIAS</h4>
-                        <b:dataTable value="#{ideiaController.listaIdeiasdaUniversidade}"
-                                     var="item" searching="true" border="false"
-                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                     styleClass="table table-striped">
+                    <p:fieldset legend="Lista ideias"> 
+                        <b:panel look="primary" collapsible="false">
+                            <b:dataTable value="#{ideiaController.listaIdeia}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
 
-                            <h:column>
-                                <f:facet name="header">Titulo</f:facet>
-                                <h:outputText value="#{item.titulo}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{item.titulo}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Tipo de Ideia</f:facet>
-                                <h:outputText value="#{item.tipoIdeia}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Tipo de Ideia</f:facet>
+                                    <h:outputText value="#{item.tipoIdeia}"/>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Data da Ideia</f:facet>
-                                <h:outputText value="#{item.dataIdeia}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Data da Ideia</f:facet>
+                                    <h:outputText value="#{item.dataIdeia}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
 
-                            <h:column>
-                                <f:facet name="header">Nome do Usuario</f:facet>
-                                <h:outputText value="#{item.usuario.nome}"/>
-                            </h:column>
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
+                                </h:column>
 
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <h:commandLink title="Alterar" action="#{ideiaController.doEditar()}">                                    
+                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </h:commandLink>
+                                    <h:commandLink title="Excluir" action="#{ideiaController.doExcluir()}">
+                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </h:commandLink>
+                                    <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
+                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </h:commandLink>
+                                </h:column>                            
+                            </b:dataTable>   
+                            <f:facet name="footer">
+                                <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"/>
 
-                            <h:column>
-                                <f:facet name="header">Ações</f:facet>
-                                <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
-                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </h:commandLink>
-                            </h:column>                            
-                        </b:dataTable>   
-                        <f:facet name="footer">
-                            <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"/>
-                        </f:facet>
-                    </b:panel>
-                </h:form>  
-
+                            </f:facet>
+                        </b:panel>
+                    </p:fieldset>
+                </h:form>             
             </ui:define>    
         </ui:composition>
 

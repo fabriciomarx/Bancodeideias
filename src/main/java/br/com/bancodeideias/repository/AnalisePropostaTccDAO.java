@@ -53,7 +53,7 @@ public class AnalisePropostaTccDAO implements Serializable {
         entityManager.close();
         return listaAnalisePropostaTcc;
     }
-    
+
     public List<AnalisePropostatcc> listarAnalisesParaUniversidade() {
         System.out.println("Universidade");
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -63,7 +63,7 @@ public class AnalisePropostaTccDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM AnalisePropostatcc u WHERE u.academicoAnalista.universidade.idUsuario = "
-            + usuarioLogado.getIdUsuario());
+                    + usuarioLogado.getIdUsuario());
             listaAnalisePropostaTcc = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarAnalisesParaUniversidade - Classe AnalisePropostaTcc DAO");

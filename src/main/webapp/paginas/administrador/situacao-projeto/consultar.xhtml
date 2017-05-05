@@ -24,6 +24,19 @@
                                             disabled="true"/>
                             </b:column>
                         </b:row><br/>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Status" value="#{situacaoProjetoController.situacaoProjetoSelecionada.status}"
+                                                 disabled="true">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Projeto iniciado" itemValue="Projeto iniciado" />
+                                    <f:selectItem itemLabel="Projeto em andamento" itemValue="Projeto em andamento" />
+                                    <f:selectItem itemLabel="Projeto cancelado" itemValue="Projeto cancelado" />
+                                    <f:selectItem itemLabel="Projeto finalizado" itemValue="Projeto finalizado" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">

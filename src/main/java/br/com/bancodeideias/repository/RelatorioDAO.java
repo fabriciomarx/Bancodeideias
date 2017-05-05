@@ -121,4 +121,19 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return listaRelatorios;
     }
+    
+    /* TESTE PARA SELECIONAR O ALUNO E APARECER A LISTA DE RELATORIOS */
+    public List<Relatorio> listRelatorioAlunoSelecionado(int idAluno) {
+        List<Relatorio> listaRelatorios = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.academico.idUsuario = " + idAluno);
+            listaRelatorios = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo lista - Classe Relatorio DAO");
+        }
+        entityManager.close();
+        return listaRelatorios;
+    }
+    /* TESTE PARA SELECIONAR O ALUNO E APARECER A LISTA DE RELATORIOS */
 }

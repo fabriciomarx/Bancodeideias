@@ -25,6 +25,7 @@ public class IdeiaController extends GenericController implements Serializable {
     private List<Ideia>     listaIdeiasPendente;
     private List<Ideia>     listaIdeiasLogado;
     private List<Ideia>     listaIdeiasdaUniversidade;
+    private List<Ideia>     listarIdeiasPendentesdaUniversidade;
 
     private List<Usuario>   listaUsuario;
     private UsuarioService  usuarioService;
@@ -43,6 +44,7 @@ public class IdeiaController extends GenericController implements Serializable {
         listaIdeiasPendente         = new ArrayList<>();
         listaIdeiasLogado           = new ArrayList<>();
         listaIdeiasdaUniversidade   = new ArrayList<>();
+        listarIdeiasPendentesdaUniversidade = new ArrayList<>();
 
         listaUsuario                = new ArrayList<>();
         usuarioService              = new UsuarioService();
@@ -52,17 +54,17 @@ public class IdeiaController extends GenericController implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
-        if(usuarioLogado.getTipoUsuario().equals("Admin"))
-            listaIdeia                  = this.getIdeiaService().listar(); //  todas ideias 
-        else if(usuarioLogado.getTipoUsuario().equals("Coordenador"))
-            listaIdeiasPendente         = this.getIdeiaService().listarPendentes(); // pendentes
-        else if(usuarioLogado.getTipoUsuario().equals("Universidade"))
-            listaIdeiasdaUniversidade   = this.getIdeiaService().listarIdeiasdaUniversidade();
-        
-        listaIdeiasLogado           = this.getIdeiaService().listarIdeiasLogado(); // somente a do usuario logado
-        listaUsuario                = this.getUsuarioService().listar();
-        
-       
+        if (usuarioLogado.getTipoUsuario().equals("Coordenador") || usuarioLogado.getTipoUsuario().equals("Professor")) {
+            listaIdeiasPendente = this.getIdeiaService().listarPendentes(); // pendentes
+        } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
+            listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
+            listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
+        }
+
+        listaIdeiasLogado = this.getIdeiaService().listarIdeiasLogado(); // somente a do usuario logado
+        listaUsuario = this.getUsuarioService().listar();
+        listaIdeia = this.getIdeiaService().listar(); //  todas ideias 
+
     }
 
     public String salvar() {
@@ -74,8 +76,8 @@ public class IdeiaController extends GenericController implements Serializable {
                 this.getIdeiaSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
             }
             //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
-            if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade") 
-                   || usuarioLogado.getTipoUsuario().equals("Coordenador")  ) {
+            if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade")
+                    || usuarioLogado.getTipoUsuario().equals("Coordenador")) {
                 this.getIdeiaSelecionada().setSituacao("A"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
             }
             this.getIdeiaSelecionada().setDataIdeia(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
@@ -98,9 +100,9 @@ public class IdeiaController extends GenericController implements Serializable {
             if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
                 this.getIdeiaSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
             }
-             //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
-            if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade")  
-                    || usuarioLogado.getTipoUsuario().equals("Coordenador") ) {
+            //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
+            if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade")
+                    || usuarioLogado.getTipoUsuario().equals("Coordenador")) {
                 this.getIdeiaSelecionada().setSituacao("A"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
             }
             this.getIdeiaSelecionada().setDataIdeia(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
@@ -122,7 +124,7 @@ public class IdeiaController extends GenericController implements Serializable {
         } catch (Exception e) {
             addErrorMessage("Erro ao deletar ideia: " + ideiaSelecionada.toString());
         }
-        this.resset(); 
+        this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
@@ -217,6 +219,14 @@ public class IdeiaController extends GenericController implements Serializable {
 
     public void setListaIdeiasdaUniversidade(List<Ideia> listaIdeiasdaUniversidade) {
         this.listaIdeiasdaUniversidade = listaIdeiasdaUniversidade;
+    }
+
+    public List<Ideia> getListarIdeiasPendentesdaUniversidade() {
+        return listarIdeiasPendentesdaUniversidade;
+    }
+
+    public void setListarIdeiasPendentesdaUniversidade(List<Ideia> listarIdeiasPendentesdaUniversidade) {
+        this.listarIdeiasPendentesdaUniversidade = listarIdeiasPendentesdaUniversidade;
     }
     
     

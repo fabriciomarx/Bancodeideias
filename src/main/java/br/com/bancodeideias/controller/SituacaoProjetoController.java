@@ -47,14 +47,15 @@ public class SituacaoProjetoController extends GenericController implements Seri
     private void listar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-         if(usuarioLogado.getTipoUsuario().equals("Coordenador"))
-             listaSituaçoesCooord            = this.getSituacaoProjetoService().listarSituaçoesCooord();
-         
-        listaSituacoes                  = this.getSituacaoProjetoService().listar();
-        listaProjetos                   = this.getPropostaTccService().listarProjetos();
-        
+        if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
+            listaSituaçoesCooord = this.getSituacaoProjetoService().listarSituaçoesCooord();
+        }
+
+        listaSituacoes = this.getSituacaoProjetoService().listar();
+        listaProjetos = this.getPropostaTccService().listarProjetos();
+
     }
-    
+
     public String salvar() {
         try {
             this.getSituacaoProjetoService().salvar(situacaoProjetoSelecionada);
@@ -167,9 +168,5 @@ public class SituacaoProjetoController extends GenericController implements Seri
     public void setListaSituaçoesCooord(List<SituacaoProjeto> listaSituaçoesCooord) {
         this.listaSituaçoesCooord = listaSituaçoesCooord;
     }
-    
-    
 
-
-    
 }

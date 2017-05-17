@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+
+                <p:fieldset legend="Consultar proposta de tcc"> 
+                    <h:form>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
+                                             label="Titulo" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.problema.titulo}" 
+                                                 label="Problema" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
+                                                 readonly="true">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
+                                    <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
+                                    <f:selectItem itemLabel="Trabalho Cientifico" itemValue="Trabalho Cientifico" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivos}"
+                                                 label="Objetivos" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativas}"
+                                                 label="Justificativas" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologias}"
+                                                 label="Metodologias" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.materias}"
+                                                 label="Materiais" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.cronograma}"
+                                                 label="Cronograma" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
+                                                 label="Bibliografia" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Data Inscrição"/>
+                                <b:dateTimePicker value="#{propostaTccController.propostaTccSelecionada.dataInscricao}"
+                                                  required="true" show-time="false"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
+                                                 readonly="true">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
+                                    <f:selectItem itemLabel="Ativo" itemValue="A" />
+                                    <f:selectItem itemLabel="Pendente" itemValue="P" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}" 
+                                             label="Academico" readonly="true"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
+                                             label="Participante" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.orientador.nome}" 
+                                             label="Orientador" readonly="true"/>
+                            </b:column>
+                        </b:row>
+                       
+                        <b:row>
+                            <b:column span="1" offset-md="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
+                            </b:column>
+
+                        </b:row>
+                    </h:form>
+                </p:fieldset>
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

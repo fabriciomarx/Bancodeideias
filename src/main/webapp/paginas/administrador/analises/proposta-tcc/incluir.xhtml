@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+                <p:fieldset legend="Incluir Analise de Proposta de TCC">
+                    <h:form>  
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Proposta de TCC" value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}"
+                                                 required="true" requiredMessage="O campo Proposta de TCC é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
+                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{analisePropostaTccController.analisePropTccSelecionada.comentarios}" 
+                                                 label="Comentario" required="true" requiredMessage="O campo comentarios é obrigatorio" />
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column span="1" offset-md="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                            </b:column>
+                            <b:column span="1" offset-md="8">
+                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </p:fieldset>    
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

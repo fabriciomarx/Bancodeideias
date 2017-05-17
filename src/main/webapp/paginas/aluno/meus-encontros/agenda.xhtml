@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form>
+                    <p:schedule value="#{encontroController.encontros}" locale="pt_BR" widgetVar="rara">
+                        <p:ajax event="dateSelect" oncomplete="PF('dlg').show();"
+                                listener="#{encontroController.novo}" update=":formulario"/>
+                        <p:ajax event="eventSelect" listener="#{encontroController.onEventSelect}" 
+                                update=":formulario" oncomplete="PF('dlg').show();" />
+                    </p:schedule>
+                </h:form>
+
+                <p:dialog closable="true" draggable="false" modal="true"
+                          resizable="false" header="Novo encontro"
+                          width="600" widgetVar="dlg">
+                    <h:form id="formulario">
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText  label="Data encontro" value="#{encontroController.encontroSelecionado.dataEncontro}"
+                                              required="true">
+                                    <f:convertDateTime locale="pt_BR"/>
+                                </b:inputText>
+                            </b:column>
+                            <b:row>
+                            </b:row><br/>
+
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
+                                                 placeholder="Insira o local do Encontro"
+                                                 label="Local do Encontro" required="true" requiredMessage="O campo local é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 placeholder="Insira a descrição do Encontro"
+                                                 label="Descrição" required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.participante}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
+                                    <f:selectItems value="#{encontroController.listaProfessores}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu> 
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column span="1" offset-md="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{encontroController.doCancelar()}" 
+                                                 oncomplete="PF('dlg').hide();"/>
+                            </b:column>
+                            <b:column span="1" offset-md="8">
+                                <b:commandButton value="Enviar" look="info" action="#{encontroController.addEvent(actionEvent)}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"
+                                                 oncomplete="PF('rara').update();PF('dlg').hide();"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+
+                </p:dialog>
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

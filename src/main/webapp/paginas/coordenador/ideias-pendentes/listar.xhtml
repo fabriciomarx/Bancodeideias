@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form>
+                    <p:fieldset legend="Lista ideias pendentes"> 
+                        <b:panel look="primary" collapsible="false">
+                            <b:dataTable value="#{ideiaController.listaIdeiasPendente}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
+
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{item.titulo}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Tipo Ideia</f:facet>
+                                    <h:outputText value="#{item.tipoIdeia}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Data Ideia</f:facet>
+                                    <h:outputText value="#{item.dataIdeia}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Usuario Nome</f:facet>
+                                    <h:outputText value="#{item.usuario.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
+                                                     class="btn btn-success btn-sm">                                    
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton value="Recusar" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-danger btn-sm">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton value="Consultar" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-info btn-sm">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                </h:column>                            
+                            </b:dataTable>   
+                        </b:panel>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

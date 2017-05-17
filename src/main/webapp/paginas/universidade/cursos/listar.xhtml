@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+                <h:form>
+
+                    <b:panel look="primary" collapsible="false">
+                        <h4 style="text-align: center;">LISTA CURSO</h4>
+                        <b:dataTable value="#{cursoController.listaCursoLogado}"
+                                     var="item" searching="true" border="false"
+                                     customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                     styleClass="table table-striped">
+
+                            <h:column>
+                                <f:facet name="header">Nome</f:facet> 
+                                <h:outputText value="#{item.nome}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">Sigla</f:facet> 
+                                <h:outputText value="#{item.sigla}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">Universidade</f:facet> 
+                                <h:outputText value="#{item.universidade.nome}"/>
+                            </h:column> 
+
+
+                            <h:column>
+                                <f:facet name="header">Ações</f:facet>
+                                <p:commandLink title="Alterar" action="#{cursoController.doEditar()}">                                    
+                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </p:commandLink>
+                                <p:commandLink title="Excluir" action="#{cursoController.doExcluir()}">
+                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </p:commandLink>
+                                <p:commandLink title="Consultar" action="#{cursoController.doConsultar()}">
+                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                </p:commandLink>
+                            </h:column>                            
+                        </b:dataTable>   
+                        <f:facet name="footer">
+                            <b:commandButton value="Incluir" action="#{cursoController.doIncluir()}"/>
+                        </f:facet>
+                    </b:panel>
+                </h:form>  
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

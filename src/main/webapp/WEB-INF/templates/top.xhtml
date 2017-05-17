@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    </h:head>
+    <h:body>
+        <nav class="navbar navbar-default" >
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Banco de ideias</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <!-- MOSTRAR QUANDO O USUARIO FOR ADMININSTRADOR -->
+                        <li><a href="#{request.contextPath}/paginas/administrador/usuarios/listar.xhtml?faces-redirect=true">Usuarios</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/cursos/listar.xhtml?faces-redirect=true">Cursos</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/ideias/listar.xhtml?faces-redirect=true">Ideias</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/proposta-tcc/listar.xhtml?faces-redirect=true">Proposta de TCC</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/encontros/listar.xhtml?faces-redirect=true">Encontros</a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/relatorios/listar.xhtml?faces-redirect=true">Relatorios </a></li>
+                        <li><a href="#{request.contextPath}/paginas/administrador/situacao-projeto/listar.xhtml?faces-redirect=true">Situação Projetos </a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analises<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/administrador/analises/ideias/listar.xhtml">Analise de ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/administrador/analises/proposta-tcc/listar.xhtml">Analise proposta de TCC</a></li>
+                            </ul>
+                        </li>   
+                        <li><a href="#{request.contextPath}/paginas/administrador/timeline.xhtml?faces-redirect=true">Timeline</a></li>
+                                 
+                        <!-- MOSTRAR QUANDO O USUARIO FOR ALUNO
+                        <li><a href="#{request.contextPath}/paginas/aluno/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encontros<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/aluno/meus-encontros/listar.xhtml">Editar meus encontros</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/encontros-orientador/listar.xhtml">Todos encontros com orientador</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/aluno/minhas-ideias/listar.xhtml" >Editar minhas ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/aluno/ideias/listar.xhtml">Todas ideias</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/proposta-tcc/listar.xhtml">Proposta de TCC</a></li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li><a href="#{request.contextPath}/paginas/aluno/meus-encontros/agenda.xhtml">Agenda</a></li>
+                         -->
+                        <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO COORDENADOR 
+                        <li><a href="#{request.contextPath}/paginas/coordenador/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li><a href="#{request.contextPath}/paginas/coordenador/encontros/listar.xhtml">Encontros</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/coordenador/minhas-ideias/listar.xhtml">Editar minhas Ideias</a></li>
+                                <li><a href=".#{request.contextPath}/paginas/coordenador/ideias/listar.xhtml">Todas Ideias</a></li>
+                                <li><a href="#{request.contextPath}/paginas/coordenador/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
+                            </ul>
+                        </li> 
+                        <li><a href="#{request.contextPath}/paginas/coordenador/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propostas de TCC<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#{request.contextPath}/paginas/coordenador/propostas-tcc/listar.xhtml">Proposta de TCC</a></li>
+                                <li><a href="#{request.contextPath}/paginas/coordenador/propostas-tcc-pendentes/listar.xhtml">Proposta de TCC Pendentes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#{request.contextPath}/paginas/coordenador/situacao-projeto/listar.xhtml">Situação do Projeto</a></li>
+                        -->
+                        <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ORIENTADOR 
+                        <li><a href="../../orientador/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encontros<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../../orientador/meus-encontros/listar.xhtml">Editar Meus Encontros</a></li>
+                                <li><a href="../../orientador/encontros-aluno/listar.xhtml">Todos Encontros com aluno</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../../orientador/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../../orientador/minhas-ideias/listar.xhtml">Editar Minhas Ideias</a></li>
+                                <li><a href="../../orientador/ideias/listar.xhtml">Ideias</a></li>
+                                <li><a href="../../orientador/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../../orientador/propostas-tcc/listar.xhtml">Proposta de TCC</a></li> 
+                        <li><a href="../../orientador/aprovacoes-propostas/listar.xhtml">Aprovações de Proposta de TCC</a></li>
+                        -->
+                        <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO UNIVERSIDADE 
+                        <li><a href="../../universidade/cadastro/listar.xhtml">Cadastro</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ideias<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../../universidade/ideias/listar.xhtml">Todas as Ideias</a></li>
+                                <li><a href="../../universidade/ideias-pendentes/listar.xhtml">Ideias Pendentes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../../universidade/academicos/listar.xhtml">Academicos</a></li>
+                        <li><a href="../../universidade/cursos/listar.xhtml">Cursos</a></li>
+                        <li><a href="../../universidade/encontros/listar.xhtml">Encontros</a></li>
+                        <li><a href="../../universidade/relatorios/listar.xhtml">Relatorios</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Propostas de TCC<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../../universidade/propostas-tcc/listar.xhtml">Todas as Propostas de TCC</a></li>
+                                <li><a href="../../universidade/propostas-tcc-pendentes/listar.xhtml">Proposta de TCC Pendentes</a></li>
+                                <li><a href="../../universidade/analise-propostas-tcc/listar.xhtml">Analises de Proposta de TCC</a></li>
+                            </ul>
+                        </li>
+                        -->
+
+                    </ul>
+
+                    <!-- CANTO DIREITO -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <h:form style="margin-top: 10px;">
+                            <li> Usuario: #{usuarioController.usuarioLogado.nome}
+                                <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
+                                                 icon="glyphicon glyphicon-log-out"
+                                                 style="margin-left: 10px;"/>
+                            </li>
+                        </h:form>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </h:body>
+</ui:composition>

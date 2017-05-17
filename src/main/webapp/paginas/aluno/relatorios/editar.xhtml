@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+
+                <p:fieldset legend="Editar relatorio"> 
+                    <h:form>
+                        <b:row>
+                            <b:column medium-screen="6" span="8" offset-md="1">
+                                <h:outputLabel value="Periodo Inicio"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
+                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                            </b:column>
+
+                            <b:column medium-screen="6" span="3">
+                                <h:outputLabel value="Periodo Fim"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
+                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                            </b:column>
+                        </b:row><br/>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
+                                                 label="Atividades Realizadas" required="true" required-message="O campo atividades é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a sua auto avaliação" value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
+                                                 label="Auto avaliação" required="true" required-message="O campo auto avalição é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea placeholder="Escreva a(s) sua(s) justificativa(s)" value="#{relatorioController.relatorioSelecionado.justificativa}"
+                                                 label="Justificativa" required="true" required-message="O campo justificativa é obrigatorio"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.orientador.nome}"
+                                             label="Orientador" readonly="true" id="mudarNome"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu  value="#{relatorioController.relatorioSelecionado.orientador}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                    <f:selectItems value="#{relatorioController.listaProfessores}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                     
+                        <b:row>
+                            <b:column span="1" offset-md="1">
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{relatorioController.cancelar()}" />
+                            </b:column>
+                            <b:column span="1" offset-md="8">
+                                <b:commandButton value="Enviar" look="info" action="#{relatorioController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </p:fieldset>
+
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

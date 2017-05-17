@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- TIMELINE Retirado do site 
+           https://www.youtube.com/watch?v=VgmyMMZPHBc
+       
+           https://codyhouse.co/gem/vertical-timeline/ -->
+        <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'/>
+        <h:outputStylesheet library="css" name="resetTimeline.css"/>
+        <h:outputStylesheet library="css" name="styleTimeline.css"/>
+        <h:outputScript library="js" name="modernizrTimeline.js"/>
+        <h:outputScript library="js" name="mainTimeline.js"/>
+        <h:outputScript library="js" name="jquery.min.js"/>
+        <style>
+            .backgroud{
+                width: 100%;
+                height: auto;
+                background-color: graytext; 
+            }
+            p#sugestao{
+                text-align: right;
+            }
+        </style>
+    </h:head>
+
+
+    <h:body>
+
+        <header class="backgroud">
+            <h1>Banco de ideias - Timeline</h1>
+        </header>
+
+        <section id="cd-timeline" class="cd-container">
+            <ui:repeat value="#{ideiaController.listaIdeia}" var="item">
+                <div class="cd-timeline-block">
+                    <div class="cd-timeline-img cd-picture">
+                        <h:graphicImage value="/resources/imagens/usuarioSemFoto.png"/>
+                    </div> 
+
+                    <div class="cd-timeline-content">
+                        <h2>#{item.tipoIdeia}</h2>
+                        <p>#{item.titulo}</p>
+                        <p id="sugestao">Sugestão de: #{item.usuario.nome}</p>
+                        <a href="#0" class="cd-read-more">Saiba mais...</a>
+                        <span class="cd-date">#{item.dataIdeia}</span>
+                    </div> <!-- cd-timeline-content -->
+                </div> <!-- cd-timeline-block -->
+            </ui:repeat>
+        </section>
+
+    </h:body>
+</html>

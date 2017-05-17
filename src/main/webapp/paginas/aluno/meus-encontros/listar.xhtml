@@ -50,7 +50,12 @@
                                     <f:facet name="header">Academico</f:facet> 
                                     <h:outputText value="#{item.academico.nome}"/>
                                 </h:column> 
-
+                                
+                                <h:column>
+                                    <f:facet name="header">Status Orientador</f:facet> 
+                                    <h:outputText value="#{item.statusOrientador}"
+                                                  styleClass="#{item.statusOrientador == 'Enviado e ainda não visto' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
+                                </h:column> 
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>

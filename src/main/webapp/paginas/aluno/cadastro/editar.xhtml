@@ -9,6 +9,7 @@
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
     </head>
 
     <body>
@@ -19,7 +20,7 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
+                                <b:inputText id="oi" value="#{usuarioController.usuarioSelecionado.nome}" 
                                              label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
@@ -36,10 +37,16 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
+                                               label="Senha" />
                             </b:column>
                         </b:row>
 
+                         <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
+                                               label="Repita a senha" />
+                            </b:column>
+                        </b:row>
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"

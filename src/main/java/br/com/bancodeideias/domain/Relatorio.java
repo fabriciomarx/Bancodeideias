@@ -24,10 +24,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "relatorio")
 @NamedQueries({
@@ -68,6 +64,9 @@ public class Relatorio implements Serializable {
     @Column(name = "periodoInicio")
     @Temporal(TemporalType.DATE)
     private Date periodoInicio;
+    @Size(max = 250)
+    @Column(name = "statusOrientador")
+    private String statusOrientador;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
@@ -82,13 +81,14 @@ public class Relatorio implements Serializable {
         this.idRelatorio = idRelatorio;
     }
 
-    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataRelatorio, Date periodoFim, Date periodoInicio) {
+    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataRelatorio, Date periodoFim, Date periodoInicio, String statusOrientador) {
         this.idRelatorio = idRelatorio;
         this.atividadesRealizadas = atividadesRealizadas;
         this.autoAvaliacao = autoAvaliacao;
         this.dataRelatorio = dataRelatorio;
         this.periodoFim = periodoFim;
         this.periodoInicio = periodoInicio;
+        this.statusOrientador = statusOrientador;
     }
 
     public Integer getIdRelatorio() {
@@ -146,6 +146,16 @@ public class Relatorio implements Serializable {
     public void setPeriodoInicio(Date periodoInicio) {
         this.periodoInicio = periodoInicio;
     }
+
+    public String getStatusOrientador() {
+        return statusOrientador;
+    }
+
+    public void setStatusOrientador(String statusOrientador) {
+        this.statusOrientador = statusOrientador;
+    }
+    
+    
 
     public Usuario getOrientador() {
         return orientador;

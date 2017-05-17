@@ -27,7 +27,11 @@
                             
                                   <!--   rowStyleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}" -->
                                      
-
+                              <p:column styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}">
+                                <f:facet name="header">Situação</f:facet>
+                                <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
+                            </p:column>
+                            
                             <p:column>
                                 <f:facet name="header">Titulo</f:facet>
                                 <h:outputText value="#{item.titulo}"/>
@@ -45,17 +49,11 @@
                                 </h:outputText>
                             </p:column>
 
-                            <p:column styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}">
-                                <f:facet name="header">Situação</f:facet>
-                                <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
-                            </p:column>
-
                             <p:column>
                                 <f:facet name="header">Usuario Nome</f:facet>
                                 <h:outputText value="#{item.usuario.nome}"/>
                             </p:column>
-
-
+                          
                             <p:column style="text-align: center;">
                                 <f:facet name="header">Ações</f:facet>
                                 <h:commandLink title="Alterar" action="#{ideiaController.doEditar()}">                                    

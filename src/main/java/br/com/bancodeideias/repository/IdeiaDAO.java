@@ -40,12 +40,12 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
     }
 
-    /* LISTAR TODAS AS IDEIAS */
+    /* LISTAR TODAS AS IDEIAS ATIVAS*/
     public List<Ideia> listar() {
         List<Ideia> listaIdeia = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Ideia u");
+            Query query = entityManager.createQuery("SELECT u FROM Ideia u where u.situacao = 'A'");
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe Ideia DAO");

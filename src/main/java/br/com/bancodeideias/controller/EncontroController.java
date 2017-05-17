@@ -117,9 +117,10 @@ public class EncontroController extends GenericController implements Serializabl
         try {
             if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
                 this.getEncontroService().salvar(encontroSelecionado);
-
+                this.getEncontroSelecionado().setStatusOrientador("Enviado e ainda não visto");
             } else {
                 this.getEncontroSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                this.getEncontroSelecionado().setStatusOrientador("Enviado e ainda não visto");
                 this.getEncontroService().salvar(encontroSelecionado);
             }
 
@@ -136,13 +137,7 @@ public class EncontroController extends GenericController implements Serializabl
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
-                this.getEncontroService().alterar(encontroSelecionado);
-            } else {
-                this.getEncontroSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-                this.getEncontroService().alterar(encontroSelecionado);
-            }
-
+            this.getEncontroService().alterar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao editar encontro: " + encontroSelecionado.toString());

@@ -96,10 +96,12 @@ public class RelatorioController extends GenericController implements Serializab
             //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UM RELATORIO NAO INSERIR O ACADEMICO AUTOMATICO
             if (usuarioLogado.getTipoUsuario().equals("Admin")) {
                 this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
+                this.getRelatorioSelecionado().setStatusOrientador("Enviado e ainda não visto"); //SALVANDO O STATUS AUTOMATICO
                 this.getRelatorioService().salvar(relatorioSelecionado);
             } else {
                 this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                 this.getRelatorioSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                this.getRelatorioSelecionado().setStatusOrientador("Enviado e ainda não visto"); //SALVANDO O STATUS AUTOMATICO
                 this.getRelatorioService().salvar(relatorioSelecionado);
             }
 
@@ -116,10 +118,16 @@ public class RelatorioController extends GenericController implements Serializab
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
-            this.getRelatorioSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-            this.getRelatorioService().alterar(relatorioSelecionado);
-            addSucessMessage("Relatorio editado com sucesso");
+            if (usuarioLogado.getTipoUsuario().equals("Professor")) {
+                this.getRelatorioService().alterar(relatorioSelecionado);
+                addSucessMessage("Relatorio editado com sucesso");
+
+            } else {
+                this.getRelatorioSelecionado().setDataRelatorio(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
+                this.getRelatorioSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                this.getRelatorioService().alterar(relatorioSelecionado);
+                addSucessMessage("Relatorio editado com sucesso");
+            }
         } catch (Exception e) {
             addErrorMessage("Erro ao editar Relatorio: " + relatorioSelecionado.toString());
         }

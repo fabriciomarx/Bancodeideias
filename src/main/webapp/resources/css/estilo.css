@@ -4,24 +4,26 @@
     font-size:100% !important;
 }
 
-/*Ideias Pendentes e Ativas*/
+
+/*Ideias Pendentes e Ativas ***** Propostas tbm*/
 .ativa{
-    color: black!important;
-    background-color: #0fce33!important;
+    color: green!important;
 }
 .pendente{
-    color: black!important;
-    background-color: yellow!important;
+    color: blue!important;
 }
 
-.red_color{
-    background-color: #EF0000!important;
+/*RELATORIOS*/
+.enviado_naovisto{
+    color: blue!important;
 }
-.bloqueado{
-    background-color: #FF3030!important;
+
+.enviado_vistocancelado{
+    color: red!important;
 }
-.cheque{
-    background-color: #008B8B!important;
+
+.enviado_vistoaceito{
+    color: green!important;
 }
 
 .tabela{

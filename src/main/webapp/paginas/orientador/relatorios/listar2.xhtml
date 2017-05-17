@@ -17,12 +17,27 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista relatorio"> 
+                    <b:row>
+                        <b:column medium-screen="3" span="10" offset-md="1">
+                            <b:selectOneMenu id="escolha" label="Escolha um aluno" value="#{relatorioController.relatorioSelecionado}">
+                                <f:selectItem itemLabel="-- Escolha uma opção --" value="#{relatorioController.relatorioSelecionado}"/>
+                                <f:selectItems value="#{relatorioController.listaAcademicos}" var="item"
+                                               itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                <f:ajax render="relatorioData" event="change" listener="#{relatorioController.list()}"/> 
+
+                            </b:selectOneMenu> 
+                        </b:column>
+                    </b:row>
+
+
+                    <p:fieldset legend="Lista Relatorios"> 
                         <b:panel look="primary" collapsible="false">
-                            <b:dataTable value="#{relatorioController.listaRelatoriosLogado}"
+
+                            <b:dataTable value="#{relatorioController.listaRelatoriosOrientadorLogado}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         id="relatorioData">
 
                                 <h:column>
                                     <f:facet name="header">Data Inicio</f:facet>
@@ -64,34 +79,21 @@
                                     <f:facet name="header">Orientador</f:facet>
                                     <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
-                                    <f:facet name="header">Status do Orientador</f:facet>
-                                    <h:outputText value="#{item.statusOrientador}"
-                                                  styleClass="#{item.statusOrientador == 'Enviado e ainda não visto' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
+                                    <f:facet name="header">Academico</f:facet>
+                                    <h:outputText value="#{item.academico.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{relatorioController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
-                                        <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{relatorioController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
-                                        <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
-                                    </h:commandLink>
+
                                     <h:commandLink title="Consultar" action="#{relatorioController.doConsultar()}">
                                         <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </h:commandLink>
                                 </h:column>                            
                             </b:dataTable>   
-                            <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{relatorioController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
-
-                            </f:facet>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

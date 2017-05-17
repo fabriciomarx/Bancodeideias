@@ -75,9 +75,24 @@
                         </b:row>
 
                         <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu value="#{relatorioController.relatorioSelecionado.statusOrientador}"
+                                                 label="Status" required="true" requiredMessage="O campo status é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Visto e aceito" itemValue="Visto e aceito"/>
+                                    <f:selectItem itemLabel="Visto e recusado" itemValue="Visto e recusado"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{relatorioController.cancelar()}" />
+                            </b:column>
+
+                            <b:column span="1" offset-md="7" >
+                                <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
+                                                 action="#{relatorioController.alterar()}" icon-align="right"/>
                             </b:column>
 
                         </b:row>

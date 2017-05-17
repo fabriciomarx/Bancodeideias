@@ -172,6 +172,20 @@ public class PropostaTccController extends GenericController implements Serializ
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
+    
+    /*Metodo para aceitar proposta de tcc, serve para o usuario professor*/
+    public String aceitar() {
+        try {
+            this.getPropostaTccSelecionada().setAprovacaoOrientador("A");
+            this.getPropostaTccService().alterar(propostaTccSelecionada);
+            addSucessMessage("Proposta Tcc aceita com sucesso");
+        } catch (Exception e) {
+            addErrorMessage("Erro ao aceitar proposta Tcc: " + propostaTccSelecionada.toString());
+        }
+        this.resset();
+        this.listar();
+        return "listar.xhtml?faces-redirect=true";
+    }
 
     // ============ METODOS DE AÇÕES NA TELA ===========
     public String doIncluir() {

@@ -44,6 +44,9 @@ public class Encontro implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "localEncontro")
     private String localEncontro;
+    @Size(min = 1, max = 100)
+    @Column(name = "statusOrientador")
+    private String statusOrientador;
     @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
@@ -58,11 +61,12 @@ public class Encontro implements Serializable {
         this.idEncontro = idEncontro;
     }
 
-    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, String localEncontro) {
+    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, String localEncontro, String statusOrientador) {
         this.idEncontro = idEncontro;
         this.dataEncontro = dataEncontro;
         this.descricao = descricao;
         this.localEncontro = localEncontro;
+        this.statusOrientador = statusOrientador;
     }
 
     public Integer getIdEncontro() {
@@ -96,6 +100,16 @@ public class Encontro implements Serializable {
     public void setLocalEncontro(String localEncontro) {
         this.localEncontro = localEncontro;
     }
+
+    public String getStatusOrientador() {
+        return statusOrientador;
+    }
+
+    public void setStatusOrientador(String statusOrientador) {
+        this.statusOrientador = statusOrientador;
+    }
+    
+    
 
     public Usuario getAcademico() {
         return academico;

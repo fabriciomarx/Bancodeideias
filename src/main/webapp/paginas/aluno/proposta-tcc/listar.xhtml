@@ -19,10 +19,23 @@
                 <h:form>
                     <p:fieldset legend="Lista proposta de tcc"> 
                         <b:panel look="primary" collapsible="false">
+
                             <b:dataTable value="#{propostaTccController.listaPropostasLogado}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
+
+                                <h:column>
+                                    <f:facet name="header">Aprovação do Orientador</f:facet>
+                                    <h:outputText value="#{item.aprovacaoOrientador == 'A' ? 'Aprovado' : 'Em analise..'}"
+                                                  styleClass="#{item.aprovacaoOrientador == 'A' ? 'ativa' : 'pendente'}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativa' : 'Em analise..'}"
+                                                  styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
@@ -45,23 +58,10 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Objetivos</f:facet>
-                                    <h:outputText value="#{item.objetivos}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativas}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Metodologias</f:facet>
-                                    <h:outputText value="#{item.metodologias}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Materiais</f:facet>
-                                    <h:outputText value="#{item.materias}"/>
+                                    <f:facet name="header">Data Inscrição</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
                                 </h:column>
 
 
@@ -79,13 +79,15 @@
                                         <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </h:commandLink>
-                                </h:column>                            
-                            </b:dataTable>   
-                            <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{propostaTccController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
-                            </f:facet>
+                                </h:column> 
+                                </b:dataTable>   
+                                <f:facet name="footer">
+                                    <b:commandButton value="Incluir" action="#{propostaTccController.doIncluir()}"
+                                                     icon="glyphicon glyphicon-plus"/>
+                                </f:facet>
+                                
                         </b:panel>
+                        
                     </p:fieldset>
                 </h:form>             
             </ui:define>    

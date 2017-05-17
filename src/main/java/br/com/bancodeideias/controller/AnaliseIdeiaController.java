@@ -28,6 +28,7 @@ public class AnaliseIdeiaController extends GenericController implements Seriali
 
     private List<Ideia>             listaIdeia;
     private List<Ideia>             listaIdeiaParaUniversidade;
+    private List<Ideia>             listaIdeiasPendentes;
     private IdeiaService            ideiaService;
 
     @PostConstruct
@@ -45,6 +46,7 @@ public class AnaliseIdeiaController extends GenericController implements Seriali
         listaIdeia                          = new ArrayList<>();
         listaIdeiaParaUniversidade          = new ArrayList<>();
         ideiaService                        = new IdeiaService();
+        listaIdeiasPendentes                = new ArrayList<>();
 
     }
 
@@ -52,9 +54,10 @@ public class AnaliseIdeiaController extends GenericController implements Seriali
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
-        if (usuarioLogado.getTipoUsuario().equals("Admin")) {
+        if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Professor") ) {
             listaAnaliseIdeia = this.getAnaliseIdeiaService().listar();
             listaIdeia = this.getIdeiaService().listar();
+            listaIdeiasPendentes = this.getIdeiaService().listarPendentes();
         } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
             listaAnaliseIdeiaParaUniversidade = this.getAnaliseIdeiaService().listarAnalisesParaUniversidade();
             listaIdeiaParaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
@@ -86,7 +89,7 @@ public class AnaliseIdeiaController extends GenericController implements Seriali
                 .getExternalContext();
         try {
             externalContext.redirect(externalContext.getRequestContextPath()
-                    + "/paginas/administrador/analises/ideias/listar.xhtml?faces-redirect=true");
+                    + "/paginas/orientador/ideias-pendentes/listar.xhtml?faces-redirect=true");
         } catch (IOException e) {
         }
     }

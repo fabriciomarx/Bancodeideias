@@ -19,15 +19,13 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <h:outputLabel value="Data Inicio"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
-                                <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <h:outputLabel value="Data Fim"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"/>
                             </b:column>
                         </b:row><br/>
 
@@ -55,7 +53,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data Relatorio"/>
-                                <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataRelatorio}"
+                                <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataInscricao}"
                                                   show-time="false"/>
                             </b:column>
                         </b:row>
@@ -73,10 +71,11 @@
                                              label="Orientador" disabled="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{relatorioController.relatorioSelecionado.statusOrientador}"
+                                <b:selectOneMenu value="#{relatorioController.relatorioSelecionado.status}"
+                                                 disabled="#{!relatorioController.relatorioSelecionado.status.endsWith('visualizado')}"
                                                  label="Status" required="true" requiredMessage="O campo status é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Visto e aceito" itemValue="Visto e aceito"/>
@@ -84,6 +83,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
+
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
@@ -94,8 +94,8 @@
                                 <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
                                                  action="#{relatorioController.alterar()}" icon-align="right"/>
                             </b:column>
-
                         </b:row>
+                       
                     </h:form>
                 </p:fieldset>
             </ui:define>    

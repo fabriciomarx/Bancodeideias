@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -18,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,14 +20,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "ideia")
-@NamedQueries({
-    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")})
 public class Ideia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +32,14 @@ public class Ideia implements Serializable {
     private Integer idIdeia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "titulo")
-    private String titulo;
+    @Column(name = "dataInscricao")
+    @Temporal(TemporalType.DATE)
+    private Date dataInscricao;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "situacao")
+    private String situacao;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -55,21 +47,28 @@ public class Ideia implements Serializable {
     private String tipoIdeia;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dataIdeia")
-    @Temporal(TemporalType.DATE)
-    private Date dataIdeia;
+    @Size(min = 1, max = 250)
+    @Column(name = "descricao")
+    private String descricao;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "situacao")
-    private String situacao;
+    @Size(min = 1, max = 250)
+    @Column(name = "titulo")
+    private String titulo;
+    @Column(name = "dataAnalise")
+    @Temporal(TemporalType.DATE)
+    private Date dataAnalise;
+    @Size(max = 250)
+    @Column(name = "comentario")
+    private String comentario;
+    @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario analista;
     @JoinColumn(name = "usuario", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "problema", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ideia", fetch = FetchType.LAZY)
-    private List<AnaliseIdeia> analiseIdeiaList;
 
     public Ideia() {
     }
@@ -78,12 +77,13 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public Ideia(Integer idIdeia, String titulo, String tipoIdeia, Date dataIdeia, String situacao) {
+    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo) {
         this.idIdeia = idIdeia;
-        this.titulo = titulo;
-        this.tipoIdeia = tipoIdeia;
-        this.dataIdeia = dataIdeia;
+        this.dataInscricao = dataInscricao;
         this.situacao = situacao;
+        this.tipoIdeia = tipoIdeia;
+        this.descricao = descricao;
+        this.titulo = titulo;
     }
 
     public Integer getIdIdeia() {
@@ -94,12 +94,20 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public Date getDataInscricao() {
+        return dataInscricao;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setDataInscricao(Date dataInscricao) {
+        this.dataInscricao = dataInscricao;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
     public String getTipoIdeia() {
@@ -110,20 +118,44 @@ public class Ideia implements Serializable {
         this.tipoIdeia = tipoIdeia;
     }
 
-    public Date getDataIdeia() {
-        return dataIdeia;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDataIdeia(Date dataIdeia) {
-        this.dataIdeia = dataIdeia;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getSituacao() {
-        return situacao;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Date getDataAnalise() {
+        return dataAnalise;
+    }
+
+    public void setDataAnalise(Date dataAnalise) {
+        this.dataAnalise = dataAnalise;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Usuario getAnalista() {
+        return analista;
+    }
+
+    public void setAnalista(Usuario analista) {
+        this.analista = analista;
     }
 
     public Usuario getUsuario() {
@@ -140,14 +172,6 @@ public class Ideia implements Serializable {
 
     public void setPropostaTccList(List<PropostaTcc> propostaTccList) {
         this.propostaTccList = propostaTccList;
-    }
-
-    public List<AnaliseIdeia> getAnaliseIdeiaList() {
-        return analiseIdeiaList;
-    }
-
-    public void setAnaliseIdeiaList(List<AnaliseIdeia> analiseIdeiaList) {
-        this.analiseIdeiaList = analiseIdeiaList;
     }
 
     @Override
@@ -174,5 +198,5 @@ public class Ideia implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Ideia[ idIdeia=" + idIdeia + " ]";
     }
-    
+
 }

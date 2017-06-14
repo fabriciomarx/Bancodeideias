@@ -15,50 +15,54 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
+                <p:chart type="line" model="#{cursoController.areaModel}" style="height:300px" responsive="true"/>
                 <h:form>
-                    <p:fieldset legend="Lista Curso"> 
-                        <p:dataTable value="#{cursoController.listaCurso}"
-                                     var="item"
-                                     rowStyleClass="#{item.nome == 'dsdsd' ? 'red_color' : null}">
+                    <p:fieldset legend="Lista de cursos">
+                        <b:panel look="primary" collapsible="false">
+                            <b:dataTable value="#{cursoController.listaCurso}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
 
-                            <p:column>
-                                <f:facet name="header">Nome</f:facet> 
-                                <h:outputText value="#{item.nome}"/>
-                            </p:column> 
-                            <p:column>
-                                <f:facet name="header">Sigla</f:facet> 
-                                <h:outputText value="#{item.sigla}"/>
-                            </p:column> 
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet> 
+                                    <h:outputText value="#{item.nome}"/>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">Sigla</f:facet> 
+                                    <h:outputText value="#{item.sigla}"/>
+                                </h:column> 
+                                <h:column>
+                                    <f:facet name="header">Universidade</f:facet> 
+                                    <h:outputText value="#{item.universidade.nome}"/>
+                                </h:column> 
 
-                            <p:column>
-                                <f:facet name="header">Universidade</f:facet> 
-                                <h:outputText value="#{item.universidade.nome}"/>
-                            </p:column> 
 
-                            <p:column style="text-align: center;">
-                                <f:facet name="header">Ações</f:facet>
-                                <h:commandLink title="Alterar" action="#{cursoController.doEditar()}">                                    
-                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Excluir" action="#{cursoController.doExcluir()}">
-                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Consultar" action="#{cursoController.doConsultar()}">
-                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
-                                </h:commandLink>
-                            </p:column>  
-                            
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{cursoController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
+                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{cursoController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
+                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{cursoController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
+                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column>                            
+                            </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{cursoController.doIncluir()}" 
-                                                 icon="glyphicon glyphicon-plus"/>
+                                <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
                             </f:facet>
-                        </p:dataTable>  
+                        </b:panel>
                     </p:fieldset>
-                </h:form>   
+                </h:form>  
+
             </ui:define>    
         </ui:composition>
     </body>

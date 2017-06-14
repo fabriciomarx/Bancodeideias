@@ -34,38 +34,48 @@
                                     <f:facet name="header">Tipo de Ideia</f:facet>
                                     <h:outputText value="#{item.tipoIdeia}"/>
                                 </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
+                                </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data da Ideia</f:facet>
-                                    <h:outputText value="#{item.dataIdeia}">
+                                    <f:facet name="header">Data da Inclusão</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"
-                                                  styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}"/>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
+
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{ideiaController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{ideiaController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"/>
+                                <b:commandButton value="Incluir Nova" action="#{ideiaController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

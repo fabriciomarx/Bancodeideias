@@ -18,7 +18,7 @@
                     <p:fieldset legend="Lista Analise de Proposta de TCC">
                         <b:panel look="primary" collapsible="false">
 
-                            <b:dataTable value="#{analisePropostaTccController.listaAnalise}"
+                            <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
@@ -57,24 +57,25 @@
                                     <f:facet name="header">
                                         <h:outputText value="Ações"/>
                                     </f:facet>
-                                    <h:commandLink title="Alterar" action="#{analisePropostaTccController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"/>
+                                    <b:commandButton action="#{analisePropostaTccController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{analisePropostaTccController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{analisePropostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{analisePropostaTccController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{analisePropostaTccController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>  
 
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir" action="#{analisePropostaTccController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

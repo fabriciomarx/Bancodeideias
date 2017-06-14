@@ -17,14 +17,15 @@
 
                 <p:fieldset legend="Consultar encontro"> 
                     <h:form>
-
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Data do Encontro"/>
-                                <b:dateTimePicker value="#{encontroController.encontroSelecionado.dataEncontro}"
-                                                  show-time="false"/>
+                                <h:outputLabel value="Data encontro"/><br/>
+                                <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
+                                            placeholder="__/__/__"
+                                            mindate="new date()" required="true" pages="3" />
+                                
                             </b:column>
-                        </b:row>
+                        </b:row><br/>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -56,7 +57,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.statusOrientador}"
+                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.status}"
+                                                 disabled="#{!encontroController.encontroSelecionado.status.endsWith('visualizado')}"
                                                  label="Status" required="true" requiredMessage="O campo status é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Visto e aceito" itemValue="Visto e aceito"/>
@@ -73,7 +75,8 @@
 
                             <b:column span="1" offset-md="7" >
                                 <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
-                                                 action="#{encontroController.alterar()}" icon-align="right"/>
+                                                 action="#{encontroController.alterar()}" icon-align="right"
+                                                 rendered="#{encontroController.encontroSelecionado.status.endsWith('visualizado')} "/>
                             </b:column>
                         </b:row>
                     </h:form>

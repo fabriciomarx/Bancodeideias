@@ -16,12 +16,15 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista ideias pendentes"> 
+                    <p:fieldset legend="Ideias pendentes"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeiasPendente}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="600px"
+                                         scroll-x="false">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
@@ -32,17 +35,17 @@
                                     <f:facet name="header">Tipo Ideia</f:facet>
                                     <h:outputText value="#{item.tipoIdeia}"/>
                                 </h:column>
-
+                                
                                 <h:column>
-                                    <f:facet name="header">Data Ideia</f:facet>
-                                    <h:outputText value="#{item.dataIdeia}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
+                                    <f:facet name="header">Data da Inclusão</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
                                 </h:column>
 
                                 <h:column>
@@ -51,17 +54,25 @@
                                 </h:column>
 
                                 <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+
+                                <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
+                                    <b:commandButton value="Analisar" action="#{ideiaController.doConsultar()}"
                                                      class="btn btn-success btn-sm">                                    
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
-                                    <b:commandButton value="Recusar" action="#{ideiaController.doConsultar()}"
-                                                     class="btn btn-danger btn-sm">
+                                    <b:commandButton value="" action="#{ideiaController.doEditar()}"
+                                                     class="btn btn-primary btn-sm" icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
-                                    <b:commandButton value="Consultar" action="#{ideiaController.doConsultar()}"
-                                                     class="btn btn-info btn-sm">
+                                    <b:commandButton value="" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-info btn-sm" icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            

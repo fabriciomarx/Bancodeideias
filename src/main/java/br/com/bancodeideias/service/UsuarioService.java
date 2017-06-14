@@ -33,13 +33,19 @@ public class UsuarioService implements Serializable {
     }
 
     public void alterar(Usuario usuario) {
-        //String senhaNaoConvertida = usuario.getSenha();
-        String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
+        String senhaAntiga = usuario.getSenha();
+        
+        String senhaNova = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
 
-        //if(senhaNaoConvertida.equals(senha))
-        //usuario.setSenha(senhaNaoConvertida);
-        //else
-        usuario.setSenha(senha);
+       
+        if (senhaAntiga.equals(senhaNova)) {
+            usuario.setSenha(senhaAntiga);
+        } else {
+            usuario.setSenha(senhaNova);
+        }
+            
+        System.out.println("Nova " + senhaNova);
+        System.out.println("Antiga " + senhaAntiga);
 
         this.getUsuarioDAO().alterar(usuario);
     }
@@ -90,10 +96,17 @@ public class UsuarioService implements Serializable {
         return listaUsuario;
     }
 
-    /* Lista de academicos da universidade logada */
+    /* Lista de academicos*/
     public List<Usuario> listaAcademicos() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaAcademicos();
+        return listaUsuario;
+    }
+    
+    /* Lista de academicos da universidade logada */
+    public List<Usuario> listaAcademicosUniLogada() {
+        List<Usuario> listaUsuario;
+        listaUsuario = this.getUsuarioDAO().listaAcademicosUniLogada();
         return listaUsuario;
     }
 
@@ -102,6 +115,13 @@ public class UsuarioService implements Serializable {
     public List<Usuario> listaProfessores() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaProfessores();
+        return listaUsuario;
+    }
+    
+    /* LISTA DE UNIVERSIDADES PENDENTES CADASTRADAS NO SISTEMA */
+    public List<Usuario> listaUniversidadesPendentes() {
+        List<Usuario> listaUsuario;
+        listaUsuario = this.getUsuarioDAO().listaUniversidadesPendentes();
         return listaUsuario;
     }
 

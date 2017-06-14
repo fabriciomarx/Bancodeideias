@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -16,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +19,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "relatorio")
-@NamedQueries({
-    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r")})
 public class Relatorio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,25 +39,25 @@ public class Relatorio implements Serializable {
     private String autoAvaliacao;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dataRelatorio")
+    @Column(name = "dataInscricao")
     @Temporal(TemporalType.DATE)
-    private Date dataRelatorio;
+    private Date dataInscricao;
     @Size(max = 250)
     @Column(name = "justificativa")
     private String justificativa;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "periodoFim")
+    @Column(name = "dataFim")
     @Temporal(TemporalType.DATE)
-    private Date periodoFim;
+    private Date dataFim;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "periodoInicio")
+    @Column(name = "dataInicio")
     @Temporal(TemporalType.DATE)
-    private Date periodoInicio;
-    @Size(max = 250)
-    @Column(name = "statusOrientador")
-    private String statusOrientador;
+    private Date dataInicio;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
@@ -81,14 +72,13 @@ public class Relatorio implements Serializable {
         this.idRelatorio = idRelatorio;
     }
 
-    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataRelatorio, Date periodoFim, Date periodoInicio, String statusOrientador) {
+    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataInscricao, Date dataFim, Date dataInicio) {
         this.idRelatorio = idRelatorio;
         this.atividadesRealizadas = atividadesRealizadas;
         this.autoAvaliacao = autoAvaliacao;
-        this.dataRelatorio = dataRelatorio;
-        this.periodoFim = periodoFim;
-        this.periodoInicio = periodoInicio;
-        this.statusOrientador = statusOrientador;
+        this.dataInscricao = dataInscricao;
+        this.dataFim = dataFim;
+        this.dataInicio = dataInicio;
     }
 
     public Integer getIdRelatorio() {
@@ -115,12 +105,12 @@ public class Relatorio implements Serializable {
         this.autoAvaliacao = autoAvaliacao;
     }
 
-    public Date getDataRelatorio() {
-        return dataRelatorio;
+    public Date getDataInscricao() {
+        return dataInscricao;
     }
 
-    public void setDataRelatorio(Date dataRelatorio) {
-        this.dataRelatorio = dataRelatorio;
+    public void setDataInscricao(Date dataInscricao) {
+        this.dataInscricao = dataInscricao;
     }
 
     public String getJustificativa() {
@@ -131,31 +121,29 @@ public class Relatorio implements Serializable {
         this.justificativa = justificativa;
     }
 
-    public Date getPeriodoFim() {
-        return periodoFim;
+    public Date getDataFim() {
+        return dataFim;
     }
 
-    public void setPeriodoFim(Date periodoFim) {
-        this.periodoFim = periodoFim;
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
     }
 
-    public Date getPeriodoInicio() {
-        return periodoInicio;
+    public Date getDataInicio() {
+        return dataInicio;
     }
 
-    public void setPeriodoInicio(Date periodoInicio) {
-        this.periodoInicio = periodoInicio;
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
-    public String getStatusOrientador() {
-        return statusOrientador;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusOrientador(String statusOrientador) {
-        this.statusOrientador = statusOrientador;
+    public void setStatus(String status) {
+        this.status = status;
     }
-    
-    
 
     public Usuario getOrientador() {
         return orientador;
@@ -197,5 +185,5 @@ public class Relatorio implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Relatorio[ idRelatorio=" + idRelatorio + " ]";
     }
-    
+
 }

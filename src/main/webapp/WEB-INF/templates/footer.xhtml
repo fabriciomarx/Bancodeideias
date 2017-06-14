@@ -6,18 +6,18 @@
                 xmlns:b="http://bootsfaces.net/ui">
     <footer class="mdl-mini-footer">
         <div class="mdl-mini-footer__left-section">
-            <div class="mdl-logo">Title</div>
-            <ul class="mdl-mini-footer__link-list">
-                <li><a href="#">Help</a></li>
-                <li><a href="#">Privacy e Terms</a></li>
-            </ul>
+            <div class="mdl-logo">Banco de ideias</div>
         </div>
-        <h:form>
-                    Usuario: #{usuarioController.usuarioLogado.nome}
-                    <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
-                                     icon="glyphicon glyphicon-log-out"
-                                     style="margin-left: 10px;"/>
+        <div style="margin-left: 750px">
+            <h:form>
+                USUARIO: #{usuarioController.usuarioLogado.nome}
+                <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
+                                 icon="glyphicon glyphicon-log-out"
+                                 style="margin-left: 10px;"/>
 
-                </h:form>
+            </h:form>
+        </div>
     </footer>
 </ui:composition>
+
+

@@ -14,39 +14,33 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Editar Analise de Proposta de TCC">
-                    <h:form>
+                <p:fieldset legend="Incluir analise de proposta de tcc">
+                    <h:form>  
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc.titulo}" 
-                                                 label="Proposta de TCC" readonly="true"/>
-                            </b:column>
-                        </b:row>
-                        
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
+                                <b:selectOneMenu label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{analisePropostaTccController.analisePropTccSelecionada.comentarios}" 
-                                                 label="Comentario" required="true" required-message="O campo comentarios é obrigatorio" />
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.comentario}" 
+                                                 label="Comentario" placeholder="Escreva seu(s) comentario(s) caso seja necessario"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.alterar()}"
+                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.alterar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

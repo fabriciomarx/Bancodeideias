@@ -25,35 +25,35 @@ public class RelatorioService implements Serializable {
         this.getRelatorioQuinzenalDAO().remover(relatorio.getIdRelatorio());
     }
 
-    /* Listar todos */
+    /* LISTAR TODOS OS RELATORIOS DO SISTEMA */
     public List<Relatorio> listar() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listar();
         return listaRelatorios;
     }
 
-    /* Lista apenas do aluno logado */
+    /* LISTAR OS RELATORIOS DO ALUNO LOGADO */
     public List<Relatorio> listaRelatorioLogado() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatorioLogado();
         return listaRelatorios;
     }
 
-    /* Lista de relatorios dos aluno da universidade logada */
+    /* LISTA DE RELATORIOS DOS ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Relatorio> listaRelatoriosUniLogada() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosUniLogada();
         return listaRelatorios;
     }
 
-    /* Lista de relatorios dos alunos do curso que o coordenador coordena */
+    /* LISTA DE RELATORIOS DOS ALUNOS PERTENCENTES AO CURSO QUE O COORDENADOR COORDENA */
     public List<Relatorio> listaRelatoriosCoordLogado() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosCoordLogado();
         return listaRelatorios;
     }
 
-    /* Lista de relatorios dos alunos do curso que o orientador orienta */
+    /* TESTE PARA SELECIONAR O ALUNO E APARECER A LISTA DE RELATORIOS */
     public List<Relatorio> listaRelatoriosOrientadorLogado() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listaRelatoriosOrientadorLogado();

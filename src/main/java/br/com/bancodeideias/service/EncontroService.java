@@ -25,34 +25,46 @@ public class EncontroService implements Serializable {
         this.getEncontroDAO().remover(encontro.getIdEncontro());
 
     }
+    
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno ou professor) Metodo que a universidade usa */
+    public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
+        List<Encontro> lista;
+        lista = this.getEncontroDAO().listarEncontrosAcademicoSelecionado(id);
+        return lista;
+    }
 
-    /* Listar todos os encontros do sistema */
+    /* LISTA TODOS OS ENCONTROS CADASTRADOS NO SISTEMA */
     public List<Encontro> listar() {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listar();
         return lista;
     }
-    
-    /* Lista de encontros dos alunos do curso que o coordenador coordena */
+
+    /* LISTA TODOS OS ENCONTROS DE ALUNOS DA UNIVERSIDADE LOGADA */
+    public List<Encontro> listarEncontrosParaUniv() {
+        List<Encontro> lista;
+        lista = this.getEncontroDAO().listarEncontrosParaUniv();
+        return lista;
+    }
+
+    /* LISTA DE ENCONTROS DE ALUNOS QUE SEJAM DO CURSO QUE O COORDENADOR GERENCIA */
     public List<Encontro> listarEncontrosParaCoord() {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listarEncontrosParaCoord();
         return lista;
     }
 
-    /* Listar os encontros que a pessoa cadastrou 
-        nesse caso a pessoa que é academico*/
+    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU - (ACADEMICO) */
     public List<Encontro> listarEncontrosQueCadastrei() {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listarEncontrosQueCadastrei();
         return lista;
     }
 
-    /* Listar os encontros que a pessoa foi chamada/selecionada 
-        nesse caso a pessoa é participante */
-    public List<Encontro> listarEncontrosQueFuiChamado() {
+    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU OU FOI CHAMADA PARA PARTICIPAR */
+    public List<Encontro> listarEncontrosAlu_Prof() {
         List<Encontro> lista;
-        lista = this.getEncontroDAO().listarEncontrosQueFuiChamado();
+        lista = this.getEncontroDAO().listarEncontrosAlu_Prof();
         return lista;
     }
 

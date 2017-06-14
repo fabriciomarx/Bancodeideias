@@ -28,7 +28,7 @@ public class Curso implements Serializable {
     private Integer idCurso;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 70)
     @Column(name = "nome")
     private String nome;
     @Basic(optional = false)
@@ -119,5 +119,5 @@ public class Curso implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Curso[ idCurso=" + idCurso + " ]";
     }
-    
+
 }

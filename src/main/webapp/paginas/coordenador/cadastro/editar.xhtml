@@ -14,18 +14,19 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Editar meu cadastro"> 
+
+                <p:fieldset legend="Editar meu cadastro">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
+                                <b:inputText value="#{usuarioController.usuarioLogado.nome}" 
                                              label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
+                                <b:inputText value="#{usuarioController.usuarioLogado.email}" 
                                              label="Email" required="true" required-message="O campo email é obrigatorio">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>
@@ -34,28 +35,63 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
+                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
+                                            required="true" requiredMessage="O campo senha é obrigatorio" />
+
+                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
+                                            requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
                         
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
+                                <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioLogado.tipoUsuario}"
+                                                 readonly="true">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
+                                    <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
+                                    <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
+                                    <f:selectItem itemLabel="Professor" itemValue="Professor"/>
+                                    <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
+                                </b:selectOneMenu>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{usuarioController.doCancelar()}" />
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioLogado.matricula}" 
+                                             label="Matricula" readonly="true"/>
                             </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioLogado.universidade.nome}" 
+                                             label="Universidade" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioLogado.curso.nome}" 
+                                             label="Curso" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.alterar()}"/>
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>
                 </p:fieldset>   
+
             </ui:define>    
         </ui:composition>
     </body>

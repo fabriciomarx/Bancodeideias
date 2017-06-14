@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,23 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "proposta_tcc")
-@NamedQueries({
-    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")})
 public class PropostaTcc implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +27,7 @@ public class PropostaTcc implements Serializable {
     @Basic(optional = false)
     @Column(name = "idProposta")
     private Integer idProposta;
-    @Size(max = 2)
+    @Size(max = 15)
     @Column(name = "aprovacao_orientador")
     private String aprovacaoOrientador;
     @Basic(optional = false)
@@ -64,8 +48,8 @@ public class PropostaTcc implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "justificativas")
-    private String justificativas;
+    @Column(name = "justificativa")
+    private String justificativa;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
@@ -74,14 +58,16 @@ public class PropostaTcc implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "metodologias")
-    private String metodologias;
+    @Column(name = "metodologia")
+    private String metodologia;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "objetivos")
-    private String objetivos;
-    @Size(max = 2)
+    @Column(name = "objetivo")
+    private String objetivo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "situacao")
     private String situacao;
     @Basic(optional = false)
@@ -94,8 +80,12 @@ public class PropostaTcc implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "titulo")
     private String titulo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "propostaTcc", fetch = FetchType.LAZY)
-    private List<AnalisePropostatcc> analisePropostatccList;
+    @Column(name = "dataAnalise")
+    @Temporal(TemporalType.DATE)
+    private Date dataAnalise;
+    @Size(max = 250)
+    @Column(name = "comentario")
+    private String comentario;
     @JoinColumn(name = "problema", referencedColumnName = "idIdeia")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Ideia problema;
@@ -108,8 +98,9 @@ public class PropostaTcc implements Serializable {
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetoTcc", fetch = FetchType.LAZY)
-    private List<SituacaoProjeto> situacaoProjetoList;
+    @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario analista;
 
     public PropostaTcc() {
     }
@@ -118,15 +109,16 @@ public class PropostaTcc implements Serializable {
         this.idProposta = idProposta;
     }
 
-    public PropostaTcc(Integer idProposta, String bibliografia, String cronograma, Date dataInscricao, String justificativas, String materias, String metodologias, String objetivos, String tipoTcc, String titulo) {
+    public PropostaTcc(Integer idProposta, String bibliografia, String cronograma, Date dataInscricao, String justificativa, String materias, String metodologia, String objetivo, String situacao, String tipoTcc, String titulo) {
         this.idProposta = idProposta;
         this.bibliografia = bibliografia;
         this.cronograma = cronograma;
         this.dataInscricao = dataInscricao;
-        this.justificativas = justificativas;
+        this.justificativa = justificativa;
         this.materias = materias;
-        this.metodologias = metodologias;
-        this.objetivos = objetivos;
+        this.metodologia = metodologia;
+        this.objetivo = objetivo;
+        this.situacao = situacao;
         this.tipoTcc = tipoTcc;
         this.titulo = titulo;
     }
@@ -171,12 +163,12 @@ public class PropostaTcc implements Serializable {
         this.dataInscricao = dataInscricao;
     }
 
-    public String getJustificativas() {
-        return justificativas;
+    public String getJustificativa() {
+        return justificativa;
     }
 
-    public void setJustificativas(String justificativas) {
-        this.justificativas = justificativas;
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
     }
 
     public String getMaterias() {
@@ -187,20 +179,20 @@ public class PropostaTcc implements Serializable {
         this.materias = materias;
     }
 
-    public String getMetodologias() {
-        return metodologias;
+    public String getMetodologia() {
+        return metodologia;
     }
 
-    public void setMetodologias(String metodologias) {
-        this.metodologias = metodologias;
+    public void setMetodologia(String metodologia) {
+        this.metodologia = metodologia;
     }
 
-    public String getObjetivos() {
-        return objetivos;
+    public String getObjetivo() {
+        return objetivo;
     }
 
-    public void setObjetivos(String objetivos) {
-        this.objetivos = objetivos;
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
     }
 
     public String getSituacao() {
@@ -227,12 +219,20 @@ public class PropostaTcc implements Serializable {
         this.titulo = titulo;
     }
 
-    public List<AnalisePropostatcc> getAnalisePropostatccList() {
-        return analisePropostatccList;
+    public Date getDataAnalise() {
+        return dataAnalise;
     }
 
-    public void setAnalisePropostatccList(List<AnalisePropostatcc> analisePropostatccList) {
-        this.analisePropostatccList = analisePropostatccList;
+    public void setDataAnalise(Date dataAnalise) {
+        this.dataAnalise = dataAnalise;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public Ideia getProblema() {
@@ -267,12 +267,12 @@ public class PropostaTcc implements Serializable {
         this.orientador = orientador;
     }
 
-    public List<SituacaoProjeto> getSituacaoProjetoList() {
-        return situacaoProjetoList;
+    public Usuario getAnalista() {
+        return analista;
     }
 
-    public void setSituacaoProjetoList(List<SituacaoProjeto> situacaoProjetoList) {
-        this.situacaoProjetoList = situacaoProjetoList;
+    public void setAnalista(Usuario analista) {
+        this.analista = analista;
     }
 
     @Override
@@ -299,5 +299,5 @@ public class PropostaTcc implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.PropostaTcc[ idProposta=" + idProposta + " ]";
     }
-    
+
 }

@@ -39,9 +39,10 @@
                                  class="btn btn-lg btn-primary btn-block"
                                  onclick="PF('dlgSenha').show();"/>
                                 <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
-                <p:commandButton value="Registrar"
+                <b:commandButton value="Registrar"
                                  class="btn btn-lg btn-primary btn-block"
-                                 onclick="PF('dlgIncluir').show();"/>
+                                 action="#{usuarioController.doIncluir()}"
+                                 />
             </h:form>
         </div>
         
@@ -69,9 +70,9 @@
 
                 </p:panelGrid>
                 <p:commandButton value="Confirmar"
-                                 action="#{usuarioController.solicitarNovaSenha()}" 
+                                 actionListener="#{usuarioController.solicitarNovaSenha()}" 
                                  onclick="PF('dlgCarregando').show();"
-                                 oncomplete="PF('dlgSenha').hide();"/>
+                                 oncomplete="PF('dlgSenha').hide();PF('dlgCarregando').hide();"/>
 
                 <p:commandButton value="Cancelar" onclick="PF('dlgSenha').hide();"
                                  update=":form:pnlSenha" process="@this"> 

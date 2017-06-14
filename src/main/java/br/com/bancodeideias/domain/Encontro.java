@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,7 +30,7 @@ public class Encontro implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataEncontro")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataEncontro;
     @Basic(optional = false)
     @NotNull
@@ -44,9 +42,9 @@ public class Encontro implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "localEncontro")
     private String localEncontro;
-    @Size(min = 1, max = 100)
-    @Column(name = "statusOrientador")
-    private String statusOrientador;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
     @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
@@ -61,12 +59,11 @@ public class Encontro implements Serializable {
         this.idEncontro = idEncontro;
     }
 
-    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, String localEncontro, String statusOrientador) {
+    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, String localEncontro) {
         this.idEncontro = idEncontro;
         this.dataEncontro = dataEncontro;
         this.descricao = descricao;
         this.localEncontro = localEncontro;
-        this.statusOrientador = statusOrientador;
     }
 
     public Integer getIdEncontro() {
@@ -101,15 +98,13 @@ public class Encontro implements Serializable {
         this.localEncontro = localEncontro;
     }
 
-    public String getStatusOrientador() {
-        return statusOrientador;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusOrientador(String statusOrientador) {
-        this.statusOrientador = statusOrientador;
+    public void setStatus(String status) {
+        this.status = status;
     }
-    
-    
 
     public Usuario getAcademico() {
         return academico;
@@ -151,5 +146,5 @@ public class Encontro implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Encontro[ idEncontro=" + idEncontro + " ]";
     }
-    
+
 }

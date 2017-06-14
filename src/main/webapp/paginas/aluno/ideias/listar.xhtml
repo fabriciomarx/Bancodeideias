@@ -16,12 +16,15 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista todas as ideia"> 
+                    <p:fieldset legend="Todas ideias"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="600px"
+                                         scroll-x="false">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
@@ -29,34 +32,37 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Tipo de Ideia</f:facet>
-                                    <h:outputText value="#{item.tipoIdeia}"/>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data da Ideia</f:facet>
-                                    <h:outputText value="#{item.dataIdeia}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Nome do Usuario</f:facet>
+                                    <f:facet name="header">Usuario que sugeriu</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
 
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search" title="Consultar">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-success" 
+                                                     value="" title="Utilizar ideia no Tcc"  icon="glyphicon glyphicon-education">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-info" 
+                                                     value="" icon="glyphicon glyphicon-star" title="Favoritar">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
+
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                <b:commandButton value="Incluir Nova" action="#{ideiaController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

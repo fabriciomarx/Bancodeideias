@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,12 +14,10 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-               
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">CONSULTAR ACADEMICOS</h4>
+                <p:fieldset legend="Consultar academico">
                     <h:form>
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
@@ -30,65 +29,47 @@
                         </b:row>
 
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                 label="Nome" disabled="true"/>
+                                             label="Nome" disabled="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                 label="Matricula" disabled="true"/>
+                                             label="Matricula" disabled="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <h:outputLabel value="Universidade"/>
-                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
-                                    <f:selectItems value="#{usuarioController.listaUsuario}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item.nome}"/>
-                                </b:selectOneMenu>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
+                                             label="Universidade" disabled="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
-                            <b:column medium-screen="3" span="9">
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
                                              label="Email" disabled="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" disabled="true"/>
-                            </b:column>
-                        </b:row>
-                        
-                        <b:row>
-                            <b:column medium-screen="3" span="9">
-                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{usuarioController.listaCurso}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>  
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
+                                             label="Curso" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{usuarioController.doCancelar()}" />
                             </b:column>
-                            
                         </b:row>
                     </h:form>
-                </b:panel>    
-
+                </p:fieldset>
             </ui:define>    
         </ui:composition>
     </body>

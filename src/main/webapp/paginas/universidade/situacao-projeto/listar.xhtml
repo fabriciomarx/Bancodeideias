@@ -47,24 +47,25 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{situacaoProjetoController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{situacaoProjetoController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{situacaoProjetoController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{situacaoProjetoController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{situacaoProjetoController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{situacaoProjetoController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{situacaoProjetoController.situacaoProjetoSelecionada}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column> 
                             </b:dataTable>
 
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir" action="#{situacaoProjetoController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
 
                             </f:facet>
                         </b:panel>

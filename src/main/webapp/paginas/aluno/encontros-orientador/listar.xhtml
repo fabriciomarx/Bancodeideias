@@ -17,22 +17,25 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista encontro"> 
+                    <p:fieldset legend="Encontros com orientador"> 
                         <b:panel look="primary" collapsible="false">
-                            <b:dataTable value="#{encontroController.listarEncontroQueFuiChamado}"
+                            <b:dataTable value="#{encontroController.listarEncontrosAlu_Prof}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="500px"
+                                         scroll-x="false">
 
                                 <h:column>
-                                    <f:facet name="header">Data Encontro</f:facet>
+                                    <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Local Encontro</f:facet>
+                                    <f:facet name="header">Local</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
                                 </h:column>
 
@@ -52,17 +55,17 @@
                                 </h:column> 
                                 
                                 <h:column>
-                                    <f:facet name="header">Status Orientador</f:facet> 
-                                    <h:outputText value="#{item.statusOrientador}"
-                                                  styleClass="#{item.statusOrientador == 'Enviado e ainda não visto' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
+                                    <f:facet name="header">Status</f:facet> 
+                                    <h:outputText value="#{item.status}"
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
                                 </h:column> 
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Consultar" action="#{encontroController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
                         </b:panel>

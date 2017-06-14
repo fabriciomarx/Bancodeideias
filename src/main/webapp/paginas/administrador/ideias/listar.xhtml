@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,64 +18,67 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista Ideias">
-                        <p:dataTable value="#{ideiaController.listaIdeia}"
-                                     var="item" 
-                                     paginator="true"
-                                     paginatorPosition="bottom"
-                                     rows="5" rowsPerPageTemplate="5,10,15"
-                                     rowKey="#{item.idIdeia}">
-                            
-                                  <!--   rowStyleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}" -->
-                                     
-                              <p:column styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}">
-                                <f:facet name="header">Situação</f:facet>
-                                <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"/>
-                            </p:column>
-                            
-                            <p:column>
-                                <f:facet name="header">Titulo</f:facet>
-                                <h:outputText value="#{item.titulo}"/>
-                            </p:column>
+                    <p:fieldset legend="Lista ideia"> 
+                        <b:panel look="primary" collapsible="false">
 
-                            <p:column>
-                                <f:facet name="header">Tipo Ideia</f:facet>
-                                <h:outputText value="#{item.tipoIdeia}"/>
-                            </p:column>
+                            <b:dataTable value="#{ideiaController.listaIdeia}"
+                                         var="item" searching="true" border="false"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
 
-                            <p:column>
-                                <f:facet name="header">Data Ideia</f:facet>
-                                <h:outputText value="#{item.dataIdeia}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                </h:outputText>
-                            </p:column>
+                                <h:column>
+                                    <f:facet name="header">Titulo</f:facet>
+                                    <h:outputText value="#{item.titulo}"/>
+                                </h:column>
 
-                            <p:column>
-                                <f:facet name="header">Usuario Nome</f:facet>
-                                <h:outputText value="#{item.usuario.nome}"/>
-                            </p:column>
-                          
-                            <p:column style="text-align: center;">
-                                <f:facet name="header">Ações</f:facet>
-                                <h:commandLink title="Alterar" action="#{ideiaController.doEditar()}">                                    
-                                    <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Excluir" action="#{ideiaController.doExcluir()}">
-                                    <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </h:commandLink>
-                                <h:commandLink title="Consultar" action="#{ideiaController.doConsultar()}">
-                                    <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
-                                    <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                </h:commandLink>
-                            </p:column> 
+                                <h:column>
+                                    <f:facet name="header">Tipo de Ideia</f:facet>
+                                    <h:outputText value="#{item.tipoIdeia}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Data da Inclusão</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{ideiaController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                </h:column>                            
+                            </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{ideiaController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                <b:commandButton value="Incluir Nova" action="#{ideiaController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
 
                             </f:facet>
-                        </p:dataTable>   
+                        </b:panel>
                     </p:fieldset>
                 </h:form>             
             </ui:define>    

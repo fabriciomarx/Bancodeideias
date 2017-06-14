@@ -59,10 +59,16 @@
                                                  immediate="true" action="#{encontroController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{encontroController.remover()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{encontroController.remover()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{encontroController.remover()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset> 
             </ui:define>    

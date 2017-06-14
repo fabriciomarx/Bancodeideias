@@ -10,38 +10,37 @@
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Incluir Analise de Proposta de TCC">
-                    <h:form>  
+
+                <p:fieldset legend="Incluir Analise de Ideia">
+                    <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Proposta de TCC" value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}"
-                                                 required="true" requiredMessage="O campo Proposta de TCC é obrigatorio">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario}" 
+                                                 label="Comentario" required="true" requiredMessage="O campo comentario é obrigatorio" />
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{analisePropostaTccController.analisePropTccSelecionada.comentarios}" 
-                                                 label="Comentario" required="true" requiredMessage="O campo comentarios é obrigatorio" />
+                                <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Aprovado" itemValue="A" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="R" />
+                                </b:selectOneMenu>
                             </b:column>
                         </b:row>
+                        
 
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{analisePropostaTccController.cancelar()}" />
+                                                 immediate="true" action="#{ideiaController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.alterarParaAnalise()}"/>
                             </b:column>
                         </b:row>
                     </h:form>

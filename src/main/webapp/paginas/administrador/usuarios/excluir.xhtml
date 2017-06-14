@@ -17,6 +17,8 @@
 
                 <p:fieldset legend="Excluir Usuario">
                     <h:form>
+
+                        <!--Quando o admin for adicionar uma unversidade, esconder os campos universidade e curso-->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
@@ -25,7 +27,7 @@
                                     <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
-                                    <f:selectItem itemLabel="Cidadão" itemValue="Cidadão"/>
+                                    <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -33,42 +35,35 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" disabled="true"/>
+                                             label="Nome" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula" disabled="true"/>
+                                             label="Matricula" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
-                                             label="Universidade" disabled="true"/>
+                                             label="Universidade" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" disabled="true"/>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" disabled="true"/>
+                                             label="Email" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
-                                             label="Curso" disabled="true"/>
+                                             label="Curso" readonly="true"/>
                             </b:column>
                         </b:row>
 

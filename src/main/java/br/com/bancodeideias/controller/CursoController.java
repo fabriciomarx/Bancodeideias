@@ -12,6 +12,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 
 @Named(value = "cursoController")
 @SessionScoped
@@ -19,42 +24,86 @@ public class CursoController extends GenericController implements Serializable {
 
     private Curso           cursoSelecionado;
     private CursoService    cursoService;
+
     private List<Curso>     listaCurso;
-    private List<Curso>     listaCursoFiltrados;
-    private List<Curso>     listaCursoLogado;
 
     private List<Usuario>   listaUniversidade;
     private UsuarioService  usuarioService;
+    
+    private LineChartModel areaModel;
 
     @PostConstruct
     public void preRenderPage() {
         this.resset();
         this.listar();
+        this.createAreaModel();
     }
+    
+    private void createAreaModel() {
+        areaModel = new LineChartModel();
+        
+        LineChartSeries boys = new LineChartSeries();
+        boys.setFill(true);
+        boys.setLabel("Boys");
+        boys.set("2004", 120);
+        boys.set("2005", 100);
+        boys.set("2006", 44);
+        boys.set("2007", 150);
+        boys.set("2008", 25);
+        
+        LineChartSeries girls = new LineChartSeries();
+        girls.setFill(true);
+        girls.setLabel("Girls");
+        girls.set("2004", 52);
+        girls.set("2005", 60);
+        girls.set("2006", 110);
+        girls.set("2007", 90);
+        girls.set("2008", 120);
+        
+        areaModel.addSeries(boys);
+        areaModel.addSeries(girls);
+        
+        areaModel.setTitle("Area Chart");
+        areaModel.setLegendPosition("ne");
+        areaModel.setStacked(true);
+        areaModel.setShowPointLabels(true);
+
+        Axis xAxis = new CategoryAxis("Years");
+        areaModel.getAxes().put(AxisType.X, xAxis);
+        Axis yAxis = areaModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Births");
+        
+        //int qtdeMax = this.getCursoService().quantidadeCurso();
+        yAxis.setMin(0);
+        yAxis.setMax(300);
+
+    }
+    
 
     private void resset() {
-        cursoSelecionado    = new Curso();
-        cursoService        = new CursoService();
-        listaCurso          = new ArrayList<>();
-        listaCursoFiltrados = new ArrayList<>();
-        listaCursoLogado    = new ArrayList<>();
-
-        listaUniversidade   = new ArrayList<>();
-        usuarioService      = new UsuarioService();
+        cursoSelecionado                  = new Curso();
+        cursoService                      = new CursoService();
+        listaCurso                        = new ArrayList<>();
+        
+        listaUniversidade                 = new ArrayList<>();
+        usuarioService                    = new UsuarioService();
     }
 
+   
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
-        /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
-        if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
-            listaCursoLogado = this.getCursoService().listarCursoLogado();
-
-        } else if (usuarioLogado.getTipoUsuario().equals("Admin")) {
-            listaCurso = this.getCursoService().listar();
-            listaUniversidade = this.getUsuarioService().listUniversidades();
-            listaCursoFiltrados = this.getCursoService().listar();
+        switch (usuarioLogado.getTipoUsuario()) {
+            case "Universidade":
+                /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
+                listaCurso = this.getCursoService().listarCursoLogado();
+                break;
+            case "Admin":
+                /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
+                listaCurso = this.getCursoService().listar();
+                listaUniversidade = this.getUsuarioService().listUniversidades();
+                break;
         }
 
     }
@@ -63,14 +112,15 @@ public class CursoController extends GenericController implements Serializable {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
-                this.getCursoService().salvar(cursoSelecionado);
-
-            } else {
-                this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
-                this.getCursoService().salvar(cursoSelecionado);
+            switch (usuarioLogado.getTipoUsuario()) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+                case "Admin":
+                    this.getCursoService().salvar(cursoSelecionado);
+                    break;
+                case "Universidade":
+                    this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
+                    this.getCursoService().salvar(cursoSelecionado);
+                    break;
             }
-
             addSucessMessage("Curso salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
@@ -81,16 +131,8 @@ public class CursoController extends GenericController implements Serializable {
     }
 
     public String alterar() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
-                this.getCursoService().alterar(cursoSelecionado);
-            } else {
-                this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
-                this.getCursoService().alterar(cursoSelecionado);
-            }
-
+            this.getCursoService().alterar(cursoSelecionado);
             addSucessMessage("Curso alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar curso: " + cursoSelecionado.toString());
@@ -103,8 +145,7 @@ public class CursoController extends GenericController implements Serializable {
     public String remover() {
         try {
             this.getCursoService().remover(cursoSelecionado);
-
-            //addSucessMessage("Curso deletado com sucesso");
+            addSucessMessage("Curso deletado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao deletar curso: " + cursoSelecionado.toString());
         }
@@ -181,20 +222,13 @@ public class CursoController extends GenericController implements Serializable {
         this.usuarioService = usuarioService;
     }
 
-    public List<Curso> getListaCursoLogado() {
-        return listaCursoLogado;
+    public LineChartModel getAreaModel() {
+        return areaModel;
     }
 
-    public void setListaCursoLogado(List<Curso> listaCursoLogado) {
-        this.listaCursoLogado = listaCursoLogado;
+    public void setAreaModel(LineChartModel areaModel) {
+        this.areaModel = areaModel;
     }
-
-    public List<Curso> getListaCursoFiltrados() {
-        return listaCursoFiltrados;
-    }
-
-    public void setListaCursoFiltrados(List<Curso> listaCursoFiltrados) {
-        this.listaCursoFiltrados = listaCursoFiltrados;
-    }
-
+    
+    
 }

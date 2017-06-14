@@ -25,19 +25,31 @@ public class CursoService implements Serializable {
         this.getCursoDAO().remover(curso.getIdCurso());
     }
 
-    /* Lista de todos os cursos */
+    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA */
     public List<Curso> listar() {
         List<Curso> lista;
         lista = this.getCursoDAO().listar();
         return lista;
     }
 
-    /* Listar os cursos da universidade logada  */
+    /* LISTAR SOMENTE OS CURSOS DA UNIVERSIDADE LOGADA */
     public List<Curso> listarCursoLogado() {
         List<Curso> lista;
         lista = this.getCursoDAO().listarCursoLogado();
         return lista;
     }
+
+    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (na hora do cadastro de usuario)*/
+    public List<Curso> listarCursosUniversidadeEscolhida(int id) {
+        List<Curso> lista;
+        lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(id);
+        return lista;
+    }
+    
+    /*
+    public int quantidadeCurso(){
+        return this.getCursoDAO().quantidadeCurso();
+    }*/
 
     // ============ Gets and sets ===========
     public CursoDAO getCursoDAO() {

@@ -14,11 +14,8 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
-                <b:panel look="primary" collapsible="false">
-                    <h4 style="text-align: center;">CONSULTAR ENCONTRO</h4>
+                <p:fieldset legend="Consultar encontro">
                     <h:form>
-                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data do Encontro"/><br/>
@@ -40,28 +37,29 @@
                                                  label="Descrição" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.academico.nome}"
-                                                 label="Academico" readonly="true"/>
+                                             label="Academico" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.participante.nome}"
-                                                 label="Orientador" readonly="true"/>
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{encontroController.doCancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{encontroController.doCancelar()}" 
+                                                 icon="glyphicon glyphicon-arrow-left"/>
                             </b:column>
                         </b:row>
                     </h:form>
-                </b:panel>    
+                </p:fieldset>   
 
             </ui:define>    
         </ui:composition>

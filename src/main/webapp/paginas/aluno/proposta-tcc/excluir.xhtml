@@ -17,7 +17,6 @@
 
                 <p:fieldset legend="Excluir proposta de tcc"> 
                     <h:form>
-
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
@@ -45,21 +44,21 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivos}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                  label="Objetivos" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativas}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
                                                  label="Justificativas" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologias}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologia}"
                                                  label="Metodologias" readonly="true"/>
                             </b:column>
                         </b:row>
@@ -98,8 +97,9 @@
                                 <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
                                                  readonly="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
-                                    <f:selectItem itemLabel="Ativo" itemValue="A" />
-                                    <f:selectItem itemLabel="Pendente" itemValue="P" />
+                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
+                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -131,10 +131,16 @@
                                                  immediate="true" action="#{propostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.remover()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{propostaTccController.remover()}">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.remover()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
 

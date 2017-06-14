@@ -15,26 +15,34 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <h:form>
-                    <p:fieldset legend="Lista proposta de tcc"> 
+                    <p:fieldset legend="Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
 
-                            <b:dataTable value="#{propostaTccController.listaPropostasLogado}"
+                            <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="500px"
+                                         scroll-x="false">
 
                                 <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
-                                    <h:outputText value="#{item.aprovacaoOrientador == 'A' ? 'Aprovado' : 'Em analise..'}"
-                                                  styleClass="#{item.aprovacaoOrientador == 'A' ? 'ativa' : 'pendente'}"/>
+                                    <h:outputText value="#{item.aprovacaoOrientador}"
+                                                  styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
+                                                  #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
+                                                  #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativa' : 'Em analise..'}"
-                                                  styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}"/>
+                                    <f:facet name="header">Aprovação do Coordenador</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                    </h:outputText>
+
                                 </h:column>
 
                                 <h:column>
@@ -64,35 +72,31 @@
                                     </h:outputText>
                                 </h:column>
 
-
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{propostaTccController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{propostaTccController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{propostaTccController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column> 
-                                </b:dataTable>   
-                                <f:facet name="footer">
-                                    <b:commandButton value="Incluir" action="#{propostaTccController.doIncluir()}"
-                                                     icon="glyphicon glyphicon-plus"/>
-                                </f:facet>
-                                
+                            </b:dataTable>   
+                            <f:facet name="footer">
+                                <b:commandButton value="Incluir Nova" action="#{propostaTccController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
+                            </f:facet>
                         </b:panel>
-                        
                     </p:fieldset>
                 </h:form>             
             </ui:define>    
         </ui:composition>
-
     </body>
-
 </html>

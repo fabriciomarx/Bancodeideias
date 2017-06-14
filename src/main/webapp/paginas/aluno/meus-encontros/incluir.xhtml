@@ -23,7 +23,8 @@
                                 <h:outputLabel value="Data encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
                                             placeholder="__/__/__"
-                                            mindate="new date()" required="true" pages="3" />
+                                            required="true" pages="3" 
+                                            pattern="MM/dd/yyyy HH:mm:ss"/>
                                 
                             </b:column>
                         </b:row><br/>
@@ -60,10 +61,16 @@
                                                  immediate="true" action="#{encontroController.doCancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{encontroController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{encontroController.salvar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{encontroController.salvar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset> 
 
@@ -71,3 +78,7 @@
         </ui:composition>
     </body>
 </html>
+
+                            
+
+                       

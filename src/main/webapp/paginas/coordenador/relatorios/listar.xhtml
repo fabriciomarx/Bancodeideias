@@ -15,25 +15,27 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <h:form>
-                    <p:fieldset legend="Lista relatorios"> 
+                    <p:fieldset legend="Relatorios"> 
                         <b:panel look="primary" collapsible="false">
-                            <b:dataTable value="#{relatorioController.listaRelatorioCoordLogado}"
+                            <b:dataTable value="#{relatorioController.listaRelatorio}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="600px"
+                                         scroll-x="false">
 
                                 <h:column>
                                     <f:facet name="header">Data Inicio</f:facet>
-                                    <h:outputText value="#{item.periodoInicio}">
+                                    <h:outputText value="#{item.dataInicio}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Data Fim</f:facet>
-                                    <h:outputText value="#{item.periodoFim}">
+                                    <h:outputText value="#{item.dataFim}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
@@ -55,7 +57,7 @@
 
                                 <h:column>
                                     <f:facet name="header">Data Relatorio</f:facet>
-                                    <h:outputText value="#{item.dataRelatorio}">
+                                    <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
@@ -72,11 +74,10 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-
-                                    <h:commandLink title="Consultar" action="#{relatorioController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
 

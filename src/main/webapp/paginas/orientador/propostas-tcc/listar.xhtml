@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,14 +16,33 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
+
                 <h:form>
-                    <p:fieldset legend="Lista Propostas de TCC"> 
+                    <p:fieldset legend="Lista proposta de tcc"> 
                         <b:panel look="primary" collapsible="false">
 
-                            <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
+                            <b:dataTable value="#{propostaTccController.listaPropostasParaOrientador}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
+
+                                <h:column>
+                                    <f:facet name="header">Aprovação do Orientador</f:facet>
+                                    <h:outputText value="#{item.aprovacaoOrientador}"
+                                                  styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
+                                                              #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Aprovação do Coordenador</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                    </h:outputText>
+
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
@@ -45,41 +65,27 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Objetivos</f:facet>
-                                    <h:outputText value="#{item.objetivos}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativas}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Metodologias</f:facet>
-                                    <h:outputText value="#{item.metodologias}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Materiais</f:facet>
-                                    <h:outputText value="#{item.materias}"/>
+                                    <f:facet name="header">Data Inscrição</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
                                 </h:column>
 
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Consultar" action="#{propostaTccController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                </h:column>                            
+                                    </b:commandButton>
+                                </h:column> 
                             </b:dataTable>   
-
                         </b:panel>
+
                     </p:fieldset>
                 </h:form>             
             </ui:define>    
         </ui:composition>
-
     </body>
 
 </html>

@@ -47,7 +47,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.objetivos}"
+                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                  label="Objetivos" required="true" required-message="O campo Objetivos é obrigatorio"
                                                  disabled="true"/>
                             </b:column>
@@ -55,7 +55,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.justificativas}"
+                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.justificativa}"
                                                  label="Justificativas" required="true" required-message="O campo Justificativas é obrigatorio"
                                                  disabled="true"/>
                             </b:column>
@@ -63,7 +63,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.metodologias}"
+                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.metodologia}"
                                                  label="Metodologias" required="true" required-message="O campo Metodologias é obrigatorio"
                                                  disabled="true"/>
                             </b:column>
@@ -107,8 +107,9 @@
                                 <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
-                                    <f:selectItem itemLabel="Ativo" itemValue="A" />
-                                    <f:selectItem itemLabel="Pendente" itemValue="P" />
+                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
+                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>

@@ -6,10 +6,13 @@
 
 
 /*Ideias Pendentes e Ativas ***** Propostas tbm*/
-.ativa{
+.aprovado{
     color: green!important;
 }
-.pendente{
+.recusado{
+    color: red!important;
+}
+.em_analise{
     color: blue!important;
 }
 

@@ -39,8 +39,23 @@ public class EncontroDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno ou professor) Metodo que a universidade usa */
+    public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
+        List<Encontro> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("Select u From Encontro u where u.academico.idUsuario = "
+                    + id + " OR " + "u.participante.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarEncontrosAcademicoSelecionado - Classe EncontroDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
 
-    /* Listar todos os encontros do sistema */
+    /* LISTA TODOS OS ENCONTROS CADASTRADOS NO SISTEMA */
     public List<Encontro> listar() {
         List<Encontro> listaEncontros = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -53,8 +68,8 @@ public class EncontroDAO implements Serializable {
         entityManager.close();
         return listaEncontros;
     }
-    
-    /* Lista de encontros para universidade */
+
+    /* LISTA TODOS OS ENCONTROS DE ALUNOS DA UNIVERSIDADE LOGADA */
     public List<Encontro> listarEncontrosParaUniv() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -62,8 +77,8 @@ public class EncontroDAO implements Serializable {
         List<Encontro> listaEncontros = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Encontro u WHERE u.academico.curso.idCurso = "
-                    + usuarioLogado.getCurso().getIdCurso());
+            Query query = entityManager.createQuery("SELECT u FROM Encontro u WHERE u.academico.universidade.idUsuario = "
+                    + usuarioLogado.getIdUsuario());
             listaEncontros = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarEncontrosParaUniv - Classe Encontro DAO");
@@ -71,9 +86,8 @@ public class EncontroDAO implements Serializable {
         entityManager.close();
         return listaEncontros;
     }
-    
-    
-    /* Lista de encontros dos alunos do curso que o coordenador coordena */
+
+    /* LISTA DE ENCONTROS DE ALUNOS QUE SEJAM DO CURSO QUE O COORDENADOR GERENCIA */
     public List<Encontro> listarEncontrosParaCoord() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -90,11 +104,8 @@ public class EncontroDAO implements Serializable {
         entityManager.close();
         return listaEncontros;
     }
-    
-    
-    
-    /* Listar os encontros que a pessoa cadastrou 
-        nesse caso a pessoa que é academico*/
+
+    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU - (ACADEMICO) */
     public List<Encontro> listarEncontrosQueCadastrei() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -111,9 +122,8 @@ public class EncontroDAO implements Serializable {
         return listaEncontros;
     }
 
-    /* Listar os encontros que a pessoa foi chamada/selecionada 
-        nesse caso a pessoa é participante */
-    public List<Encontro> listarEncontrosQueFuiChamado() {
+    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU OU FOI CHAMADA PARA PARTICIPAR */
+    public List<Encontro> listarEncontrosAlu_Prof() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
@@ -121,8 +131,8 @@ public class EncontroDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM Encontro u where u.participante.idUsuario = " + usuarioLogado.getIdUsuario());
-                   // +  " AND u.academico.idUsuario = " + usuarioLogado.getIdUsuario()); quero que apareça todos os encontros
+                    "SELECT u FROM Encontro u where u.participante.idUsuario = " + usuarioLogado.getIdUsuario()
+                    + " OR u.academico.idUsuario = " + usuarioLogado.getIdUsuario());
             listaEncontros = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarEncontrosQueFuiChamado - Classe Encontro DAO");

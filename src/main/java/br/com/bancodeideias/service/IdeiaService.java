@@ -26,38 +26,52 @@ public class IdeiaService implements Serializable {
         this.getIdeiaDAO().remover(ideia.getIdIdeia());
     }
 
-    /* Todas as ideias */
+    /* LISTAR TODAS AS IDEIAS CADASTRADAS NO SISTEMA*/
     public List<Ideia> listar() {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listar();
         return lista;
     }
 
-    /* Listar ideias dos alunos da universidade */
+    /* LISTAR TODAS AS IDEIAS APROVADAS NO SISTEMA*/
+    public List<Ideia> listarIdeiasAprovadas() {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarIdeiasAprovadas();
+        return lista;
+    }
+
+    /* LISTAR TODAS AS IDEIAS RECUSADAS NO SISTEMA*/
+    public List<Ideia> listarIdeiasRecusadas() {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarIdeiasRecusadas();
+        return lista;
+    }
+
+    /* LISTA DE IDEIAS CADASTRADAS POR ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Ideia> listarIdeiasdaUniversidade() {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listarIdeiasdaUniversidade();
         return lista;
     }
-    
-     public List<Ideia> listarIdeiasPendentesdaUniversidade() {
+
+    /* LISTA DE IDEIAS PENDENTES DOS ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
+    public List<Ideia> listarIdeiasPendentesdaUniversidade() {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listarIdeiasPendentesdaUniversidade();
         return lista;
     }
-    
 
-    /* Ideias do usuario logado */
+    /* LISTAR SOMENTE AS IDEIAS CADASTRADAS DO USUARIO LOGADO */
     public List<Ideia> listarIdeiasLogado() {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listarIdeiasLogado();
         return lista;
     }
 
-    /* Ideias pendentes */
-    public List<Ideia> listarPendentes() {
+    /* LISTAR IDEIAS PENDENTES DA UNIVERSIDADE - METODO QUE SERVE PARA PROFESSOR E COORDENADOR*/
+    public List<Ideia> listarIdeiasPendentes() {
         List<Ideia> lista;
-        lista = this.getIdeiaDAO().listarPendentes();
+        lista = this.getIdeiaDAO().listarIdeiasPendentes();
         return lista;
     }
 

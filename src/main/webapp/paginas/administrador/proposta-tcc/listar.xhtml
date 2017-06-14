@@ -41,12 +41,12 @@
 
                                 <h:column>
                                     <f:facet name="header">Objetivos</f:facet>
-                                    <h:outputText value="#{item.objetivos}"/>
+                                    <h:outputText value="#{item.objetivo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativas}"/>
+                                    <h:outputText value="#{item.justificativa}"/>
                                 </h:column>
 
                                 <h:column>
@@ -67,23 +67,24 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{propostaTccController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{propostaTccController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{propostaTccController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </h:commandLink>
-                                </h:column>                            
+                                    </b:commandButton>
+                                </h:column>                           
                             </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{propostaTccController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                <b:commandButton value="Incluir Nova" action="#{propostaTccController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

@@ -24,64 +24,64 @@ public class PropostaTccService implements Serializable {
     public void remover(PropostaTcc propostaTcc) {
         this.getPropostaTccDAO().remover(propostaTcc.getIdProposta());
     }
-    /*
-    public List<PropostaTcc> list(String tipoBusca){
-        List<PropostaTcc> lista;
-        lista = this.getPropostaTccDAO().listar(tipoBusca);
-        return lista;
-    }*/
 
-    /* Todas propostas */
+    
+    public List<PropostaTcc> listarPropostasAlunoSelecionado(int id) {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasAlunoSelecionado(id);
+        return lista;
+    }
+
+    /* LISTA DE TODAS AS PROPOSTAS DE TCC CADASTRADAS NO SISTEMA */
     public List<PropostaTcc> listar() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listar();
         return lista;
     }
 
-    /* Propostas do aluno logado */
+    /* LISTA DE PROPOSTAS DO ALUNO LOGADO */
     public List<PropostaTcc> listarPropostasLogado() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPropostasLogado();
         return lista;
     }
-    
-     /* Lista de propostas dos alunos do curso que o coordenador coordena */
+
+    /* LISTA DE PROPOSTAS DOS ALUNOS PERTENCENTES AO CURSO QUE O COORDENADOR COORDENA */
     public List<PropostaTcc> listarPropostasParaCoord() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPropostasParaCoord();
         return lista;
     }
-    
-    /* Todas Propostas pendentes */
-    public List<PropostaTcc> listarPendentes() {
-        List<PropostaTcc> lista;
-        lista = this.getPropostaTccDAO().listarPendentes();
-        return lista;
-    }
-    
+
     /* lista de propostas pendentes para coordenador*/
     public List<PropostaTcc> listaPropostasPendentesDaUnivParaCoordenador() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listaPropostasPendentesDaUnivParaCoordenador();
         return lista;
     }
-    
-    /* Propostas pendentes da universidade */
+
+    /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasPendentesDaUniv() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listaPropostasPendentesDaUniv();
         return lista;
     }
-        
     
-    /* Propostas que o orientador já aceitou e agora elas são projetos */
+    /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
+    public List<PropostaTcc> listaPropostasDaUniv() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listaPropostasDaUniv();
+        return lista;
+    }
+        
+    /* LISTA DE PROJETOS, JA ACEITO PELO ORIENTADOR E PELO COORDENADOR */
     public List<PropostaTcc> listarProjetos() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarProjetos();
         return lista;
     }
-    
-    /* Propostas que o professor foi escolhido para ser orientador */
+
+    /* LISTA DE PROPOSTAS QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
     public List<PropostaTcc> listarPropostasParaOrientador() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPropostasParaOrientador();

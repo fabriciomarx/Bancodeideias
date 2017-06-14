@@ -5,10 +5,7 @@
  */
 package br.com.bancodeideias.teste;
 
-import br.com.bancodeideias.domain.AnalisePropostatcc;
-import br.com.bancodeideias.domain.Curso;
 import br.com.bancodeideias.domain.Usuario;
-import br.com.bancodeideias.repository.CursoDAO;
 import br.com.bancodeideias.repository.UsuarioDAO;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,9 +17,9 @@ public class Teste {
     @Test
     @Ignore
     public void salvar() throws ParseException { //quando for universidade
-       List<AnalisePropostatcc> listaAnalisePropostaTcc = new ArrayList<>();
-       listaAnalisePropostaTcc.size();
-        System.out.println("Resultado: " + listaAnalisePropostaTcc.size());
+       //List<AnalisePropostatcc> listaAnalisePropostaTcc = new ArrayList<>();
+       //listaAnalisePropostaTcc.size();
+        //System.out.println("Resultado: " + listaAnalisePropostaTcc.size());
         
     }
     

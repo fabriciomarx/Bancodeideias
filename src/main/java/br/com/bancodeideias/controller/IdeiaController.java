@@ -55,7 +55,7 @@ public class IdeiaController extends GenericController implements Serializable {
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         if (usuarioLogado.getTipoUsuario().equals("Coordenador") || usuarioLogado.getTipoUsuario().equals("Professor")) {
-            listaIdeiasPendente = this.getIdeiaService().listarPendentes(); // pendentes
+            listaIdeiasPendente = this.getIdeiaService().listarIdeiasPendentes(); // pendentes
         } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
             listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
             listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
@@ -73,14 +73,13 @@ public class IdeiaController extends GenericController implements Serializable {
         try {
             //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É PENDENTE COMO DEFAUT
             if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
-                this.getIdeiaSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
+                this.getIdeiaSelecionada().setSituacao("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
+            } else {
+                this.getIdeiaSelecionada().setSituacao("Aprovado"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
             }
             //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
-            if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade")
-                    || usuarioLogado.getTipoUsuario().equals("Coordenador") || usuarioLogado.getTipoUsuario().equals("Professor")) {
-                this.getIdeiaSelecionada().setSituacao("A"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
-            }
-            this.getIdeiaSelecionada().setDataIdeia(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
+
+            this.getIdeiaSelecionada().setDataInscricao(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
             this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
             this.getIdeiaService().salvar(ideiaSelecionada);
             addSucessMessage("Ideia salva com sucesso");
@@ -93,24 +92,28 @@ public class IdeiaController extends GenericController implements Serializable {
     }
 
     public String alterar() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
         try {
-            //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É PENDENTE COMO DEFAUT
-            //if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
-                //this.getIdeiaSelecionada().setSituacao("P"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
-           // }
-            //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
-            //if (usuarioLogado.getTipoUsuario().equals("Admin") || usuarioLogado.getTipoUsuario().equals("Universidade")
-                  //  || usuarioLogado.getTipoUsuario().equals("Coordenador")) {
-              //  this.getIdeiaSelecionada().setSituacao("A"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
-           // }
-          //  this.getIdeiaSelecionada().setDataIdeia(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
-           // this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia editada com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao editar ideia: " + ideiaSelecionada.toString());
+        }
+        this.resset();
+        this.listar();
+        return "listar.xhtml?faces-redirect=true";
+    }
+    
+    public String alterarParaAnalise() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
+
+        try {
+            this.getIdeiaSelecionada().setDataAnalise(new Date()); // setando a ideia automatico
+            this.getIdeiaSelecionada().setAnalista(usuarioLogado); // setando o academico analista automatico
+            this.getIdeiaService().alterar(ideiaSelecionada);
+            addSucessMessage("Ideia analisada com sucesso");
+        } catch (Exception e) {
+            addErrorMessage("Erro ao analisar ideia: " + ideiaSelecionada.toString());
         }
         this.resset();
         this.listar();
@@ -228,7 +231,5 @@ public class IdeiaController extends GenericController implements Serializable {
     public void setListarIdeiasPendentesdaUniversidade(List<Ideia> listarIdeiasPendentesdaUniversidade) {
         this.listarIdeiasPendentesdaUniversidade = listarIdeiasPendentesdaUniversidade;
     }
-    
-    
 
 }

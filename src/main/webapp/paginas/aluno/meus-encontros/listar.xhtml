@@ -17,22 +17,25 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista encontro"> 
+                    <p:fieldset legend="Encontros"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{encontroController.listarEncontroQueCadastrei}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="500px"
+                                         scroll-x="false">
 
                                 <h:column>
-                                    <f:facet name="header">Data Encontro</f:facet>
+                                    <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Local Encontro</f:facet>
+                                    <f:facet name="header">Local</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
                                 </h:column>
 
@@ -52,30 +55,31 @@
                                 </h:column> 
                                 
                                 <h:column>
-                                    <f:facet name="header">Status Orientador</f:facet> 
-                                    <h:outputText value="#{item.statusOrientador}"
-                                                  styleClass="#{item.statusOrientador == 'Enviado e ainda não visto' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
+                                    <f:facet name="header">Status</f:facet> 
+                                    <h:outputText value="#{item.status}"
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
                                 </h:column> 
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <h:commandLink title="Alterar" action="#{encontroController.doEditar()}">                                    
-                                        <h:graphicImage value="/resources/imagens/editar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Excluir" action="#{encontroController.doExcluir()}">
-                                        <h:graphicImage value="/resources/imagens/excluir.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </h:commandLink>
-                                    <h:commandLink title="Consultar" action="#{encontroController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{encontroController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </h:commandLink>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{encontroController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus"/>
+                                <b:commandButton value="Incluir Novo" action="#{encontroController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
 
                             </f:facet>
                         </b:panel>

@@ -56,21 +56,21 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Insira o(s) objetivo(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.objetivos}"
+                                <b:inputTextarea placeholder="Insira o(s) objetivo(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                  label="Objetivos" required="true" required-message="O campo Objetivos é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Insira a(s) justificativa(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.justificativas}"
+                                <b:inputTextarea placeholder="Insira a(s) justificativa(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.justificativa}"
                                                  label="Justificativas" required="true" required-message="O campo Justificativas é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Insira a(s) metodologia(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.metodologias}"
+                                <b:inputTextarea placeholder="Insira a(s) metodologia(s) da Proposta de Tcc" value="#{propostaTccController.propostaTccSelecionada.metodologia}"
                                                  label="Metodologias" required="true" required-message="O campo Metodologias é obrigatorio"/>
                             </b:column>
                         </b:row>
@@ -138,10 +138,16 @@
                                                  immediate="true" action="#{propostaTccController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.alterar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <b:commandButton value="Enviar" action="#{propostaTccController.alterar()}">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </b:commandButton>
                             </b:column>
                         </b:row>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.alterar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
 

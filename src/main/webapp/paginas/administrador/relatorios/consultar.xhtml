@@ -19,14 +19,14 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
+                                <h:outputLabel value="Data Inicio"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
-                                <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
+                                <h:outputLabel value="Data Fim"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
@@ -54,7 +54,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Data Relatorio"/>
+                                <h:outputLabel value="Data Inscrição"/>
                                 <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataRelatorio}"
                                                   show-time="false"/>
                             </b:column>

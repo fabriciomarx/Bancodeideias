@@ -40,7 +40,7 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
     }
 
-    /* Lista todos os relatorios cadastrados*/
+    /* LISTAR TODOS OS RELATORIOS DO SISTEMA */
     public List<Relatorio> listar() {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -54,7 +54,7 @@ public class RelatorioDAO implements Serializable {
         return listaRelatorios;
     }
 
-    /* Lista os relatorios do aluno logado */
+    /* LISTAR OS RELATORIOS DO ALUNO LOGADO */
     public List<Relatorio> listaRelatorioLogado() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -70,8 +70,8 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return listaRelatorios;
     }
-    
-    /* Lista os relatorios dos alunos da universidade logada */
+
+    /* LISTA DE RELATORIOS DOS ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Relatorio> listaRelatoriosUniLogada() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -87,8 +87,8 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return listaRelatorios;
     }
-   
-    /* Lista de relatorios dos alunos do curso que o coordenador coordena */
+
+    /* LISTA DE RELATORIOS DOS ALUNOS PERTENCENTES AO CURSO QUE O COORDENADOR COORDENA */
     public List<Relatorio> listaRelatoriosCoordLogado() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -104,8 +104,8 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return listaRelatorios;
     }
-    
-    /* Lista de relatorios dos alunos do curso que o orientador orienta */
+
+    /* LISTA DE RELATORIOS DOS ALUNOS QUE O PROFESSOR ORIENTA */
     public List<Relatorio> listaRelatoriosOrientadorLogado() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -121,7 +121,7 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return listaRelatorios;
     }
-    
+
     /* TESTE PARA SELECIONAR O ALUNO E APARECER A LISTA DE RELATORIOS */
     public List<Relatorio> listRelatorioAlunoSelecionado(int idAluno) {
         List<Relatorio> listaRelatorios = new ArrayList<>();

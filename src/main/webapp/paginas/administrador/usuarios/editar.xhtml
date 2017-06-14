@@ -17,6 +17,8 @@
 
                 <p:fieldset legend="Editar Usuario">
                     <h:form>
+
+                        <!--Quando o admin for adicionar uma unversidade, esconder os campos universidade e curso-->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
@@ -46,16 +48,12 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
-                                             label="Universidade" disabled="true"/>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <!-- FALTA FAZER QUANDO A UNIVERSIDADE FOR SELECIONADA, CARREGAR SO OS CURSOS 
+                                DELA-->
+                                <h:outputLabel value="Universidade"/>
                                 <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{usuarioController.listaUsuario}" var="item"
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{usuarioController.listaUniversidades}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -72,22 +70,24 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
+                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
+                                            required="true" requiredMessage="O campo senha é obrigatorio" />
+
+                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
+                                            requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
-                                             label="Curso" disabled="true"/>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.curso}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
@@ -100,7 +100,7 @@
                                                  immediate="true" action="#{usuarioController.doCancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.alterar()}"
+                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

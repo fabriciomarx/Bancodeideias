@@ -40,23 +40,7 @@ public class CursoDAO implements Serializable {
         entityManager.close();
     }
 
-    /*Listar somente os cursos da universidade logada*/
-    public List<Curso> listarCursoLogado() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
-        List<Curso> listaCurso = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.universidade.idUsuario = " + usuarioLogado.getIdUsuario() + "");
-            listaCurso = query.getResultList();
-        } catch (Exception e) {
-        }
-        entityManager.close();
-        return listaCurso;
-    }
-
-    /* Listar todos os cursos cadastrados no sistema */
+    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA */
     public List<Curso> listar() {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -68,6 +52,51 @@ public class CursoDAO implements Serializable {
         }
         entityManager.close();
         return listaCurso;
-    }// fim do método list
+    }
+
+    /* LISTAR SOMENTE OS CURSOS DA UNIVERSIDADE LOGADA */
+    public List<Curso> listarCursoLogado() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Curso> listaCurso = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.universidade.idUsuario = " + usuarioLogado.getIdUsuario() + "");
+            listaCurso = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarCursoLogado - Classe Curso DAO");
+        }
+        entityManager.close();
+        return listaCurso;
+    }
+
+    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (na hora do cadastro de usuario)*/
+    public List<Curso> listarCursosUniversidadeEscolhida(int idUniversidade) {
+        List<Curso> listaCurso = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.universidade.idUsuario = " + idUniversidade + "");
+            listaCurso = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarCursoUniversidadeEscolhida - Classe Curso DAO");
+        }
+        entityManager.close();
+        return listaCurso;
+    }
+    
+   /*
+    public int quantidadeCurso() {
+        int qtdeMax = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT COUNT(U.idCurso) FROM Curso u");
+            qtdeMax = Integer.parseInt(query.getSingleResult().toString());
+        } catch (Exception e) {
+            System.out.println("Erro no metodo quantidadeCurso - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdeMax;
+    }*/
 
 }

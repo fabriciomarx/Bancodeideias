@@ -16,14 +16,16 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <h:form>
-                    <p:fieldset legend="Lista proposta de tcc pendente"> 
+                    <p:fieldset legend="Propostas de TCC pendentes"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{propostaTccController.listaPropostasPendentesDaUnivParaCoordenador}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         styleClass="table table-striped"
+                                         responsive="true"
+                                         scroll-size="600px"
+                                         scroll-x="false">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
@@ -47,17 +49,17 @@
 
                                 <h:column>
                                     <f:facet name="header">Objetivos</f:facet>
-                                    <h:outputText value="#{item.objetivos}"/>
+                                    <h:outputText value="#{item.objetivo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativas}"/>
+                                    <h:outputText value="#{item.justificativa}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Metodologias</f:facet>
-                                    <h:outputText value="#{item.metodologias}"/>
+                                    <h:outputText value="#{item.metodologia}"/>
                                 </h:column>
 
                                 <h:column>
@@ -68,10 +70,14 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <p:commandLink title="Consultar" action="#{propostaTccController.doConsultar()}">
-                                        <h:graphicImage value="/resources/imagens/consultar.png"  width="30px"></h:graphicImage>
+                                    <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </p:commandLink>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit">
+                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                    </b:commandButton>
                                 </h:column>                            
                             </b:dataTable> 
                         </b:panel>

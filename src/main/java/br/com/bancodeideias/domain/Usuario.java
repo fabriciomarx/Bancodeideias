@@ -14,10 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "usuario")
@@ -29,11 +27,6 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUsuario")
     private Integer idUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
-    @Column(name = "nome")
-    private String nome;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -42,38 +35,43 @@ public class Usuario implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "senha")
-    private String senha;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "matricula")
     private String matricula;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "nome")
+    private String nome;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "senha")
+    private String senha;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "situacao")
+    private String situacao;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "tipoUsuario")
     private String tipoUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "situacao")
-    private String situacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "academicoAnalista", fetch = FetchType.LAZY)
-    private List<AnalisePropostatcc> analisePropostatccList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "analista", fetch = FetchType.LAZY)
     private List<Ideia> ideiaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Ideia> ideiaList1;
     @OneToMany(mappedBy = "participante", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList2;
+    @OneToMany(mappedBy = "analista", fetch = FetchType.LAZY)
+    private List<PropostaTcc> propostaTccList3;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "universidade", fetch = FetchType.LAZY)
     private List<Curso> cursoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "academicoAnalista", fetch = FetchType.LAZY)
-    private List<AnaliseIdeia> analiseIdeiaList;
     @JoinColumn(name = "curso", referencedColumnName = "idCurso")
     @ManyToOne(fetch = FetchType.LAZY)
     private Curso curso;
@@ -90,9 +88,6 @@ public class Usuario implements Serializable {
     private List<Relatorio> relatorioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
     private List<Relatorio> relatorioList1;
-    
-    @Transient
-    private String senhaSemCriptografia;
 
     public Usuario() {
     }
@@ -101,14 +96,14 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String nome, String email, String senha, String matricula, String tipoUsuario, String situacao) {
+    public Usuario(Integer idUsuario, String email, String matricula, String nome, String senha, String situacao, String tipoUsuario) {
         this.idUsuario = idUsuario;
-        this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.matricula = matricula;
-        this.tipoUsuario = tipoUsuario;
+        this.nome = nome;
+        this.senha = senha;
         this.situacao = situacao;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public Integer getIdUsuario() {
@@ -119,28 +114,12 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getMatricula() {
@@ -151,12 +130,20 @@ public class Usuario implements Serializable {
         this.matricula = matricula;
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getSituacao() {
@@ -167,12 +154,12 @@ public class Usuario implements Serializable {
         this.situacao = situacao;
     }
 
-    public List<AnalisePropostatcc> getAnalisePropostatccList() {
-        return analisePropostatccList;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setAnalisePropostatccList(List<AnalisePropostatcc> analisePropostatccList) {
-        this.analisePropostatccList = analisePropostatccList;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public List<Ideia> getIdeiaList() {
@@ -181,6 +168,14 @@ public class Usuario implements Serializable {
 
     public void setIdeiaList(List<Ideia> ideiaList) {
         this.ideiaList = ideiaList;
+    }
+
+    public List<Ideia> getIdeiaList1() {
+        return ideiaList1;
+    }
+
+    public void setIdeiaList1(List<Ideia> ideiaList1) {
+        this.ideiaList1 = ideiaList1;
     }
 
     public List<PropostaTcc> getPropostaTccList() {
@@ -207,20 +202,20 @@ public class Usuario implements Serializable {
         this.propostaTccList2 = propostaTccList2;
     }
 
+    public List<PropostaTcc> getPropostaTccList3() {
+        return propostaTccList3;
+    }
+
+    public void setPropostaTccList3(List<PropostaTcc> propostaTccList3) {
+        this.propostaTccList3 = propostaTccList3;
+    }
+
     public List<Curso> getCursoList() {
         return cursoList;
     }
 
     public void setCursoList(List<Curso> cursoList) {
         this.cursoList = cursoList;
-    }
-
-    public List<AnaliseIdeia> getAnaliseIdeiaList() {
-        return analiseIdeiaList;
-    }
-
-    public void setAnaliseIdeiaList(List<AnaliseIdeia> analiseIdeiaList) {
-        this.analiseIdeiaList = analiseIdeiaList;
     }
 
     public Curso getCurso() {
@@ -279,14 +274,6 @@ public class Usuario implements Serializable {
         this.relatorioList1 = relatorioList1;
     }
 
-    public String getSenhaSemCriptografia() {
-        return senhaSemCriptografia;
-    }
-
-    public void setSenhaSemCriptografia(String senhaSemCriptografia) {
-        this.senhaSemCriptografia = senhaSemCriptografia;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -311,5 +298,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

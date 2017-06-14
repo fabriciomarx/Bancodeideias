@@ -56,8 +56,9 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.statusOrientador}"
-                                                 label="Status" required="true" requiredMessage="O campo status é obrigatorio">
+                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.status}"
+                                                 label="Status" required="true" requiredMessage="O campo status é obrigatorio"
+                                                 disabled="#{!encontroController.encontroSelecionado.status.endsWith('visualizado')}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Visto e aceito" itemValue="Visto e aceito"/>
                                     <f:selectItem itemLabel="Visto e recusado" itemValue="Visto e recusado"/>
@@ -73,7 +74,8 @@
 
                             <b:column span="1" offset-md="7" >
                                 <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
-                                                 action="#{encontroController.alterar()}" icon-align="right"/>
+                                                 action="#{encontroController.alterar()}" icon-align="right"
+                                                 rendered="#{encontroController.encontroSelecionado.status.endsWith('visualizado')}"/>
                             </b:column>
                         </b:row>
                     </h:form>

@@ -19,15 +19,15 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <h:outputLabel value="Data Inicio"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
+                                            disabled="true"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
-                                <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <h:outputLabel value="Data Fim"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
+                                            disabled="true"/>
                             </b:column>
                         </b:row><br/>
 
@@ -54,8 +54,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Data Relatorio"/>
-                                <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataRelatorio}"
+                                <h:outputLabel value="Data Inscrição"/>
+                                <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataInscricao}"
                                                   show-time="false"/>
                             </b:column>
                         </b:row>
@@ -76,7 +76,7 @@
                         
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{relatorioController.relatorioSelecionado.statusOrientador}"
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.status}"
                                                  label="Status orientador" disabled="true"/>
                             </b:column>
                         </b:row>

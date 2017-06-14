@@ -26,10 +26,13 @@ public class UsuarioController extends GenericController implements Serializable
     private List<Usuario>       listaUsuario;
     private List<Usuario>       listaAcademicos;
     private List<Usuario>       listaUniversidades;
+    private List<Usuario>       listaUniversidadesPendentes;
+    private List<Usuario>       listaAcademicosUniLogada;
     
     private Usuario             usuarioLogado;
 
-    private List<Curso>         listaCurso;
+    private List<Curso>         listaCurso; //todos cursos do sistema
+    private List<Curso>         listarCursosUniversidadeEscolhida;
     private CursoService        cursoService;
 
     @PostConstruct
@@ -41,67 +44,67 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     private void resset() {
-        usuarioSelecionado  = new Usuario();
-        usuarioService      = new UsuarioService();
-        listaUsuario        = new ArrayList<>();
-        listaAcademicos     = new ArrayList<>();
-        listaUniversidades  = new ArrayList<>();
+        usuarioSelecionado                  = new Usuario();
+        usuarioService                      = new UsuarioService();
+        listaUsuario                        = new ArrayList<>();
+        listaAcademicos                     = new ArrayList<>();
+        listaUniversidades                  = new ArrayList<>();
+        listaUniversidadesPendentes         = new ArrayList<>();
+        listaAcademicosUniLogada            = new ArrayList<>();
 
-        usuarioLogado       = new Usuario();
+        usuarioLogado                       = new Usuario();
 
-        listaCurso          = new ArrayList<>();
-        cursoService        = new CursoService();
+        listaCurso                          = new ArrayList<>();
+        listarCursosUniversidadeEscolhida   = new ArrayList<>();
+        cursoService                        = new CursoService();
     }
 
     private void listar() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
-        //if(usuarioLogador.getTipoUsuario().equals("Admin")){
-            listaUsuario = this.getUsuarioService().listar();
-            listaUniversidades = this.getUsuarioService().listUniversidades();
-       // }
+        listaUsuario                        = this.getUsuarioService().listar();
+        listaUniversidades                  = this.getUsuarioService().listUniversidades();
+        listaUniversidadesPendentes         = this.getUsuarioService().listaUniversidadesPendentes();
+        listaAcademicos                     = this.getUsuarioService().listaAcademicos();
         
-        listaAcademicos = this.getUsuarioService().listaAcademicos();
-        listaCurso = this.getCursoService().listar();
+        listaCurso                          = this.getCursoService().listar();
+        
+        listaAcademicosUniLogada            = this.getUsuarioService().listaAcademicosUniLogada();
+        
+       
+    }
 
+    private void listarCursosUniversidadeEscolhida() {
+        listarCursosUniversidadeEscolhida   = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
     }
 
     public String salvar() {
         try {
+
             HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
             //SE O USUARIO FOR UMA UNIVERSIDADE AO INSERIR UM NOVO ACADEMICO, SALVAR O NOME DELA AUTOMATICO
             //NO CAMPO 'UNIVERSIDADE'
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) {
+                this.getUsuarioSelecionado().setSituacao("Ativo");
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador);
                 this.getUsuarioService().salvar(usuarioSelecionado);
+            } else {
+                this.getUsuarioSelecionado().setSituacao("Ativo");
+                this.getUsuarioService().salvar(usuarioSelecionado);
             }
-            this.getUsuarioSelecionado().setSituacao("P");
-            this.getUsuarioService().salvar(usuarioSelecionado);
 
-            
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
         }
         this.resset();
         this.listar();
+        this.listarCursosUniversidadeEscolhida();
         return "listar.xhtml?faces-redirect=true";
     }
 
     public String alterar() {
         try {
-            HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-            //SE O USUARIO FOR UMA UNIVERSIDADE AO INSERIR UM NOVO ACADEMICO, SALVAR O NOME DELA AUTOMATICO
-            //NO CAMPO 'UNIVERSIDADE'
-            if (usuarioLogador.getTipoUsuario().equals("Universidade")) {
-                this.getUsuarioSelecionado().setUniversidade(usuarioLogador);
-                this.getUsuarioService().alterar(usuarioSelecionado);
-            }
-            this.getUsuarioSelecionado().setSituacao("P");
-            this.getUsuarioService().alterar(usuarioSelecionado);
-
+            this.getUsuarioService().alterar(usuarioLogado);
+            addSucessMessage("Usuario alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar usuario: " + usuarioSelecionado.toString());
         }
@@ -135,20 +138,22 @@ public class UsuarioController extends GenericController implements Serializable
     //LOGAR NO SISTEMA PROVISORIO
     public String doLogin() {
         usuarioLogado = this.getUsuarioService().doLogin(this.usuarioSelecionado.getEmail(),
-               this.usuarioSelecionado.getSenha());
+                this.usuarioSelecionado.getSenha());
         if (usuarioLogado != null) {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.setAttribute("usuarioLogado", usuarioLogado); //Este usuarioLogado é meu objeto modelo que pode ser persistido.
             System.out.println("Usuario logado na sessao: " + usuarioLogado.getEmail()); //provisorio
+
+            //coloquei aqui porque estava dando erro se eu colocasse no metodo "listar"
+            this.listarCursosUniversidadeEscolhida();
+            //listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
             return "/paginas/principal/index.xhtml?faces-redirect=true";
-          
-                     
+
         } else {
             return "/login/login.xhtml?faces-redirect=true";
         }
-        
-    }
 
+    }
 
     //LOGOUT PROVISORIO
     public String doLogout() {
@@ -156,29 +161,29 @@ public class UsuarioController extends GenericController implements Serializable
         return "/login/login.xhtml?faces-redirect=true";
 
     }
-   
+
     public String solicitarNovaSenha() {
         Usuario usuario
                 = this.getUsuarioService().solicitarNovaSenha(this.usuarioSelecionado.getEmail(),
                         this.usuarioSelecionado.getMatricula());
 
         if (usuario != null) {
-            System.out.println("Usuario encontrado: " + usuario.getNome());
-            System.out.println("Usuario encontrado CONTROLLER");
             String senha = this.getUsuarioService().gerarNovaSenha();
             System.out.println("Senha gerada: " + senha + " " + usuario.getEmail());
             usuario.setSenha(senha);
             this.getUsuarioService().alterar(usuario);
-            
+
             /* enviando a senha por email */
             //enviarEmail(usuario.getEmail(),senha);
             //enviarEmail();
         } else {
-            System.out.println("Usuario nao encontrado CONTROLLER");
+            addErrorMessage("Usuario não encontrado e/ou Dados invalidos");
+            System.out.println("Usuario não encontrado e/ou Dados invalidos");
         }
         return "/login/login.xhtml?faces-redirect=true";
 
     }
+
     public void enviarEmail() {
         try {
             Email email = new SimpleEmail();
@@ -194,11 +199,12 @@ public class UsuarioController extends GenericController implements Serializable
             email.send(); //fazer envio do email
             System.out.println("Email enviado");
         } catch (EmailException e) {
-             System.out.println("Email não enviado " + e.getMessage() );
-            
+            System.out.println("Email não enviado " + e.getMessage());
+
         }
 
     }
+
     /* Enviar email 
     public void enviarEmail(String destinatario, String mensagem) {
         try {
@@ -226,8 +232,20 @@ public class UsuarioController extends GenericController implements Serializable
         }
 
     }*/
-   
-   
+
+ /*Metodo para aceitar universidades, serve para o usuario adm*/
+    public String aceitar() {
+        try {
+            this.getUsuarioSelecionado().setSituacao("Ativo");
+            this.getUsuarioService().alterar(usuarioSelecionado);
+            addSucessMessage("Universidade aceita com sucesso");
+        } catch (Exception e) {
+            addErrorMessage("Erro ao aceitar universidade: " + usuarioSelecionado.toString());
+        }
+        this.resset();
+        this.listar();
+        return "listar.xhtml?faces-redirect=true";
+    }
 
     // ============ METODOS DE AÇÕES NA TELA ===========
     public String doIncluir() {
@@ -314,7 +332,28 @@ public class UsuarioController extends GenericController implements Serializable
     public void setListaUniversidades(List<Usuario> listaUniversidades) {
         this.listaUniversidades = listaUniversidades;
     }
-    
-    
-    
+
+    public List<Curso> getListarCursosUniversidadeEscolhida() {
+        return listarCursosUniversidadeEscolhida;
+    }
+
+    public void setListarCursosUniversidadeEscolhida(List<Curso> listarCursosUniversidadeEscolhida) {
+        this.listarCursosUniversidadeEscolhida = listarCursosUniversidadeEscolhida;
+    }
+
+    public List<Usuario> getListaUniversidadesPendentes() {
+        return listaUniversidadesPendentes;
+    }
+
+    public void setListaUniversidadesPendentes(List<Usuario> listaUniversidadesPendentes) {
+        this.listaUniversidadesPendentes = listaUniversidadesPendentes;
+    }
+
+    public List<Usuario> getListaAcademicosUniLogada() {
+        return listaAcademicosUniLogada;
+    }
+
+    public void setListaAcademicosUniLogada(List<Usuario> listaAcademicosUniLogada) {
+        this.listaAcademicosUniLogada = listaAcademicosUniLogada;
+    }
 }

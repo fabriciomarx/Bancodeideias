@@ -14,17 +14,8 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Consultar ideia"> 
                     <h:form>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 label="Titulo" readonly="true"/>
-                            </b:column>
-                        </b:row>
-
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
@@ -38,11 +29,25 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
+                                                 label="Titulo" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
+                                                 label="Descrição" readonly="true"/>
+                            </b:column>
+                        </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data"/>
-                                <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataIdeia}"
+                                <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataInscricao}"
                                                   show-time="false"/>
                             </b:column>
                         </b:row>
@@ -52,8 +57,9 @@
                                 <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Ativo" itemValue="A"/>
-                                    <f:selectItem itemLabel="Pendente" itemValue="P"/>
+                                   <f:selectItem itemLabel="Aprovado" itemValue="Aprovado"/>
+                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise"/>
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -67,13 +73,14 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{ideiaController.doCancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess"
+                                                 icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{ideiaController.doCancelar()}" />
                             </b:column>
 
                         </b:row>
                     </h:form>
                 </p:fieldset>
-
             </ui:define>    
         </ui:composition>
     </body>

@@ -17,15 +17,6 @@
 
                 <p:fieldset legend="Incluir ideia"> 
                     <h:form>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 placeholder="Insira o titulo da Ideia"
-                                                 label="Titulo" required="true" requiredMessage="O campo titulo é obrigatorio"/>
-                            </b:column>
-                        </b:row>
-
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
@@ -41,25 +32,44 @@
                         </b:row>
 
                         <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Titulo"/><br/>
+                                <p:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
+                                                 placeholder="Insira o titulo da Ideia" 
+                                                 rows="5" cols="169" counter="idTitulo" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Titulo é obrigatorio"/>
+                                <h:outputText id="idTitulo" style="float: right;"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Descrição"/><br/>
+                                <p:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
+                                                 placeholder="Insira a descrição da Ideia" 
+                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputText id="idDescricao" style="float: right;"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{ideiaController.doCancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" actionListener="#{ideiaController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"
-                                                 p:data-target="#amodal" p:data-toggle="modal"/>
+                                <p:commandButton value="Enviar" action="#{ideiaController.salvar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
                             </b:column>
                         </b:row>
-                        
-                        <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass"
-                                 backdrop="true">
-                                <p>Deseja inserir nova ideia ? </p>
-                                <f:facet name="footer">
-                                        <b:button value="Close" dismiss="modal" />
-                                        <b:button value="Ok" look="primary" dismiss="modal" />
-                                    </f:facet>
-                        </b:modal>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.salvar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>
             </ui:define>    

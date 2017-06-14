@@ -24,10 +24,10 @@
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  required="true" required-message="O campo tipo é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
-                                    <f:selectItem itemLabel="Universidade" itemValue="UNIVERSIDADE"/>
-                                    <f:selectItem itemLabel="Aluno" itemValue="ALUNO"/>
-                                    <f:selectItem itemLabel="Professor" itemValue="PROFESSOR"/>
-                                    <f:selectItem itemLabel="Coordenador" itemValue="COORDENADOR"/>
+                                    <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
+                                    <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
+                                    <f:selectItem itemLabel="Professor" itemValue="Professor"/>
+                                    <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -69,24 +69,18 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="10" offset-md="1">
-                                <p:password title="Senha" goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            />   
-                            </b:column>
-                        </b:row>
-                        <b:row>
+                                            value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
+                                            required="true" requiredMessage="O campo senha é obrigatorio" />
 
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senha}"
-                                               label="Senha" required="true" required-message="O campo senha é obrigatorio"/>
-                            </b:column>
-                        </b:row>
-                        
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputSecret value="#{usuarioController.usuarioSelecionado.senhaSemCriptografia}"
-                                               label="Digite novamente" required="true" required-message="O campo senha é obrigatorio"/>
+                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
+                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
+                                            requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
 

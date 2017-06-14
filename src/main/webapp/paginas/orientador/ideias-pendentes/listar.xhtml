@@ -36,17 +36,20 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data Ideia</f:facet>
-                                    <h:outputText value="#{item.dataIdeia}">
+                                    <f:facet name="header">Data da Inclusão</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao == 'A' ? 'Ativo' : 'Pendente'}"
-                                                  styleClass="#{item.situacao == 'A' ? 'ativa' : 'pendente'}"/>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
+
 
                                 <h:column>
                                     <f:facet name="header">Usuario Nome</f:facet>
@@ -57,10 +60,6 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
                                                      class="btn btn-success btn-sm">                                    
-                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
-                                    </b:commandButton>
-                                    <b:commandButton value="Recusar" action="#{ideiaController.doConsultar()}"
-                                                     class="btn btn-danger btn-sm">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton value="Editar" action="#{ideiaController.doEditar()}"

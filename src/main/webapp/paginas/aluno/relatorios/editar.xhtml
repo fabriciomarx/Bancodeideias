@@ -19,14 +19,14 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoInicio}"
+                                <h:outputLabel value="Data Inicio"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
-                                <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.periodoFim}"
+                                <h:outputLabel value="Data Fim"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
                                             mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
@@ -75,10 +75,16 @@
                                                  immediate="true" action="#{relatorioController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{relatorioController.alterar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{relatorioController.alterar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.alterar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>
 

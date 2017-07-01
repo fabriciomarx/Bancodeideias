@@ -33,22 +33,34 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
-                                                 label="Atividades Realizadas" required="true" required-message="O campo atividades é obrigatorio"/>
+                                <h:outputLabel value="Atividades Realizadas"/><br/>
+                                <p:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
+                                                 placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" 
+                                                 rows="5" cols="169" counter="idAtividade" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo atividades é obrigatorio"/>
+                                <h:outputText id="idAtividade" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Escreva a sua auto avaliação" value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
-                                                 label="Auto avaliação" required="true" required-message="O campo auto avalição é obrigatorio"/>
+                                <h:outputLabel value="Auto avaliação"/><br/>
+                                <p:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
+                                                 placeholder="Escreva a sua auto avaliação" 
+                                                 rows="5" cols="169" counter="idAvaliacao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo auto avaliacao é obrigatorio"/>
+                                <h:outputText id="idAvaliacao" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Escreva a(s) sua(s) justificativa(s)" value="#{relatorioController.relatorioSelecionado.justificativa}"
-                                                 label="Justificativa" required="true" required-message="O campo justificativa é obrigatorio"/>
+                                <h:outputLabel value="Justificativa"/><br/>
+                                <p:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
+                                                 placeholder="Escreva a(s) sua(s) justificativa(s)" 
+                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo justificativa é obrigatorio"/>
+                                <h:outputText id="idJustificativa" style="float: right;"/>
                             </b:column>
                         </b:row>
 
@@ -73,7 +85,7 @@
                                 </b:commandButton>
                             </b:column>
                         </b:row>
-                        
+
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.salvar()}"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

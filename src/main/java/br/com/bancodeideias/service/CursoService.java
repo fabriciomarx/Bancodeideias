@@ -45,11 +45,6 @@ public class CursoService implements Serializable {
         lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(id);
         return lista;
     }
-    
-    /*
-    public int quantidadeCurso(){
-        return this.getCursoDAO().quantidadeCurso();
-    }*/
 
     // ============ Gets and sets ===========
     public CursoDAO getCursoDAO() {

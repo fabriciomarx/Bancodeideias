@@ -25,10 +25,23 @@ public class RelatorioService implements Serializable {
         this.getRelatorioQuinzenalDAO().remover(relatorio.getIdRelatorio());
     }
 
-    /* LISTAR TODOS OS RELATORIOS DO SISTEMA */
+    
     public List<Relatorio> listar() {
         List<Relatorio> listaRelatorios;
         listaRelatorios = this.getRelatorioQuinzenalDAO().listar();
+        return listaRelatorios;
+    }
+    
+    
+    public List<Relatorio> listarRelatorioAlunoSelecionado(int id) {
+        List<Relatorio> listaRelatorios;
+        listaRelatorios = this.getRelatorioQuinzenalDAO().listarRelatorioAlunoSelecionado(id);
+        return listaRelatorios;
+    }
+    
+    public List<Relatorio> listarRelatorioAlunoSelecionadoParaCoord(int id) {
+        List<Relatorio> listaRelatorios;
+        listaRelatorios = this.getRelatorioQuinzenalDAO().listarRelatorioAlunoSelecionadoParaCoord(id);
         return listaRelatorios;
     }
 

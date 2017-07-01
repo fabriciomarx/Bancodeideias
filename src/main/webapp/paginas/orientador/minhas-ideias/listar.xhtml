@@ -49,14 +49,6 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao}"
-                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
-                                </h:column>
-
-                                <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit">

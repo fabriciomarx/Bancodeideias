@@ -18,8 +18,12 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario}" 
-                                                 label="Comentario" required="true" requiredMessage="O campo comentario é obrigatorio" />
+                                <h:outputLabel value="Comentario"/><br/>
+                                <p:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario}"
+                                                 placeholder="Insira o comentario da ideia" 
+                                                 rows="5" cols="169" counter="idComentario" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Comentario é obrigatorio"/>
+                                <h:outputText id="idComentario" style="float: right;"/>
                             </b:column>
                         </b:row>
 
@@ -27,22 +31,29 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Aprovado" itemValue="A" />
-                                    <f:selectItem itemLabel="Recusado" itemValue="R" />
+                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{ideiaController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
+                                                 immediate="true" action="#{ideiaController.doCancelar()}"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.alterarParaAnalise()}"/>
+                                <p:commandButton value="Enviar" action="#{ideiaController.alterarParaAnalise()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.alterarParaAnalise()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                        
                     </h:form>
                 </p:fieldset>    
             </ui:define>    

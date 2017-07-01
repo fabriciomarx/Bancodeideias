@@ -9,39 +9,43 @@ import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FlowEvent;
+import org.primefaces.event.SelectEvent;
 
 @Named(value = "propostaTccController")
 @SessionScoped
 public class PropostaTccController extends GenericController implements Serializable {
 
-    private Usuario             usuario;
+    private Usuario                     usuario;
     
-    private PropostaTcc         propostaTccSelecionada;
-    private PropostaTccService  propostaTccService;
+    private PropostaTcc                 propostaTccSelecionada;
+    private PropostaTccService          propostaTccService;
     
-    private List<PropostaTcc>   listaPropostaTcc;
-    private List<PropostaTcc>   listaPropostasPendentes;
-    private List<PropostaTcc>   listaPropostasPendentesDaUniv; 
+    private List<PropostaTcc>           listaPropostaTcc;
+    private List<PropostaTcc>           listaPropostasPendentes;
+    private List<PropostaTcc>           listaPropostasPendentesDaUniv; 
+    private List<PropostaTcc>           listarPropostasQueOrientadorParticipa;
    
-    private List<PropostaTcc>   listaProjetos;
-    private List<PropostaTcc>   listaPropostasParaCoord;
-    private List<PropostaTcc>   listaPropostasParaOrientador;
-    private List<PropostaTcc>   listaPropostasPendentesDaUnivParaCoordenador ;
+    private List<PropostaTcc>           listaProjetos;
+    private List<PropostaTcc>           listaPropostasPendentesDaUnivParaCoordenador ;
     
-    private List<Ideia>         listaIdeias;
-    private IdeiaService        ideiaService;
+    private List<Ideia>                 listaIdeias;
+    private IdeiaService                ideiaService;
 
-    private List<Usuario>       listaProfessores;
-    private List<Usuario>       listaAcademicos;
-    private UsuarioService      usuarioService;
+    private List<Usuario>               listaProfessores;
+    private List<Usuario>               listaAluno;
     
-    //String tipoUsuario;
+    private UsuarioService              usuarioService;
 
     @PostConstruct
     public void preRenderPage() {
@@ -50,28 +54,79 @@ public class PropostaTccController extends GenericController implements Serializ
     }
 
     private void resset() {
-        usuario                         = new Usuario();
-        propostaTccSelecionada          = new PropostaTcc();
-        propostaTccService              = new PropostaTccService();
-        listaPropostaTcc                = new ArrayList<>();
-        listaPropostasPendentes         = new ArrayList<>();
-        listaPropostasPendentesDaUniv   = new ArrayList<>();
+        usuario                                 = new Usuario();
         
-        listaProjetos                   = new ArrayList<>();
-        listaPropostasParaCoord         = new ArrayList<>();
-        listaPropostasParaOrientador    = new ArrayList<>();
+        propostaTccSelecionada                  = new PropostaTcc();
+        propostaTccService                      = new PropostaTccService();
+        
+        listaPropostaTcc                        = new ArrayList<>();
+        listarPropostasQueOrientadorParticipa   = new ArrayList<>();
+        listaPropostasPendentes                 = new ArrayList<>();
+        listaPropostasPendentesDaUniv           = new ArrayList<>();
+        
+        listaProjetos                           = new ArrayList<>();
+
         listaPropostasPendentesDaUnivParaCoordenador  = new ArrayList<>();
         
-        listaIdeias                     = new ArrayList<>();
-        ideiaService                    = new IdeiaService();
+        listaIdeias                             = new ArrayList<>();
+        ideiaService                            = new IdeiaService();
 
-        listaProfessores                = new ArrayList<>();
-        listaAcademicos                 = new ArrayList<>();
-        usuarioService                  = new UsuarioService();
+        listaProfessores                        = new ArrayList<>();
+        listaAluno                              = new ArrayList<>();
+        
+        usuarioService                          = new UsuarioService();
     }
     
+    public void abrirDialogo() {
+        Map<String, Object> opcoes = new HashMap<>(); // mapa de parametros, configuracões
+        opcoes.put("modal", true);  //
+        opcoes.put("resizable", false);
+        opcoes.put("contentHeight", 500);
+
+        RequestContext.getCurrentInstance().openDialog("SelecaoIdeia", opcoes, null);
+    }
+
+    public void ideiaSelecionada(SelectEvent event) { 
+        Ideia ideia = (Ideia) event.getObject(); //objeto da selecao
+        this.getPropostaTccSelecionada().setProblema(ideia);
+    }
+    
+    /*
+    @NotBlank
+    public String getNomeIdeia() {
+        return propostaTccSelecionada.getProblema()== null
+                ? null : propostaTccSelecionada.getProblema().getTitulo();
+    }
+
+    public void setNomeIdeia(String nomeIdeia) {
+    }*/
+
+
+    
+
+    /* WIZARD */
+    private boolean skip;
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (skip) {
+            skip = false;
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+    /* WIZARD */
+    
     public void listaPropostas() {
-        listaPropostasParaOrientador = this.getPropostaTccService().listarPropostasAlunoSelecionado(usuario.getIdUsuario());
+        listaPropostaTcc = this.getPropostaTccService().listarPropostasAlunoSelecionado(usuario.getIdUsuario());
     }
 
     private void listar() {
@@ -83,26 +138,26 @@ public class PropostaTccController extends GenericController implements Serializ
                 listaPropostaTcc = this.getPropostaTccService().listarPropostasLogado();
                 break;
             case "Coordenador":
-                listaPropostasParaCoord = this.getPropostaTccService().listarPropostasParaCoord();
+                listaPropostaTcc = this.getPropostaTccService().listarPropostasParaCoord();
                 listaPropostasPendentesDaUnivParaCoordenador = this.getPropostaTccService().listaPropostasPendentesDaUnivParaCoordenador();
                 break;
             case "Admin":
                 listaPropostaTcc = this.getPropostaTccService().listar();
                 break;
             case "Universidade":
-           
                 listaPropostasPendentesDaUniv = this.getPropostaTccService().listaPropostasPendentesDaUniv();
                 listaProjetos = this.getPropostaTccService().listarProjetos();
                 listaPropostaTcc = this.getPropostaTccService().listaPropostasDaUniv();
              case "Professor":
-                listaPropostasParaOrientador = this.getPropostaTccService().listarPropostasParaOrientador();
+                listaPropostaTcc = this.getPropostaTccService().listarPropostasParaOrientador();
+                listarPropostasQueOrientadorParticipa = this.getPropostaTccService().listarPropostasQueOrientadorParticipa();
                 break;
             default:
                 break;
         }
-        listaIdeias = this.getIdeiaService().listarIdeiasAprovadas()    ;
+        listaIdeias      = this.getIdeiaService().listarIdeiasAprovadas()    ;
         listaProfessores = this.getUsuarioService().listaProfessores();
-        listaAcademicos = this.getUsuarioService().listaAcademicos();
+        listaAluno       = this.getUsuarioService().listaAlunos();
 
        // listaPropostasParaOrientador    = this.getPropostaTccService().list();
     }
@@ -310,22 +365,6 @@ public class PropostaTccController extends GenericController implements Serializ
         this.listaProjetos = listaProjetos;
     }
 
-    public List<PropostaTcc> getListaPropostasParaCoord() {
-        return listaPropostasParaCoord;
-    }
-
-    public void setListaPropostasParaCoord(List<PropostaTcc> listaPropostasParaCoord) {
-        this.listaPropostasParaCoord = listaPropostasParaCoord;
-    }
-
-    public List<PropostaTcc> getListaPropostasParaOrientador() {
-        return listaPropostasParaOrientador;
-    }
-
-    public void setListaPropostasParaOrientador(List<PropostaTcc> listaPropostasParaOrientador) {
-        this.listaPropostasParaOrientador = listaPropostasParaOrientador;
-    }
-
     public List<PropostaTcc> getListaPropostasPendentesDaUniv() {
         return listaPropostasPendentesDaUniv;
     }
@@ -334,12 +373,12 @@ public class PropostaTccController extends GenericController implements Serializ
         this.listaPropostasPendentesDaUniv = listaPropostasPendentesDaUniv;
     }
 
-    public List<Usuario> getListaAcademicos() {
-        return listaAcademicos;
+    public List<Usuario> getListaAluno() {
+        return listaAluno;
     }
 
-    public void setListaAcademicos(List<Usuario> listaAcademicos) {
-        this.listaAcademicos = listaAcademicos;
+    public void setListaAluno(List<Usuario> listaAluno) {
+        this.listaAluno = listaAluno;
     }
 
     public List<PropostaTcc> getListaPropostasPendentesDaUnivParaCoordenador() {
@@ -349,6 +388,16 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setListaPropostasPendentesDaUnivParaCoordenador(List<PropostaTcc> listaPropostasPendentesDaUnivParaCoordenador) {
         this.listaPropostasPendentesDaUnivParaCoordenador = listaPropostasPendentesDaUnivParaCoordenador;
     }
+
+    public List<PropostaTcc> getListarPropostasQueOrientadorParticipa() {
+        return listarPropostasQueOrientadorParticipa;
+    }
+
+    public void setListarPropostasQueOrientadorParticipa(List<PropostaTcc> listarPropostasQueOrientadorParticipa) {
+        this.listarPropostasQueOrientadorParticipa = listarPropostasQueOrientadorParticipa;
+    }
+    
+    
 
     public Usuario getUsuario() {
         return usuario;

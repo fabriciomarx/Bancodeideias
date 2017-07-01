@@ -96,10 +96,10 @@ public class UsuarioService implements Serializable {
         return listaUsuario;
     }
 
-    /* Lista de academicos*/
-    public List<Usuario> listaAcademicos() {
+    /* Lista de academicos (aluno)*/
+    public List<Usuario> listaAlunos() {
         List<Usuario> listaUsuario;
-        listaUsuario = this.getUsuarioDAO().listaAcademicos();
+        listaUsuario = this.getUsuarioDAO().listaAlunos();
         return listaUsuario;
     }
     
@@ -161,6 +161,35 @@ public class UsuarioService implements Serializable {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaUniversidades();
         return listaUsuario;
+    }
+    
+    /*
+    public void quantidadePorTipo(){
+        this.getUsuarioDAO().quantidadeCadaTipo();
+    }*/
+    
+    public int quantidadeAluno() {
+        int qtdeAlu = 0;
+        qtdeAlu = this.getUsuarioDAO().quantidadeAluno();
+        return qtdeAlu;
+    }
+
+    public int quantidadeCoordenador() {
+        int qtdeCoord = 0;
+        qtdeCoord = this.getUsuarioDAO().quantidadeCoordenador();
+        return qtdeCoord;
+    }
+
+    public int quantidadeProfessor() {
+        int qtdePro = 0;
+        qtdePro = this.getUsuarioDAO().quantidadeProfessor();
+        return qtdePro;
+    }
+
+    public int quantidadeUniversidade() {
+        int qtdeUni = 0;
+        qtdeUni = this.getUsuarioDAO().quantidadeUniversidade();
+        return qtdeUni;
     }
 
     /* =========Getts and setts ============= */

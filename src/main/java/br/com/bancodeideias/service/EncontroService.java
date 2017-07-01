@@ -25,7 +25,7 @@ public class EncontroService implements Serializable {
         this.getEncontroDAO().remover(encontro.getIdEncontro());
 
     }
-    
+
     /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno ou professor) Metodo que a universidade usa */
     public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
         List<Encontro> lista;

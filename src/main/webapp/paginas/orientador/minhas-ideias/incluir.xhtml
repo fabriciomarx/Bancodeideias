@@ -12,16 +12,17 @@
     </head>
 
     <body>
+
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
                 <p:fieldset legend="Incluir ideia"> 
                     <h:form>
-                        <b:row>
+                        <b:row>   
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true" />
+                                                 label="Tipo Ideia" required="true" requiredMessage="O campo Tipo de Ideia é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Estudo de caso" itemValue="Estudo de caso"/>
                                     <f:selectItem itemLabel="Revisão da bibliografia" itemValue="Revisão da bibliografia"/>
                                     <f:selectItem itemLabel="Pesquisa de recepção" itemValue="Pesquisa de recepção"/>
@@ -30,7 +31,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Titulo"/><br/>
@@ -55,29 +56,23 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{ideiaController.doCancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
+                                                 immediate="true" action="#{ideiaController.doCancelar()}"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
-                                <b:column span="3">
-                                    <b:button value="enviar b" look="success" onclick="$('.modalPseudoClass').modal()"/>
-                                    <b:commandButton value="enviar c" look="success" onclick="$('.modalPseudoClass').modal()"
-                                                     process="@this" immediate="true"/>
-                                </b:column>
+                                <p:commandButton value="Enviar" action="#{ideiaController.salvar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
-                        
-                        <b:modal id="amodal" title="Informação" styleClass="modalPseudoClass">
-                            <p>Deseja inserir uma nova ideia ?</p>    
-                            <f:facet name="footer">
-                                <b:commandButton value="Não" look="sucess" immediate="true" action="#{ideiaController.doCancelar()}" />
-                                <b:button value="Sim" look="primary" dismiss="modal"/>
-                            </f:facet>
-                        </b:modal>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.salvar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>
+
             </ui:define>    
         </ui:composition>
     </body>

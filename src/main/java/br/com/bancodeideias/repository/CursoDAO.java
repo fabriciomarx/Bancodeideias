@@ -40,7 +40,7 @@ public class CursoDAO implements Serializable {
         entityManager.close();
     }
 
-    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA */
+    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA - USUARIO ADM QUE UTILIZA */
     public List<Curso> listar() {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -62,7 +62,8 @@ public class CursoDAO implements Serializable {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.universidade.idUsuario = " + usuarioLogado.getIdUsuario() + "");
+            Query query = entityManager.createQuery("SELECT u FROM Curso u "
+                    + "WHERE u.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
             listaCurso = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarCursoLogado - Classe Curso DAO");
@@ -71,12 +72,13 @@ public class CursoDAO implements Serializable {
         return listaCurso;
     }
 
-    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (na hora do cadastro de usuario)*/
+    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (metodo para cadastro de usuario)*/
     public List<Curso> listarCursosUniversidadeEscolhida(int idUniversidade) {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.universidade.idUsuario = " + idUniversidade + "");
+            Query query = entityManager.createQuery("SELECT u FROM Curso u "
+                    + "WHERE u.universidade.idUsuario = " + idUniversidade);
             listaCurso = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarCursoUniversidadeEscolhida - Classe Curso DAO");
@@ -84,19 +86,4 @@ public class CursoDAO implements Serializable {
         entityManager.close();
         return listaCurso;
     }
-    
-   /*
-    public int quantidadeCurso() {
-        int qtdeMax = 0;
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT COUNT(U.idCurso) FROM Curso u");
-            qtdeMax = Integer.parseInt(query.getSingleResult().toString());
-        } catch (Exception e) {
-            System.out.println("Erro no metodo quantidadeCurso - Classe Curso DAO");
-        }
-        entityManager.close();
-        return qtdeMax;
-    }*/
-
 }

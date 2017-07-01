@@ -18,13 +18,10 @@
                 <h:form>
                     <p:fieldset legend="Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
-                            <b:dataTable value="#{propostaTccController.listaPropostasParaCoord}"
+                            <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true"
-                                         scroll-size="600px"
-                                         scroll-x="false">
+                                         styleClass="table table-striped">
                                
 
                                 <h:column>
@@ -58,14 +55,20 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Metodologias</f:facet>
-                                    <h:outputText value="#{item.metodologia}"/>
+                                    <f:facet name="header">Academico</f:facet>
+                                    <h:outputText value="#{item.academico.nome}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Materiais</f:facet>
-                                    <h:outputText value="#{item.materias}"/>
+                                    <f:facet name="header">Orientador</f:facet>
+                                    <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
+                                
+                                <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                    </h:outputText>
 
 
                                 <h:column>

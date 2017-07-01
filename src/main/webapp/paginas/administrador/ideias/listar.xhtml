@@ -5,8 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,34 +17,23 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista ideia"> 
+                    <p:fieldset legend="Minhas ideias"> 
                         <b:panel look="primary" collapsible="false">
-
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
-
+                                         styleClass="table table-striped"
+                                         responsive="true" id="ideiaData"
+                                         scroll-size="500px"
+                                         scroll-x="false">
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header" >Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Tipo de Ideia</f:facet>
-                                    <h:outputText value="#{item.tipoIdeia}"/>
-                                </h:column>
-                                
-                                <h:column>
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Data da Inclusão</f:facet>
-                                    <h:outputText value="#{item.dataInscricao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
                                 </h:column>
 
                                 <h:column>
@@ -83,7 +71,5 @@
                 </h:form>             
             </ui:define>    
         </ui:composition>
-
     </body>
-
 </html>

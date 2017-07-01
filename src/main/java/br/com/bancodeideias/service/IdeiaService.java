@@ -74,7 +74,7 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasPendentes();
         return lista;
     }
-
+    
     //getss and setts
     public IdeiaDAO getIdeiaDAO() {
         return ideiaDAO;

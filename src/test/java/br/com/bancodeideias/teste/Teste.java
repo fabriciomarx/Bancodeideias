@@ -17,9 +17,8 @@ public class Teste {
     @Test
     @Ignore
     public void salvar() throws ParseException { //quando for universidade
-       //List<AnalisePropostatcc> listaAnalisePropostaTcc = new ArrayList<>();
-       //listaAnalisePropostaTcc.size();
-        //System.out.println("Resultado: " + listaAnalisePropostaTcc.size());
+       UsuarioDAO dao = new UsuarioDAO();
+       //dao.quantidadeCadaTipo();
         
     }
     

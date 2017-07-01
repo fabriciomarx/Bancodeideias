@@ -6,40 +6,30 @@ import br.com.bancodeideias.service.EncontroService;
 import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultScheduleEvent;
-import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.ScheduleEvent;
-import org.primefaces.model.ScheduleModel;
 
 @Named(value = "encontroController")
 @SessionScoped
 public class EncontroController extends GenericController implements Serializable {
 
-    private Usuario             usuario;
+    private Usuario                 usuario;
     
-    private Encontro            encontroSelecionado;
-    private EncontroService     encontroService;
+    private Encontro                encontroSelecionado;
+    private EncontroService         encontroService;
 
-    private List<Encontro>      listaEncontro;
-    private List<Encontro>      listarEncontroQueCadastrei;
-    private List<Encontro>      listarEncontrosAlu_Prof;
+    private List<Encontro>          listaEncontro;
+    private List<Encontro>          listarEncontroQueCadastrei;
+    private List<Encontro>          listarEncontrosAlu_Prof;
 
-    private List<Usuario>       listaAcademico;
-    private List<Usuario>       listaProfessores;
-    private UsuarioService      usuarioService;
-
-    private ScheduleModel       encontros; //modelo da agenda
-    private ScheduleEvent       event;
+    private List<Usuario>           listaAluno;
+    private List<Usuario>           listaProfessores;
+    
+    private UsuarioService          usuarioService;
 
     @PostConstruct
     public void preRenderPage() {
@@ -58,13 +48,14 @@ public class EncontroController extends GenericController implements Serializabl
         listarEncontroQueCadastrei  = new ArrayList<>();
         listarEncontrosAlu_Prof     = new ArrayList<>();
 
-        listaAcademico              = new ArrayList<>();
+        listaAluno                  = new ArrayList<>();
         listaProfessores            = new ArrayList<>();
+        
         usuarioService              = new UsuarioService();
-
-        encontros                   = new DefaultScheduleModel();
-        event                       = new DefaultScheduleEvent();
-
+    }
+    
+    public void listEncontros(){
+        listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionado(usuario.getIdUsuario());
     }
     
     private void listar() {
@@ -89,42 +80,13 @@ public class EncontroController extends GenericController implements Serializabl
             default:
                 break;
         }
-        listaAcademico = this.getUsuarioService().listaAcademicos();
+        listaAluno       = this.getUsuarioService().listaAlunos();
         listaProfessores = this.getUsuarioService().listaProfessores();
-        encontros.addEvent(new DefaultScheduleEvent("Titulo", new Date(), new Date()));
-    }
-    
-    public void listEncontros(){
-        listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionado(usuario.getIdUsuario());
-    }
-
-    public void addEvent(ActionEvent actionEvent) {
-        if (event.getId() == null) {
-            encontros.addEvent(event);
-        } else {
-            encontros.updateEvent(event);
-        }
-
-        event = new DefaultScheduleEvent();
-    }
-
-    public void onEventSelect(SelectEvent evento) {
-        event = (ScheduleEvent) evento.getObject();
-    }
-
-    public void novo(SelectEvent evento) {
-        encontroSelecionado.setDataEncontro((Date) evento.getObject());
     }
 
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
-
-        /*Arrumando o erro que salvava uma data antes*/
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(encontroSelecionado.getDataEncontro());
-        calendar.add(Calendar.DATE, 1); //somando um dia na data
-        encontroSelecionado.setDataEncontro(calendar.getTime()); //data do encontro recebendo a nova data
 
         try {
             if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
@@ -252,28 +214,12 @@ public class EncontroController extends GenericController implements Serializabl
         this.listarEncontrosAlu_Prof = listarEncontrosAlu_Prof;
     }
 
-    public ScheduleModel getEncontros() {
-        return encontros;
+    public List<Usuario> getListaAluno() {
+        return listaAluno;
     }
 
-    public void setEncontros(ScheduleModel encontros) {
-        this.encontros = encontros;
-    }
-
-    public ScheduleEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(ScheduleEvent event) {
-        this.event = event;
-    }
-
-    public List<Usuario> getListaAcademico() {
-        return listaAcademico;
-    }
-
-    public void setListaAcademico(List<Usuario> listaAcademico) {
-        this.listaAcademico = listaAcademico;
+    public void setListaAluno(List<Usuario> listaAluno) {
+        this.listaAluno = listaAluno;
     }
 
     public Usuario getUsuario() {
@@ -283,7 +229,4 @@ public class EncontroController extends GenericController implements Serializabl
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
-
 }

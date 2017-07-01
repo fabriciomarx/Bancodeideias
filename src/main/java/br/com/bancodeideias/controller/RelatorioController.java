@@ -18,16 +18,15 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class RelatorioController extends GenericController implements Serializable {
 
+    private Usuario             usuario;
+    
     private Relatorio           relatorioSelecionado;
     private RelatorioService    relatorioService;
     private List<Relatorio>     listaRelatorio;
    
-    private List<Usuario>       listaAcademicos;
+    private List<Usuario>       listaAluno;
     private List<Usuario>       listaProfessores;
     private UsuarioService      usuarioService;
-    
-    
-    private List<Relatorio>     listRelatorioAlunoSelecionado; 
     
 
     @PostConstruct
@@ -37,6 +36,8 @@ public class RelatorioController extends GenericController implements Serializab
     }
 
     public void resset() {
+        usuario                         = new Usuario();
+        
         relatorioSelecionado            = new Relatorio();
         relatorioService                = new RelatorioService();
         
@@ -44,9 +45,18 @@ public class RelatorioController extends GenericController implements Serializab
         
         usuarioService                  = new UsuarioService();
         listaProfessores                = new ArrayList<>();
-        listaAcademicos                 = new ArrayList<>();
-        listRelatorioAlunoSelecionado   = new ArrayList<>();
+        listaAluno                       = new ArrayList<>();
         
+    }
+    
+    /* Metodo utilizado para filtro de relatorios, utilizado no ORIENTADOR/RELATORIOS */
+    public void listaRelatorios() {
+        listaRelatorio = this.getRelatorioService().listRelatorioAlunoSelecionado(usuario.getIdUsuario());
+    }
+    
+    /* Metodo utilizado para filtro de relatorios, utilizado no COORDENADOR/RELATORIOS */
+    public void listaRelatoriosCoord() {
+        listaRelatorio = this.getRelatorioService().listarRelatorioAlunoSelecionadoParaCoord(usuario.getIdUsuario());
     }
 
     public void listar() {
@@ -74,12 +84,8 @@ public class RelatorioController extends GenericController implements Serializab
 
         }
         listaProfessores = this.getUsuarioService().listaProfessores();
-        listaAcademicos = this.getUsuarioService().listaAcademicos();
+        listaAluno       = this.getUsuarioService().listaAlunos();
 
-    }
-
-    public void list() {
-        listaRelatorio = this.getRelatorioService().listRelatorioAlunoSelecionado(relatorioSelecionado.getAcademico().getIdUsuario());
     }
 
     public String salvar() {
@@ -199,19 +205,21 @@ public class RelatorioController extends GenericController implements Serializab
         this.usuarioService = usuarioService;
     }
 
-    public List<Usuario> getListaAcademicos() {
-        return listaAcademicos;
+    public List<Usuario> getListaAluno() {
+        return listaAluno;
     }
 
-    public void setListaAcademicos(List<Usuario> listaAcademicos) {
-        this.listaAcademicos = listaAcademicos;
+    public void setListaAluno(List<Usuario> listaAluno) {
+        this.listaAluno = listaAluno;
     }
 
-    public List<Relatorio> getListRelatorioAlunoSelecionado() {
-        return listRelatorioAlunoSelecionado;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setListRelatorioAlunoSelecionado(List<Relatorio> listRelatorioAlunoSelecionado) {
-        this.listRelatorioAlunoSelecionado = listRelatorioAlunoSelecionado;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
+    
+    
 }

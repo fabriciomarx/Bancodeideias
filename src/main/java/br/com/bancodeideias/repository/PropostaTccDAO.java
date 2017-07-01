@@ -40,13 +40,34 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
     }
 
-    //Utilizado no filtro do orientador (pagina aprovar proposta )
+    /* Filtrar propostas de tcc do aluno selecionado que a aprovacao ainda esta em analise e o orientador seja o usuario logado
+        utilizo esse metodo na pagina do orientador - aprovações de propostas */
     public List<PropostaTcc> listarPropostasAlunoSelecionado(int id) {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<PropostaTcc> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM PropostaTcc u WHERE u.academico.idUsuario = "
+                    + id + " AND u.aprovacaoOrientador = 'Em analise' "
+                    + "AND u.orientador = " + usuarioLogado.getIdUsuario());
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarPropostasAlunoSelecionado - Classe PropostaTcc DAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    //Utilizado no filtro do coordenador (pagina propostas )
+    public List<PropostaTcc> listarPropostasAlunoSelecionadoCoord(int id) {
         List<PropostaTcc> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("Select u From PropostaTcc u where u.academico.idUsuario = "
-                    + id);
+                    + id + " AND u.aprovacaoOrientador = 'Em analise'");
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasAlunoSelecionado - Classe PropostaTcc DAO");
@@ -150,7 +171,7 @@ public class PropostaTccDAO implements Serializable {
     
     /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasDaUniv() {
-
+        System.out.println("PROPOSTAS DA UNIVESIDADE");
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
@@ -160,8 +181,9 @@ public class PropostaTccDAO implements Serializable {
             Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Aprovado' AND u.academico.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
+             System.out.println("PROPOSTAS DA UNIVESIDADE = " + listaPropostaTcc.size());
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaPropostasPendentesDaUniv - Classe PropostaTcc DAO");
+            System.out.println("Erro no metodo listaPropostasDaUniv - Classe PropostaTcc DAO");
         }
         entityManager.close();
         return listaPropostaTcc;
@@ -198,5 +220,22 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
         return listaPropostaTcc;
     }
+    
+     /* LISTA DE PROPOSTAS QUE O PROFESSOR PARTICIPA */
+    public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
+        List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u WHERE u.aprovacaoOrientador = 'Aprovado' AND u.orientador.idUsuario = "
+                    + usuarioLogado.getIdUsuario());
+            listaPropostaTcc = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarPropostasQueOrientadorParticipa - Classe PropostaTcc DAO");
+        }
+        entityManager.close();
+        return listaPropostaTcc;
+    }
 }

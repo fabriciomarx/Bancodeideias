@@ -87,6 +87,12 @@ public class PropostaTccService implements Serializable {
         lista = this.getPropostaTccDAO().listarPropostasParaOrientador();
         return lista;
     }
+    
+    public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasQueOrientadorParticipa();
+        return lista;
+    }
 
     //getts and setts
     public PropostaTccDAO getPropostaTccDAO() {

@@ -58,16 +58,22 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton value="Aceitar" action="#{ideiaController.doIncluir()}"
+                                    <b:commandButton value="Analisar" action="#{ideiaController.doIncluir()}"
                                                      class="btn btn-success btn-sm">                                    
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
-                                    <b:commandButton value="Editar" action="#{ideiaController.doEditar()}"
-                                                     class="btn btn-info btn-sm">
+                                    <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-edit">
+                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                    </b:commandButton>
+                                    <b:commandButton value="" action="#{ideiaController.doConsultar()}"
+                                                     class="btn btn-info btn-sm" icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
+                            
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>
                 </h:form>

@@ -56,14 +56,20 @@
                         
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{ideiaController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
+                                                 immediate="true" action="#{ideiaController.doCancelar()}"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.alterar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{ideiaController.alterar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.alterar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset> 
 

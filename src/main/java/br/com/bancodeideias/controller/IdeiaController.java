@@ -13,22 +13,24 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.primefaces.context.RequestContext;
 
 @Named(value = "ideiaController")
 @SessionScoped
 public class IdeiaController extends GenericController implements Serializable {
 
-    private Ideia           ideiaSelecionada;
-    private IdeiaService    ideiaService;
+    private Ideia                           ideiaSelecionada;
+    private IdeiaService                    ideiaService;
     
-    private List<Ideia>     listaIdeia;
-    private List<Ideia>     listaIdeiasPendente;
-    private List<Ideia>     listaIdeiasLogado;
-    private List<Ideia>     listaIdeiasdaUniversidade;
-    private List<Ideia>     listarIdeiasPendentesdaUniversidade;
+    private List<Ideia>                     listaIdeia;
+    private List<Ideia>                     listaIdeiasPendente;
+    private List<Ideia>                     listaIdeiasLogado;
+    private List<Ideia>                     listaIdeiasdaUniversidade;
+    private List<Ideia>                     listarIdeiasPendentesdaUniversidade;
 
-    private List<Usuario>   listaUsuario;
-    private UsuarioService  usuarioService;
+    private List<Usuario>                   listaUsuario;
+    private UsuarioService                  usuarioService;
+       
 
     @PostConstruct
     public void preRenderPage() {
@@ -37,34 +39,42 @@ public class IdeiaController extends GenericController implements Serializable {
     }
 
     public void resset() {
-        ideiaSelecionada            = new Ideia();
-        ideiaService                = new IdeiaService();
+        ideiaSelecionada                    = new Ideia();
+        ideiaService                        = new IdeiaService();
         
-        listaIdeia                  = new ArrayList<>();
-        listaIdeiasPendente         = new ArrayList<>();
-        listaIdeiasLogado           = new ArrayList<>();
-        listaIdeiasdaUniversidade   = new ArrayList<>();
+        listaIdeia                          = new ArrayList<>();
+        listaIdeiasPendente                 = new ArrayList<>();
+        listaIdeiasLogado                   = new ArrayList<>();
+        listaIdeiasdaUniversidade           = new ArrayList<>();
         listarIdeiasPendentesdaUniversidade = new ArrayList<>();
 
-        listaUsuario                = new ArrayList<>();
-        usuarioService              = new UsuarioService();
+        listaUsuario                        = new ArrayList<>();
+        usuarioService                      = new UsuarioService();
     }
-
+    
+     public void selecionar(Ideia ideia) {
+        RequestContext.getCurrentInstance().closeDialog(ideia); //fechar o dialog de selecao de ideias
+    }
+    
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
-        if (usuarioLogado.getTipoUsuario().equals("Coordenador") || usuarioLogado.getTipoUsuario().equals("Professor")) {
-            listaIdeiasPendente = this.getIdeiaService().listarIdeiasPendentes(); // pendentes
-        } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
-            listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
-            listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
+        switch (usuarioLogado.getTipoUsuario()) {
+            case "Coordenador":
+            case "Professor":
+                listaIdeiasPendente = this.getIdeiaService().listarIdeiasPendentes(); // ideias pendentes somente da universidade
+                break;
+            case "Universidade":
+                listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
+                listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
+                break;
+            default:
+                break;
         }
-
-        listaIdeiasLogado = this.getIdeiaService().listarIdeiasLogado(); // somente a do usuario logado
-        listaUsuario = this.getUsuarioService().listar();
         listaIdeia = this.getIdeiaService().listar(); //  todas ideias 
-
+        listaIdeiasLogado = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
+        listaUsuario = this.getUsuarioService().listar();
     }
 
     public String salvar() {
@@ -81,6 +91,7 @@ public class IdeiaController extends GenericController implements Serializable {
 
             this.getIdeiaSelecionada().setDataInscricao(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
             this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
+            this.getIdeiaSelecionada().setFavorito("Não");
             this.getIdeiaService().salvar(ideiaSelecionada);
             addSucessMessage("Ideia salva com sucesso");
         } catch (Exception e) {

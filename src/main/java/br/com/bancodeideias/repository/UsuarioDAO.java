@@ -69,16 +69,24 @@ public class UsuarioDAO implements Serializable {
         }
     }
 
-    /* LISTA DE ACADEMICOS CADASTRADOS NO SISTEMA */
-    public List<Usuario> listaAcademicos() {
+    /* LISTA DE ACADEMICOS(alunos) CADASTRADOS NO SISTEMA */
+    public List<Usuario> listaAlunos() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
-                    + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario());
+            String sql = ""; //vazio
+            if(usuarioLogado.getTipoUsuario().equals("Coordenador")){
+                /* se o usuario logado for Coordenador, carregar a lista de academicos do curso dele */
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' AND u.curso.idCurso = " 
+                        + usuarioLogado.getCurso().getIdCurso();        
+            }else{
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
+                    + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
+            }
+            Query query = entityManager.createQuery(sql);
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaAcademicos - Classe Usuario DAO");
@@ -168,6 +176,97 @@ public class UsuarioDAO implements Serializable {
             System.out.println("Usuario não encontrado DAO"); //provisorio
             return null;
         }
+    }
+    
+    /*
+    public void quantidadeCadaTipo() {
+        int qtdeAlu = 0;
+        int qtdePro = 0;
+        int qtdeCoord = 0;
+        int qtdeUni = 0;
 
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Aluno'");
+            qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
+            System.out.println("Qtd Aluno = " + qtdeAlu);
+
+            Query query2 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Professor'");
+            qtdePro = Integer.parseInt(query2.getSingleResult().toString());
+            System.out.println("Qtd Professor = " + qtdePro);
+
+            Query query3 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Coordenador'");
+            qtdeCoord = Integer.parseInt(query3.getSingleResult().toString());
+            System.out.println("Qtd Coordenador = " + qtdeCoord);
+
+            Query query4 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Universidade'");
+            qtdeUni = Integer.parseInt(query4.getSingleResult().toString());
+            System.out.println("Qtd Universidade = " + qtdeUni);
+
+        } catch (Exception e) {
+            System.out.println("Erro no metodo quantidadeCurso - Classe Curso DAO");
+        }
+        entityManager.close();
+    }*/
+    
+    /* METODOS PARA UTILIZAR NOS GRAFICOS */
+    public int quantidadeAluno() {
+        int qtdeAlu = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Aluno'");
+            qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
+            System.out.println("Qtd Aluno = " + qtdeAlu);
+
+        } catch (Exception e) {
+            System.out.println("Erro no metodo quantidadeAluno - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdeAlu;
+    }
+
+    public int quantidadeProfessor() {
+        int qtdePro = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query2 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Professor'");
+            qtdePro = Integer.parseInt(query2.getSingleResult().toString());
+            System.out.println("Qtd Professor = " + qtdePro);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Erro no metodo quantidadeProfessor - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdePro;
+    }
+
+    public int quantidadeUniversidade() {
+        int qtdeUni = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query4 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Universidade'");
+            qtdeUni = Integer.parseInt(query4.getSingleResult().toString());
+            System.out.println("Qtd Universidade = " + qtdeUni);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Erro no metodo quantidadeUniversidade - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdeUni;
+    }
+
+    public int quantidadeCoordenador() {
+        int qtdeCoord = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query3 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Coordenador'");
+            qtdeCoord = Integer.parseInt(query3.getSingleResult().toString());
+            System.out.println("Qtd Coordenador = " + qtdeCoord);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Erro no metodo quantidadeCoordenador - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdeCoord;
     }
 }

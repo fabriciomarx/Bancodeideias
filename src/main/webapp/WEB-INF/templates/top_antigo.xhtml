@@ -63,14 +63,13 @@
                 <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ORIENTADOR -->
                 <b:navLink value="Cadastro" href="#{request.contextPath}/paginas/orientador/cadastro/editar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 <b:dropMenu value="Ideias" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
-                    <b:navLink value="Editar minhas Ideias" href="#{request.contextPath}/paginas/orientador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Minhas Ideias" href="#{request.contextPath}/paginas/orientador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                     <b:navLink value="Todas Ideias" href="#{request.contextPath}/paginas/orientador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                     <b:navLink value="Ideias Pendentes" href="#{request.contextPath}/paginas/orientador/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 </b:dropMenu>
                 <b:dropMenu value="Propostas de TCC" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
                     <b:navLink value="Proposta de TCC" href="#{request.contextPath}/paginas/orientador/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                     <b:navLink value="Aprovações de Proposta de TCC" href="#{request.contextPath}/paginas/orientador/aprovacoes-propostas/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                    <b:navLink value="Propostas que Participo" href="#{request.contextPath}/paginas/orientador/aprovacoes-propostas/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 </b:dropMenu>
                 <b:dropMenu value="Encontros" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
                     <b:navLink value="Editar Meus Encontros" href="#{request.contextPath}/paginas/orientador/meus-encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>

@@ -19,35 +19,46 @@
                     <h:form >
 
                         <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
+                            <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
-                                            placeholder="__/__/__"
-                                            required="true" pages="3" 
-                                            pattern="MM/dd/yyyy HH:mm:ss"/>
-                                
+                                            placeholder="__/__/__" mindate="new Date()"
+                                            required="true" pages="3" />
+                            </b:column>
+
+                            <b:column medium-screen="6" span="3">
+                                <h:outputLabel value="Hora do Encontro"/><br/>
+                                <p:calendar value="#{encontroController.encontroSelecionado.hora}"
+                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo Data do Encontro é obrigatorio"
+                                            placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
-                                                 placeholder="Insira o local do Encontro"
-                                                 label="Local do Encontro" required="true" requiredMessage="O campo local é obrigatorio"/>
+                                <h:outputLabel value="Local do encontro"/><br/>
+                                <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
+                                                 placeholder="Insira o local do Encontro" 
+                                                 rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo local é obrigatorio"/>
+                                <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
-                                                 placeholder="Insira a descrição do Encontro"
-                                                 label="Descrição" required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputLabel value="Descrição"/><br/>
+                                <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 placeholder="Insira a descrição do Encontro" 
+                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.participante}">
+                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>

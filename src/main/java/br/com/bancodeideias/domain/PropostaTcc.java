@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -11,14 +16,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "proposta_tcc")
+@NamedQueries({
+    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")
+    , @NamedQuery(name = "PropostaTcc.findByIdProposta", query = "SELECT p FROM PropostaTcc p WHERE p.idProposta = :idProposta")
+    , @NamedQuery(name = "PropostaTcc.findByAprovacaoOrientador", query = "SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = :aprovacaoOrientador")
+    , @NamedQuery(name = "PropostaTcc.findByBibliografia", query = "SELECT p FROM PropostaTcc p WHERE p.bibliografia = :bibliografia")
+    , @NamedQuery(name = "PropostaTcc.findByCronograma", query = "SELECT p FROM PropostaTcc p WHERE p.cronograma = :cronograma")
+    , @NamedQuery(name = "PropostaTcc.findByDataInscricao", query = "SELECT p FROM PropostaTcc p WHERE p.dataInscricao = :dataInscricao")
+    , @NamedQuery(name = "PropostaTcc.findByJustificativa", query = "SELECT p FROM PropostaTcc p WHERE p.justificativa = :justificativa")
+    , @NamedQuery(name = "PropostaTcc.findByMaterias", query = "SELECT p FROM PropostaTcc p WHERE p.materias = :materias")
+    , @NamedQuery(name = "PropostaTcc.findByMetodologia", query = "SELECT p FROM PropostaTcc p WHERE p.metodologia = :metodologia")
+    , @NamedQuery(name = "PropostaTcc.findByObjetivo", query = "SELECT p FROM PropostaTcc p WHERE p.objetivo = :objetivo")
+    , @NamedQuery(name = "PropostaTcc.findBySituacao", query = "SELECT p FROM PropostaTcc p WHERE p.situacao = :situacao")
+    , @NamedQuery(name = "PropostaTcc.findByTipoTcc", query = "SELECT p FROM PropostaTcc p WHERE p.tipoTcc = :tipoTcc")
+    , @NamedQuery(name = "PropostaTcc.findByTitulo", query = "SELECT p FROM PropostaTcc p WHERE p.titulo = :titulo")
+    , @NamedQuery(name = "PropostaTcc.findByDataAnalise", query = "SELECT p FROM PropostaTcc p WHERE p.dataAnalise = :dataAnalise")
+    , @NamedQuery(name = "PropostaTcc.findByComentario", query = "SELECT p FROM PropostaTcc p WHERE p.comentario = :comentario")})
 public class PropostaTcc implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,7 +104,7 @@ public class PropostaTcc implements Serializable {
     private String tipoTcc;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
     @Column(name = "dataAnalise")
@@ -96,7 +123,7 @@ public class PropostaTcc implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario orientador;
     @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -299,5 +326,5 @@ public class PropostaTcc implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.PropostaTcc[ idProposta=" + idProposta + " ]";
     }
-
+    
 }

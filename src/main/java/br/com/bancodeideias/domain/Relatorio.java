@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -11,14 +16,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "relatorio")
+@NamedQueries({
+    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r")
+    , @NamedQuery(name = "Relatorio.findByIdRelatorio", query = "SELECT r FROM Relatorio r WHERE r.idRelatorio = :idRelatorio")
+    , @NamedQuery(name = "Relatorio.findByAtividadesRealizadas", query = "SELECT r FROM Relatorio r WHERE r.atividadesRealizadas = :atividadesRealizadas")
+    , @NamedQuery(name = "Relatorio.findByAutoAvaliacao", query = "SELECT r FROM Relatorio r WHERE r.autoAvaliacao = :autoAvaliacao")
+    , @NamedQuery(name = "Relatorio.findByDataInscricao", query = "SELECT r FROM Relatorio r WHERE r.dataInscricao = :dataInscricao")
+    , @NamedQuery(name = "Relatorio.findByJustificativa", query = "SELECT r FROM Relatorio r WHERE r.justificativa = :justificativa")
+    , @NamedQuery(name = "Relatorio.findByDataFim", query = "SELECT r FROM Relatorio r WHERE r.dataFim = :dataFim")
+    , @NamedQuery(name = "Relatorio.findByDataInicio", query = "SELECT r FROM Relatorio r WHERE r.dataInicio = :dataInicio")
+    , @NamedQuery(name = "Relatorio.findByStatus", query = "SELECT r FROM Relatorio r WHERE r.status = :status")})
 public class Relatorio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -185,5 +206,5 @@ public class Relatorio implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Relatorio[ idRelatorio=" + idRelatorio + " ]";
     }
-
+    
 }

@@ -21,9 +21,9 @@
                         <b:panel look="primary" collapsible="false">
                             <b:row>
                                 <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar por:" value="#{propostaTccController.usuario}">
+                                    <b:selectOneMenu label="Filtrar proposta de tcc por Aluno:" value="#{propostaTccController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
-                                        <f:selectItems value="#{propostaTccController.listaAcademicos}" var="item"
+                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
                                                        itemLabel="#{item.nome}" itemValue="#{item}"/>
                                         <f:ajax render="propostaData" event="change" listener="#{propostaTccController.listaPropostas()}"/> 
                                     </b:selectOneMenu>
@@ -31,50 +31,50 @@
                             </b:row>
 
 
-                            <b:dataTable value="#{propostaTccController.listaPropostasParaOrientador}"
-                                         var="item" searching="true" border="false"
+                            <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
+                                         var="itemm" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped"
                                          id="propostaData">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
-                                    <h:outputText value="#{item.titulo}"/>
+                                    <h:outputText value="#{itemm.titulo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.orientador.nome}"/>
+                                    <h:outputText value="#{itemm.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Problema</f:facet>
-                                    <h:outputText value="#{item.problema.titulo}"/>
+                                    <h:outputText value="#{itemm.problema.titulo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Tipo TCC</f:facet>
-                                    <h:outputText value="#{item.tipoTcc}"/>
+                                    <h:outputText value="#{itemm.tipoTcc}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Objetivos</f:facet>
-                                    <h:outputText value="#{item.objetivo}"/>
+                                    <h:outputText value="#{itemm.objetivo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativa}"/>
+                                    <h:outputText value="#{itemm.justificativa}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Metodologias</f:facet>
-                                    <h:outputText value="#{item.metodologia}"/>
+                                    <h:outputText value="#{itemm.metodologia}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Materiais</f:facet>
-                                    <h:outputText value="#{item.materias}"/>
+                                    <h:outputText value="#{itemm.materias}"/>
                                 </h:column>
 
 
@@ -82,18 +82,20 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton value="Aceitar" action="#{propostaTccController.doAceitar()}"
                                                      class="btn-success">  
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton value="Recusar" action="#{propostaTccController.doRecusar()}"
                                                      class="btn-danger">
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton value="Consultar" action="#{propostaTccController.doConsultar()}"
                                                      class="btn-primary">
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
-                            </b:dataTable>  
+                            </b:dataTable> 
+                            
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

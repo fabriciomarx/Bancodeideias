@@ -90,7 +90,8 @@ public class IdeiaDAO implements Serializable {
         List<Ideia> listaIdeia = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaIdeia = query.getResultList();
         } catch (Exception e) {
@@ -108,7 +109,8 @@ public class IdeiaDAO implements Serializable {
         List<Ideia> listaIdeia = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Ideia u WHERE u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Ideia u WHERE u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaIdeia = query.getResultList();
         } catch (Exception e) {
@@ -126,7 +128,8 @@ public class IdeiaDAO implements Serializable {
         List<Ideia> listaIdeia = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Ideia u where u.usuario.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Ideia u where u.usuario.idUsuario = " + usuarioLogado.getIdUsuario());
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo  listarIdeiasLogado - Classe Ideia DAO");
@@ -143,7 +146,8 @@ public class IdeiaDAO implements Serializable {
         List<Ideia> listaIdeiaPendentes = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Ideia u where u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Ideia u where u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getUniversidade().getIdUsuario());
             listaIdeiaPendentes = query.getResultList();
         } catch (Exception e) {
@@ -152,4 +156,5 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
         return listaIdeiaPendentes;
     }
+    
 }

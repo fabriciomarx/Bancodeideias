@@ -19,8 +19,20 @@
                 <h:form>
                     <p:fieldset legend="Lista relatorio"> 
                         <b:panel look="primary" collapsible="false">
+                            
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar relatorios por Aluno:" value="#{relatorioController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{relatorioController.usuario}"/>
+                                        <f:selectItems value="#{relatorioController.listaAluno}" var="item"
+                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                        <f:ajax render="relatorioData" event="change" listener="#{relatorioController.listaRelatorios()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
-                                         var="item" searching="true" border="false"
+                                         var="item" searching="true" border="false" id="relatorioData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 
@@ -58,6 +70,11 @@
                                     <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Aluno</f:facet>
+                                    <h:outputText value="#{item.academico.nome}"/>
                                 </h:column>
 
                                 <h:column>

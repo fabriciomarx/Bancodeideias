@@ -12,77 +12,30 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 
 @Named(value = "cursoController")
 @SessionScoped
 public class CursoController extends GenericController implements Serializable {
 
-    private Curso           cursoSelecionado;
-    private CursoService    cursoService;
+    private Curso                       cursoSelecionado;
+    private CursoService                cursoService;
 
-    private List<Curso>     listaCurso;
+    private List<Curso>                 listaCurso;
 
-    private List<Usuario>   listaUniversidade;
-    private UsuarioService  usuarioService;
-    
-    private LineChartModel areaModel;
+    private List<Usuario>               listaUniversidade;
+    private UsuarioService              usuarioService;
+ 
 
     @PostConstruct
     public void preRenderPage() {
         this.resset();
         this.listar();
-        this.createAreaModel();
     }
-    
-    private void createAreaModel() {
-        areaModel = new LineChartModel();
-        
-        LineChartSeries boys = new LineChartSeries();
-        boys.setFill(true);
-        boys.setLabel("Boys");
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
-        
-        LineChartSeries girls = new LineChartSeries();
-        girls.setFill(true);
-        girls.setLabel("Girls");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 110);
-        girls.set("2007", 90);
-        girls.set("2008", 120);
-        
-        areaModel.addSeries(boys);
-        areaModel.addSeries(girls);
-        
-        areaModel.setTitle("Area Chart");
-        areaModel.setLegendPosition("ne");
-        areaModel.setStacked(true);
-        areaModel.setShowPointLabels(true);
-
-        Axis xAxis = new CategoryAxis("Years");
-        areaModel.getAxes().put(AxisType.X, xAxis);
-        Axis yAxis = areaModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
-        
-        //int qtdeMax = this.getCursoService().quantidadeCurso();
-        yAxis.setMin(0);
-        yAxis.setMax(300);
-
-    }
-    
 
     private void resset() {
         cursoSelecionado                  = new Curso();
         cursoService                      = new CursoService();
+        
         listaCurso                        = new ArrayList<>();
         
         listaUniversidade                 = new ArrayList<>();
@@ -105,12 +58,12 @@ public class CursoController extends GenericController implements Serializable {
                 listaUniversidade = this.getUsuarioService().listUniversidades();
                 break;
         }
-
     }
 
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
+        
         try {
             switch (usuarioLogado.getTipoUsuario()) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 case "Admin":
@@ -221,14 +174,4 @@ public class CursoController extends GenericController implements Serializable {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
-    public LineChartModel getAreaModel() {
-        return areaModel;
-    }
-
-    public void setAreaModel(LineChartModel areaModel) {
-        this.areaModel = areaModel;
-    }
-    
-    
 }

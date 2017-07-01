@@ -14,7 +14,6 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Editar meu cadastro">
                     <h:form>
                         <b:row>
@@ -32,9 +31,11 @@
                                 </b:inputText>
                             </b:column>
                         </b:row>
-
+                        
+                        <br/><br/>
+                        
                         <b:row>
-                            <b:column span="1" offset-md="8">
+                            <b:column span="1" offset-md="10">
                                 <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
@@ -59,9 +60,11 @@
                                             requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
+                        
+                        <br/><br/><br/><br/>
 
                         <b:row>
-                            <b:column span="1" offset-md="8">
+                            <b:column span="1" offset-md="10">
                                 <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>

@@ -19,12 +19,11 @@
                 <h:form>
                     <p:fieldset legend="Minhas ideias"> 
                         <b:panel look="primary" collapsible="false">
-
                             <b:dataTable value="#{ideiaController.listaIdeiasLogado}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped"
-                                         responsive="true"
+                                         responsive="true" id="ideiaData"
                                          scroll-size="500px"
                                          scroll-x="false">
                                 <h:column>
@@ -56,7 +55,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
+                                                     icon="glyphicon glyphicon-remove" rendered="#{ideiaController.ideiaSelecionada.situacao.trim() ne 'Aprovado'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            

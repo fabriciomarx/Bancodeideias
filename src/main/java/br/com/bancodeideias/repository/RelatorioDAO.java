@@ -39,6 +39,44 @@ public class RelatorioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
+    /* Filtrar relatorios do aluno selecionado que o orientador seja o usuario logado
+        utilizo esse metodo na pagina do orientador - relatorios */
+    public List<Relatorio> listarRelatorioAlunoSelecionado(int id) {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Relatorio> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Relatorio u WHERE u.academico.idUsuario = "
+                    + id + " AND u.orientador = " + usuarioLogado.getIdUsuario());
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarRelatorioAlunoSelecionado - Classe PropostaTcc DAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    /* Filtrar relatorios do aluno selecionado que o coordenador */
+    public List<Relatorio> listarRelatorioAlunoSelecionadoParaCoord(int id) {
+        //HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        //Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Relatorio> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Relatorio u WHERE u.academico.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarRelatorioAlunoSelecionadoParaCoord - Classe PropostaTcc DAO");
+        }
+        entityManager.close();
+        return lista;
+    }
 
     /* LISTAR TODOS OS RELATORIOS DO SISTEMA */
     public List<Relatorio> listar() {

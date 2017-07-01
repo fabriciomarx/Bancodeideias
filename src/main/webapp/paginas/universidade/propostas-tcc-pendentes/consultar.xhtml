@@ -48,21 +48,21 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivos}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                  label="Objetivos" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativas}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
                                                  label="Justificativas" disabled="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologias}"
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologia}"
                                                  label="Metodologias" disabled="true"/>
                             </b:column>
                         </b:row>
@@ -101,8 +101,9 @@
                                 <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
-                                    <f:selectItem itemLabel="Ativo" itemValue="A" />
-                                    <f:selectItem itemLabel="Pendente" itemValue="P" />
+                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
+                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise" />
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -127,81 +128,16 @@
                             </b:column>
 
                             <b:column span="1">
-                                <p:commandButton value="Aceitar" onclick="PF('dlgIncluirAnalise').show();"/>
+                                <p:commandButton value="Aceitar"/>
                             </b:column>
 
                             <b:column span="1">
-                                <p:commandButton value="Recusar" onclick="PF('dlgRecusarAnalise').show();"/>
+                                <p:commandButton value="Recusar"/>
                             </b:column>                        
                         </b:row>
                     </h:form>
                  
                 </p:fieldset>
-
-                <!--Dialog aceitar proposta inicio -->
-                <p:dialog widgetVar="dlgIncluirAnalise" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-
-                    <b:panel look="primary" title="Incluir Analise de Proposta de TCC" collapsible="false"
-                             style="width: 700px;">
-                        <h:form>
-                            <b:row>
-                                <b:column medium-screen="6" span="10" offset-md="1">
-                                    <h:outputLabel value="Data da analise"/>
-                                    <b:dateTimePicker value="#{analisePropostaTccController.analisePropTccSelecionada.dataAnalise}"
-                                                      required="true" requiredMessage="O campo data é obrigatorio"
-                                                      show-time="false"/>
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="10" offset-md="1">
-                                    <b:inputTextarea value="#{analisePropostaTccController.analisePropTccSelecionada.comentarios}" 
-                                                     label="Comentario" required="true" required-message="O campo comentarios é obrigatorio" />
-                                </b:column>
-                            </b:row>
-
-                            <b:row>
-                                <b:column medium-screen="3" span="10" offset-md="1">
-                                    <b:selectOneMenu label="Proposta de TCC" value="#{analisePropostaTccController.analisePropTccSelecionada.propostaTcc}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                        <f:selectItems value="#{analisePropostaTccController.listaProposta}" var="item"
-                                                       itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                    </b:selectOneMenu>
-                                </b:column>
-                            </b:row>
-
-                            <!-- EXEMPLO RETIRAR DEPOIS -->
-                            <b:row>
-                                <b:column medium-screen="3" span="10" offset-md="1">
-                                    <b:inputText value="#{propostaTccController.propostaTccSelecionada.idProposta}" 
-                                                 label="ID DA PROPOSTA" disabled="true" />
-                                </b:column>
-                            </b:row>
-                            <!-- EXEMPLO RETIRAR DEPOIS -->
-
-                            <b:row>
-                                <b:column span="1" offset-md="1">
-                                    <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{propostaTccController.doCancelar()}" />
-                                </b:column>
-                                <b:column offset-lg="1" span="2">
-                                    <b:commandButton value="Enviar" look="info" action="#{analisePropostaTccController.salvar()}"/>
-                                </b:column>
-                            </b:row>
-                        </h:form>
-                    </b:panel>    
-
-                </p:dialog>
-                <!--Dialog aceitar proposta fim -->
-
-
-
-                <!--Dialog recusar proposta inicio -->
-                <p:dialog widgetVar="dlgRecusarAnalise" closable="false" resizable="false"
-                          draggable="false" modal="true" appendTo="@(body)">
-
-                </p:dialog>
-                <!--Dialog recusar proposta fim -->
             </ui:define>    
         </ui:composition>
     </body>

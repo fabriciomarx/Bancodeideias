@@ -20,7 +20,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}" 
                                              label="Titulo" required="true" required-message="O campo titulo é obrigatorio"/>
                             </b:column>
                         </b:row>
@@ -91,7 +91,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Participante" value="#{propostaTccController.propostaTccSelecionada.participante}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademicos}" var="item"
+                                    <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -101,7 +101,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Academico" value="#{propostaTccController.propostaTccSelecionada.academico}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaAcademicos}" var="item"
+                                    <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>

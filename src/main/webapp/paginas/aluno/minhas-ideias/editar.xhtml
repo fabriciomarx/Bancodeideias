@@ -33,16 +33,23 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 placeholder="Insira o titulo da Ideia"
-                                                 label="Titulo" required="true" requiredMessage="O campo titulo é obrigatorio"/>
+                                <h:outputLabel value="Titulo"/><br/>
+                                <p:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
+                                                 placeholder="Insira o titulo da Ideia" 
+                                                 rows="5" cols="169" counter="idTitulo" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Titulo é obrigatorio"/>
+                                <h:outputText id="idTitulo" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
-                                                 label="Descrição" />
+                                <h:outputLabel value="Descrição"/><br/>
+                                <p:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
+                                                 placeholder="Insira a descrição da Ideia" 
+                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
 

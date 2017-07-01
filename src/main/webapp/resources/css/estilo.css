@@ -16,7 +16,7 @@
     color: blue!important;
 }
 
-/*RELATORIOS*/
+/* RELATORIOS e ENCONTROS */
 .enviado_naovisto{
     color: blue!important;
 }
@@ -27,6 +27,10 @@
 
 .enviado_vistoaceito{
     color: green!important;
+}
+
+.ja_realizado{ /* Encontro já realizado */
+    color: #cc00cc!important;
 }
 
 .tabela{

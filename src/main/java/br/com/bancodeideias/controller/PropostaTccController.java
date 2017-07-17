@@ -17,7 +17,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.SelectEvent;
@@ -200,6 +199,7 @@ public class PropostaTccController extends GenericController implements Serializ
 
         try {
             if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
+                this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Indisponível");
                 this.getPropostaTccSelecionada().setDataAnalise(new Date()); // se o usuario for coordenador, setar a data automatico
                 this.getPropostaTccSelecionada().setAnalista(usuarioLogado);
                 this.getPropostaTccService().alterar(propostaTccSelecionada);
@@ -396,6 +396,7 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setListarPropostasQueOrientadorParticipa(List<PropostaTcc> listarPropostasQueOrientadorParticipa) {
         this.listarPropostasQueOrientadorParticipa = listarPropostasQueOrientadorParticipa;
     }
+    
     
     
 

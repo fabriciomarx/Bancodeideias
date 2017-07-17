@@ -43,6 +43,13 @@
                                                               #{item.situacao == 'Recusado' ? 'recusado' : null}
                                                               #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
+                                <h:column>
+                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
+                                    <h:outputText value="#{item.disponibilidade}"
+                                                  styleClass="#{item.disponibilidade == 'Disponível' ? 'aprovado' : null}
+                                                  #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
+                                                  #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>

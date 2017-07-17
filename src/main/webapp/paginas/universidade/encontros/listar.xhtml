@@ -93,10 +93,10 @@
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{itemm.status}"
                                                   styleClass="#{itemm.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                              #{itemm.status == 'Visto e aceito' ? 'enviado_vistoaceito' : null}
-                                                              #{itemm.status == 'Visto e recusado' ? 'enviado_vistocancelado' : null}
-                                                              #{itemm.status == 'Realizado' ? 'ja_realizado' : null}
-                                                              #{itemm.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                                  #{itemm.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{itemm.status == 'Recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{itemm.status == 'Realizado' ? 'ja_realizado' : null}
+                                                  #{itemm.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
 
                                 <h:column>

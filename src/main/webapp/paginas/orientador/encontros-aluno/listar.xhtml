@@ -31,14 +31,14 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Hora Encontro</f:facet>
                                     <h:outputText value="#{item.hora}">
                                         <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Local Encontro</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
@@ -58,25 +58,39 @@
                                     <f:facet name="header">Academico</f:facet> 
                                     <h:outputText value="#{item.academico.nome}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{item.status}"
                                                   styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                              #{item.status == 'Visto e aceito' ? 'enviado_vistoaceito' : null}
-                                                              #{item.status == 'Visto e recusado' ? 'enviado_vistocancelado' : null}
-                                                              #{item.status == 'Realizado' ? 'ja_realizado' : null}
-                                                              #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                                  #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{item.status == 'Realizado' ? 'ja_realizado' : null}
+                                                  #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
-                                                     icon="glyphicon glyphicon-search">
+                                    <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.academico.idUsuario != usuarioLogado.idUsuario}">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
-                                </h:column>                            
-                            </b:dataTable>   
+                                    <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search" >
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{encontroController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.academico.idUsuario != usuarioLogado.idUsuario}">
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column>                             
+                            </b:dataTable> 
+                            <f:facet name="footer">
+                                <b:commandButton value="Incluir Novo" action="#{encontroController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
+
+                            </f:facet>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

@@ -150,7 +150,7 @@ public class UsuarioDAO implements Serializable {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade' and u.situacao = 'P'");
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade' and u.situacao = 'Pendente'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaUniversidadesPendentes - Classe Usuario DAO");
@@ -178,37 +178,6 @@ public class UsuarioDAO implements Serializable {
         }
     }
     
-    /*
-    public void quantidadeCadaTipo() {
-        int qtdeAlu = 0;
-        int qtdePro = 0;
-        int qtdeCoord = 0;
-        int qtdeUni = 0;
-
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Aluno'");
-            qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
-            System.out.println("Qtd Aluno = " + qtdeAlu);
-
-            Query query2 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Professor'");
-            qtdePro = Integer.parseInt(query2.getSingleResult().toString());
-            System.out.println("Qtd Professor = " + qtdePro);
-
-            Query query3 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Coordenador'");
-            qtdeCoord = Integer.parseInt(query3.getSingleResult().toString());
-            System.out.println("Qtd Coordenador = " + qtdeCoord);
-
-            Query query4 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Universidade'");
-            qtdeUni = Integer.parseInt(query4.getSingleResult().toString());
-            System.out.println("Qtd Universidade = " + qtdeUni);
-
-        } catch (Exception e) {
-            System.out.println("Erro no metodo quantidadeCurso - Classe Curso DAO");
-        }
-        entityManager.close();
-    }*/
-    
     /* METODOS PARA UTILIZAR NOS GRAFICOS */
     public int quantidadeAluno() {
         int qtdeAlu = 0;
@@ -218,7 +187,7 @@ public class UsuarioDAO implements Serializable {
             qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
             System.out.println("Qtd Aluno = " + qtdeAlu);
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("Erro no metodo quantidadeAluno - Classe Curso DAO");
         }
         entityManager.close();

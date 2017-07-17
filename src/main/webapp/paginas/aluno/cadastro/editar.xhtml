@@ -14,7 +14,7 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Editar meu cadastro">
+                <p:fieldset legend="Alterar Cadastro">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -43,7 +43,7 @@
                     </h:form>
                 </p:fieldset>   
 
-                <p:fieldset legend="Alterar senha">
+                <p:fieldset legend="Alterar Senha">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -51,12 +51,12 @@
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" />
+                                            required="true" requiredMessage="O campo senha é obrigatorio"/>
 
                                 <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
+                                            value="#{usuarioController.usuarioLogado.confirmarSenha}" required="true" 
                                             requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
@@ -65,7 +65,7 @@
 
                         <b:row>
                             <b:column span="1" offset-md="10">
-                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterarSenha()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

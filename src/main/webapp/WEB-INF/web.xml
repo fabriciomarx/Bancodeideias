@@ -2,54 +2,56 @@
 <web-app metadata-complete="true" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <display-name>Bancodeideias</display-name>
     <session-config>
-        <session-timeout>
-           120
-        </session-timeout>
+        <session-timeout>120</session-timeout> <!-- Definindo tempo para expirar sessão -->
     </session-config>
-    <!--CONFIGURAÇÃO DO JSF-->
-    <!--Estagio do projeto ( estagio de desenvolvimento, mais facil de aparecer os erros )-->
+    
+    <!-- CONFIGURAÇÃO DO JSF -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Development</param-value> <!-- Estagio do projeto ( estagio de desenvolvimento, mais facil de aparecer os erros )-->
     </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-        <!-- 1 quer dizer que ele vai ser carregado quando ligar o glassfish-->
+        <load-on-startup>1</load-on-startup> <!-- 1 quer dizer que ele vai ser carregado quando ligar o glassfish -->
+        
     </servlet>
-    <servlet>
-        <servlet-name>CalendarJsonServlet</servlet-name>
-        <servlet-class>br.com.bancodeideias.controller.CalendarJsonServlet</servlet-class>
-    </servlet>
+    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-        <!--Tipo de arquivo que o jsf vai gerenciar-->
+        <url-pattern>*.xhtml</url-pattern> <!-- Tipo de arquivo que o JSF vai gerenciar -->
     </servlet-mapping>
-    <!--Tema primefaces-->
-    <context-param>
+    
+    
+    <context-param> <!-- Tema Primefaces -->
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
     </context-param>
-    <listener>
+    
+    <listener> <!-- Mapeamento do SessionListener, agora sempre que uma sessão for criada ou destruída a classe SessionListener será chamada, pois ela implementa o HttpSessionListener -->
         <listener-class>br.com.bancodeideias.util.SessionListener</listener-class>
     </listener>
-    <!-- Filtros -->
-    <filter-mapping>
-        <filter-name>FiltroAutorizacao</filter-name>
-        <url-pattern>/login/login.xhtml</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>FiltroSistema</filter-name>
-        <url-pattern>/paginas/*</url-pattern>
-    </filter-mapping>
-    <filter>
+    
+    <!-- FILTRO SISTEMA -->
+    <filter> <!-- TAG que define o nome do nosso filtro através do filter-name e o local onde ele se encontra em nosso projeto através do filter-class -->
         <filter-name>FiltroSistema</filter-name>
         <filter-class>br.com.bancodeideias.util.FiltroSistema</filter-class>
     </filter>
-    <filter>
+    
+    <filter-mapping> <!-- TAG responsável por definir quais páginas o filtro irá monitorar -->
+        <filter-name>FiltroSistema</filter-name>
+        <url-pattern>/paginas/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- FILTRO AUTORIZAÇÃO -->
+    <filter> <!-- TAG que define o nome do nosso filtro através do filter-name e o local onde ele se encontra em nosso projeto através do filter-class -->
         <filter-name>FiltroAutorizacao</filter-name>
         <filter-class>br.com.bancodeideias.util.FiltroAutorizacao</filter-class>
     </filter>
+    
+    <filter-mapping> <!-- TAG responsável por definir qual página o filtro irá monitorar -->
+        <filter-name>FiltroAutorizacao</filter-name>
+        <url-pattern>/login/login.xhtml</url-pattern>
+    </filter-mapping>
 </web-app>

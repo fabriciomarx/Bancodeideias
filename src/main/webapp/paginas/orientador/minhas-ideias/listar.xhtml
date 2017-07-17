@@ -18,7 +18,7 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista ideia"> 
+                    <p:fieldset legend="Minhas Sugestões de Ideias de TCC"> 
                         <b:panel look="primary" collapsible="false">
 
                             <b:dataTable value="#{ideiaController.listaIdeiasLogado}"
@@ -35,7 +35,7 @@
                                     <f:facet name="header">Tipo de Ideia</f:facet>
                                     <h:outputText value="#{item.tipoIdeia}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>

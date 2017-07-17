@@ -1,6 +1,7 @@
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Curso;
+import br.com.bancodeideias.domain.Usuario;
 import br.com.bancodeideias.repository.CursoDAO;
 import java.io.Serializable;
 import java.util.List;
@@ -45,6 +46,8 @@ public class CursoService implements Serializable {
         lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(id);
         return lista;
     }
+    
+
 
     // ============ Gets and sets ===========
     public CursoDAO getCursoDAO() {

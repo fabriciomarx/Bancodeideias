@@ -61,7 +61,7 @@ public class EncontroDAO implements Serializable {
         try {
             Query query = entityManager.createQuery("SELECT u FROM Encontro u "
                     + "WHERE u.academico.idUsuario = "
-                    + id /*+ " OR u.participante.idUsuario = " + id*/);
+                    + id + " OR u.participante.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarEncontrosAcademicoSelecionado - Classe EncontroDAO");
@@ -103,24 +103,6 @@ public class EncontroDAO implements Serializable {
             listaEncontros = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarEncontrosParaCoord - Classe Encontro DAO");
-        }
-        entityManager.close();
-        return listaEncontros;
-    }
-
-    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU - (ACADEMICO) */
-    public List<Encontro> listarEncontrosQueCadastrei() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
-        List<Encontro> listaEncontros = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT u FROM Encontro u "
-                    + "WHERE u.academico.idUsuario = " + usuarioLogado.getIdUsuario());
-            listaEncontros = query.getResultList();
-        } catch (Exception e) {
-            System.out.println("Erro no metodo listarEncontrosQueCadastrei - Classe Encontro DAO");
         }
         entityManager.close();
         return listaEncontros;

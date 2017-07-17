@@ -70,22 +70,6 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
-                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" />
-
-                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
-                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
-                                            requiredMessage="O campo senha deve ser digitado duas vezes" />
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{usuarioController.listaCurso}" var="item"
@@ -100,7 +84,7 @@
                                                  immediate="true" action="#{usuarioController.doCancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"
+                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.alterar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

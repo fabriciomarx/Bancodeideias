@@ -16,26 +16,23 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Ideias"> 
+                    <p:fieldset legend="Sugestões Ideias de TCC"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true"
-                                         scroll-size="600px"
-                                         scroll-x="false">
+                                         styleClass="table table-striped">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Usuario que sugeriu</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
@@ -45,9 +42,18 @@
                                     <f:facet name="header">Situação</f:facet>
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/> </h:column>
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}"/> 
+                                </h:column>
                                 <h:column>
+                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
+                                    <h:outputText value="#{item.disponibilidade}"
+                                                  styleClass="#{item.disponibilidade == 'Disponível' ? 'aprovado' : null}
+                                                  #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
+                                                  #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+                                <h:column>
+
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit">

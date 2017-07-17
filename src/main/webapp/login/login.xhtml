@@ -13,7 +13,7 @@
 
     </h:head>
     <h:body>
-        <b:growl id="msg"/> 
+        <b:growl id="msgLogin"/> 
         <div class="principal">
             <h:form class="form-login">       
                 <h2 class="form-login-heading">Faça seu Login</h2>
@@ -38,14 +38,14 @@
                 <p:commandButton value="Esqueci minha senha" 
                                  class="btn btn-lg btn-primary btn-block"
                                  onclick="PF('dlgSenha').show();"/>
-                                <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
-                <b:commandButton value="Registrar"
+                <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
+                <p:commandButton value="Registrar"
                                  class="btn btn-lg btn-primary btn-block"
-                                 action="#{usuarioController.doIncluir()}"/>
+                                 action="#{usuarioController.doIncluir()}" process="@this"/>
             </h:form>
         </div>
-        
-        
+
+
         <!-- Dialog carregando-->
         <p:dialog widgetVar="dlgCarregando" closable="false" resizable="false"
                   draggable="false" modal="true" appendTo="@(body)"
@@ -59,13 +59,13 @@
                 <p:panelGrid columns="1" id="pnlSenha">
                     <b:inputText value="#{usuarioController.usuarioSelecionado.email}" required="true" size="60"
                                  requiredMessage="O login é obrigatório" 
-                                 placeholder="Digite seu email" onfocus="this.value='';" />
+                                 placeholder="Digite seu email" onfocus="this.value = '';" />
 
 
                     <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
                                  required="true" size="60"
                                  requiredMessage="O matricula é obrigatório"
-                                 placeholder="Digite sua matricula" onfocus="this.value='';" />
+                                 placeholder="Digite sua matricula" onfocus="this.value = '';" />
 
                 </p:panelGrid>
                 <p:commandButton value="Confirmar"

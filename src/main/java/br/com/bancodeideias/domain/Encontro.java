@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -75,6 +76,7 @@ public class Encontro implements Serializable {
     @JoinColumn(name = "participante", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario participante;
+    
 
     public Encontro() {
     }
@@ -154,6 +156,8 @@ public class Encontro implements Serializable {
     public void setParticipante(Usuario participante) {
         this.participante = participante;
     }
+    
+    
 
     @Override
     public int hashCode() {

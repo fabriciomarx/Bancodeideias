@@ -86,4 +86,21 @@ public class CursoDAO implements Serializable {
         entityManager.close();
         return listaCurso;
     }
+    
+    public int quantidadeAlunoPorCurso() {
+        int qtdeAlu = 0;
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Aluno'");
+            qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
+            System.out.println("Qtd Aluno = " + qtdeAlu);
+
+        } catch (Exception e) {
+            System.out.println("Erro no metodo quantidadeAluno - Classe Curso DAO");
+        }
+        entityManager.close();
+        return qtdeAlu;
+    }
+    
+    
 }

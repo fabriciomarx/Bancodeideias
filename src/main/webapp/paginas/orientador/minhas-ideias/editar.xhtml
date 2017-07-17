@@ -15,12 +15,12 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar ideia"> 
+                <p:fieldset legend="Editar Ideia de TCC"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
+                                                 label="Tipo da Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Estudo de caso" itemValue="Estudo de caso"/>
                                     <f:selectItem itemLabel="Revisão da bibliografia" itemValue="Revisão da bibliografia"/>
@@ -30,7 +30,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Titulo"/><br/>
@@ -52,8 +52,8 @@
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
-                        
+
+
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 

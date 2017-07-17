@@ -21,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -108,6 +109,9 @@ public class Usuario implements Serializable {
     private List<Relatorio> relatorioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
     private List<Relatorio> relatorioList1;
+    
+    @Transient
+    private String confirmarSenha;
 
     public Usuario() {
     }
@@ -293,6 +297,16 @@ public class Usuario implements Serializable {
     public void setRelatorioList1(List<Relatorio> relatorioList1) {
         this.relatorioList1 = relatorioList1;
     }
+
+    public String getConfirmarSenha() {
+        return confirmarSenha;
+    }
+
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
+    }
+    
+    
 
     @Override
     public int hashCode() {

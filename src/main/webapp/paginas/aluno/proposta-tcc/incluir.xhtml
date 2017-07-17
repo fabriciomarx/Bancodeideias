@@ -19,7 +19,7 @@
                     <p:fieldset legend="Incluir proposta de tcc"> 
                         <p:wizard flowListener="#{propostaTccController.onFlowProcess}"
                                   nextLabel="Proximo" backLabel="Voltar">
-                            <p:tab title="Titulo">
+                            <p:tab title="Titulo do TCC">
                                 <p:panel header="Titulo - Problema - Tipo TCC">
                                     <b:messages/>             
                                     <b:row>
@@ -52,10 +52,17 @@
                                             </b:selectOneMenu>
                                         </b:column>
                                     </b:row>
+
                                 </p:panel>
+
+                                <br/>
+                                <b:column span="1" offset-md="1">
+                                    <b:commandButton value="Retornar a lista Propostas" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                     immediate="true" action="#{propostaTccController.cancelar()}" />
+                                </b:column>
                             </p:tab>
                              
-                            <p:tab title="Porque">
+                            <p:tab title="Objetivos do TCC">
                                 <p:panel header="Objetivos - Justificativas - Metodologias">
                                     <b:messages/>
                                     <b:row>
@@ -93,7 +100,7 @@
                                 </p:panel>
                             </p:tab>
                              
-                            <p:tab title="Pesquisa">
+                            <p:tab title="Pesquisa Acadêmica">
                                 <p:panel header="Materias - Cronograma - Bibliografia">
                                     <b:messages/>
                                     <b:row>
@@ -131,7 +138,7 @@
                                 </p:panel>
                             </p:tab>
                              
-                            <p:tab title="Academicos">
+                            <p:tab title="Academicos Participantes">
                                 <p:panel header="Participante - Orientador">
                                     <b:messages/>
                                     <b:row>
@@ -251,7 +258,7 @@
                                             </p:commandButton>
                                         </b:column>
                                     </b:row>
-                                    
+
                                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                         <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.salvar()}"/>
                                         <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

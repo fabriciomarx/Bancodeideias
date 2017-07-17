@@ -41,6 +41,7 @@ import javax.validation.constraints.Size;
     , @NamedQuery(name = "Ideia.findByTipoIdeia", query = "SELECT i FROM Ideia i WHERE i.tipoIdeia = :tipoIdeia")
     , @NamedQuery(name = "Ideia.findByDescricao", query = "SELECT i FROM Ideia i WHERE i.descricao = :descricao")
     , @NamedQuery(name = "Ideia.findByTitulo", query = "SELECT i FROM Ideia i WHERE i.titulo = :titulo")
+    , @NamedQuery(name = "Ideia.findByDisponibilidade", query = "SELECT i FROM Ideia i WHERE i.disponibilidade = :disponibilidade")
     , @NamedQuery(name = "Ideia.findByDataAnalise", query = "SELECT i FROM Ideia i WHERE i.dataAnalise = :dataAnalise")
     , @NamedQuery(name = "Ideia.findByComentario", query = "SELECT i FROM Ideia i WHERE i.comentario = :comentario")
     , @NamedQuery(name = "Ideia.findByFavorito", query = "SELECT i FROM Ideia i WHERE i.favorito = :favorito")})
@@ -77,6 +78,11 @@ public class Ideia implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "disponibilidade")
+    private String disponibilidade;
     @Column(name = "dataAnalise")
     @Temporal(TemporalType.DATE)
     private Date dataAnalise;
@@ -104,13 +110,14 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo, String favorito) {
+    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo, String disponibilidade, String favorito) {
         this.idIdeia = idIdeia;
         this.dataInscricao = dataInscricao;
         this.situacao = situacao;
         this.tipoIdeia = tipoIdeia;
         this.descricao = descricao;
         this.titulo = titulo;
+        this.disponibilidade = disponibilidade;
         this.favorito = favorito;
     }
 
@@ -160,6 +167,14 @@ public class Ideia implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 
     public Date getDataAnalise() {

@@ -143,21 +143,24 @@ public class UsuarioController extends GenericController implements Serializable
         listarCursosUniversidadeEscolhida   = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
     }
 
-    /* SALVAR USUARIO APARTIR DO LOGIN , SEM USUARIO NA SESSAO */
+    /* SALVAR USUARIO A PARTIR DO LOGIN , SEM USUARIO NA SESSAO */
     public String salvarUsuario() {
         try {
-            this.getUsuarioSelecionado().setSituacao("Em analise");
+            this.getUsuarioSelecionado().setTipoUsuario("Universidade"); //INSERINDO O TIPO DO USUARIO AUTOMATICO
+            this.getUsuarioSelecionado().setSituacao("Pendente"); //INSERINDO A SITUACAO AUTOMATICO
             this.getUsuarioService().salvar(usuarioSelecionado);
-            System.out.println("DEU CERTO USUARIO");
+            addSucessMessage("Inserido com sucesso ! Aguarde a analise do Administrador para acessar o sistema");
+            //System.out.println("INSERIDO COM SUCESSO");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
+            addErrorMessage("Erro ao salvar universidade: " + usuarioSelecionado.toString());
         }
+        this.resset();
         return "login.xhtml?faces-redirect=true";
     }
     
+    /* SALVAR USUARIO A PARTIR DA TELA DE LISTAGEM DE USUARIOS .. COM USUARIO NA SESSAO */
     public String salvar() {
         try {
-
             HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
             //SE O USUARIO FOR UMA UNIVERSIDADE AO INSERIR UM NOVO ACADEMICO, SALVAR O NOME DELA AUTOMATICO
@@ -170,7 +173,6 @@ public class UsuarioController extends GenericController implements Serializable
                 this.getUsuarioSelecionado().setSituacao("Ativo");
                 this.getUsuarioService().salvar(usuarioSelecionado);
             }
-
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
         }
@@ -182,11 +184,37 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     public String alterar() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
         try {
-            this.getUsuarioService().alterar(usuarioLogado);
+            /* Se o usuario for admin quer dizer que ele esta alterando outros usuarios "usuario selecionado"
+             nao alterado ele "usuario logado" */
+            if (usuarioLogador.getTipoUsuario().equals("Admin")) {
+                this.getUsuarioService().alterar(usuarioSelecionado);
+            } else {
+                this.getUsuarioService().alterar(usuarioLogado);
+            }
             addSucessMessage("Usuario alterado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao alterar usuario: " + usuarioSelecionado.toString());
+            addErrorMessage("Erro ao alterar usuario");
+        }
+        //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
+        this.listar();
+        this.graficoUsuariosPorTipo();
+        return "listar.xhtml?faces-redirect=true";
+    }
+    
+    /* Metodo utilizado apenas para alteração de senha */
+    public String alterarSenha() {
+        try {
+            if (this.getUsuarioLogado().getSenha().equals(this.getUsuarioLogado().getConfirmarSenha())) {
+                this.getUsuarioService().alterarSenha(usuarioLogado);
+                addSucessMessage("Senha alterada com sucesso");
+            } else {
+                addErrorMessage("As senhas são diferentes, digite novamente");
+            }
+        } catch (Exception e) {
+            addErrorMessage("Erro ao alterar senha usuario: " + usuarioSelecionado.toString());
         }
         //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
         this.listar();
@@ -194,6 +222,7 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
+ 
     public String remover() {
         try {
             this.getUsuarioService().remover(usuarioSelecionado);
@@ -280,6 +309,9 @@ public class UsuarioController extends GenericController implements Serializable
             email.setMsg("This is a test mail ... :-)"); //mensagem
             email.addTo("fabricio_m.s@hotmail.com");  //para quem vai esse email
             email.send(); //fazer envio do email
+            email.setTLS(true);
+            email.setSSL(true);
+
             System.out.println("Email enviado");
         } catch (EmailException e) {
             System.out.println("Email não enviado " + e.getMessage());
@@ -322,10 +354,11 @@ public class UsuarioController extends GenericController implements Serializable
             this.getUsuarioSelecionado().setSituacao("Ativo");
             this.getUsuarioService().alterar(usuarioSelecionado);
             addSucessMessage("Universidade aceita com sucesso");
+           
         } catch (Exception e) {
             addErrorMessage("Erro ao aceitar universidade: " + usuarioSelecionado.toString());
         }
-        this.resset();
+        //this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
@@ -349,6 +382,10 @@ public class UsuarioController extends GenericController implements Serializable
 
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
+    }
+    
+    public String doCancelarLogin(){
+        return "login.xhtml?faces-redirect=true";
     }
 
     // ============ GETS AND SETS ===========  

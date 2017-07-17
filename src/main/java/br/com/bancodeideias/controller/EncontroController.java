@@ -23,7 +23,6 @@ public class EncontroController extends GenericController implements Serializabl
     private EncontroService         encontroService;
 
     private List<Encontro>          listaEncontro;
-    private List<Encontro>          listarEncontroQueCadastrei;
     private List<Encontro>          listarEncontrosAlu_Prof;
 
     private List<Usuario>           listaAluno;
@@ -35,7 +34,6 @@ public class EncontroController extends GenericController implements Serializabl
     public void preRenderPage() {
         this.resset();
         this.listar();
-
     }
 
     private void resset() {
@@ -45,7 +43,6 @@ public class EncontroController extends GenericController implements Serializabl
         encontroService             = new EncontroService();
 
         listaEncontro               = new ArrayList<>();
-        listarEncontroQueCadastrei  = new ArrayList<>();
         listarEncontrosAlu_Prof     = new ArrayList<>();
 
         listaAluno                  = new ArrayList<>();
@@ -68,7 +65,6 @@ public class EncontroController extends GenericController implements Serializabl
                 break;
             case "Aluno":
             case "Professor":
-                listarEncontroQueCadastrei = this.getEncontroService().listarEncontrosQueCadastrei();
                 listarEncontrosAlu_Prof = this.getEncontroService().listarEncontrosAlu_Prof();
                 break;
             case "Coordenador":
@@ -196,14 +192,6 @@ public class EncontroController extends GenericController implements Serializabl
 
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-    }
-
-    public List<Encontro> getListarEncontroQueCadastrei() {
-        return listarEncontroQueCadastrei;
-    }
-
-    public void setListarEncontroQueCadastrei(List<Encontro> listarEncontroQueCadastrei) {
-        this.listarEncontroQueCadastrei = listarEncontroQueCadastrei;
     }
 
     public List<Encontro> getListarEncontrosAlu_Prof() {

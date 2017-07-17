@@ -24,39 +24,29 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Data da analise"/>
-                                    </f:facet> 
+                                    <f:facet name="header">Data da analise</f:facet> 
                                     <h:outputText value="#{item.dataAnalise}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Comentarios"/>
-                                    </f:facet> 
+                                    <f:facet name="header">Comentarios</f:facet> 
                                     <h:outputText value="#{item.comentario}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Academico Analista"/>
-                                    </f:facet> 
+                                    <f:facet name="header">Academico Analista</f:facet> 
                                     <h:outputText value="#{item.analista.nome}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Ideia"/>
-                                    </f:facet> 
+                                    <f:facet name="header">Ideia</f:facet> 
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Ações"/>
-                                    </f:facet>
+                                    <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>

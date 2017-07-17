@@ -68,8 +68,8 @@
                                                  label="Status" required="true" requiredMessage="O campo status é obrigatorio"
                                                  disabled="#{!encontroController.encontroSelecionado.status.endsWith('visualizado')}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Visto e aceito" itemValue="Visto e aceito"/>
-                                    <f:selectItem itemLabel="Visto e recusado" itemValue="Visto e recusado"/>
+                                    <f:selectItem itemLabel="Aceito" itemValue="Aceito"/>
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
                                     <f:selectItem itemLabel="Realizado" itemValue="Realizado"/>
                                     <f:selectItem itemLabel="Cancelado" itemValue="Cancelado"/>
                                 </b:selectOneMenu>

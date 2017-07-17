@@ -14,12 +14,12 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Consultar ideia"> 
+                <p:fieldset legend="Consultar Ideia de TCC"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" disabled="true">
+                                                 label="Tipo da Ideia" disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Estudo de caso" itemValue="Estudo de caso"/>
                                     <f:selectItem itemLabel="Revisão da bibliografia" itemValue="Revisão da bibliografia"/>

@@ -63,8 +63,8 @@
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{item.status}"
                                                   styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                              #{item.status == 'Visto e aceito' ? 'enviado_vistoaceito' : null}
-                                                              #{item.status == 'Visto e recusado' ? 'enviado_vistocancelado' : null}
+                                                              #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                              #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}
                                                               #{item.status == 'Realizado' ? 'ja_realizado' : null}
                                                               #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>

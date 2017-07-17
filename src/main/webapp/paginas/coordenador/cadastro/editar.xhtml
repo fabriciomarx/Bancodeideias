@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar meu cadastro">
+                <p:fieldset legend="Alterar Cadastro">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -37,20 +37,14 @@
                         
                         <b:row>
                             <b:column span="1" offset-md="10">
-                                <p:commandButton value="Enviar" action="#{usuarioController.alterar()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{usuarioController.alterar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
                 
-                <p:fieldset legend="Alterar senha">
+                <p:fieldset legend="Alterar Senha">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -72,16 +66,10 @@
                         
                         <b:row>
                             <b:column span="1" offset-md="10">
-                                <p:commandButton value="Enviar" action="#{usuarioController.alterar()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterarSenha()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{usuarioController.alterar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>  
             </ui:define>    

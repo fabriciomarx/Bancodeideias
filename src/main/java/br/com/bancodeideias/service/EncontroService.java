@@ -54,13 +54,6 @@ public class EncontroService implements Serializable {
         return lista;
     }
 
-    /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU - (ACADEMICO) */
-    public List<Encontro> listarEncontrosQueCadastrei() {
-        List<Encontro> lista;
-        lista = this.getEncontroDAO().listarEncontrosQueCadastrei();
-        return lista;
-    }
-
     /* LISTA TODOS OS ENCONTROS QUE A PESSOA CADASTROU OU FOI CHAMADA PARA PARTICIPAR */
     public List<Encontro> listarEncontrosAlu_Prof() {
         List<Encontro> lista;

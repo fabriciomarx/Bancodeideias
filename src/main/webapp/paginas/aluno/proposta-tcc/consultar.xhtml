@@ -17,7 +17,7 @@
                 <p:fieldset legend="Consultar proposta de tcc"> 
                     <h:form>
                         <p:tabView>
-                            <p:tab title="Titulo - Problema ... ">
+                            <p:tab title="Titulo do TCC">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}" 
@@ -42,16 +42,16 @@
                                         </b:selectOneMenu>
                                     </b:column>
                                 </b:row>
+                            </p:tab>
 
+                            <p:tab title="Objetivos do TCC">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                          label="Objetivos" readonly="true"/>
                                     </b:column>
                                 </b:row>
-                            </p:tab>
 
-                            <p:tab title="Justificativa - Metodologias ... ">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
@@ -65,7 +65,9 @@
                                                          label="Metodologias" readonly="true"/>
                                     </b:column>
                                 </b:row>
+                            </p:tab>
 
+                            <p:tab title="Pesquisa Acadêmica">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.materias}"
@@ -80,17 +82,14 @@
                                     </b:column>
                                 </b:row>
 
-                                
-                            </p:tab>
-
-                            <p:tab title="Data Inscrição - Situação ... ">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
                                                          label="Bibliografia" readonly="true"/>
                                     </b:column>
                                 </b:row>
-                                
+                            </p:tab>
+                            <p:tab title="Academicos Participantes">
                                 <b:row>
                                     <b:column medium-screen="3" span="10" offset-md="1">
                                         <h:outputLabel value="Data Inscrição"/>

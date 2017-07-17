@@ -29,24 +29,17 @@ public class UsuarioService implements Serializable {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
         usuario.setSenha(senha);
         this.getUsuarioDAO().salvar(usuario);
-
     }
-
-    public void alterar(Usuario usuario) {
-        String senhaAntiga = usuario.getSenha();
+    
+    /* Metodo apenas para alterar a senha do usuario */
+    public void alterarSenha(Usuario usuario) {
+        String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
+        usuario.setSenha(senha);
         
-        String senhaNova = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
-
-       
-        if (senhaAntiga.equals(senhaNova)) {
-            usuario.setSenha(senhaAntiga);
-        } else {
-            usuario.setSenha(senhaNova);
-        }
-            
-        System.out.println("Nova " + senhaNova);
-        System.out.println("Antiga " + senhaAntiga);
-
+        this.getUsuarioDAO().alterar(usuario);
+    }
+    
+    public void alterar(Usuario usuario) {
         this.getUsuarioDAO().alterar(usuario);
     }
 

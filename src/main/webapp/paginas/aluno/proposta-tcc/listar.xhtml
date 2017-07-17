@@ -22,10 +22,7 @@
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true"
-                                         scroll-size="500px"
-                                         scroll-x="false">
+                                         styleClass="table table-striped">
 
                                 <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
@@ -75,7 +72,7 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
@@ -83,7 +80,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column> 

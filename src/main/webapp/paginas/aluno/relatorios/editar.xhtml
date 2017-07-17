@@ -58,8 +58,7 @@
                                 <h:outputLabel value="Justificativa"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
                                                  placeholder="Escreva a(s) sua(s) justificativa(s)" 
-                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo justificativa é obrigatorio"/>
+                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes."/>
                                 <h:outputText id="idJustificativa" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -80,7 +79,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                     
+
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
@@ -92,7 +91,7 @@
                                 </p:commandButton>
                             </b:column>
                         </b:row>
-                        
+
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.alterar()}"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

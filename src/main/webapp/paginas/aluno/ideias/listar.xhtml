@@ -16,29 +16,34 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Todas ideias"> 
+                    <p:fieldset legend="Todas Ideias de TCC"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeia}"
-                                         var="item" searching="true" border="false"
+                                         var="itemm" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true"
-                                         scroll-size="600px"
-                                         scroll-x="false">
+                                         styleClass="table table-striped" id="listaData">
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
-                                    <h:outputText value="#{item.titulo}"/>
+                                    <h:outputText value="#{itemm.titulo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet>
-                                    <h:outputText value="#{item.descricao}"/>
+                                    <h:outputText value="#{itemm.descricao}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Usuario que sugeriu</f:facet>
-                                    <h:outputText value="#{item.usuario.nome}"/>
+                                    <h:outputText value="#{itemm.usuario.nome}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
+                                    <h:outputText value="#{itemm.disponibilidade}"
+                                                  styleClass="#{itemm.disponibilidade == 'Disponível' ? 'aprovado' : null}
+                                                              #{itemm.disponibilidade == 'Indisponível' ? 'recusado' : null}
+                                                              #{itemm.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
 
 
@@ -46,15 +51,15 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search" title="Consultar">
-                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
-                                    <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-success" 
+                                    <b:commandButton action="#{ideiaController.doIncluirNaProposta()}" class="btn btn-success" 
                                                      value="" title="Utilizar ideia no Tcc"  icon="glyphicon glyphicon-education">
-                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-info" 
                                                      value="" icon="glyphicon glyphicon-star" title="Favoritar">
-                                        <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   

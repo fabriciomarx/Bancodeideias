@@ -18,7 +18,7 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista ideia"> 
+                    <p:fieldset legend="Sugestões Ideias de TCC"> 
                         <b:panel look="primary" collapsible="false">
 
                             <b:dataTable value="#{ideiaController.listaIdeiasdaUniversidade}"
@@ -35,7 +35,7 @@
                                     <f:facet name="header">Tipo de Ideia</f:facet>
                                     <h:outputText value="#{item.tipoIdeia}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
@@ -52,10 +52,16 @@
                                     <f:facet name="header">Situação</f:facet>
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
-
+                                <h:column>
+                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
+                                    <h:outputText value="#{item.disponibilidade}"
+                                                  styleClass="#{item.disponibilidade == 'Disponível' ? 'aprovado' : null}
+                                                  #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
+                                                  #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>

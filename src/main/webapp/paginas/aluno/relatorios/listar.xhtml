@@ -22,10 +22,7 @@
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true"
-                                         scroll-size="500px"
-                                         scroll-x="false">
+                                         styleClass="table table-striped">
 
                                 <h:column>
                                     <f:facet name="header">Data Inicio</f:facet>
@@ -53,7 +50,7 @@
 
                                 <h:column>
                                     <f:facet name="header">Justificativas</f:facet>
-                                    <h:outputText value="#{item.justificativa}"/>
+                                    <h:outputText value="#{item.justificativa == '' ? 'SEM JUSTIFICATIVAS' : item.justificativa}"/>
                                 </h:column>
 
                                 <h:column>
@@ -67,17 +64,19 @@
                                     <f:facet name="header">Orientador</f:facet>
                                     <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
                                     <h:outputText value="#{item.status}"
-                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : 'enviado_vistoaceito'}"/>
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                              #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                              #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.status == 'Visto e aceito'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""
@@ -85,7 +84,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{relatorioController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.status == 'Visto e aceito'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            

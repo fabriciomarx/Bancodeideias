@@ -10,11 +10,12 @@
         </div>
         <div style="margin-left: 750px">
             <h:form>
-                USUARIO: #{usuarioController.usuarioLogado.nome}
+                USUARIO: #{usuarioController.usuarioLogado.nome == null ? 'Nenhum usuario logado' : usuarioController.usuarioLogado.nome}
+
                 <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
                                  icon="glyphicon glyphicon-log-out"
-                                 style="margin-left: 10px;"/>
-
+                                 style="margin-left: 10px;"
+                                 disabled="#{usuarioController.usuarioLogado.idUsuario == null}"/>
             </h:form>
         </div>
     </footer>

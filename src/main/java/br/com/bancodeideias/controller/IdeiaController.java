@@ -55,7 +55,7 @@ public class IdeiaController extends GenericController implements Serializable {
      public void selecionar(Ideia ideia) {
         RequestContext.getCurrentInstance().closeDialog(ideia); //fechar o dialog de selecao de ideias
     }
-    
+   
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
@@ -84,11 +84,14 @@ public class IdeiaController extends GenericController implements Serializable {
             //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É PENDENTE COMO DEFAUT
             if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
                 this.getIdeiaSelecionada().setSituacao("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
+                this.getIdeiaSelecionada().setDisponibilidade("Em analise"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
             } else {
+                this.getIdeiaSelecionada().setDisponibilidade("Disponível"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
                 this.getIdeiaSelecionada().setSituacao("Aprovado"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
             }
             //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
 
+            
             this.getIdeiaSelecionada().setDataInscricao(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
             this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
             this.getIdeiaSelecionada().setFavorito("Não");
@@ -119,6 +122,7 @@ public class IdeiaController extends GenericController implements Serializable {
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         try {
+            this.getIdeiaSelecionada().setDisponibilidade("Disponível"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
             this.getIdeiaSelecionada().setDataAnalise(new Date()); // setando a ideia automatico
             this.getIdeiaSelecionada().setAnalista(usuarioLogado); // setando o academico analista automatico
             this.getIdeiaService().alterar(ideiaSelecionada);
@@ -168,6 +172,11 @@ public class IdeiaController extends GenericController implements Serializable {
 
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
+    }
+    
+    /* Metodo para chamar a pagina de inclusao de proposta */
+    public String doIncluirNaProposta() {
+        return "/paginas/aluno/proposta-tcc/incluir.xhtml?faces-redirect=true";
     }
 
     // ============ GETS AND SETS =========== 

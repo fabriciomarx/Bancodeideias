@@ -18,6 +18,12 @@
                 <h:form>
                     <p:fieldset legend="Lista de cursos">
                         <b:panel look="primary" collapsible="false">
+                            
+                            <h:panelGrid columns="2" columnClasses="left,right" style="width:100%;">
+                                <p:chart type="bar" model="#{usuarioController.graficoBarra}" style="width:500px;"
+                                         responsive="true"/>
+                            </h:panelGrid>
+                            
                             <b:dataTable value="#{cursoController.listaCurso}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
@@ -40,15 +46,15 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{cursoController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
+                                                     icon="glyphicon glyphicon-edit" title="Editar curso">
                                         <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{cursoController.doConsultar()}" class="btn btn-primary" value=""
-                                                     icon="glyphicon glyphicon-search">
+                                                     icon="glyphicon glyphicon-search" title="Consultar curso">
                                         <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{cursoController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
+                                                     icon="glyphicon glyphicon-remove" title="Excluir curso">
                                         <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            
@@ -57,7 +63,7 @@
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
+                                                 class="btn btn-info" title="Incluir curso"/>
                             </f:facet>
                             
                         </b:panel>

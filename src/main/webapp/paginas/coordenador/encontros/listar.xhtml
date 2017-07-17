@@ -38,15 +38,6 @@
                                         <f:ajax render="encontroData" event="change" listener="#{encontroController.listEncontros()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
-
-                                <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar por Status:" value="#{encontroController.usuario}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
-                                        <f:selectItems value="#{encontroController.listaAluno}" var="item"
-                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                        <f:ajax render="encontroData" event="change" listener="#{encontroController.listEncontros()}"/> 
-                                    </b:selectOneMenu>
-                                </b:column>
                             </b:row>
 
                             <b:dataTable value="#{encontroController.listaEncontro}"
@@ -92,8 +83,8 @@
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{itemm.status}"
                                                   styleClass="#{itemm.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                  #{itemm.status == 'Visto e aceito' ? 'enviado_vistoaceito' : null}
-                                                  #{itemm.status == 'Visto e recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{itemm.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{itemm.status == 'Recusado' ? 'enviado_vistocancelado' : null}
                                                   #{itemm.status == 'Realizado' ? 'ja_realizado' : null}
                                                   #{itemm.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>

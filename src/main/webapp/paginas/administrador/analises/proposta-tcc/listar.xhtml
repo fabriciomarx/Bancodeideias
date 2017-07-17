@@ -24,59 +24,35 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Data da analise"/>
-                                    </f:facet> 
+                                    <f:facet name="header">Data da analise</f:facet> 
                                     <h:outputText value="#{item.dataAnalise}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>     
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Comentarios"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.comentarios}"/>
+                                    <f:facet name="header">Comentarios</f:facet> 
+                                    <h:outputText value="#{item.comentario}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Proposta de Tcc"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.propostaTcc.titulo}"/>
+                                    <f:facet name="header">Proposta de Tcc</f:facet> 
+                                    <h:outputText value="#{item.titulo}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Academico"/>
-                                    </f:facet> 
-                                    <h:outputText value="#{item.academicoAnalista.nome}"/>
+                                    <f:facet name="header">Academico Analista</f:facet> 
+                                    <h:outputText value="#{item.analista.nome}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Ações"/>
-                                    </f:facet>
-                                    <b:commandButton action="#{analisePropostaTccController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
-                                        <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
-                                    </b:commandButton>
-                                    <b:commandButton action="#{analisePropostaTccController.doConsultar()}" class="btn btn-primary" value=""
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
-                                    </b:commandButton>
-                                    <b:commandButton action="#{analisePropostaTccController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
-                                        <f:setPropertyActionListener value="#{item}" target="#{analisePropostaTccController.analisePropTccSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>  
-
-                            <f:facet name="footer">
-                                <b:commandButton value="Incluir" action="#{analisePropostaTccController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
-                            </f:facet>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

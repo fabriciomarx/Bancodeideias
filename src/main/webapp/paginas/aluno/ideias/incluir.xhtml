@@ -37,7 +37,7 @@
                                 <h:outputLabel value="Titulo"/><br/>
                                 <p:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
                                                  placeholder="Insira o titulo da Ideia" 
-                                                 rows="5" cols="169" counter="idTitulo" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idTitulo" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo Titulo é obrigatorio"/>
                                 <h:outputText id="idTitulo" style="float: right;"/>
                             </b:column>
@@ -48,7 +48,7 @@
                                 <h:outputLabel value="Descrição"/><br/>
                                 <p:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
                                                  placeholder="Insira a descrição da Ideia" 
-                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo descrição é obrigatorio"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
@@ -57,11 +57,11 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
-                                                 immediate="true" action="#{ideiaController.doCancelar()}"/>
+                                                 immediate="true" action="#{ideiaController.doCancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{ideiaController.salvar()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                <p:commandButton value="Enviar" action="#{ideiaController.salvar()}" class="btn btn-primary" title="ENVIAR">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert"/>
                                 </p:commandButton>
                             </b:column>
                         </b:row>

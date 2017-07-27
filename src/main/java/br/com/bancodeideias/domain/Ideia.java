@@ -34,17 +34,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "ideia")
 @NamedQueries({
-    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")
-    , @NamedQuery(name = "Ideia.findByIdIdeia", query = "SELECT i FROM Ideia i WHERE i.idIdeia = :idIdeia")
-    , @NamedQuery(name = "Ideia.findByDataInscricao", query = "SELECT i FROM Ideia i WHERE i.dataInscricao = :dataInscricao")
-    , @NamedQuery(name = "Ideia.findBySituacao", query = "SELECT i FROM Ideia i WHERE i.situacao = :situacao")
-    , @NamedQuery(name = "Ideia.findByTipoIdeia", query = "SELECT i FROM Ideia i WHERE i.tipoIdeia = :tipoIdeia")
-    , @NamedQuery(name = "Ideia.findByDescricao", query = "SELECT i FROM Ideia i WHERE i.descricao = :descricao")
-    , @NamedQuery(name = "Ideia.findByTitulo", query = "SELECT i FROM Ideia i WHERE i.titulo = :titulo")
-    , @NamedQuery(name = "Ideia.findByDisponibilidade", query = "SELECT i FROM Ideia i WHERE i.disponibilidade = :disponibilidade")
-    , @NamedQuery(name = "Ideia.findByDataAnalise", query = "SELECT i FROM Ideia i WHERE i.dataAnalise = :dataAnalise")
-    , @NamedQuery(name = "Ideia.findByComentario", query = "SELECT i FROM Ideia i WHERE i.comentario = :comentario")
-    , @NamedQuery(name = "Ideia.findByFavorito", query = "SELECT i FROM Ideia i WHERE i.favorito = :favorito")})
+    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")})
 public class Ideia implements Serializable {
 
     private static final long serialVersionUID = 1L;

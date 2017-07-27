@@ -7,7 +7,9 @@ package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +20,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,13 +34,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "encontro")
 @NamedQueries({
-    @NamedQuery(name = "Encontro.findAll", query = "SELECT e FROM Encontro e")
-    , @NamedQuery(name = "Encontro.findByIdEncontro", query = "SELECT e FROM Encontro e WHERE e.idEncontro = :idEncontro")
-    , @NamedQuery(name = "Encontro.findByDataEncontro", query = "SELECT e FROM Encontro e WHERE e.dataEncontro = :dataEncontro")
-    , @NamedQuery(name = "Encontro.findByHora", query = "SELECT e FROM Encontro e WHERE e.hora = :hora")
-    , @NamedQuery(name = "Encontro.findByDescricao", query = "SELECT e FROM Encontro e WHERE e.descricao = :descricao")
-    , @NamedQuery(name = "Encontro.findByLocalEncontro", query = "SELECT e FROM Encontro e WHERE e.localEncontro = :localEncontro")
-    , @NamedQuery(name = "Encontro.findByStatus", query = "SELECT e FROM Encontro e WHERE e.status = :status")})
+    @NamedQuery(name = "Encontro.findAll", query = "SELECT e FROM Encontro e")})
 public class Encontro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,16 +63,19 @@ public class Encontro implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "localEncontro")
     private String localEncontro;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "status")
     private String status;
-    @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "aluno", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario academico;
-    @JoinColumn(name = "participante", referencedColumnName = "idUsuario")
+    private Usuario aluno;
+    @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario participante;
-    
+    private Usuario orientador;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro", fetch = FetchType.LAZY)
+    private List<Relatorio> relatorioList;
 
     public Encontro() {
     }
@@ -85,12 +84,13 @@ public class Encontro implements Serializable {
         this.idEncontro = idEncontro;
     }
 
-    public Encontro(Integer idEncontro, Date dataEncontro, Date hora, String descricao, String localEncontro) {
+    public Encontro(Integer idEncontro, Date dataEncontro, Date hora, String descricao, String localEncontro, String status) {
         this.idEncontro = idEncontro;
         this.dataEncontro = dataEncontro;
         this.hora = hora;
         this.descricao = descricao;
         this.localEncontro = localEncontro;
+        this.status = status;
     }
 
     public Integer getIdEncontro() {
@@ -141,23 +141,29 @@ public class Encontro implements Serializable {
         this.status = status;
     }
 
-    public Usuario getAcademico() {
-        return academico;
+    public Usuario getAluno() {
+        return aluno;
     }
 
-    public void setAcademico(Usuario academico) {
-        this.academico = academico;
+    public void setAluno(Usuario aluno) {
+        this.aluno = aluno;
     }
 
-    public Usuario getParticipante() {
-        return participante;
+    public Usuario getOrientador() {
+        return orientador;
     }
 
-    public void setParticipante(Usuario participante) {
-        this.participante = participante;
+    public void setOrientador(Usuario orientador) {
+        this.orientador = orientador;
     }
-    
-    
+
+    public List<Relatorio> getRelatorioList() {
+        return relatorioList;
+    }
+
+    public void setRelatorioList(List<Relatorio> relatorioList) {
+        this.relatorioList = relatorioList;
+    }
 
     @Override
     public int hashCode() {

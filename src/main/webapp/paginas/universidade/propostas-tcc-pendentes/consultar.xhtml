@@ -6,7 +6,6 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,23 +14,20 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
+
                 <p:fieldset legend="Consultar proposta de tcc">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
-                                             label="Titulo" disabled="true"/>
+                                             label="Titulo" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Problema" value="#{propostaTccController.propostaTccSelecionada.problema}"
-                                                 disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{propostaTccController.listaIdeias}" var="item"
-                                                   itemLabel="#{item.titulo}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputTextarea label="Problema" value="#{propostaTccController.propostaTccSelecionada.problema.titulo}"
+                                                 readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -49,61 +45,58 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
-                                                 label="Objetivos" disabled="true"/>
+                                                 label="Objetivos" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
-                                                 label="Justificativas" disabled="true"/>
+                                                 label="Justificativas" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologia}"
-                                                 label="Metodologias" disabled="true"/>
+                                                 label="Metodologias" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.materias}"
-                                                 label="Materiais" required="true" disabled="true"/>
+                                                 label="Materiais" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.cronograma}"
-                                                 label="Cronograma" disabled="true"/>
+                                                 label="Cronograma" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
-                                                 label="Bibliografia" disabled="true"/>
+                                                 label="Bibliografia" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data Inscrição"/>
-                                <b:dateTimePicker value="#{propostaTccController.propostaTccSelecionada.dataInscricao}"
-                                                  show-time="false"/>
+                                <b:dateTimePicker value="#{propostaTccController.propostaTccSelecionada.dataInscricao}" show-time="false"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
+                                <b:selectOneMenu label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
                                                  disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
-                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
-                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise" />
-                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
+                                    <f:selectItem itemLabel="Ativo" itemValue="Ativo" />
+                                    <f:selectItem itemLabel="Pendente" itemValue="Pendente" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -111,10 +104,17 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}"
-                                             label="Academico" readonly="true"/>
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
                         
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante == null ? 'Sem participante' : propostaTccController.propostaTccSelecionada.participante.nome}"
+                                             label="Participante" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.orientador.nome}"
@@ -123,21 +123,13 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="1">
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{propostaTccController.doCancelar()}" />
                             </b:column>
 
-                            <b:column span="1">
-                                <p:commandButton value="Aceitar"/>
-                            </b:column>
-
-                            <b:column span="1">
-                                <p:commandButton value="Recusar"/>
-                            </b:column>                        
                         </b:row>
                     </h:form>
-                 
-                </p:fieldset>
+                </p:fieldset>   
             </ui:define>    
         </ui:composition>
     </body>

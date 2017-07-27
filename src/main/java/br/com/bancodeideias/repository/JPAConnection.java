@@ -6,11 +6,11 @@ import javax.persistence.Persistence;
 
 public class JPAConnection {
 
-    private static final EntityManagerFactory entityManagerFactory = Persistence
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("BancodeideiasPU");
 
     public static EntityManager getEntityManager() {
-        return entityManagerFactory.createEntityManager();
+        return ENTITY_MANAGER_FACTORY.createEntityManager();
     }
 
 }

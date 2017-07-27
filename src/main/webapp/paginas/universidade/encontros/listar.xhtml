@@ -56,22 +56,27 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
-                                    <f:facet name="header">Data Encontro</f:facet>
+                                    <f:facet name="header">Status</f:facet> 
+                                    <h:outputText value="#{itemm.status}"
+                                                  styleClass="#{itemm.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                  #{itemm.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{itemm.status == 'Recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{itemm.status == 'Realizado' ? 'ja_realizado' : null}
+                                                  #{itemm.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{itemm.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Hora Encontro</f:facet>
+                                    <f:facet name="header">Hora</f:facet>
                                     <h:outputText value="#{itemm.hora}">
                                         <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Local Encontro</f:facet>
-                                    <h:outputText value="#{itemm.localEncontro}"/>
                                 </h:column>
 
                                 <h:column>
@@ -80,23 +85,18 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Participante</f:facet> 
-                                    <h:outputText value="#{itemm.participante.nome}"/>
+                                    <f:facet name="header">Local</f:facet>
+                                    <h:outputText value="#{itemm.localEncontro}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Academico que agendou</f:facet> 
-                                    <h:outputText value="#{itemm.academico.nome}"/>
-                                </h:column> 
+                                    <f:facet name="header">Aluno</f:facet> 
+                                    <h:outputText value="#{itemm.aluno.nome}"/>
+                                </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Status</f:facet> 
-                                    <h:outputText value="#{itemm.status}"
-                                                  styleClass="#{itemm.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                  #{itemm.status == 'Aceito' ? 'enviado_vistoaceito' : null}
-                                                  #{itemm.status == 'Recusado' ? 'enviado_vistocancelado' : null}
-                                                  #{itemm.status == 'Realizado' ? 'ja_realizado' : null}
-                                                  #{itemm.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                    <f:facet name="header">Orientador</f:facet> 
+                                    <h:outputText value="#{itemm.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>

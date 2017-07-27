@@ -26,21 +26,31 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
-                                    <f:facet name="header">Data Encontro</f:facet>
+                                    <f:facet name="header">Status</f:facet> 
+                                    <h:outputText value="#{item.status}"
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                  #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{item.status == 'Realizado' ? 'ja_realizado' : null}
+                                                  #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
-                                    <f:facet name="header">Hora Encontro</f:facet>
+                                    <f:facet name="header">Hora</f:facet>
                                     <h:outputText value="#{item.hora}">
                                         <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Local Encontro</f:facet>
+                                    <f:facet name="header">Local</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
                                 </h:column>
 
@@ -50,23 +60,13 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Participante</f:facet> 
-                                    <h:outputText value="#{item.participante.nome}"/>
+                                    <f:facet name="header">Aluno</f:facet> 
+                                    <h:outputText value="#{item.aluno.nome}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Academico</f:facet> 
-                                    <h:outputText value="#{item.academico.nome}"/>
-                                </h:column> 
-                                
-                                <h:column>
-                                    <f:facet name="header">Status</f:facet> 
-                                    <h:outputText value="#{item.status}"
-                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                              #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
-                                                              #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}
-                                                              #{item.status == 'Realizado' ? 'ja_realizado' : null}
-                                                              #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                    <f:facet name="header">Orientador</f:facet> 
+                                    <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>

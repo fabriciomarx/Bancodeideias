@@ -31,21 +31,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "proposta_tcc")
 @NamedQueries({
-    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")
-    , @NamedQuery(name = "PropostaTcc.findByIdProposta", query = "SELECT p FROM PropostaTcc p WHERE p.idProposta = :idProposta")
-    , @NamedQuery(name = "PropostaTcc.findByAprovacaoOrientador", query = "SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = :aprovacaoOrientador")
-    , @NamedQuery(name = "PropostaTcc.findByBibliografia", query = "SELECT p FROM PropostaTcc p WHERE p.bibliografia = :bibliografia")
-    , @NamedQuery(name = "PropostaTcc.findByCronograma", query = "SELECT p FROM PropostaTcc p WHERE p.cronograma = :cronograma")
-    , @NamedQuery(name = "PropostaTcc.findByDataInscricao", query = "SELECT p FROM PropostaTcc p WHERE p.dataInscricao = :dataInscricao")
-    , @NamedQuery(name = "PropostaTcc.findByJustificativa", query = "SELECT p FROM PropostaTcc p WHERE p.justificativa = :justificativa")
-    , @NamedQuery(name = "PropostaTcc.findByMaterias", query = "SELECT p FROM PropostaTcc p WHERE p.materias = :materias")
-    , @NamedQuery(name = "PropostaTcc.findByMetodologia", query = "SELECT p FROM PropostaTcc p WHERE p.metodologia = :metodologia")
-    , @NamedQuery(name = "PropostaTcc.findByObjetivo", query = "SELECT p FROM PropostaTcc p WHERE p.objetivo = :objetivo")
-    , @NamedQuery(name = "PropostaTcc.findBySituacao", query = "SELECT p FROM PropostaTcc p WHERE p.situacao = :situacao")
-    , @NamedQuery(name = "PropostaTcc.findByTipoTcc", query = "SELECT p FROM PropostaTcc p WHERE p.tipoTcc = :tipoTcc")
-    , @NamedQuery(name = "PropostaTcc.findByTitulo", query = "SELECT p FROM PropostaTcc p WHERE p.titulo = :titulo")
-    , @NamedQuery(name = "PropostaTcc.findByDataAnalise", query = "SELECT p FROM PropostaTcc p WHERE p.dataAnalise = :dataAnalise")
-    , @NamedQuery(name = "PropostaTcc.findByComentario", query = "SELECT p FROM PropostaTcc p WHERE p.comentario = :comentario")})
+    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")})
 public class PropostaTcc implements Serializable {
 
     private static final long serialVersionUID = 1L;

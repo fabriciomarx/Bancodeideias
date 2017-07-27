@@ -39,7 +39,7 @@ public class RelatorioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    
+
     /* Filtrar relatorios do aluno selecionado que o orientador seja o usuario logado
         utilizo esse metodo na pagina do orientador - relatorios */
     public List<Relatorio> listarRelatorioAlunoSelecionado(int id) {
@@ -50,8 +50,8 @@ public class RelatorioDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM Relatorio u WHERE u.academico.idUsuario = "
-                    + id + " AND u.orientador = " + usuarioLogado.getIdUsuario());
+                    "SELECT u FROM Relatorio u WHERE u.encontro.aluno.idUsuario = "
+                    + id + " AND u.encontro.orientador = " + usuarioLogado.getIdUsuario());
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarRelatorioAlunoSelecionado - Classe PropostaTcc DAO");
@@ -59,7 +59,7 @@ public class RelatorioDAO implements Serializable {
         entityManager.close();
         return lista;
     }
-    
+
     /* Filtrar relatorios do aluno selecionado que o coordenador */
     public List<Relatorio> listarRelatorioAlunoSelecionadoParaCoord(int id) {
         //HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -69,7 +69,7 @@ public class RelatorioDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM Relatorio u WHERE u.academico.idUsuario = " + id);
+                    "SELECT u FROM Relatorio u WHERE u.encontro.aluno.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarRelatorioAlunoSelecionadoParaCoord - Classe PropostaTcc DAO");
@@ -100,8 +100,9 @@ public class RelatorioDAO implements Serializable {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.academico.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.encontro.aluno.idUsuario = " + usuarioLogado.getIdUsuario());
             listaRelatorios = query.getResultList();
+            System.out.println("Numero = " + listaRelatorios.size());
         } catch (Exception e) {
             System.out.println("Erro no metodo listaRelatorioLogado - Classe Relatorio DAO");
         }
@@ -117,7 +118,7 @@ public class RelatorioDAO implements Serializable {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.academico.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.encontro.aluno.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
             listaRelatorios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaRelatoriosUniLogada - Classe Relatorio DAO");
@@ -134,7 +135,7 @@ public class RelatorioDAO implements Serializable {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.academico.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.encontro.aluno.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
             listaRelatorios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaRelatoriosCoordLogado - Classe Relatorio DAO");
@@ -151,7 +152,7 @@ public class RelatorioDAO implements Serializable {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.orientador.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.encontro.orientador.idUsuario = " + usuarioLogado.getIdUsuario());
             listaRelatorios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaRelatoriosCoordLogado - Classe Relatorio DAO");
@@ -165,7 +166,7 @@ public class RelatorioDAO implements Serializable {
         List<Relatorio> listaRelatorios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.academico.idUsuario = " + idAluno);
+            Query query = entityManager.createQuery("SELECT u FROM Relatorio u where u.encontro.aluno.idUsuario = " + idAluno);
             listaRelatorios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo lista - Classe Relatorio DAO");

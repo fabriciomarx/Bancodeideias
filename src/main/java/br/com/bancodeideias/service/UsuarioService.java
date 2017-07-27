@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Usuario;
@@ -55,12 +50,10 @@ public class UsuarioService implements Serializable {
             if (usuario.getSenha().equals(this.convertStringToMd5(senha))) {
                 return usuario;
             } else {
-
                 System.out.println("Usuario e/ou senha invalidos");
             }
         } else {
             System.out.println("Usuario não encontrado");
-
         }
         return null;
     }

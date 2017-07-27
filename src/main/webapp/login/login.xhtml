@@ -31,15 +31,15 @@
                                class="form-control"/>
 
                 <b:commandButton value="Acessar"  action="#{usuarioController.doLogin()}"
-                                 class="btn btn-lg btn-primary btn-block" 
+                                 class="btn btn-lg btn-primary btn-block" title="ACESSAR O SISTEMA"
                                  onclick="PF('dlgCarregando').show();"
                                  oncomplete="PF('dlgCarregando').hide();"
                                  ajax="false" icon="glyphicon glyphicon-log-in" icon-align="right"/>
-                <p:commandButton value="Esqueci minha senha" 
+                <p:commandButton value="Esqueci minha senha" title="ESQUECI MINHA SENHA"
                                  class="btn btn-lg btn-primary btn-block"
                                  onclick="PF('dlgSenha').show();"/>
                 <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
-                <p:commandButton value="Registrar"
+                <p:commandButton value="Registrar(Somente Universidades)" title="REGISTRO DE UNIVERSIDADES"
                                  class="btn btn-lg btn-primary btn-block"
                                  action="#{usuarioController.doIncluir()}" process="@this"/>
             </h:form>
@@ -71,7 +71,7 @@
                 <p:commandButton value="Confirmar"
                                  actionListener="#{usuarioController.solicitarNovaSenha()}" 
                                  onclick="PF('dlgCarregando').show();"
-                                 oncomplete="PF('dlgSenha').hide();PF('dlgCarregando').hide();"/>
+                                 oncomplete="PF('dlgSenha').hide();PF('dlgCarregando').hide();PF('dlgSenhaGerada').show();"/>
 
                 <p:commandButton value="Cancelar" onclick="PF('dlgSenha').hide();"
                                  update=":form:pnlSenha" process="@this"> 
@@ -79,5 +79,9 @@
                 </p:commandButton>
             </h:form>
         </p:dialog>
+        
+        <p:dialog widgetVar="dlgSenhaGerada" resizable="false"
+                  draggable="false" modal="true" appendTo="@(body)"
+                  header="Senha Gerada">Senha: #{usuarioController.usuarioSelecionado.senha}</p:dialog>
     </h:body>
 </html>

@@ -27,7 +27,7 @@
                                             <h:outputLabel value="Titulo"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}"
                                                              placeholder="Insira o titulo da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Titulo é obrigatorio"/>
                                             <h:outputText id="idTituloProposta" style="float: right;"/>
                                         </b:column>
@@ -70,7 +70,7 @@
                                             <h:outputLabel value="Objetivos"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
                                                              placeholder="Insira o(s) objetivo(s) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idObjetivos" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idObjetivos" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Objetivos é obrigatorio"/>
                                             <h:outputText id="idObjetivos" style="float: right;"/>
                                         </b:column>
@@ -81,7 +81,7 @@
                                             <h:outputLabel value="Justificativas"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
                                                              placeholder="Insira a(s) justificativa(s) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idJustificativas" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idJustificativas" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Justificativas é obrigatorio"/>
                                             <h:outputText id="idJustificativas" style="float: right;"/>
                                         </b:column>
@@ -92,7 +92,7 @@
                                             <h:outputLabel value="Metodologias"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologia}"
                                                              placeholder="Insira a(s) metodologia(s) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idMetodologias" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idMetodologias" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Metodologias é obrigatorio"/>
                                             <h:outputText id="idMetodologias" style="float: right;"/>
                                         </b:column>
@@ -108,7 +108,7 @@
                                             <h:outputLabel value="Materiais"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.materias}"
                                                              placeholder="Insira o(s) material(ais) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idMateriais" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idMateriais" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Materiais é obrigatorio"/>
                                             <h:outputText id="idMateriais" style="float: right;"/>
                                         </b:column>
@@ -119,7 +119,7 @@
                                             <h:outputLabel value="Cronograma"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.cronograma}"
                                                              placeholder="Insira o(s) cronograma(s) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idCronograma" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idCronograma" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Cronograma é obrigatorio"/>
                                             <h:outputText id="idCronograma" style="float: right;"/>
                                         </b:column>
@@ -130,7 +130,7 @@
                                             <h:outputLabel value="Bibliografia"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
                                                              placeholder="Insira a(s) bibliografia(s) da Proposta de Tcc" 
-                                                             rows="5" cols="169" counter="idBibliografia" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="160" counter="idBibliografia" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Bibliografia é obrigatorio"/>
                                             <h:outputText id="idBibliografia" style="float: right;"/>
                                         </b:column>
@@ -253,7 +253,7 @@
                                                              immediate="true" action="#{propostaTccController.cancelar()}" />
                                         </b:column>
                                         <b:column span="1" offset-md="8">
-                                            <p:commandButton value="Enviar" action="#{propostaTccController.salvar()}" class="btn btn-primary">
+                                            <p:commandButton value="Enviar" action="#{propostaTccController.salvar()}" class="btn btn-primary" title="ENVIAR" >
                                                 <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                             </p:commandButton>
                                         </b:column>

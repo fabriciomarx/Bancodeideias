@@ -78,13 +78,19 @@ public class UsuarioDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             String sql = ""; //vazio
-            if(usuarioLogado.getTipoUsuario().equals("Coordenador")){
-                /* se o usuario logado for Coordenador, carregar a lista de academicos do curso dele */
-                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' AND u.curso.idCurso = " 
-                        + usuarioLogado.getCurso().getIdCurso();        
-            }else{
+            if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
+                /* se o usuario logado for Coordenador, carregar a lista de alunos do curso dele */
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' AND u.curso.idCurso = "
+                        + usuarioLogado.getCurso().getIdCurso();
+            } else if (usuarioLogado.getTipoUsuario().equals("Admin")) {
+                /* se o usuario logado for Admin, carregar a lista de todos os alunos */
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' ";
+            } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
                 sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
-                    + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
+                        + "AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario();
+            } else {
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
+                        + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
             }
             Query query = entityManager.createQuery(sql);
             listaUsuarios = query.getResultList();
@@ -121,8 +127,18 @@ public class UsuarioDAO implements Serializable {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Professor'"
-                    + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario());
+            String sql = "";
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) {
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor'";
+
+            } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
+                        + "AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario();
+            } else {
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor'"
+                        + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
+            }
+            Query query = entityManager.createQuery(sql);
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaProfessores - Classe Usuario DAO");

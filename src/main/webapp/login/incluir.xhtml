@@ -19,21 +19,24 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{usuarioController.usuarioSelecionado.nome}" 
-                                                 label="Nome da Universidade" required="true" required-message="O campo nome é obrigatorio"/>
+                                                 label="Nome da Universidade" required="true" required-message="O campo nome é obrigatorio"
+                                                 placeholder="Digite o nome da universidade/instituição/faculdade"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula do Usuario" required="true" required-message="O campo matricula é obrigatorio"/>
+                                             label="Matricula do Usuario" required="true" required-message="O campo matricula é obrigatorio"
+                                             placeholder="Digite sua matricula"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email da Universidade" required="true" required-message="O campo email é obrigatorio">
+                                             label="Email da Universidade" required="true" required-message="O campo email é obrigatorio"
+                                             placeholder="Digite o email da universidade/instituição/faculdade">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>
                             </b:column>
@@ -50,7 +53,7 @@
                                 <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioSelecionado.senha}" required="true" 
+                                            value="#{usuarioController.usuarioSelecionado.confirmarSenha}" required="true" 
                                             requiredMessage="O campo senha deve ser digitado duas vezes" />
                             </b:column>
                         </b:row>
@@ -59,20 +62,17 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{usuarioController.doCancelarLogin()}" />
+                                                 immediate="true" action="#{usuarioController.doCancelarLogin()}" title="RETORNAR" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{usuarioController.salvarUsuario()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" actionListener="#{usuarioController.salvarUsuario()}" class="btn btn-primary" title="ENVIAR">
+                                    
+                                </b:commandButton>
 
                             </b:column>
                         </b:row>
 
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{usuarioController.salvarUsuario()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
+                       
                     </h:form>
                 </p:fieldset>   
             </ui:define>    

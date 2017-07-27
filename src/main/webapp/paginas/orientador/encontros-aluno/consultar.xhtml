@@ -17,7 +17,6 @@
 
                 <p:fieldset legend="Consultar encontro"> 
                     <h:form>
-
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data encontro"/><br/>
@@ -33,7 +32,7 @@
                                             placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
@@ -50,29 +49,22 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{encontroController.encontroSelecionado.academico.nome}"
-                                             label="Academico" readonly="true"/>
+                                <b:inputText value="#{encontroController.encontroSelecionado.aluno.nome}"
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{encontroController.encontroSelecionado.participante.nome}"
-                                             label="Participante" readonly="true"/>
+                                <b:inputText value="#{encontroController.encontroSelecionado.orientador.nome}"
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.status}"
-                                                 label="Status" required="true" requiredMessage="O campo status é obrigatorio"
-                                                 disabled="#{!encontroController.encontroSelecionado.status.endsWith('visualizado')}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Aceito" itemValue="Aceito"/>
-                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
-                                    <f:selectItem itemLabel="Realizado" itemValue="Realizado"/>
-                                    <f:selectItem itemLabel="Cancelado" itemValue="Cancelado"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{encontroController.encontroSelecionado.status}"
+                                             label="Status" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -80,11 +72,6 @@
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{encontroController.cancelar()}" />
-                            </b:column>
-
-                            <b:column span="1" offset-md="7" >
-                                <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
-                                                 action="#{encontroController.alterar()}" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

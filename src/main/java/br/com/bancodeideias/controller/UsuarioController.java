@@ -127,16 +127,17 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     private void listar() {
-        listaUsuario                        = this.getUsuarioService().listar();
-        listaUniversidades                  = this.getUsuarioService().listUniversidades();
-        listaUniversidadesPendentes         = this.getUsuarioService().listaUniversidadesPendentes();
-        listaAluno                          = this.getUsuarioService().listaAlunos();
         
-        listaCurso                          = this.getCursoService().listar();
-        
-        listaAcademicosUniLogada            = this.getUsuarioService().listaAcademicosUniLogada();
-        
+        listaUsuario = this.getUsuarioService().listar();
+        listaUniversidades = this.getUsuarioService().listUniversidades();
+        listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
+        listaAluno = this.getUsuarioService().listaAlunos();
+
+        listaCurso = this.getCursoService().listar();
+
        
+          listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
+  
     }
 
     private void listarCursosUniversidadeEscolhida() {
@@ -144,18 +145,23 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     /* SALVAR USUARIO A PARTIR DO LOGIN , SEM USUARIO NA SESSAO */
-    public String salvarUsuario() {
+    public void salvarUsuario() {
         try {
             this.getUsuarioSelecionado().setTipoUsuario("Universidade"); //INSERINDO O TIPO DO USUARIO AUTOMATICO
             this.getUsuarioSelecionado().setSituacao("Pendente"); //INSERINDO A SITUACAO AUTOMATICO
-            this.getUsuarioService().salvar(usuarioSelecionado);
-            addSucessMessage("Inserido com sucesso ! Aguarde a analise do Administrador para acessar o sistema");
-            //System.out.println("INSERIDO COM SUCESSO");
+
+            if (this.getUsuarioSelecionado().getSenha().equals(this.getUsuarioSelecionado().getConfirmarSenha())) {
+                this.getUsuarioService().salvar(usuarioSelecionado);
+                addSucessMessage("Inserido com sucesso ! Aguarde a analise do Administrador para acessar o sistema");
+                this.resset();
+            } else {
+                addErrorMessage("As senhas são diferentes, digite novamente");
+            }
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar universidade: " + usuarioSelecionado.toString());
-        }
-        this.resset();
-        return "login.xhtml?faces-redirect=true";
+            addErrorMessage("Erro: " + e.getMessage());
+            this.resset();
+        } 
+        //return "login.xhtml?faces-redirect=true"; 
     }
     
     /* SALVAR USUARIO A PARTIR DA TELA DE LISTAGEM DE USUARIOS .. COM USUARIO NA SESSAO */
@@ -163,11 +169,10 @@ public class UsuarioController extends GenericController implements Serializable
         try {
             HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-            //SE O USUARIO FOR UMA UNIVERSIDADE AO INSERIR UM NOVO ACADEMICO, SALVAR O NOME DELA AUTOMATICO
-            //NO CAMPO 'UNIVERSIDADE'
-            if (usuarioLogador.getTipoUsuario().equals("Universidade")) {
-                this.getUsuarioSelecionado().setSituacao("Ativo");
-                this.getUsuarioSelecionado().setUniversidade(usuarioLogador);
+            if (usuarioLogador.getTipoUsuario().equals("Universidade")) { //SE O USUARIO FOR UMA UNIVERSIDADE
+                this.getUsuarioSelecionado().setSituacao("Ativo"); // SALVANDO A SITUACAO AUTOMATICO
+                this.getUsuarioSelecionado().setUniversidade(usuarioLogador); // SALVANDO A UNIVERSDADE AUTOMATICO
+                this.getUsuarioSelecionado().setSenha(this.getUsuarioSelecionado().getMatricula()); // SALVANDO A SENHA IGUAL A MATRICULA DO USUARIO
                 this.getUsuarioService().salvar(usuarioSelecionado);
             } else {
                 this.getUsuarioSelecionado().setSituacao("Ativo");
@@ -176,7 +181,7 @@ public class UsuarioController extends GenericController implements Serializable
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
         }
-        this.resset();
+        //this.resset();
         this.listar();
         //this.listarCursosUniversidadeEscolhida();
         this.graficoUsuariosPorTipo();
@@ -230,7 +235,7 @@ public class UsuarioController extends GenericController implements Serializable
         } catch (Exception e) {
             addErrorMessage("Erro ao remover usuario: " + usuarioSelecionado.toString());
         }
-        this.resset();
+        //this.resset();
         this.listar();
         this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
@@ -281,21 +286,18 @@ public class UsuarioController extends GenericController implements Serializable
 
         if (usuario != null) {
             String senha = this.getUsuarioService().gerarNovaSenha();
-            System.out.println("Senha gerada: " + senha + " " + usuario.getEmail());
+            System.out.println("Senha gerada: " + senha);
             usuario.setSenha(senha);
-            this.getUsuarioService().alterar(usuario);
+            this.getUsuarioService().alterarSenha(usuarioSelecionado);
 
-            /* enviando a senha por email */
-            //enviarEmail(usuario.getEmail(),senha);
-            //enviarEmail();
         } else {
             addErrorMessage("Usuario não encontrado e/ou Dados invalidos");
             System.out.println("Usuario não encontrado e/ou Dados invalidos");
         }
         return "/login/login.xhtml?faces-redirect=true";
-
     }
 
+    /*
     public void enviarEmail() {
         try {
             Email email = new SimpleEmail();
@@ -318,7 +320,7 @@ public class UsuarioController extends GenericController implements Serializable
 
         }
 
-    }
+    }*/
 
     /* Enviar email 
     public void enviarEmail(String destinatario, String mensagem) {

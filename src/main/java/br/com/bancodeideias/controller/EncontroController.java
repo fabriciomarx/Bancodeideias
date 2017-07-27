@@ -23,7 +23,6 @@ public class EncontroController extends GenericController implements Serializabl
     private EncontroService         encontroService;
 
     private List<Encontro>          listaEncontro;
-    private List<Encontro>          listarEncontrosAlu_Prof;
 
     private List<Usuario>           listaAluno;
     private List<Usuario>           listaProfessores;
@@ -43,7 +42,6 @@ public class EncontroController extends GenericController implements Serializabl
         encontroService             = new EncontroService();
 
         listaEncontro               = new ArrayList<>();
-        listarEncontrosAlu_Prof     = new ArrayList<>();
 
         listaAluno                  = new ArrayList<>();
         listaProfessores            = new ArrayList<>();
@@ -65,7 +63,7 @@ public class EncontroController extends GenericController implements Serializabl
                 break;
             case "Aluno":
             case "Professor":
-                listarEncontrosAlu_Prof = this.getEncontroService().listarEncontrosAlu_Prof();
+                listaEncontro = this.getEncontroService().listarEncontrosAlu_Prof();
                 break;
             case "Coordenador":
                 listaEncontro = this.getEncontroService().listarEncontrosParaCoord();
@@ -85,14 +83,14 @@ public class EncontroController extends GenericController implements Serializabl
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         try {
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
-                this.getEncontroService().salvar(encontroSelecionado);
-                this.getEncontroSelecionado().setStatus("Ainda não visualizado");
-            } else {
-                this.getEncontroSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-                this.getEncontroSelecionado().setStatus("Ainda não visualizado");
-                this.getEncontroService().salvar(encontroSelecionado);
+           if(usuarioLogado.getTipoUsuario().equals("Professor")){
+                this.getEncontroSelecionado().setOrientador(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                
+            }else if(usuarioLogado.getTipoUsuario().equals("Aluno")){
+                this.getEncontroSelecionado().setAluno(usuarioLogado); 
             }
+            this.getEncontroSelecionado().setStatus("Ainda não visualizado");
+            this.getEncontroService().salvar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar encontro: " + encontroSelecionado.toString());
@@ -152,6 +150,14 @@ public class EncontroController extends GenericController implements Serializabl
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
+    
+    public String doIncluirRelatorio(){
+        return "/paginas/aluno/relatorios/incluir.xhtml?faces-redirect=true";
+    }
+    
+    public String doAlterarStatus(){
+        return "alterarStatus.xhtml?faces-redirect=true";
+    }
 
     // ============ GETS AND SETS =========== 
     public Encontro getEncontroSelecionado() {
@@ -192,14 +198,6 @@ public class EncontroController extends GenericController implements Serializabl
 
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-    }
-
-    public List<Encontro> getListarEncontrosAlu_Prof() {
-        return listarEncontrosAlu_Prof;
-    }
-
-    public void setListarEncontrosAlu_Prof(List<Encontro> listarEncontrosAlu_Prof) {
-        this.listarEncontrosAlu_Prof = listarEncontrosAlu_Prof;
     }
 
     public List<Usuario> getListaAluno() {

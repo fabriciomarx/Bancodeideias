@@ -32,14 +32,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
-    , @NamedQuery(name = "Usuario.findByMatricula", query = "SELECT u FROM Usuario u WHERE u.matricula = :matricula")
-    , @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome")
-    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")
-    , @NamedQuery(name = "Usuario.findBySituacao", query = "SELECT u FROM Usuario u WHERE u.situacao = :situacao")
-    , @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,17 +94,23 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "universidade", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario universidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno", fetch = FetchType.LAZY)
     private List<Encontro> encontroList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "participante", fetch = FetchType.LAZY)
-    private List<Encontro> encontroList1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador", fetch = FetchType.LAZY)
-    private List<Relatorio> relatorioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
-    private List<Relatorio> relatorioList1;
+    private List<Encontro> encontroList1;
     
     @Transient
     private String confirmarSenha;
+
+    public String getConfirmarSenha() {
+        return confirmarSenha;
+    }
+
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
+    }
+    
+    
 
     public Usuario() {
     }
@@ -281,32 +280,6 @@ public class Usuario implements Serializable {
     public void setEncontroList1(List<Encontro> encontroList1) {
         this.encontroList1 = encontroList1;
     }
-
-    public List<Relatorio> getRelatorioList() {
-        return relatorioList;
-    }
-
-    public void setRelatorioList(List<Relatorio> relatorioList) {
-        this.relatorioList = relatorioList;
-    }
-
-    public List<Relatorio> getRelatorioList1() {
-        return relatorioList1;
-    }
-
-    public void setRelatorioList1(List<Relatorio> relatorioList1) {
-        this.relatorioList1 = relatorioList1;
-    }
-
-    public String getConfirmarSenha() {
-        return confirmarSenha;
-    }
-
-    public void setConfirmarSenha(String confirmarSenha) {
-        this.confirmarSenha = confirmarSenha;
-    }
-    
-    
 
     @Override
     public int hashCode() {

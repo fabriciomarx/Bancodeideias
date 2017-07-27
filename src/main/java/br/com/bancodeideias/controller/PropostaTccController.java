@@ -199,7 +199,9 @@ public class PropostaTccController extends GenericController implements Serializ
 
         try {
             if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
-                this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Indisponível");
+                //Ideia ideia = new Ideia();
+                //ideia.setDisponibilidade("Indisponivel");
+                //this.getPropostaTccSelecionada().setProblema(ideia);
                 this.getPropostaTccSelecionada().setDataAnalise(new Date()); // se o usuario for coordenador, setar a data automatico
                 this.getPropostaTccSelecionada().setAnalista(usuarioLogado);
                 this.getPropostaTccService().alterar(propostaTccSelecionada);

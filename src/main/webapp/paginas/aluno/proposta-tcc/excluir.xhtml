@@ -128,10 +128,10 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{propostaTccController.remover()}">
+                                <p:commandButton value="Enviar" action="#{propostaTccController.remover()}" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>

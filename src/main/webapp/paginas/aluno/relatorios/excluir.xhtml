@@ -64,14 +64,14 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{relatorioController.relatorioSelecionado.academico.nome}"
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.aluno.nome}"
                                              label="Academico" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{relatorioController.relatorioSelecionado.orientador.nome}"
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.orientador.nome}"
                                              label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
@@ -86,10 +86,10 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{relatorioController.cancelar()}" />
+                                                 immediate="true" action="#{relatorioController.cancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{relatorioController.remover()}" class="btn btn-primary">
+                                <p:commandButton value="Enviar" action="#{relatorioController.remover()}" class="btn btn-primary" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>

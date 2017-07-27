@@ -25,6 +25,13 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
+                                    <f:facet name="header">Data Inscrição</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
                                     <h:outputText value="#{item.aprovacaoOrientador}"
                                                   styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
@@ -48,11 +55,6 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.orientador.nome}"/>
-                                </h:column>
-
-                                <h:column>
                                     <f:facet name="header">Problema</f:facet>
                                     <h:outputText value="#{item.problema.titulo}"/>
                                 </h:column>
@@ -61,26 +63,29 @@
                                     <f:facet name="header">Tipo TCC</f:facet>
                                     <h:outputText value="#{item.tipoTcc}"/>
                                 </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Orientador</f:facet>
+                                    <h:outputText value="#{item.orientador.nome}"/>
+                                </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data Inscrição</f:facet>
-                                    <h:outputText value="#{item.dataInscricao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
+                                    <f:facet name="header">Participante</f:facet>
+                                    <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}" title="EDITAR PROPOSTA DE TCC">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
-                                                     icon="glyphicon glyphicon-search">
+                                                     icon="glyphicon glyphicon-search" title="CONSULTAR PROPOSTA DE TCC">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}" title="EXCLUIR PROPOSTA DE TCC">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column> 
@@ -88,7 +93,7 @@
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Nova" action="#{propostaTccController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
+                                                 class="btn btn-info" title="INCLUIR NOVA PROPOSTA DE TCC"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

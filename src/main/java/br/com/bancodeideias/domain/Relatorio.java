@@ -31,15 +31,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "relatorio")
 @NamedQueries({
-    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r")
-    , @NamedQuery(name = "Relatorio.findByIdRelatorio", query = "SELECT r FROM Relatorio r WHERE r.idRelatorio = :idRelatorio")
-    , @NamedQuery(name = "Relatorio.findByAtividadesRealizadas", query = "SELECT r FROM Relatorio r WHERE r.atividadesRealizadas = :atividadesRealizadas")
-    , @NamedQuery(name = "Relatorio.findByAutoAvaliacao", query = "SELECT r FROM Relatorio r WHERE r.autoAvaliacao = :autoAvaliacao")
-    , @NamedQuery(name = "Relatorio.findByDataInscricao", query = "SELECT r FROM Relatorio r WHERE r.dataInscricao = :dataInscricao")
-    , @NamedQuery(name = "Relatorio.findByJustificativa", query = "SELECT r FROM Relatorio r WHERE r.justificativa = :justificativa")
-    , @NamedQuery(name = "Relatorio.findByDataFim", query = "SELECT r FROM Relatorio r WHERE r.dataFim = :dataFim")
-    , @NamedQuery(name = "Relatorio.findByDataInicio", query = "SELECT r FROM Relatorio r WHERE r.dataInicio = :dataInicio")
-    , @NamedQuery(name = "Relatorio.findByStatus", query = "SELECT r FROM Relatorio r WHERE r.status = :status")})
+    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r")})
 public class Relatorio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,15 +68,14 @@ public class Relatorio implements Serializable {
     @Column(name = "dataInicio")
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "status")
     private String status;
-    @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "encontro", referencedColumnName = "idEncontro")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario orientador;
-    @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario academico;
+    private Encontro encontro;
 
     public Relatorio() {
     }
@@ -93,13 +84,14 @@ public class Relatorio implements Serializable {
         this.idRelatorio = idRelatorio;
     }
 
-    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataInscricao, Date dataFim, Date dataInicio) {
+    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataInscricao, Date dataFim, Date dataInicio, String status) {
         this.idRelatorio = idRelatorio;
         this.atividadesRealizadas = atividadesRealizadas;
         this.autoAvaliacao = autoAvaliacao;
         this.dataInscricao = dataInscricao;
         this.dataFim = dataFim;
         this.dataInicio = dataInicio;
+        this.status = status;
     }
 
     public Integer getIdRelatorio() {
@@ -166,20 +158,12 @@ public class Relatorio implements Serializable {
         this.status = status;
     }
 
-    public Usuario getOrientador() {
-        return orientador;
+    public Encontro getEncontro() {
+        return encontro;
     }
 
-    public void setOrientador(Usuario orientador) {
-        this.orientador = orientador;
-    }
-
-    public Usuario getAcademico() {
-        return academico;
-    }
-
-    public void setAcademico(Usuario academico) {
-        this.academico = academico;
+    public void setEncontro(Encontro encontro) {
+        this.encontro = encontro;
     }
 
     @Override

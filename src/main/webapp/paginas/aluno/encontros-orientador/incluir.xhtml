@@ -36,10 +36,21 @@
                         
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Descrição"/><br/>
+                                <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 placeholder="Insira a descrição do Encontro" 
+                                                 rows="5" cols="160" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputText id="idDescricao" style="float: right;"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Local do encontro"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  placeholder="Insira o local do Encontro" 
-                                                 rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo local é obrigatorio"/>
                                 <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
@@ -47,18 +58,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Descrição"/><br/>
-                                <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
-                                                 placeholder="Insira a descrição do Encontro" 
-                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
-                                <h:outputText id="idDescricao" style="float: right;"/>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}">
+                                <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.orientador}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -69,10 +69,10 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{encontroController.doCancelar()}" />
+                                                 immediate="true" action="#{encontroController.doCancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{encontroController.salvar()}" class="btn btn-primary">
+                                <p:commandButton value="Enviar" action="#{encontroController.salvar()}" class="btn btn-primary" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>

@@ -15,8 +15,8 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Incluir Relatorio">
-                    <h:form> 
+                <p:fieldset legend="Incluir relatorio"> 
+                    <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data Inicio"/><br/>
@@ -57,29 +57,18 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Justificativa"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
-                                                 placeholder="Escreva a(s) sua(s) justificativa(s)" 
-                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo justificativa é obrigatorio"/>
+                                                 placeholder="Escreva a(s) sua(s) justificativa(s). Caso seja necessario" 
+                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes." />
                                 <h:outputText id="idJustificativa" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{relatorioController.relatorioSelecionado.academico}">
+                                <b:selectOneMenu label="Encontro" value="#{relatorioController.relatorioSelecionado.encontro}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{relatorioController.listaAluno}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Orientador" value="#{relatorioController.relatorioSelecionado.orientador}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{relatorioController.listaProfessores}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                    <f:selectItems value="#{relatorioController.listaEncontros}" var="item"
+                                                   itemLabel="#{item.descricao}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -90,12 +79,18 @@
                                                  immediate="true" action="#{relatorioController.cancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{relatorioController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <b:commandButton value="Enviar" action="#{relatorioController.salvar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </b:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.salvar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
-                </p:fieldset> 
+                </p:fieldset>   
 
             </ui:define>    
         </ui:composition>

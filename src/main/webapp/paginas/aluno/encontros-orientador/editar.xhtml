@@ -39,7 +39,7 @@
                                 <h:outputLabel value="Local do encontro"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  placeholder="Insira o local do Encontro" 
-                                                 rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo local é obrigatorio"/>
                                 <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
@@ -50,40 +50,36 @@
                                 <h:outputLabel value="Descrição"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
                                                  placeholder="Insira a descrição do Encontro" 
-                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo descrição é obrigatorio"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
                         
                         <b:row>
-                            <b:column medium-screen="3" span="7" offset-md="1">
-                                <b:inputText value="#{encontroController.encontroSelecionado.participante.nome}"
-                                             label="Participante" readonly="true"/>
-
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{encontroController.encontroSelecionado.orientador.nome}"
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
-                       
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.participanteAlterado}">
-                                    <f:selectItem itemLabel=" Deseja alterar ? " noSelectionOption="true" itemValue=""/>
+                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.orientador}">
+                                    <f:selectItem itemLabel=" Deseja alterar o orientador ? " noSelectionOption="true" itemValue="#{encontroController.encontroSelecionado.orientador}"/>
                                     <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu> 
                             </b:column>
                         </b:row>
-                        
-                        
 
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{encontroController.cancelar()}" />
+                                                 immediate="true" action="#{encontroController.cancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{encontroController.alterar()}" class="btn btn-primary">
+                                <p:commandButton value="Enviar" action="#{encontroController.alterar()}" class="btn btn-primary" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>

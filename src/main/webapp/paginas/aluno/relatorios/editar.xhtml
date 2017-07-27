@@ -36,7 +36,7 @@
                                 <h:outputLabel value="Atividades Realizadas"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
                                                  placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" 
-                                                 rows="5" cols="169" counter="idAtividade" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idAtividade" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo atividades é obrigatorio"/>
                                 <h:outputText id="idAtividade" style="float: right;"/>
                             </b:column>
@@ -47,7 +47,7 @@
                                 <h:outputLabel value="Auto avaliação"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
                                                  placeholder="Escreva a sua auto avaliação" 
-                                                 rows="5" cols="169" counter="idAvaliacao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="160" counter="idAvaliacao" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo auto avaliacao é obrigatorio"/>
                                 <h:outputText id="idAvaliacao" style="float: right;"/>
                             </b:column>
@@ -58,42 +58,39 @@
                                 <h:outputLabel value="Justificativa"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
                                                  placeholder="Escreva a(s) sua(s) justificativa(s)" 
-                                                 rows="5" cols="169" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes."/>
+                                                 rows="5" cols="160" counter="idJustificativa" maxlength="250" counterTemplate="{0} caracteres restantes."/>
                                 <h:outputText id="idJustificativa" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{relatorioController.relatorioSelecionado.orientador.nome}"
-                                             label="Orientador" readonly="true" id="mudarNome"/>
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.orientador.nome}"
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu  value="#{relatorioController.relatorioSelecionado.orientador}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{relatorioController.listaProfessores}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu>
+                                <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.descricao}"
+                                             label="Encontro" readonly="true"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{relatorioController.cancelar()}" />
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
+                                                 immediate="true" action="#{relatorioController.doCancelar()}" title="RETORNAR"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{relatorioController.alterar()}" class="btn btn-primary">
+                                <p:commandButton value="Enviar" action="#{relatorioController.alterar()}" class="btn btn-primary" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>
                         </b:row>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.alterar()}"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.salvar()}"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
                     </h:form>

@@ -1,7 +1,9 @@
 package br.com.bancodeideias.controller;
 
+import br.com.bancodeideias.domain.Encontro;
 import br.com.bancodeideias.domain.Relatorio;
 import br.com.bancodeideias.domain.Usuario;
+import br.com.bancodeideias.service.EncontroService;
 import br.com.bancodeideias.service.RelatorioService;
 import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
@@ -22,11 +24,15 @@ public class RelatorioController extends GenericController implements Serializab
     
     private Relatorio           relatorioSelecionado;
     private RelatorioService    relatorioService;
+    
     private List<Relatorio>     listaRelatorio;
    
     private List<Usuario>       listaAluno;
     private List<Usuario>       listaProfessores;
     private UsuarioService      usuarioService;
+    
+    private List<Encontro>      listaEncontros;
+    private EncontroService     encontroService;
     
 
     @PostConstruct
@@ -45,7 +51,10 @@ public class RelatorioController extends GenericController implements Serializab
         
         usuarioService                  = new UsuarioService();
         listaProfessores                = new ArrayList<>();
-        listaAluno                       = new ArrayList<>();
+        listaAluno                      = new ArrayList<>();
+        
+        listaEncontros                  = new ArrayList<>();
+        encontroService                 = new EncontroService();
         
     }
     
@@ -85,6 +94,7 @@ public class RelatorioController extends GenericController implements Serializab
         }
         listaProfessores = this.getUsuarioService().listaProfessores();
         listaAluno       = this.getUsuarioService().listaAlunos();
+        listaEncontros   = this.getEncontroService().listarEncontrosAlu_Prof(); //provisorio
 
     }
 
@@ -92,17 +102,9 @@ public class RelatorioController extends GenericController implements Serializab
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UM RELATORIO NAO INSERIR O ACADEMICO AUTOMATICO
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) {
-                this.getRelatorioSelecionado().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
-                this.getRelatorioSelecionado().setStatus("Ainda não visualizado"); //SALVANDO O STATUS AUTOMATICO
-                this.getRelatorioService().salvar(relatorioSelecionado);
-            } else {
-                this.getRelatorioSelecionado().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
-                this.getRelatorioSelecionado().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-                this.getRelatorioSelecionado().setStatus("Ainda não visualizado"); //SALVANDO O STATUS AUTOMATICO
-                this.getRelatorioService().salvar(relatorioSelecionado);
-            }
+            this.getRelatorioSelecionado().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
+            this.getRelatorioSelecionado().setStatus("Ainda não visualizado"); //SALVANDO O STATUS AUTOMATICO
+            this.getRelatorioService().salvar(relatorioSelecionado);
 
             addSucessMessage("Relatorio salvo com sucesso");
         } catch (Exception e) {
@@ -220,6 +222,24 @@ public class RelatorioController extends GenericController implements Serializab
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public List<Encontro> getListaEncontros() {
+        return listaEncontros;
+    }
+
+    public void setListaEncontros(List<Encontro> listaEncontros) {
+        this.listaEncontros = listaEncontros;
+    }
+
+    public EncontroService getEncontroService() {
+        return encontroService;
+    }
+
+    public void setEncontroService(EncontroService encontroService) {
+        this.encontroService = encontroService;
+    }
+    
+    
     
     
 }

@@ -17,10 +17,10 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Lista Relatorios">
+                    <p:fieldset legend="Relatorios"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
-                                         var="item" searching="true"  border="false"
+                                         var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 
@@ -44,6 +44,16 @@
                                 </h:column>
 
                                 <h:column>
+                                    <f:facet name="header">Auto Avaliacao</f:facet>
+                                    <h:outputText value="#{item.autoAvaliacao}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Justificativas</f:facet>
+                                    <h:outputText value="#{item.justificativa == '' ? 'SEM JUSTIFICATIVAS' : item.justificativa}"/>
+                                </h:column>
+
+                                <h:column>
                                     <f:facet name="header">Data Inscrição</f:facet>
                                     <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
@@ -52,18 +62,35 @@
 
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.orientador.nome}"/>
+                                    <h:outputText value="#{item.encontro.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Academico</f:facet>
-                                    <h:outputText value="#{item.academico.nome}"/>
+                                    <f:facet name="header">Status</f:facet>
+                                    <h:outputText value="#{item.status}"
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                  #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Encontro</f:facet>
+                                    <h:outputText value="#{item.encontro.descricao}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Data do Encontro</f:facet>
+                                    <h:outputText value="#{item.encontro.dataEncontro}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.status == 'Visto e aceito'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""
@@ -71,7 +98,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{relatorioController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.status == 'Visto e aceito'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            

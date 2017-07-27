@@ -15,8 +15,8 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Incluir Encontro">
-                    <h:form>
+                <p:fieldset legend="Incluir encontro"> 
+                    <h:form >
 
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
@@ -33,25 +33,32 @@
                                             placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
-                                                 label="Local do Encontro" required="true" requiredMessage="O campo Local do Encontro é obrigatorio"/>
+                                <h:outputLabel value="Local do encontro"/><br/>
+                                <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
+                                                 placeholder="Insira o local do Encontro" 
+                                                 rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo local é obrigatorio"/>
+                                <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
-                                                 label="Descrição" required="true" requiredMessage="O campo Descrição é obrigatorio"/>
+                                <h:outputLabel value="Descrição"/><br/>
+                                <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
+                                                 placeholder="Insira a descrição do Encontro" 
+                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-
+                        
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Academico" value="#{encontroController.encontroSelecionado.academico}"
-                                                 required="true" requiredMessage="O campo Academico é obrigatorio">
+                                <b:selectOneMenu label="Aluno" value="#{encontroController.encontroSelecionado.aluno}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{encontroController.listaAluno}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -61,8 +68,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Participante" value="#{encontroController.encontroSelecionado.participante}"
-                                                 required="true" requiredMessage="O campo Participante é obrigatorio">
+                                <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.orientador}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -73,17 +79,27 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{encontroController.cancelar()}" />
+                                                 immediate="true" action="#{encontroController.doCancelar()}" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{encontroController.salvar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <p:commandButton value="Enviar" action="#{encontroController.salvar()}" class="btn btn-primary">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{encontroController.salvar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
-                </p:fieldset>   
+                </p:fieldset> 
 
             </ui:define>    
         </ui:composition>
     </body>
 </html>
+
+                            
+
+                       

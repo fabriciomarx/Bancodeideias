@@ -43,15 +43,15 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}" title="EDITAR IDEIA">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
-                                                     icon="glyphicon glyphicon-search">
+                                                     icon="glyphicon glyphicon-search" title="CONSULTAR IDEIA">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}" title="EXCLUIR IDEIA">
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
@@ -59,7 +59,7 @@
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Nova" action="#{ideiaController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
+                                                 class="btn btn-info" title="INCLUIR NOVA IDEIA"/>
 
                             </f:facet>
                         </b:panel>

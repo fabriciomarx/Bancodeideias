@@ -102,5 +102,10 @@ public class CursoDAO implements Serializable {
         return qtdeAlu;
     }
     
+    /*
+    public boolean validarDados(String nome) {
+        
+    }*/
+    
     
 }

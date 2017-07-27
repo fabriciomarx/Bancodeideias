@@ -51,7 +51,7 @@
 
                                 <h:column>
                                     <f:facet name="header">Participante</f:facet>
-                                    <h:outputText value="#{item.participante.nome}"/>
+                                    <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
                                 </h:column>
 
                                 <h:column>

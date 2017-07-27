@@ -50,15 +50,15 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-primary" value=""
-                                                     icon="glyphicon glyphicon-search" title="Consultar">
+                                                     icon="glyphicon glyphicon-search" title="CONSULTAR IDEIA">
                                         <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doIncluirNaProposta()}" class="btn btn-success" 
-                                                     value="" title="Utilizar ideia no Tcc"  icon="glyphicon glyphicon-education">
+                                                     value="" title="UTILIZAR IDEIA NO TCC"  icon="glyphicon glyphicon-education">
                                         <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{ideiaController.doConsultar()}" class="btn btn-info" 
-                                                     value="" icon="glyphicon glyphicon-star" title="Favoritar">
+                                                     value="" icon="glyphicon glyphicon-star" title="FAVORITAR">
                                         <f:setPropertyActionListener value="#{itemm}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
@@ -67,7 +67,7 @@
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Nova" action="#{ideiaController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
+                                                 class="btn btn-info" title="INCLUIR NOVA IDEIA"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

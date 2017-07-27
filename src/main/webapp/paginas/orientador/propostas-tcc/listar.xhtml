@@ -27,19 +27,26 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
+                                    <f:facet name="header">Data Inscrição</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
                                     <h:outputText value="#{item.aprovacaoOrientador}"
                                                   styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                              #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
+                                                  #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Aprovação do Coordenador</f:facet>
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
                                     </h:outputText>
 
                                 </h:column>
@@ -47,11 +54,6 @@
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>
@@ -65,10 +67,18 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data Inscrição</f:facet>
-                                    <h:outputText value="#{item.dataInscricao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
+                                    <f:facet name="header">Orientador</f:facet>
+                                    <h:outputText value="#{item.orientador.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Aluno</f:facet>
+                                    <h:outputText value="#{item.academico.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Participante</f:facet>
+                                    <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
                                 </h:column>
 
 

@@ -14,7 +14,8 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Consultar encontro">
+
+                <p:fieldset legend="Consultar encontro"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
@@ -48,15 +49,15 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{encontroController.encontroSelecionado.academico.nome}"
-                                             label="Academico" readonly="true"/>
+                                <b:inputText value="#{encontroController.encontroSelecionado.aluno.nome}"
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{encontroController.encontroSelecionado.participante.nome}"
-                                             label="Participante" readonly="true"/>
+                                <b:inputText value="#{encontroController.encontroSelecionado.orientador.nome}"
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
                         
@@ -69,12 +70,12 @@
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{encontroController.doCancelar()}" 
-                                                 icon="glyphicon glyphicon-arrow-left"/>
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{encontroController.cancelar()}" />
                             </b:column>
                         </b:row>
                     </h:form>
-                </p:fieldset>   
+                </p:fieldset>
 
             </ui:define>    
         </ui:composition>

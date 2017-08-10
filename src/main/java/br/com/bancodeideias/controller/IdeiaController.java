@@ -30,6 +30,8 @@ public class IdeiaController extends GenericController implements Serializable {
 
     private List<Usuario>                   listaUsuario;
     private UsuarioService                  usuarioService;
+    
+    private String                          tipoIdeiaFiltro; //filtro de ideias por tipo
        
 
     @PostConstruct
@@ -52,10 +54,15 @@ public class IdeiaController extends GenericController implements Serializable {
         usuarioService                      = new UsuarioService();
     }
     
-     public void selecionar(Ideia ideia) {
+    public void selecionar(Ideia ideia) {
         RequestContext.getCurrentInstance().closeDialog(ideia); //fechar o dialog de selecao de ideias
     }
-   
+
+    //Utilizado para filtrar os tipos da ideia selecionado (universidade - ideias)
+    public void listarTiposIdeiaSelecionado() {
+        listaIdeiasdaUniversidade = this.getIdeiaService().listarTiposIdeiaSelecionado(tipoIdeiaFiltro);
+    }
+
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
@@ -72,9 +79,9 @@ public class IdeiaController extends GenericController implements Serializable {
             default:
                 break;
         }
-        listaIdeia = this.getIdeiaService().listar(); //  todas ideias 
-        listaIdeiasLogado = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
-        listaUsuario = this.getUsuarioService().listar();
+        listaIdeia          = this.getIdeiaService().listar(); //  todas ideias 
+        listaIdeiasLogado   = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
+        listaUsuario        = this.getUsuarioService().listar();
     }
 
     public String salvar() {
@@ -94,7 +101,6 @@ public class IdeiaController extends GenericController implements Serializable {
             
             this.getIdeiaSelecionada().setDataInscricao(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
             this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
-            this.getIdeiaSelecionada().setFavorito("Não");
             this.getIdeiaService().salvar(ideiaSelecionada);
             addSucessMessage("Ideia salva com sucesso");
         } catch (Exception e) {
@@ -117,10 +123,10 @@ public class IdeiaController extends GenericController implements Serializable {
         return "listar.xhtml?faces-redirect=true";
     }
     
+    /* Metodo que Universidade/Coordenador/Professor utiliza para analisar a ideia pendente*/
     public String alterarParaAnalise() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
-
         try {
             this.getIdeiaSelecionada().setDisponibilidade("Disponível"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
             this.getIdeiaSelecionada().setDataAnalise(new Date()); // setando a ideia automatico
@@ -251,5 +257,15 @@ public class IdeiaController extends GenericController implements Serializable {
     public void setListarIdeiasPendentesdaUniversidade(List<Ideia> listarIdeiasPendentesdaUniversidade) {
         this.listarIdeiasPendentesdaUniversidade = listarIdeiasPendentesdaUniversidade;
     }
+
+    public String getTipoIdeiaFiltro() {
+        return tipoIdeiaFiltro;
+    }
+
+    public void setTipoIdeiaFiltro(String tipoIdeiaFiltro) {
+        this.tipoIdeiaFiltro = tipoIdeiaFiltro;
+    }
+    
+    
 
 }

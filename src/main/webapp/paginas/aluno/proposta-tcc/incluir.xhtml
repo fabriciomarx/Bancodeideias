@@ -21,13 +21,13 @@
                                   nextLabel="Proximo" backLabel="Voltar">
                             <p:tab title="Titulo do TCC">
                                 <p:panel header="Titulo - Problema - Tipo TCC">
-                                    <b:messages/>             
+                                    <b:growl/>       
                                     <b:row>
                                         <b:column medium-screen="3" span="10" offset-md="1">
                                             <h:outputLabel value="Titulo"/><br/>
                                             <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}"
                                                              placeholder="Insira o titulo da Proposta de Tcc" 
-                                                             rows="5" cols="160" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                             rows="5" cols="155" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                              required="true" requiredMessage="O campo Titulo é obrigatorio"/>
                                             <h:outputText id="idTituloProposta" style="float: right;"/>
                                         </b:column>
@@ -45,7 +45,8 @@
                                     </b:row>
                                     <b:row>
                                         <b:column medium-screen="3" span="10" offset-md="1">
-                                            <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}">
+                                            <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
+                                                             required="true" requiredMessage="O campo tipo de tcc é obrigatorio">
                                                 <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                                 <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
                                                 <f:selectItem itemLabel="Trabalho Cientifico" itemValue="Trabalho Cientifico" />
@@ -64,7 +65,7 @@
                              
                             <p:tab title="Objetivos do TCC">
                                 <p:panel header="Objetivos - Justificativas - Metodologias">
-                                    <b:messages/>
+                                   
                                     <b:row>
                                         <b:column medium-screen="3" span="10" offset-md="1">
                                             <h:outputLabel value="Objetivos"/><br/>
@@ -102,7 +103,7 @@
                              
                             <p:tab title="Pesquisa Acadêmica">
                                 <p:panel header="Materias - Cronograma - Bibliografia">
-                                    <b:messages/>
+                                    
                                     <b:row>
                                         <b:column medium-screen="3" span="10" offset-md="1">
                                             <h:outputLabel value="Materiais"/><br/>
@@ -140,7 +141,7 @@
                              
                             <p:tab title="Academicos Participantes">
                                 <p:panel header="Participante - Orientador">
-                                    <b:messages/>
+                                  
                                     <b:row>
                                         <b:column medium-screen="3" span="10" offset-md="1">
                                             <b:selectOneMenu label="Participante" value="#{propostaTccController.propostaTccSelecionada.participante}">

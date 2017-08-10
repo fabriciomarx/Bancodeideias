@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -25,10 +20,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
@@ -98,9 +89,12 @@ public class Usuario implements Serializable {
     private List<Encontro> encontroList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador", fetch = FetchType.LAZY)
     private List<Encontro> encontroList1;
-    
+
     @Transient
     private String confirmarSenha;
+
+    @Transient
+    private String senhaGerada;
 
     public String getConfirmarSenha() {
         return confirmarSenha;
@@ -109,8 +103,6 @@ public class Usuario implements Serializable {
     public void setConfirmarSenha(String confirmarSenha) {
         this.confirmarSenha = confirmarSenha;
     }
-    
-    
 
     public Usuario() {
     }
@@ -281,6 +273,14 @@ public class Usuario implements Serializable {
         this.encontroList1 = encontroList1;
     }
 
+    public String getSenhaGerada() {
+        return senhaGerada;
+    }
+
+    public void setSenhaGerada(String senhaGerada) {
+        this.senhaGerada = senhaGerada;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -305,5 +305,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

@@ -61,17 +61,6 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado"/>
-                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
-                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise"/>
-                                </b:selectOneMenu>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}"
                                              label="Usuario" readonly="true"/>
                             </b:column>

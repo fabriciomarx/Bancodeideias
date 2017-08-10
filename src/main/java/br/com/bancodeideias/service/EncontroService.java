@@ -26,10 +26,23 @@ public class EncontroService implements Serializable {
 
     }
 
-    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno ou professor) Metodo que a universidade usa */
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno) Metodo que a universidade usa */
     public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listarEncontrosAcademicoSelecionado(id);
+        return lista;
+    }
+
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (professor) Metodo que a universidade usa */
+    public List<Encontro> listarEncontrosProfessorSelecionado(int id) {
+        List<Encontro> lista;
+        lista = this.getEncontroDAO().listarEncontrosProfessorSelecionado(id);
+        return lista;
+    }
+    
+    public List<Encontro> listarEncontrosAcademicoSelecionadoParaProfessor(int id) {
+        List<Encontro> lista;
+        lista = this.getEncontroDAO().listarEncontrosAcademicoSelecionadoParaProfessor(id);
         return lista;
     }
 

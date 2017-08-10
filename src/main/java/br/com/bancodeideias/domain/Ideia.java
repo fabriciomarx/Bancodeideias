@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -27,10 +22,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "ideia")
 @NamedQueries({
@@ -73,17 +64,17 @@ public class Ideia implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "disponibilidade")
     private String disponibilidade;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 4)
+    @Column(name = "favorito")
+    private String favorito;
     @Column(name = "dataAnalise")
     @Temporal(TemporalType.DATE)
     private Date dataAnalise;
     @Size(max = 250)
     @Column(name = "comentario")
     private String comentario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "favorito")
-    private String favorito;
     @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario analista;
@@ -100,7 +91,7 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo, String disponibilidade, String favorito) {
+    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo, String disponibilidade) {
         this.idIdeia = idIdeia;
         this.dataInscricao = dataInscricao;
         this.situacao = situacao;
@@ -108,7 +99,6 @@ public class Ideia implements Serializable {
         this.descricao = descricao;
         this.titulo = titulo;
         this.disponibilidade = disponibilidade;
-        this.favorito = favorito;
     }
 
     public Integer getIdIdeia() {
@@ -171,6 +161,16 @@ public class Ideia implements Serializable {
         return dataAnalise;
     }
 
+    public String getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(String favorito) {
+        this.favorito = favorito;
+    }
+    
+    
+
     public void setDataAnalise(Date dataAnalise) {
         this.dataAnalise = dataAnalise;
     }
@@ -181,14 +181,6 @@ public class Ideia implements Serializable {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
-    }
-
-    public String getFavorito() {
-        return favorito;
-    }
-
-    public void setFavorito(String favorito) {
-        this.favorito = favorito;
     }
 
     public Usuario getAnalista() {
@@ -239,5 +231,5 @@ public class Ideia implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Ideia[ idIdeia=" + idIdeia + " ]";
     }
-    
+
 }

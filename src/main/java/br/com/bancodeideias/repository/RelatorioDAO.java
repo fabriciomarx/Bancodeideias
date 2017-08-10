@@ -78,6 +78,24 @@ public class RelatorioDAO implements Serializable {
         return lista;
     }
 
+    /* Utilizado no filtro de relatorios, usuario universidade*/
+    public List<Relatorio> listarRelatorioAlunoSelecionadoParaUniversidade(int id) {
+        //HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        //Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Relatorio> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Relatorio u WHERE u.encontro.aluno.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarRelatorioAlunoSelecionadoParaUniversidade - Classe PropostaTcc DAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+
     /* LISTAR TODOS OS RELATORIOS DO SISTEMA */
     public List<Relatorio> listar() {
         List<Relatorio> listaRelatorios = new ArrayList<>();

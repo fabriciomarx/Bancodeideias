@@ -54,17 +54,53 @@ public class EncontroDAO implements Serializable {
         return listaEncontros;
     }
 
-    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno ou professor) Metodo que a universidade usa */
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno) Metodo que a universidade usa */
     public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
         List<Encontro> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM Encontro u "
                     + "WHERE u.aluno.idUsuario = "
-                    + id + " OR u.orientador.idUsuario = " + id);
+                    + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarEncontrosAcademicoSelecionado - Classe EncontroDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    
+
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (professor) Metodo que a universidade usa */
+    public List<Encontro> listarEncontrosProfessorSelecionado(int id) {
+        List<Encontro> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Encontro u "
+                    + "WHERE u.orientador.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarEncontrosProfessorSelecionado - Classe EncontroDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno) Metodo que a professor usa */
+    public List<Encontro> listarEncontrosAcademicoSelecionadoParaProfessor(int id) {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Encontro> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Encontro u WHERE u.aluno.idUsuario = " + id
+                    + " AND u.orientador.idUsuario = " + usuarioLogado.getIdUsuario());
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarEncontrosAcademicoSelecionadoParaProfessor - Classe EncontroDAO");
         }
         entityManager.close();
         return lista;

@@ -12,15 +12,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.ChartSeries;
 
 @Named(value = "usuarioController")
 @SessionScoped
@@ -41,73 +32,19 @@ public class UsuarioController extends GenericController implements Serializable
     private List<Curso>         listarCursosUniversidadeEscolhida;
     private CursoService        cursoService;
     
-     private BarChartModel      graficoBarra;
+    private Curso               curso;
+    
+     
+    private String              senhaGerada;
+    
+    private String              tipoUsuario; //filtro de usuarios .. Universidade /Academicos
 
     @PostConstruct
     public void preRenderPage() {
         this.resset();
         this.listar();
-        this.graficoUsuariosPorTipo();
         //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
-    }
-    
-    private void graficoUsuariosPorTipo() {
-        graficoBarra = configurarGrafico();
-        graficoBarra.setTitle("Tipos Usuarios");
-        graficoBarra.setAnimate(true);
-        graficoBarra.setLegendPosition("ne");
-        Axis yAxis = graficoBarra.getAxis(AxisType.Y);
-        yAxis.setLabel("Quantidade");
-
-        Axis xAxis = new CategoryAxis("Tipos");
-        graficoBarra.getAxes().put(AxisType.X, xAxis);
-   
-        yAxis.setMin(0);
-        yAxis.setMax(listaUsuario.size() + 1); // o tamanho maximo do grafico vai ser o tamanho da lista de usuarios + 1
-        
-       
-
-    }
-    
-    private BarChartModel configurarGrafico() {
-        BarChartModel modelo = new BarChartModel();
-        
-        int qtdAluno = this.getUsuarioService().quantidadeAluno();
-        int qtdProf = this.getUsuarioService().quantidadeProfessor();
-        int qtdCoord = this.getUsuarioService().quantidadeCoordenador();
-        int qtdUni = this.getUsuarioService().quantidadeUniversidade();
-
-        ChartSeries tipoAluno = new ChartSeries();
-        tipoAluno.setLabel("Aluno");
-        tipoAluno.set("Aluno", qtdAluno);
-      
-
-        ChartSeries tipoProfessor = new ChartSeries();
-        tipoProfessor.setLabel("Professor");
-        tipoProfessor.set("Professor", qtdProf);
-   
-
-        ChartSeries tipoCoorde = new ChartSeries();
-        tipoCoorde.setLabel("Coordenador");
-        tipoCoorde.set("Coordenador", qtdCoord);
-  
-
-        ChartSeries tipoUni = new ChartSeries();
-        tipoUni.setLabel("Universidade");
-        tipoUni.set("Universidade", qtdUni);
-  
-        
-        modelo.addSeries(tipoAluno);
-        modelo.addSeries(tipoProfessor);
-        modelo.addSeries(tipoCoorde);
-        modelo.addSeries(tipoUni);
-        return modelo;
-        /*
-        for (int i=0; i<listaCidadaoCidadeSexoQtde.size(); i++) {
-            boys.set(listaCidadaoCidadeSexoQtde.get(i).getValor(), listaCidadaoCidadeSexoQtde.get(i).getQtdeMasc());
-            girls.set(listaCidadaoCidadeSexoQtde.get(i).getValor(), listaCidadaoCidadeSexoQtde.get(i).getQtdeFem());
-        }*/
     }
 
     private void resset() {
@@ -124,8 +61,23 @@ public class UsuarioController extends GenericController implements Serializable
         listaCurso                          = new ArrayList<>();
         listarCursosUniversidadeEscolhida   = new ArrayList<>();
         cursoService                        = new CursoService();
+        
+        
+        curso                               = new Curso();
+        
+        tipoUsuario                         = "";
     }
-
+    
+    //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
+    public void listAcademicos() {
+        listaAcademicosUniLogada = this.getUsuarioService().listarAcademicosCursoSelecionado(curso.getIdCurso());
+    }
+    
+    //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
+    public void listAcademicosTipo() {
+        listaAcademicosUniLogada = this.getUsuarioService().listarAcademicosTipoSelecionado(tipoUsuario);
+    }
+    
     private void listar() {
         
         listaUsuario = this.getUsuarioService().listar();
@@ -133,10 +85,9 @@ public class UsuarioController extends GenericController implements Serializable
         listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
         listaAluno = this.getUsuarioService().listaAlunos();
 
-        listaCurso = this.getCursoService().listar();
+        listaCurso = this.getCursoService().listar(); // Todos os cursos do sistema ADMIN
 
-       
-          listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
+        listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
   
     }
 
@@ -184,7 +135,6 @@ public class UsuarioController extends GenericController implements Serializable
         //this.resset();
         this.listar();
         //this.listarCursosUniversidadeEscolhida();
-        this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
     }
 
@@ -205,7 +155,6 @@ public class UsuarioController extends GenericController implements Serializable
         }
         //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
         this.listar();
-        this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
     }
     
@@ -223,7 +172,6 @@ public class UsuarioController extends GenericController implements Serializable
         }
         //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
         this.listar();
-        this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
     }
 
@@ -237,7 +185,6 @@ public class UsuarioController extends GenericController implements Serializable
         }
         //this.resset();
         this.listar();
-        this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
     }
 
@@ -248,7 +195,6 @@ public class UsuarioController extends GenericController implements Serializable
     public String cancelar() {
         this.resset();
         this.listar();
-        this.graficoUsuariosPorTipo();
         return "listar.xhtml?faces-redirect=true";
     }
 
@@ -279,22 +225,22 @@ public class UsuarioController extends GenericController implements Serializable
 
     }
 
-    public String solicitarNovaSenha() {
-        Usuario usuario
-                = this.getUsuarioService().solicitarNovaSenha(this.usuarioSelecionado.getEmail(),
+    
+    public void solicitarNovaSenha() {
+        Usuario usuario = this.getUsuarioService().solicitarNovaSenha(this.usuarioSelecionado.getEmail(),
                         this.usuarioSelecionado.getMatricula());
 
         if (usuario != null) {
-            String senha = this.getUsuarioService().gerarNovaSenha();
-            System.out.println("Senha gerada: " + senha);
-            usuario.setSenha(senha);
-            this.getUsuarioService().alterarSenha(usuarioSelecionado);
-
+            setSenhaGerada(this.getUsuarioService().gerarNovaSenha());
+            System.out.println("Senha gerada: " + getSenhaGerada());
+            usuario.setSenha(getSenhaGerada());
+            this.getUsuarioService().alterarSenha(usuario);
+            addSucessMessage("Nova senha gerada com sucesso !");
+            this.resset();
         } else {
-            addErrorMessage("Usuario não encontrado e/ou Dados invalidos");
-            System.out.println("Usuario não encontrado e/ou Dados invalidos");
+            addErrorMessage("Usuario não encontrado ou dados invalidos");
         }
-        return "/login/login.xhtml?faces-redirect=true";
+        //return "/login/login.xhtml?faces-redirect=true";
     }
 
     /*
@@ -389,6 +335,10 @@ public class UsuarioController extends GenericController implements Serializable
     public String doCancelarLogin(){
         return "login.xhtml?faces-redirect=true";
     }
+    
+    public String doSolicitarSenha(){
+        return "solicitar_senha.xhtml?faces-redirect=true";
+    }
 
     // ============ GETS AND SETS ===========  
     public Usuario getUsuarioSelecionado() {
@@ -479,12 +429,28 @@ public class UsuarioController extends GenericController implements Serializable
         this.listaAcademicosUniLogada = listaAcademicosUniLogada;
     }
 
-    public BarChartModel getGraficoBarra() {
-        return graficoBarra;
+    public String getSenhaGerada() {
+        return senhaGerada;
     }
 
-    public void setGraficoBarra(BarChartModel graficoBarra) {
-        this.graficoBarra = graficoBarra;
+    public void setSenhaGerada(String senhaGerada) {
+        this.senhaGerada = senhaGerada;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
     
     

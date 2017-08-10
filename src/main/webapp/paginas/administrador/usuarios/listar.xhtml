@@ -18,11 +18,7 @@
                     <p:fieldset legend="Lista Usuarios">
                         <b:panel look="primary" collapsible="false">
 
-                            <h:panelGrid columns="2" columnClasses="left,right" style="width:100%;">
-                                <p:chart type="bar" model="#{usuarioController.graficoBarra}" style="width:500px;"
-                                         responsive="true"/>
-                            </h:panelGrid>
-
+                            
                             <b:dataTable value="#{usuarioController.listaUsuario}"
                                          var="item" searching="true"  border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"

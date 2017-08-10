@@ -37,7 +37,7 @@
                                  ajax="false" icon="glyphicon glyphicon-log-in" icon-align="right"/>
                 <p:commandButton value="Esqueci minha senha" title="ESQUECI MINHA SENHA"
                                  class="btn btn-lg btn-primary btn-block"
-                                 onclick="PF('dlgSenha').show();"/>
+                                 action="#{usuarioController.doSolicitarSenha()}" process="@this"/>
                 <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
                 <p:commandButton value="Registrar(Somente Universidades)" title="REGISTRO DE UNIVERSIDADES"
                                  class="btn btn-lg btn-primary btn-block"
@@ -50,38 +50,5 @@
         <p:dialog widgetVar="dlgCarregando" closable="false" resizable="false"
                   draggable="false" modal="true" appendTo="@(body)"
                   header="Aguarde">Carregando...aguarde</p:dialog>
-
-        <!-- Dialog para solicitar nova senha -->
-        <p:dialog widgetVar="dlgSenha" closable="false" resizable="false"
-                  draggable="false" modal="true" appendTo="@(body)"
-                  header="Solicitar nova senha" dynamic="true">
-            <h:form id="form">
-                <p:panelGrid columns="1" id="pnlSenha">
-                    <b:inputText value="#{usuarioController.usuarioSelecionado.email}" required="true" size="60"
-                                 requiredMessage="O login é obrigatório" 
-                                 placeholder="Digite seu email" onfocus="this.value = '';" />
-
-
-                    <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                 required="true" size="60"
-                                 requiredMessage="O matricula é obrigatório"
-                                 placeholder="Digite sua matricula" onfocus="this.value = '';" />
-
-                </p:panelGrid>
-                <p:commandButton value="Confirmar"
-                                 actionListener="#{usuarioController.solicitarNovaSenha()}" 
-                                 onclick="PF('dlgCarregando').show();"
-                                 oncomplete="PF('dlgSenha').hide();PF('dlgCarregando').hide();PF('dlgSenhaGerada').show();"/>
-
-                <p:commandButton value="Cancelar" onclick="PF('dlgSenha').hide();"
-                                 update=":form:pnlSenha" process="@this"> 
-                    <p:resetInput target="pnlSenha"/> <!-- Apagar os campos apos o botao cancelar -->
-                </p:commandButton>
-            </h:form>
-        </p:dialog>
-        
-        <p:dialog widgetVar="dlgSenhaGerada" resizable="false"
-                  draggable="false" modal="true" appendTo="@(body)"
-                  header="Senha Gerada">Senha: #{usuarioController.usuarioSelecionado.senha}</p:dialog>
     </h:body>
 </html>

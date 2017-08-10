@@ -53,27 +53,27 @@ public class PropostaTccController extends GenericController implements Serializ
     }
 
     private void resset() {
-        usuario                                 = new Usuario();
+        usuario                                         = new Usuario();
         
-        propostaTccSelecionada                  = new PropostaTcc();
-        propostaTccService                      = new PropostaTccService();
+        propostaTccSelecionada                          = new PropostaTcc();
+        propostaTccService                              = new PropostaTccService();
         
-        listaPropostaTcc                        = new ArrayList<>();
-        listarPropostasQueOrientadorParticipa   = new ArrayList<>();
-        listaPropostasPendentes                 = new ArrayList<>();
-        listaPropostasPendentesDaUniv           = new ArrayList<>();
+        listaPropostaTcc                                = new ArrayList<>();
+        listarPropostasQueOrientadorParticipa           = new ArrayList<>();
+        listaPropostasPendentes                         = new ArrayList<>();
+        listaPropostasPendentesDaUniv                   = new ArrayList<>();
         
-        listaProjetos                           = new ArrayList<>();
+        listaProjetos                                   = new ArrayList<>();
 
-        listaPropostasPendentesDaUnivParaCoordenador  = new ArrayList<>();
+        listaPropostasPendentesDaUnivParaCoordenador    = new ArrayList<>();
         
-        listaIdeias                             = new ArrayList<>();
-        ideiaService                            = new IdeiaService();
+        listaIdeias                                     = new ArrayList<>();
+        ideiaService                                    = new IdeiaService();
 
-        listaProfessores                        = new ArrayList<>();
-        listaAluno                              = new ArrayList<>();
+        listaProfessores                                = new ArrayList<>();
+        listaAluno                                      = new ArrayList<>();
         
-        usuarioService                          = new UsuarioService();
+        usuarioService                                  = new UsuarioService();
     }
     
     public void abrirDialogo() {
@@ -89,34 +89,21 @@ public class PropostaTccController extends GenericController implements Serializ
         Ideia ideia = (Ideia) event.getObject(); //objeto da selecao
         this.getPropostaTccSelecionada().setProblema(ideia);
     }
-    
-    /*
-    @NotBlank
-    public String getNomeIdeia() {
-        return propostaTccSelecionada.getProblema()== null
-                ? null : propostaTccSelecionada.getProblema().getTitulo();
-    }
-
-    public void setNomeIdeia(String nomeIdeia) {
-    }*/
-
-
-    
-
+   
     /* WIZARD */
-    private boolean skip;
+    private boolean pular;
 
     public boolean isSkip() {
-        return skip;
+        return pular;
     }
 
-    public void setSkip(boolean skip) {
-        this.skip = skip;
+    public void setPular(boolean pular) {
+        this.pular = pular;
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            skip = false;
+        if (pular) {
+            pular = false; //reset in case user goes back
             return "confirm";
         } else {
             return event.getNewStep();
@@ -124,8 +111,15 @@ public class PropostaTccController extends GenericController implements Serializ
     }
     /* WIZARD */
     
+    /*Utilizado no filtro, usuario orientador-professsor - pagina aprovações de propostas*/
     public void listaPropostas() {
-        listaPropostaTcc = this.getPropostaTccService().listarPropostasAlunoSelecionado(usuario.getIdUsuario());
+        listarPropostasQueOrientadorParticipa = this.getPropostaTccService().listarPropostasAlunoSelecionado(usuario.getIdUsuario());
+        //listarPropostasQueOrientadorParticipa = this.getPropostaTccService().listarPropostasAlunoSelecionado(usuario.getIdUsuario());
+    }
+    
+    /*Utilizado no filtro, usuario coordenador - pagina propostas de tcc */
+    public void listaPropostasCoord() {
+        listaPropostaTcc = this.getPropostaTccService().listarPropostasAlunoSelecionadoCoord(usuario.getIdUsuario());
     }
 
     private void listar() {
@@ -157,15 +151,13 @@ public class PropostaTccController extends GenericController implements Serializ
         listaIdeias      = this.getIdeiaService().listarIdeiasAprovadas()    ;
         listaProfessores = this.getUsuarioService().listaProfessores();
         listaAluno       = this.getUsuarioService().listaAlunos();
-
-       // listaPropostasParaOrientador    = this.getPropostaTccService().list();
     }
 
     public String salvar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
-            //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA PROPOSTA A SITUAÇÃO É PENDENTE COMO DEFAUT
+            
             switch (usuarioLogado.getTipoUsuario()) {
                 case "Aluno":
                     this.getPropostaTccSelecionada().setSituacao("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
@@ -175,7 +167,6 @@ public class PropostaTccController extends GenericController implements Serializ
                     this.getPropostaTccService().salvar(propostaTccSelecionada);
                     break;
                 case "Admin":
-                    //SE O USUARIO FOR ADMIN NAO SALVAR O ACADEMICO AUTOMATICO
                     this.getPropostaTccSelecionada().setSituacao("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                     this.getPropostaTccSelecionada().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                     this.getPropostaTccService().salvar(propostaTccSelecionada);
@@ -183,7 +174,6 @@ public class PropostaTccController extends GenericController implements Serializ
                 default:
                     break;
             }
-
             addSucessMessage("Proposta Tcc salvo com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar proposta Tcc: " + propostaTccSelecionada.toString());

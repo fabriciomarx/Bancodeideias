@@ -49,12 +49,10 @@ public class CursoController extends GenericController implements Serializable {
 
         switch (usuarioLogado.getTipoUsuario()) {
             case "Universidade":
-                /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
-                listaCurso = this.getCursoService().listarCursoLogado();
+                listaCurso = this.getCursoService().listarCursoLogado(); /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
                 break;
             case "Admin":
-                /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
-                listaCurso = this.getCursoService().listar();
+                listaCurso = this.getCursoService().listar(); /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
                 listaUniversidade = this.getUsuarioService().listUniversidades();
                 break;
         }

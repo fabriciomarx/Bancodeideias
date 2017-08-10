@@ -25,10 +25,15 @@ public class PropostaTccService implements Serializable {
         this.getPropostaTccDAO().remover(propostaTcc.getIdProposta());
     }
 
-    
     public List<PropostaTcc> listarPropostasAlunoSelecionado(int id) {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPropostasAlunoSelecionado(id);
+        return lista;
+    }
+
+    public List<PropostaTcc> listarPropostasAlunoSelecionadoCoord(int id) {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasAlunoSelecionadoCoord(id);
         return lista;
     }
 
@@ -66,14 +71,14 @@ public class PropostaTccService implements Serializable {
         lista = this.getPropostaTccDAO().listaPropostasPendentesDaUniv();
         return lista;
     }
-    
+
     /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasDaUniv() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listaPropostasDaUniv();
         return lista;
     }
-        
+
     /* LISTA DE PROJETOS, JA ACEITO PELO ORIENTADOR E PELO COORDENADOR */
     public List<PropostaTcc> listarProjetos() {
         List<PropostaTcc> lista;
@@ -87,7 +92,7 @@ public class PropostaTccService implements Serializable {
         lista = this.getPropostaTccDAO().listarPropostasParaOrientador();
         return lista;
     }
-    
+
     public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listarPropostasQueOrientadorParticipa();

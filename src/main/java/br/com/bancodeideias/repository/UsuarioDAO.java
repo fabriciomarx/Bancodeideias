@@ -38,6 +38,36 @@ public class UsuarioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
+    /* LISTA DE Academicos filtrados por curso Metodo que a universidade usa */
+    public List<Usuario> listarAcademicosCursoSelecionado(int id) {
+        List<Usuario> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u "
+                    + "WHERE u.curso.idCurso = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarAcademicosCursoSelecionado - Classe UsuarioDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    /* Filtrar academicos por tipo selecionado - Universidade - academicos */
+    public List<Usuario> listarAcademicosTipoSelecionado(String tipo) {
+        List<Usuario> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u "
+                    + "WHERE u.tipoUsuario like " + tipo);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarAcademicosTipoSelecionado - Classe UsuarioDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
 
     /* LISTA TODOS OS USUARIOS CADASTRADOS NO SISTEMA */
     public List<Usuario> listar() {
@@ -180,78 +210,14 @@ public class UsuarioDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Usuario usuario = (Usuario) entityManager
-                    .createQuery("Select u from Usuario u where u.email = :emailUsuario "
-                            + " and u.matricula = :matriculaUsuario")
+                    .createQuery("Select u from Usuario u where u.email = :emailUsuario and u.matricula = :matriculaUsuario")
                     .setParameter("emailUsuario", emailUsuario)
                     .setParameter("matriculaUsuario", matriculaUsuario)
                     .getSingleResult();
-            System.out.println("Usuario encontrado DAO"); //provisorio
             return usuario;
-
         } catch (Exception e) {
-            System.out.println("Usuario não encontrado DAO"); //provisorio
+            System.out.println("USUARIO NÃO ENCONTRADO - DAO");
             return null;
         }
-    }
-    
-    /* METODOS PARA UTILIZAR NOS GRAFICOS */
-    public int quantidadeAluno() {
-        int qtdeAlu = 0;
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Aluno'");
-            qtdeAlu = Integer.parseInt(query.getSingleResult().toString());
-            System.out.println("Qtd Aluno = " + qtdeAlu);
-
-        } catch (NumberFormatException e) {
-            System.out.println("Erro no metodo quantidadeAluno - Classe Curso DAO");
-        }
-        entityManager.close();
-        return qtdeAlu;
-    }
-
-    public int quantidadeProfessor() {
-        int qtdePro = 0;
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query2 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Professor'");
-            qtdePro = Integer.parseInt(query2.getSingleResult().toString());
-            System.out.println("Qtd Professor = " + qtdePro);
-
-        } catch (NumberFormatException e) {
-            System.out.println("Erro no metodo quantidadeProfessor - Classe Curso DAO");
-        }
-        entityManager.close();
-        return qtdePro;
-    }
-
-    public int quantidadeUniversidade() {
-        int qtdeUni = 0;
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query4 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Universidade'");
-            qtdeUni = Integer.parseInt(query4.getSingleResult().toString());
-            System.out.println("Qtd Universidade = " + qtdeUni);
-
-        } catch (NumberFormatException e) {
-            System.out.println("Erro no metodo quantidadeUniversidade - Classe Curso DAO");
-        }
-        entityManager.close();
-        return qtdeUni;
-    }
-
-    public int quantidadeCoordenador() {
-        int qtdeCoord = 0;
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query3 = entityManager.createQuery("SELECT COUNT(*) FROM Usuario u where u.tipoUsuario = 'Coordenador'");
-            qtdeCoord = Integer.parseInt(query3.getSingleResult().toString());
-            System.out.println("Qtd Coordenador = " + qtdeCoord);
-
-        } catch (NumberFormatException e) {
-            System.out.println("Erro no metodo quantidadeCoordenador - Classe Curso DAO");
-        }
-        entityManager.close();
-        return qtdeCoord;
     }
 }

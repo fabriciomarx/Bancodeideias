@@ -66,6 +66,17 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Disponivel para utilizar no TCC" value="#{ideiaController.ideiaSelecionada.disponibilidade}"
+                                                 disabled="true">
+                                    <f:selectItem itemLabel="Disponível" itemValue="Disponível"/>
+                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise"/>
+                                    <f:selectItem itemLabel="Indisponível" itemValue="Indisponível"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}"
                                              label="Usuario" readonly="true"/>
                             </b:column>

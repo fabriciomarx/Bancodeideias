@@ -67,6 +67,11 @@ public class RelatorioController extends GenericController implements Serializab
     public void listaRelatoriosCoord() {
         listaRelatorio = this.getRelatorioService().listarRelatorioAlunoSelecionadoParaCoord(usuario.getIdUsuario());
     }
+    
+    /* Metodo utilizado para filtro de relatorios, utilizado na UNIVERSIDADE/RELATORIOS */
+    public void listaRelatoriosUniversidade() {
+        listaRelatorio = this.getRelatorioService().listarRelatorioAlunoSelecionadoParaUniversidade(usuario.getIdUsuario());
+    }
 
     public void listar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);

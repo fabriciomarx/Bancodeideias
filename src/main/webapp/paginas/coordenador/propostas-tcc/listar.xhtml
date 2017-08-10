@@ -18,72 +18,84 @@
                 <h:form>
                     <p:fieldset legend="Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
+                            
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar proposta de tcc por Aluno:" value="#{propostaTccController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
+                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
+                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                        <f:ajax render="propostaDataCoord" event="change" listener="#{propostaTccController.listaPropostasCoord()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
-                                         var="item" searching="true" border="false"
+                                         var="iten" searching="true" border="false" id="propostaDataCoord"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 
 
                                 <h:column>
                                     <f:facet name="header">Data Inscrição</f:facet>
-                                    <h:outputText value="#{item.dataInscricao}">
+                                    <h:outputText value="#{iten.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
-                                    <h:outputText value="#{item.aprovacaoOrientador}"
-                                                  styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
-                                                  #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                  #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                    <h:outputText value="#{iten.aprovacaoOrientador}"
+                                                  styleClass="#{iten.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
+                                                  #{iten.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
+                                                  #{iten.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Aprovação do Coordenador</f:facet>
-                                    <h:outputText value="#{item.situacao}"
-                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                    <h:outputText value="#{iten.situacao}"
+                                                  styleClass="#{iten.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                  #{iten.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{iten.situacao == 'Em analise' ? 'em_analise' : null}">
                                     </h:outputText>
 
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
-                                    <h:outputText value="#{item.titulo}"/>
+                                    <h:outputText value="#{iten.titulo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Problema</f:facet>
-                                    <h:outputText value="#{item.problema.titulo}"/>
+                                    <h:outputText value="#{iten.problema.titulo}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Tipo TCC</f:facet>
-                                    <h:outputText value="#{item.tipoTcc}"/>
+                                    <h:outputText value="#{iten.tipoTcc}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.orientador.nome}"/>
+                                    <h:outputText value="#{iten.orientador.nome}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
-                                    <h:outputText value="#{item.academico.nome}"/>
+                                    <h:outputText value="#{iten.academico.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Participante</f:facet>
-                                    <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
+                                    <h:outputText value="#{iten.participante == null ? 'SEM PARTICIPANTE' : iten.participante.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   

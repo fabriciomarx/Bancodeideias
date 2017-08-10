@@ -42,6 +42,7 @@
                                                   #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
                                 
+                                
                                 <h:column>
                                     <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
@@ -77,6 +78,18 @@
                                 </h:column> 
                                 
                                 <h:column>
+                                    <!-- Se o relatorio foi realizado aparecer a frase "Fazer relatorio" se não aparecer " - " 
+                                         O botão incluir relatorio só vai aparecer quando o encontro foi realizado -->
+                                    <f:facet name="header">Relatorio do Encontro</f:facet> 
+                                    <h:outputText value="#{item.status == 'Realizado' ? 'Fazer relatorio':' - '}"/>
+                                    <b:commandButton action="#{encontroController.doIncluirRelatorio()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-paperclip" title="INCLUIR RELATORIO"
+                                                     rendered="#{item.status == 'Realizado'}">
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column>
+                                
+                                <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit" disabled="#{item.aluno.idUsuario != usuarioLogado.idUsuario}" title="EDITAR ENCONTRO">
@@ -88,10 +101,6 @@
                                     </b:commandButton>
                                     <b:commandButton action="#{encontroController.doExcluir()}" class="btn btn-danger" value=""
                                                      icon="glyphicon glyphicon-remove" disabled="#{item.aluno.idUsuario != usuarioLogado.idUsuario}" title="EXCLUIR ENCONTRO">
-                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </b:commandButton>
-                                    <b:commandButton action="#{encontroController.doIncluirRelatorio()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-paperclip" title="INCLUIR RELATORIO">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                                   

@@ -22,7 +22,15 @@
                                          var="itemm" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped" id="listaData">
-
+                                
+                                <h:column>
+                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
+                                    <h:outputText value="#{itemm.disponibilidade}"
+                                                  styleClass="#{itemm.disponibilidade == 'Disponível' ? 'aprovado' : null}
+                                                              #{itemm.disponibilidade == 'Indisponível' ? 'recusado' : null}
+                                                              #{itemm.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+                                
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{itemm.titulo}"/>
@@ -37,15 +45,6 @@
                                     <f:facet name="header">Usuario que sugeriu</f:facet>
                                     <h:outputText value="#{itemm.usuario.nome}"/>
                                 </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
-                                    <h:outputText value="#{itemm.disponibilidade}"
-                                                  styleClass="#{itemm.disponibilidade == 'Disponível' ? 'aprovado' : null}
-                                                              #{itemm.disponibilidade == 'Indisponível' ? 'recusado' : null}
-                                                              #{itemm.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
-                                </h:column>
-
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>

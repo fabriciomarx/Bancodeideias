@@ -18,9 +18,31 @@
                 <p:fieldset legend="Lista academicos">
                     <h:form>
                         <b:panel look="primary" collapsible="false">
+                            
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Tipo Usuario:" value="#{usuarioController.tipoUsuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" value="#{usuarioController.tipoUsuario}"/>
+                                        <f:selectItem itemLabel="Aluno" itemValue="'Aluno'"/>
+                                        <f:selectItem itemLabel="Professor" itemValue="'Professor'"/>
+                                        <f:selectItem itemLabel="Coordenador" itemValue="'Coordenador'"/>
+                                        <f:ajax render="academicosData" event="change" listener="#{usuarioController.listAcademicosTipo()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
 
+
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Curso:" value="#{usuarioController.curso}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{usuarioController.curso}"/>
+                                        <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
+                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                        <f:ajax render="academicosData" event="change" listener="#{usuarioController.listAcademicos()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{usuarioController.listaAcademicosUniLogada}"
-                                         var="item" searching="true" border="false"
+                                         var="item" searching="true" border="false" id="academicosData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 

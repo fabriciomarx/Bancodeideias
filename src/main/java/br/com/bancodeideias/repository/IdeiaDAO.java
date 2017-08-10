@@ -39,6 +39,21 @@ public class IdeiaDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
+    
+    /* LISTA DE ideias filtrados por tipo Metodo que a universidade usa */
+    public List<Ideia> listarTiposIdeiaSelecionado(String tipo) {
+        List<Ideia> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Ideia u "
+                    + "WHERE u.tipoIdeia like " + tipo);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarTiposIdeiaSelecionado - Classe IdeiaDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
 
     /* LISTAR TODAS AS IDEIAS CADASTRADAS NO SISTEMA*/
     public List<Ideia> listar() {
@@ -157,5 +172,5 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
         return listaIdeiaPendentes;
     }
-    
+
 }

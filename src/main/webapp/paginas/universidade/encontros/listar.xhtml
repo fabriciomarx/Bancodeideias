@@ -32,20 +32,11 @@
 
 
                                 <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar por Professor:" value="#{propostaTccController.usuario}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
-                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
+                                    <b:selectOneMenu label="Filtrar por Professor:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                        itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                        <f:ajax render="encontrosData" event="change" listener="#{propostaTccController.listaPropostas()}"/> 
-                                    </b:selectOneMenu>
-                                </b:column>
-
-                                <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar por Status:" value="#{propostaTccController.usuario}">
-                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
-                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
-                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                        <f:ajax render="encontrosData" event="change" listener="#{propostaTccController.listaPropostas()}"/> 
+                                        <f:ajax render="encontrosData" event="change" listener="#{encontroController.listEncontrosPro()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>

@@ -1,6 +1,7 @@
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Ideia;
+import br.com.bancodeideias.domain.Usuario;
 import br.com.bancodeideias.repository.IdeiaDAO;
 import java.io.Serializable;
 import java.util.List;
@@ -25,7 +26,14 @@ public class IdeiaService implements Serializable {
     public void remover(Ideia ideia) {
         this.getIdeiaDAO().remover(ideia.getIdIdeia());
     }
-
+    
+     /* LISTA DE Academicos filtrados por curso Metodo que a universidade usa */
+    public List<Ideia> listarTiposIdeiaSelecionado(String tipo) {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarTiposIdeiaSelecionado(tipo);
+        return lista;
+    }
+    
     /* LISTAR TODAS AS IDEIAS CADASTRADAS NO SISTEMA*/
     public List<Ideia> listar() {
         List<Ideia> lista;
@@ -74,7 +82,7 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasPendentes();
         return lista;
     }
-    
+
     //getss and setts
     public IdeiaDAO getIdeiaDAO() {
         return ideiaDAO;

@@ -49,8 +49,19 @@ public class EncontroController extends GenericController implements Serializabl
         usuarioService              = new UsuarioService();
     }
     
-    public void listEncontros(){
+    /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    public void listEncontros() {
         listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionado(usuario.getIdUsuario());
+    }
+
+    /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    public void listEncontrosPro() {
+        listaEncontro = this.getEncontroService().listarEncontrosProfessorSelecionado(usuario.getIdUsuario());
+    }
+    
+     /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    public void listEncontrosParaProfessor() {
+        listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionadoParaProfessor(usuario.getIdUsuario());
     }
     
     private void listar() {
@@ -76,6 +87,7 @@ public class EncontroController extends GenericController implements Serializabl
         }
         listaAluno       = this.getUsuarioService().listaAlunos();
         listaProfessores = this.getUsuarioService().listaProfessores();
+       
     }
 
     public String salvar() {
@@ -83,13 +95,15 @@ public class EncontroController extends GenericController implements Serializabl
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         try {
-           if(usuarioLogado.getTipoUsuario().equals("Professor")){
-                this.getEncontroSelecionado().setOrientador(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-                
-            }else if(usuarioLogado.getTipoUsuario().equals("Aluno")){
-                this.getEncontroSelecionado().setAluno(usuarioLogado); 
+            switch (usuarioLogado.getTipoUsuario()) {
+                case "Professor":
+                    this.getEncontroSelecionado().setOrientador(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                    break;
+                case "Aluno":
+                    this.getEncontroSelecionado().setAluno(usuarioLogado);
+                    break;
             }
-            this.getEncontroSelecionado().setStatus("Ainda não visualizado");
+            this.getEncontroSelecionado().setStatus("Ainda não visualizado"); // INSERINDO O STATUS DO ENCONTRO AUTOMATICO
             this.getEncontroService().salvar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {

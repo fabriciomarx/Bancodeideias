@@ -19,8 +19,18 @@
                 <h:form>
                     <p:fieldset legend="Encontros com alunos"> 
                         <b:panel look="primary" collapsible="false">
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Aluno:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaAluno}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="encontroDataProf" event="change" listener="#{encontroController.listEncontrosParaProfessor()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
                             <b:dataTable value="#{encontroController.listaEncontro}"
-                                         var="item" searching="true" border="false"
+                                         var="item" searching="true" border="false" id="encontroDataProf"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
                                 

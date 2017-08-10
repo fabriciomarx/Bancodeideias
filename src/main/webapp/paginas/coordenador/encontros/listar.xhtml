@@ -35,7 +35,7 @@
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
                                         <f:selectItems value="#{encontroController.listaProfessores}" var="item"
                                                        itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                        <f:ajax render="encontroData" event="change" listener="#{encontroController.listEncontros()}"/> 
+                                        <f:ajax render="encontroData" event="change" listener="#{encontroController.listEncontrosPro()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>

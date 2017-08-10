@@ -8,10 +8,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-/**
- *
- * @author fabri
- */
 public class UsuarioService implements Serializable {
 
     private UsuarioDAO usuarioDAO;
@@ -25,15 +21,15 @@ public class UsuarioService implements Serializable {
         usuario.setSenha(senha);
         this.getUsuarioDAO().salvar(usuario);
     }
-    
+
     /* Metodo apenas para alterar a senha do usuario */
     public void alterarSenha(Usuario usuario) {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
         usuario.setSenha(senha);
-        
+
         this.getUsuarioDAO().alterar(usuario);
     }
-    
+
     public void alterar(Usuario usuario) {
         this.getUsuarioDAO().alterar(usuario);
     }
@@ -72,9 +68,22 @@ public class UsuarioService implements Serializable {
             System.out.println("Erro metodo convertStringToMd5 - Classe Usuario Service");
             return null;
         }
-
     }
 
+    //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
+    public List<Usuario> listarAcademicosCursoSelecionado(int id) {
+        List<Usuario> lista;
+        lista = this.getUsuarioDAO().listarAcademicosCursoSelecionado(id);
+        return lista;
+    } 
+            
+    //Utilizado para filtrar os academicos do tipo selecionado (universidade - academicos)
+    public List<Usuario> listarAcademicosTipoSelecionado(String tipo) {
+        List<Usuario> lista;
+        lista = this.getUsuarioDAO().listarAcademicosTipoSelecionado(tipo);
+        return lista;
+    }
+    
     /* Listar todos os usuarios */
     public List<Usuario> listar() {
         List<Usuario> listaUsuario;
@@ -88,7 +97,7 @@ public class UsuarioService implements Serializable {
         listaUsuario = this.getUsuarioDAO().listaAlunos();
         return listaUsuario;
     }
-    
+
     /* Lista de academicos da universidade logada */
     public List<Usuario> listaAcademicosUniLogada() {
         List<Usuario> listaUsuario;
@@ -103,7 +112,7 @@ public class UsuarioService implements Serializable {
         listaUsuario = this.getUsuarioDAO().listaProfessores();
         return listaUsuario;
     }
-    
+
     /* LISTA DE UNIVERSIDADES PENDENTES CADASTRADAS NO SISTEMA */
     public List<Usuario> listaUniversidadesPendentes() {
         List<Usuario> listaUsuario;
@@ -114,10 +123,8 @@ public class UsuarioService implements Serializable {
     public Usuario solicitarNovaSenha(String email, String matricula) {
         Usuario usuario = this.getUsuarioDAO().solicitarNovaSenha(email, matricula);
         if (usuario != null) {
-            System.out.println("Usuario encontrado SERVICE"); // provisorio
             return usuario;
         } else {
-            System.out.println("Usuario nao encontrado SERVICE"); // provisorio
             return null;
         }
     }
@@ -135,11 +142,8 @@ public class UsuarioService implements Serializable {
         for (int x = 0; x < 10; x++) {
             int j = (int) (Math.random() * carct.length);
             senha += carct[j];
-
         }
-
         return senha;
-
     }
 
     /* Lista de universidades */
@@ -147,35 +151,6 @@ public class UsuarioService implements Serializable {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaUniversidades();
         return listaUsuario;
-    }
-    
-    /*
-    public void quantidadePorTipo(){
-        this.getUsuarioDAO().quantidadeCadaTipo();
-    }*/
-    
-    public int quantidadeAluno() {
-        int qtdeAlu = 0;
-        qtdeAlu = this.getUsuarioDAO().quantidadeAluno();
-        return qtdeAlu;
-    }
-
-    public int quantidadeCoordenador() {
-        int qtdeCoord = 0;
-        qtdeCoord = this.getUsuarioDAO().quantidadeCoordenador();
-        return qtdeCoord;
-    }
-
-    public int quantidadeProfessor() {
-        int qtdePro = 0;
-        qtdePro = this.getUsuarioDAO().quantidadeProfessor();
-        return qtdePro;
-    }
-
-    public int quantidadeUniversidade() {
-        int qtdeUni = 0;
-        qtdeUni = this.getUsuarioDAO().quantidadeUniversidade();
-        return qtdeUni;
     }
 
     /* =========Getts and setts ============= */

@@ -36,22 +36,23 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
                                              label="Email da Universidade" required="true" required-message="O campo email é obrigatorio"
-                                             placeholder="Digite o email da universidade/instituição/faculdade">
-                                    <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                                             placeholder="Digite o email da universidade/instituição/faculdade"
+                                             validatorMessage="O email deve ser no padrão: Seuemail@seuemail.com">
+                                    <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)"/>
                                 </b:inputText>
                             </b:column>
                         </b:row>
                         <br/>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                <p:outputLabel value="Senha" style="margin-right: 10px;" for="idSenha"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenha"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioSelecionado.senha}" style="margin-right: 10px;"
                                             required="true" requiredMessage="O campo senha é obrigatorio" />
 
-                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
+                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;" for="idSenhaNovamente"/>
+                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenhaNovamente"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioSelecionado.confirmarSenha}" required="true" 
                                             requiredMessage="O campo senha deve ser digitado duas vezes" />
@@ -65,10 +66,7 @@
                                                  immediate="true" action="#{usuarioController.doCancelarLogin()}" title="RETORNAR" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" actionListener="#{usuarioController.salvarUsuario()}" class="btn btn-primary" title="ENVIAR">
-                                    
-                                </b:commandButton>
-
+                                <b:commandButton value="Enviar" actionListener="#{usuarioController.salvarUsuario()}" class="btn btn-info" title="ENVIAR"/>
                             </b:column>
                         </b:row>
 

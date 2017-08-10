@@ -19,61 +19,73 @@
                 <h:form>
                     <p:fieldset legend="Lista relatorios">
                         <b:panel look="primary" collapsible="false">
+                            
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar relatorios por aluno:" value="#{relatorioController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{relatorioController.usuario}"/>
+                                        <f:selectItems value="#{relatorioController.listaAluno}" var="item"
+                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                        <f:ajax render="relatoriosDataUni" event="change" listener="#{relatorioController.listaRelatoriosUniversidade()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
-                                         var="item" searching="true" border="false"
+                                         var="itemm" searching="true" border="false" id="relatoriosDataUni"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
-                                    <h:outputText value="#{item.status}"
-                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
-                                                  #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
-                                                  #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}"/>
+                                    <h:outputText value="#{itemm.status}"
+                                                  styleClass="#{itemm.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                  #{itemm.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{itemm.status == 'Recusado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Data Inicio</f:facet>
-                                    <h:outputText value="#{item.dataInicio}">
+                                    <h:outputText value="#{itemm.dataInicio}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Data Fim</f:facet>
-                                    <h:outputText value="#{item.dataFim}">
+                                    <h:outputText value="#{itemm.dataFim}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Atividade Realizadas</f:facet>
-                                    <h:outputText value="#{item.atividadesRealizadas}"/>
+                                    <h:outputText value="#{itemm.atividadesRealizadas}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.encontro.orientador.nome}"/>
+                                    <h:outputText value="#{itemm.encontro.orientador.nome}"/>
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
-                                    <h:outputText value="#{item.encontro.aluno.nome}"/>
+                                    <h:outputText value="#{itemm.encontro.aluno.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{item.encontro.orientador.nome}"/>
+                                    <h:outputText value="#{itemm.encontro.orientador.nome}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Encontro</f:facet>
-                                    <h:outputText value="#{item.encontro.descricao}"/>
+                                    <h:outputText value="#{itemm.encontro.descricao}"/>
                                 </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Data do Encontro</f:facet>
-                                    <h:outputText value="#{item.encontro.dataEncontro}">
+                                    <h:outputText value="#{itemm.encontro.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
@@ -82,7 +94,7 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{relatorioController.relatorioSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   

@@ -20,19 +20,23 @@
                 <h:form>
                     <p:fieldset legend="Lista proposta de tcc"> 
                         <b:panel look="primary" collapsible="false">
-
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar proposta de tcc por Aluno:" value="#{propostaTccController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
+                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="propostaData" event="change" listener="#{propostaTccController.listaPropostas()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
+                            
                             <b:dataTable value="#{propostaTccController.listarPropostasQueOrientadorParticipa}"
-                                         var="item" searching="true" border="false"
+                                         var="item" searching="true" border="false" id="propostaData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
-
-                                <h:column>
-                                    <f:facet name="header">Data Inscrição</f:facet>
-                                    <h:outputText value="#{item.dataInscricao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
-                                </h:column>
-
+                                
                                 <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
                                     <h:outputText value="#{item.aprovacaoOrientador}"
@@ -49,6 +53,13 @@
                                                   #{item.situacao == 'Em analise' ? 'em_analise' : null}">
                                     </h:outputText>
 
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Data Inscrição</f:facet>
+                                    <h:outputText value="#{item.dataInscricao}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
                                 </h:column>
 
                                 <h:column>

@@ -11,10 +11,14 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 
 public class PropostaTccDAO implements Serializable {
-
+    
     public PropostaTccDAO() {
     }
-
+    
+    /* Utilizado para capturar a sessao, e o usuario logado */
+    HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+    Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado");
+    
     public void salvar(PropostaTcc propostaTcc) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -43,16 +47,13 @@ public class PropostaTccDAO implements Serializable {
     /* Filtrar propostas de tcc do aluno selecionado que a aprovacao ainda esta em analise e o orientador seja o usuario logado
         utilizo esse metodo na pagina do orientador - aprovações de propostas */
     public List<PropostaTcc> listarPropostasAlunoSelecionado(int id) {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM PropostaTcc u WHERE u.academico.idUsuario = "
-                    + id + " AND u.aprovacaoOrientador = 'Em analise' "
-                    + "AND u.orientador = " + usuarioLogado.getIdUsuario());
+                    "SELECT u FROM PropostaTcc u WHERE u.aprovacaoOrientador like 'Aprovado' "
+                    + "AND u.orientador.idUsuario = " + this.usuarioLogado.getIdUsuario()
+                    + "AND u.academico.idUsuario = " + id + " OR u.participante.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasAlunoSelecionado - Classe PropostaTcc DAO");
@@ -60,22 +61,24 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
         return lista;
     }
-    
+
     //Utilizado no filtro do coordenador (pagina propostas )
     public List<PropostaTcc> listarPropostasAlunoSelecionadoCoord(int id) {
         List<PropostaTcc> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("Select u From PropostaTcc u where u.academico.idUsuario = "
-                    + id + " AND u.aprovacaoOrientador = 'Em analise'");
+            Query query = entityManager.createQuery(
+                    "Select u From PropostaTcc u where u.academico.idUsuario = "
+                    + id + " OR u.participante.idUsuario = " + id + " AND u.situacao = 'Aprovado' "
+                    + "AND u.academico.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
             lista = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarPropostasAlunoSelecionado - Classe PropostaTcc DAO");
+            System.out.println("Erro no metodo listarPropostasAlunoSelecionadoCoord - Classe PropostaTcc DAO");
         }
         entityManager.close();
         return lista;
     }
-    
+
     /* LISTA DE TODAS AS PROPOSTAS DE TCC CADASTRADAS NO SISTEMA */
     public List<PropostaTcc> listar() {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
@@ -92,18 +95,15 @@ public class PropostaTccDAO implements Serializable {
 
     /* LISTA DE PROPOSTAS DO ALUNO LOGADO */
     public List<PropostaTcc> listarPropostasLogado() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.academico.idUsuario = "
-                    + usuarioLogado.getIdUsuario());
+                    + usuarioLogado.getIdUsuario() + " OR u.participante.idUsuario = " + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
-            System.out.println("DEU CERTO LISTAR LOGADO");
+            //System.out.println("DEU CERTO LISTAR LOGADO");
         } catch (Exception e) {
-            System.out.println("Erro no metodo listar - Classe PropostaTcc DAO");
+            System.out.println("Erro no metodo listarPropostasLogado - Classe PropostaTcc DAO");
         }
         entityManager.close();
         return listaPropostaTcc;
@@ -111,9 +111,6 @@ public class PropostaTccDAO implements Serializable {
 
     /* LISTA DE PROPOSTAS DOS ALUNOS PERTENCENTES AO CURSO QUE O COORDENADOR COORDENA */
     public List<PropostaTcc> listarPropostasParaCoord() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
@@ -130,10 +127,6 @@ public class PropostaTccDAO implements Serializable {
     /* Lista de propostas para o coordenador, propostas pendentes que sejam da mesma universidade e do mesmo curso 
     que o coordenador e tambem propostas que o orientador já aprovou*/
     public List<PropostaTcc> listaPropostasPendentesDaUnivParaCoordenador() {
-
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
@@ -152,10 +145,6 @@ public class PropostaTccDAO implements Serializable {
 
     /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasPendentesDaUniv() {
-
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
@@ -168,20 +157,16 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
         return listaPropostaTcc;
     }
-    
+
     /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasDaUniv() {
-        System.out.println("PROPOSTAS DA UNIVESIDADE");
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Aprovado' AND u.academico.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
-             System.out.println("PROPOSTAS DA UNIVESIDADE = " + listaPropostaTcc.size());
+            //System.out.println("PROPOSTAS DA UNIVESIDADE = " + listaPropostaTcc.size());
         } catch (Exception e) {
             System.out.println("Erro no metodo listaPropostasDaUniv - Classe PropostaTcc DAO");
         }
@@ -205,9 +190,6 @@ public class PropostaTccDAO implements Serializable {
 
     /* LISTA DE PROPOSTAS QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
     public List<PropostaTcc> listarPropostasParaOrientador() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
@@ -220,12 +202,9 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
         return listaPropostaTcc;
     }
-    
-     /* LISTA DE PROPOSTAS QUE O PROFESSOR PARTICIPA */
-    public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
+    /* LISTA DE PROPOSTAS QUE O PROFESSOR PARTICIPA */
+    public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {

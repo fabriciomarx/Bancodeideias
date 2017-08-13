@@ -31,16 +31,3 @@ body {
   -moz-box-sizing: border-box; /*nao sei o que faz*/
   box-sizing: border-box; /*nao sei o que faz*/
 }
-.form-login .form-control:focus {
-  z-index: 2; /*nao sei o que faz*/
-}
-.form-login input[type="text"] {
-  margin-bottom: -1px; /*nao sei o que faz*/
-  border-bottom-left-radius: 0; /*nao sei o que faz*/
-  border-bottom-right-radius: 0; /*nao sei o que faz*/
-}
-.form-login input[type="password"] {
-  margin-bottom: 20px;
-  border-top-left-radius: 0; /*nao sei o que faz*/
-  border-top-right-radius: 0; /*nao sei o que faz*/
-}

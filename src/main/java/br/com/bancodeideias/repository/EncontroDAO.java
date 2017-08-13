@@ -162,5 +162,25 @@ public class EncontroDAO implements Serializable {
         entityManager.close();
         return listaEncontros;
     }
+    
+    /* Listar apenas os encontros do aluno logado que já foram realizados 
+        metodo utilizado na hora de incluir relatorios */
+    public List<Encontro> listarEncontrosRealizadosAluno() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Encontro> listaEncontros = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Encontro u "
+                    + "WHERE u.aluno.idUsuario = " + usuarioLogado.getIdUsuario()
+                    + " AND u.status = 'Realizado'");
+            listaEncontros = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarEncontrosRealizadosAluno - Classe Encontro DAO");
+        }
+        entityManager.close();
+        return listaEncontros;
+    }
 
 }

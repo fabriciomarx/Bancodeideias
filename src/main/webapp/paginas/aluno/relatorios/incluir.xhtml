@@ -21,13 +21,13 @@
                             <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data Inicio"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                            required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Data Fim"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                            required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
 
@@ -68,7 +68,7 @@
                                 <b:selectOneMenu label="Encontro" value="#{relatorioController.relatorioSelecionado.encontro}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{relatorioController.listaEncontros}" var="item"
-                                                   itemLabel="#{item.descricao}" itemValue="#{item}"/>
+                                                   itemLabel="Descrição: #{item.descricao}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>

@@ -54,9 +54,6 @@ public class IdeiaController extends GenericController implements Serializable {
         usuarioService                      = new UsuarioService();
     }
     
-    public void selecionar(Ideia ideia) {
-        RequestContext.getCurrentInstance().closeDialog(ideia); //fechar o dialog de selecao de ideias
-    }
 
     //Utilizado para filtrar os tipos da ideia selecionado (universidade - ideias)
     public void listarTiposIdeiaSelecionado() {

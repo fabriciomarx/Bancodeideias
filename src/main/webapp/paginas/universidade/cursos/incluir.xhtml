@@ -23,12 +23,6 @@
                                 <b:inputText value="#{cursoController.cursoSelecionado.nome}"
                                              label="Nome" required="true" requiredMessage="O campo nome é obrigatorio"/>
                             </b:column>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:commandButton value="Validar" onclick="PF('dlgCarregando').show();"
-                                                 oncomplete="PF('dlgCarregando').hide();"/>
-                                <p:outputLabel value="OK" />
-                            </b:column>
-                           
                         </b:row>
                         <br/>
                         <b:row>
@@ -36,17 +30,20 @@
                                 <b:inputText value="#{cursoController.cursoSelecionado.sigla}"
                                              label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
                             </b:column>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                 <p:commandButton value="Validar" onclick="PF('dlgCarregando').show();"
-                                                 oncomplete="PF('dlgCarregando').hide();"/>
-                                 <p:outputLabel value="OK" />
-                            </b:column>
                         </b:row>
                         <br/>
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{cursoController.doCancelar()}"/>
                             </b:column>
+                            
+                            <b:row>
+                                <b:column span="1" offset-md="10">
+                                    <b:commandButton value="Enviar" look="info" actionListener="#{cursoController.salvar()}"
+                                                     icon="glyphicon glyphicon-send" icon-align="right"/>
+                                </b:column>
+                            </b:row>
+
                             <b:column span="1" offset-md="8">
                                 <p:commandButton value="Enviar" action="#{cursoController.salvar()}">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
@@ -59,10 +56,6 @@
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
                     </h:form>
-                    
-                    <p:dialog widgetVar="dlgCarregando" closable="false" resizable="false"
-                              draggable="false" modal="true" appendTo="@(body)"
-                              header="Aguarde">Carregando...aguarde</p:dialog>
                 </p:fieldset>
             </ui:define>    
         </ui:composition>

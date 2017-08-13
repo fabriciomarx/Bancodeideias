@@ -75,20 +75,6 @@ public class PropostaTccController extends GenericController implements Serializ
         
         usuarioService                                  = new UsuarioService();
     }
-    
-    public void abrirDialogo() {
-        Map<String, Object> opcoes = new HashMap<>(); // mapa de parametros, configuracões
-        opcoes.put("modal", true);  //
-        opcoes.put("resizable", false);
-        opcoes.put("contentHeight", 500);
-
-        RequestContext.getCurrentInstance().openDialog("SelecaoIdeia", opcoes, null);
-    }
-
-    public void ideiaSelecionada(SelectEvent event) { 
-        Ideia ideia = (Ideia) event.getObject(); //objeto da selecao
-        this.getPropostaTccSelecionada().setProblema(ideia);
-    }
    
     /* WIZARD */
     private boolean pular;
@@ -273,6 +259,12 @@ public class PropostaTccController extends GenericController implements Serializ
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
+    
+    public String doConsultarPropostaRecusada() {
+        return "consultarMotivo.xhtml?faces-redirect=true";
+    }
+    
+    
 
     /* Serve para o orientador aceitar se vai orientar a proposta do aluno */
     public String doAceitar() {

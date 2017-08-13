@@ -8,13 +8,24 @@ import java.util.List;
 public class CursoService implements Serializable {
 
     private CursoDAO cursoDAO;
+    
+    public String msgService;
 
+    public String getMsgService() {
+        return msgService;
+    }
+
+    public void setMsgService(String msgService) {
+        this.msgService = msgService;
+    }
+    
     public CursoService() {
         cursoDAO = new CursoDAO();
     }
 
     public void salvar(Curso curso) {
         this.getCursoDAO().salvar(curso);
+        this.setMsgService(this.getCursoDAO().getMsg());
     }
 
     public void alterar(Curso curso) {

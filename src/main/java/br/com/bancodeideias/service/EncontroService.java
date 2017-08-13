@@ -73,6 +73,15 @@ public class EncontroService implements Serializable {
         lista = this.getEncontroDAO().listarEncontrosAlu_Prof();
         return lista;
     }
+    
+    /* Listar apenas os encontros do aluno logado que já foram realizados 
+        metodo utilizado na hora de incluir relatorios */
+    public List<Encontro> listarEncontrosRealizadosAluno() {
+        List<Encontro> lista;
+        lista = this.getEncontroDAO().listarEncontrosRealizadosAluno();
+        return lista;
+    }
+    
 
     //getts and setts
     public EncontroDAO getEncontroDAO() {

@@ -14,13 +14,29 @@ public class CursoDAO implements Serializable {
 
     public CursoDAO() {
     }
+    
+    public String msg;
 
     public void salvar(Curso curso) {
         EntityManager entityManager = JPAConnection.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(curso);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        try {
+            List<Curso> listaCurso = new ArrayList<>();
+            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
+            listaCurso = query.getResultList();
+            if (listaCurso.isEmpty()) {
+                entityManager.getTransaction().begin();
+                entityManager.persist(curso);
+                entityManager.getTransaction().commit();
+                entityManager.close();
+            }
+            else {
+                System.out.println("Erro ao incluir, já existe um curso com o mesmo nome");
+                this.setMsg("Erro ao incluir, já existe um curso com o mesmo nome");
+                entityManager.close();
+            }
+        } catch (Exception e) {
+            entityManager.close();
+        }
     }
 
     public void alterar(Curso curso) {
@@ -85,5 +101,14 @@ public class CursoDAO implements Serializable {
         }
         entityManager.close();
         return listaCurso;
+    }
+    
+    /* Gets and Sets */
+     public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

@@ -83,6 +83,7 @@ public class RelatorioController extends GenericController implements Serializab
                 break;
             case "Aluno":
                 listaRelatorio = this.getRelatorioService().listaRelatorioLogado();
+                listaEncontros = this.getEncontroService().listarEncontrosRealizadosAluno(); //provisorio
                 break;
             case "Universidade":
                 listaRelatorio = this.getRelatorioService().listaRelatoriosUniLogada();
@@ -99,8 +100,6 @@ public class RelatorioController extends GenericController implements Serializab
         }
         listaProfessores = this.getUsuarioService().listaProfessores();
         listaAluno       = this.getUsuarioService().listaAlunos();
-        listaEncontros   = this.getEncontroService().listarEncontrosAlu_Prof(); //provisorio
-
     }
 
     public String salvar() {

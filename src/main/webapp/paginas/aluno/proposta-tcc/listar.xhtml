@@ -46,7 +46,11 @@
                                                   #{item.situacao == 'Recusado' ? 'recusado' : null}
                                                   #{item.situacao == 'Em analise' ? 'em_analise' : null}">
                                     </h:outputText>
-
+                                    <br/>
+                                    <b:commandButton action="#{propostaTccController.doConsultarPropostaRecusada()}" class="btn btn-info" value=""
+                                                     icon="glyphicon glyphicon-question-sign" rendered="#{item.situacao == 'Recusado'}" title="VERIFICAR PORQUE PROPOSTA FOI RECUSADA">
+                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
+                                    </b:commandButton>
                                 </h:column>
 
                                 <h:column>

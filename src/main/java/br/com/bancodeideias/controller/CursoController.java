@@ -61,7 +61,7 @@ public class CursoController extends GenericController implements Serializable {
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
+
         try {
             switch (usuarioLogado.getTipoUsuario()) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
                 case "Admin":
@@ -72,9 +72,12 @@ public class CursoController extends GenericController implements Serializable {
                     this.getCursoService().salvar(cursoSelecionado);
                     break;
             }
+
             addSucessMessage("Curso salvo com sucesso");
+            addErrorMessage(this.getCursoService().getMsgService()); 
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
+            addErrorMessage(this.getCursoService().getMsgService());
+            //addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
         }
         this.resset();
         this.listar();

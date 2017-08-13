@@ -12,6 +12,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 @Named(value = "usuarioController")
 @SessionScoped
@@ -109,9 +113,9 @@ public class UsuarioController extends GenericController implements Serializable
                 addErrorMessage("As senhas são diferentes, digite novamente");
             }
         } catch (Exception e) {
-            addErrorMessage("Erro: " + e.getMessage());
+            addErrorMessage(e.getMessage());
             this.resset();
-        } 
+        }
         //return "login.xhtml?faces-redirect=true"; 
     }
     
@@ -207,11 +211,12 @@ public class UsuarioController extends GenericController implements Serializable
             session.setAttribute("usuarioLogado", usuarioLogado); //Este usuarioLogado é meu objeto modelo que pode ser persistido.
             System.out.println("Usuario logado na sessao: " + usuarioLogado.getEmail()); //provisorio
 
+            
             //coloquei aqui porque estava dando erro se eu colocasse no metodo "listar"
             this.listarCursosUniversidadeEscolhida();
             //listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
             return "/paginas/principal/index.xhtml?faces-redirect=true";
-
+            
         } else {
             return "/login/login.xhtml?faces-redirect=true";
         }
@@ -235,7 +240,7 @@ public class UsuarioController extends GenericController implements Serializable
             System.out.println("Senha gerada: " + getSenhaGerada());
             usuario.setSenha(getSenhaGerada());
             this.getUsuarioService().alterarSenha(usuario);
-            addSucessMessage("Nova senha gerada com sucesso !");
+            addSucessMessage("Nova senha gerada com sucesso ! SENHA: " + getSenhaGerada());
             this.resset();
         } else {
             addErrorMessage("Usuario não encontrado ou dados invalidos");
@@ -266,9 +271,9 @@ public class UsuarioController extends GenericController implements Serializable
 
         }
 
-    }*/
+    }
 
-    /* Enviar email 
+   
     public void enviarEmail(String destinatario, String mensagem) {
         try {
             Email email = new SimpleEmail();

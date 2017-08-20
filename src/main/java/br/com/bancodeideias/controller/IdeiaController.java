@@ -25,8 +25,12 @@ public class IdeiaController extends GenericController implements Serializable {
     private List<Ideia>                     listaIdeia;
     private List<Ideia>                     listaIdeiasPendente;
     private List<Ideia>                     listaIdeiasLogado;
+    
     private List<Ideia>                     listaIdeiasdaUniversidade;
     private List<Ideia>                     listarIdeiasPendentesdaUniversidade;
+    private List<Ideia>                     listarAnaliseIdeiasParaUniversidade;
+    
+    
 
     private List<Usuario>                   listaUsuario;
     private UsuarioService                  usuarioService;
@@ -47,8 +51,10 @@ public class IdeiaController extends GenericController implements Serializable {
         listaIdeia                          = new ArrayList<>();
         listaIdeiasPendente                 = new ArrayList<>();
         listaIdeiasLogado                   = new ArrayList<>();
+        
         listaIdeiasdaUniversidade           = new ArrayList<>();
         listarIdeiasPendentesdaUniversidade = new ArrayList<>();
+        listarAnaliseIdeiasParaUniversidade = new ArrayList<>();
 
         listaUsuario                        = new ArrayList<>();
         usuarioService                      = new UsuarioService();
@@ -72,6 +78,7 @@ public class IdeiaController extends GenericController implements Serializable {
             case "Universidade":
                 listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
                 listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
+                listarAnaliseIdeiasParaUniversidade = this.getIdeiaService().listarAnaliseIdeiasParaUniversidade();
                 break;
             default:
                 break;
@@ -262,6 +269,15 @@ public class IdeiaController extends GenericController implements Serializable {
     public void setTipoIdeiaFiltro(String tipoIdeiaFiltro) {
         this.tipoIdeiaFiltro = tipoIdeiaFiltro;
     }
+
+    public List<Ideia> getListarAnaliseIdeiasParaUniversidade() {
+        return listarAnaliseIdeiasParaUniversidade;
+    }
+
+    public void setListarAnaliseIdeiasParaUniversidade(List<Ideia> listarAnaliseIdeiasParaUniversidade) {
+        this.listarAnaliseIdeiasParaUniversidade = listarAnaliseIdeiasParaUniversidade;
+    }
+    
     
     
 

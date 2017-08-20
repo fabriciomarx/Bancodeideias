@@ -20,8 +20,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "curso")
-@NamedQueries({
-    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c")})
 public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -121,7 +119,9 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.bancodeideias.domain.Curso[ idCurso=" + idCurso + " ]";
+        return "Curso{" + "idCurso=" + idCurso + ", nome=" + nome + ", sigla=" + sigla + ", universidade=" + universidade.getNome() + '}';
     }
+
+    
 
 }

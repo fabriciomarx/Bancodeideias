@@ -20,15 +20,15 @@
                     <h:form id="teste1">
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1"> <!-- Aqui nao tinha o offset e o span era 9-->
-                                <b:inputText value="#{cursoController.cursoSelecionado.nome}"
-                                             label="Nome" required="true" id="tes" requiredMessage="O campo nome é obrigatorio"/>
+                                <b:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
+                                                 label="Nome" required="true" requiredMessage="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{cursoController.cursoSelecionado.sigla}"
-                                             label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                <b:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
+                                                 label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
                             </b:column>
                         </b:row>
 
@@ -44,7 +44,7 @@
                         </b:row>
 
                         <b:row>
-                            <b:column span="1" offset-md="1"> <!-- aqui nao tinha o offset-->
+                            <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{cursoController.cancelar()}"
                                                  icon="glyphicon glyphicon-arrow-left"/>
                             </b:column>

@@ -14,37 +14,46 @@ public class CursoDAO implements Serializable {
 
     public CursoDAO() {
     }
-    
+
     public String msg;
 
     public void salvar(Curso curso) {
         EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            List<Curso> listaCurso = new ArrayList<>();
-            Query query = entityManager.createQuery("SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
-            listaCurso = query.getResultList();
-            if (listaCurso.isEmpty()) {
-                entityManager.getTransaction().begin();
-                entityManager.persist(curso);
-                entityManager.getTransaction().commit();
-                entityManager.close();
-            }
-            else {
-                System.out.println("Erro ao incluir, já existe um curso com o mesmo nome");
-                this.setMsg("Erro ao incluir, já existe um curso com o mesmo nome");
-                entityManager.close();
-            }
-        } catch (Exception e) {
+
+        List<Curso> listaCurso = new ArrayList<>();
+        Query query = entityManager.createQuery("SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
+        listaCurso = query.getResultList();
+        if (listaCurso.isEmpty()) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(curso);
+            entityManager.getTransaction().commit();
             entityManager.close();
+            this.setMsg("Curso salvo com sucesso");
+        } else {
+            entityManager.close();
+            System.out.println("Erro ao incluir, já existe um curso com o mesmo nome"); //provisorio
+            this.setMsg("Já existe um curso com o mesmo nome");
         }
     }
 
     public void alterar(Curso curso) {
         EntityManager entityManager = JPAConnection.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.merge(curso);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+
+        List<Curso> listaCurso = new ArrayList<>();
+        Query query = entityManager.createQuery(
+                "SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
+        listaCurso = query.getResultList();
+        if (listaCurso.isEmpty()) {
+            entityManager.getTransaction().begin();
+            entityManager.merge(curso);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            this.setMsg("Curso alterado com sucesso");
+        } else {
+            entityManager.close();
+            System.out.println("Erro ao alterar, já existe um curso com o mesmo nome"); //provisorio
+            this.setMsg("Já existe um curso com o mesmo nome e/ou sigla");
+        }
     }
 
     public void remover(int id) {
@@ -56,21 +65,21 @@ public class CursoDAO implements Serializable {
         entityManager.close();
     }
 
-    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA - USUARIO ADM QUE UTILIZA */
+    /* LISTAR TODOS OS CURSOS CADASTRADOS NO SISTEMA - USUARIO ADM */
     public List<Curso> listar() {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u");
+            Query query = entityManager.createQuery("SELECT c FROM Curso c");
             listaCurso = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listar - Classe Curso DAO");
+            System.err.println("Erro no metodo listar - CursoDAO");
         }
         entityManager.close();
         return listaCurso;
     }
 
-    /* LISTAR SOMENTE OS CURSOS DA UNIVERSIDADE LOGADA */
+    /* LISTAR SOMENTE OS CURSOS DA UNIVERSIDADE LOGADA - USUARIO UNIVERSIDADE */
     public List<Curso> listarCursoLogado() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -78,33 +87,49 @@ public class CursoDAO implements Serializable {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u "
-                    + "WHERE u.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT c FROM Curso c "
+                    + "WHERE c.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
             listaCurso = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarCursoLogado - Classe Curso DAO");
+            System.err.println("Erro no metodo listarCursoLogado - CursoDAO");
         }
         entityManager.close();
         return listaCurso;
     }
 
-    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (metodo para cadastro de usuario)*/
+    /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (metodo para cadastro de usuario) */
     public List<Curso> listarCursosUniversidadeEscolhida(int idUniversidade) {
         List<Curso> listaCurso = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
+
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Curso u "
-                    + "WHERE u.universidade.idUsuario = " + idUniversidade);
+            Query query = entityManager.createQuery("SELECT c FROM Curso c "
+                    + "WHERE c.universidade.idUsuario = " + idUniversidade);
             listaCurso = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarCursoUniversidadeEscolhida - Classe Curso DAO");
+            System.err.println("Erro no metodo listarCursoUniversidadeEscolhida - CursoDAO");
         }
         entityManager.close();
         return listaCurso;
     }
-    
-    /* Gets and Sets */
-     public String getMsg() {
+
+    /* Listar apenas os cursos da universidade escolhida - Usuario ADMIN */
+    public List<Curso> listarCursosUniversidadeSelecionada(int id) {
+        List<Curso> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Curso c "
+                    + "WHERE c.universidade.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("Erro no metodo listarCursosUniversidadeSelecionada - CursoDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+
+    /* ============ GETS AND SETS =========== */
+    public String getMsg() {
         return msg;
     }
 

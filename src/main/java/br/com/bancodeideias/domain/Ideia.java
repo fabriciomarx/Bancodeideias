@@ -24,8 +24,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "ideia")
-@NamedQueries({
-    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")})
 public class Ideia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,11 +62,6 @@ public class Ideia implements Serializable {
     @Size(min = 1, max = 40)
     @Column(name = "disponibilidade")
     private String disponibilidade;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 4)
-    @Column(name = "favorito")
-    private String favorito;
     @Column(name = "dataAnalise")
     @Temporal(TemporalType.DATE)
     private Date dataAnalise;
@@ -161,16 +154,6 @@ public class Ideia implements Serializable {
         return dataAnalise;
     }
 
-    public String getFavorito() {
-        return favorito;
-    }
-
-    public void setFavorito(String favorito) {
-        this.favorito = favorito;
-    }
-    
-    
-
     public void setDataAnalise(Date dataAnalise) {
         this.dataAnalise = dataAnalise;
     }
@@ -229,7 +212,9 @@ public class Ideia implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.bancodeideias.domain.Ideia[ idIdeia=" + idIdeia + " ]";
+        return "Ideia{" + "idIdeia=" + idIdeia + ", dataInscricao=" + dataInscricao + ", situacao=" + situacao + ", tipoIdeia=" + tipoIdeia + ", descricao=" + descricao + ", titulo=" + titulo + ", disponibilidade=" + disponibilidade + ", usuario=" + usuario.getNome() + '}';
     }
+
+   
 
 }

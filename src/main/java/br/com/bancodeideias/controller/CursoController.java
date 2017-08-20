@@ -5,6 +5,7 @@ import br.com.bancodeideias.domain.Usuario;
 import br.com.bancodeideias.service.CursoService;
 import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,13 +18,15 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class CursoController extends GenericController implements Serializable {
 
-    private Curso                       cursoSelecionado;
-    private CursoService                cursoService;
+    private Usuario                         usuario;
+    
+    private Curso                           cursoSelecionado;
+    private CursoService                    cursoService;
 
-    private List<Curso>                 listaCurso;
+    private List<Curso>                     listaCurso;
 
-    private List<Usuario>               listaUniversidade;
-    private UsuarioService              usuarioService;
+    private List<Usuario>                   listaUniversidade;
+    private UsuarioService                  usuarioService;
  
 
     @PostConstruct
@@ -33,6 +36,8 @@ public class CursoController extends GenericController implements Serializable {
     }
 
     private void resset() {
+        usuario                           = new Usuario();
+        
         cursoSelecionado                  = new Curso();
         cursoService                      = new CursoService();
         
@@ -41,18 +46,24 @@ public class CursoController extends GenericController implements Serializable {
         listaUniversidade                 = new ArrayList<>();
         usuarioService                    = new UsuarioService();
     }
-
-   
-    private void listar() {
+    
+    /* Utilizado filtro - Usuario Admin */
+    public void listCursos() {
+        listaCurso = this.getCursoService().listarCursosUniversidadeSelecionada(usuario.getIdUsuario());
+    }
+    
+        private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
         switch (usuarioLogado.getTipoUsuario()) {
             case "Universidade":
-                listaCurso = this.getCursoService().listarCursoLogado(); /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
+                listaCurso = this.getCursoService().listarCursoLogado();
+                /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
                 break;
             case "Admin":
-                listaCurso = this.getCursoService().listar(); /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
+                listaCurso = this.getCursoService().listar();
+                /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
                 listaUniversidade = this.getUsuarioService().listUniversidades();
                 break;
         }
@@ -63,18 +74,13 @@ public class CursoController extends GenericController implements Serializable {
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
         try {
-            switch (usuarioLogado.getTipoUsuario()) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
-                case "Admin":
-                    this.getCursoService().salvar(cursoSelecionado);
-                    break;
-                case "Universidade":
-                    this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
-                    this.getCursoService().salvar(cursoSelecionado);
-                    break;
+            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+                this.getCursoService().salvar(cursoSelecionado);
+            } else {
+                this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
+                this.getCursoService().salvar(cursoSelecionado);
             }
-
-            addSucessMessage("Curso salvo com sucesso");
-            addErrorMessage(this.getCursoService().getMsgService()); 
+            addSucessMessage(this.getCursoService().getMsgService());
         } catch (Exception e) {
             addErrorMessage(this.getCursoService().getMsgService());
             //addErrorMessage("Erro ao salvar curso: " + cursoSelecionado.toString());
@@ -87,10 +93,12 @@ public class CursoController extends GenericController implements Serializable {
     public String alterar() {
         try {
             this.getCursoService().alterar(cursoSelecionado);
-            addSucessMessage("Curso alterado com sucesso");
+           // addSucessMessage(this.getCursoService().getMsgService());
         } catch (Exception e) {
+            // addSucessMessage(this.getCursoService().getMsgService());
             addErrorMessage("Erro ao alterar curso: " + cursoSelecionado.toString());
         }
+        
         this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";
@@ -114,7 +122,7 @@ public class CursoController extends GenericController implements Serializable {
         return "listar.xhtml?faces-redirect=true";
     }
 
-    // ============ METODOS DE AÇÕES NA TELA ===========
+    /* ============ METODOS DE AÇÕES NA TELA =========== */
     public String doIncluir() {
         return "incluir.xhtml?faces-redirect=true";
     }
@@ -135,7 +143,7 @@ public class CursoController extends GenericController implements Serializable {
         return "consultar.xhtml?faces-redirect=true";
     }
 
-    // ============ GETS AND SETS ===========  
+    /* ============ GETS AND SETS =========== */
     public Curso getCursoSelecionado() {
         return cursoSelecionado;
     }
@@ -175,4 +183,14 @@ public class CursoController extends GenericController implements Serializable {
     public void setUsuarioService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 }

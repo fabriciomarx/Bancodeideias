@@ -108,10 +108,30 @@ public class IdeiaDAO implements Serializable {
         try {
             Query query = entityManager.createQuery(
                     "SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
-                    + usuarioLogado.getIdUsuario());
+                    + usuarioLogado.getIdUsuario() + " OR u.usuario.idUsuario = " + usuarioLogado.getIdUsuario());
+                    /* OR serve para mostrar as ideias que a universidade sugeriu tbm */
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarIdeiasdaUniversidade - Classe Ideia DAO");
+        }
+        entityManager.close();
+        return listaIdeia;
+    }
+    
+    /*Metodo que universidade utiliza para verificar a lista de analise das ideias dos alunos */
+    public List<Ideia> listarAnaliseIdeiasParaUniversidade() {
+        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+
+        List<Ideia> listaIdeia = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery(
+                    "SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
+                    + usuarioLogado.getIdUsuario() + " AND u.usuario.tipoUsuario = 'Aluno'");
+            listaIdeia = query.getResultList();
+        } catch (Exception e) {
+            System.out.println("Erro no metodo listarAnaliseIdeiasParaUniversidade - Classe Ideia DAO");
         }
         entityManager.close();
         return listaIdeia;

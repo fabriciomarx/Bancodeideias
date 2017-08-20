@@ -174,20 +174,6 @@ public class PropostaTccDAO implements Serializable {
         return listaPropostaTcc;
     }
 
-    /* LISTA DE PROJETOS, JA ACEITO PELO ORIENTADOR E PELO COORDENADOR */
-    public List<PropostaTcc> listarProjetos() {
-        List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.aprovacaoOrientador = 'Em analise' AND u.situacao = 'Aprovado'");
-            listaPropostaTcc = query.getResultList();
-        } catch (Exception e) {
-            System.out.println("Erro no metodo listarProjetos - Classe PropostaTcc DAO");
-        }
-        entityManager.close();
-        return listaPropostaTcc;
-    }
-
     /* LISTA DE PROPOSTAS QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
     public List<PropostaTcc> listarPropostasParaOrientador() {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();

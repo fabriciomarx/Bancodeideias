@@ -20,15 +20,15 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{cursoController.cursoSelecionado.nome}"
-                                             label="Nome" required="true" requiredMessage="O campo nome é obrigatorio"/>
+                                <b:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
+                                                 label="Nome" required="true" requiredMessage="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
                         <br/>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{cursoController.cursoSelecionado.sigla}"
-                                             label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                <b:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
+                                                 label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
                             </b:column>
                         </b:row>
                         <br/>
@@ -36,19 +36,13 @@
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{cursoController.doCancelar()}"/>
                             </b:column>
-                            
+
                             <b:row>
-                                <b:column span="1" offset-md="10">
+                                <b:column span="1" offset-md="8">
                                     <b:commandButton value="Enviar" look="info" actionListener="#{cursoController.salvar()}"
                                                      icon="glyphicon glyphicon-send" icon-align="right"/>
                                 </b:column>
                             </b:row>
-
-                            <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{cursoController.salvar()}">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
-                            </b:column>
                         </b:row>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

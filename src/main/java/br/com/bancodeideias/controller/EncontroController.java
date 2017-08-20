@@ -58,12 +58,12 @@ public class EncontroController extends GenericController implements Serializabl
     public void listEncontrosPro() {
         listaEncontro = this.getEncontroService().listarEncontrosProfessorSelecionado(usuario.getIdUsuario());
     }
-    
-     /* Metodo para alterar a lista de encontros, filtrando por alunos */
+
+    /* Metodo para alterar a lista de encontros, filtrando por alunos */
     public void listEncontrosParaProfessor() {
         listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionadoParaProfessor(usuario.getIdUsuario());
     }
-    
+
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
@@ -85,9 +85,9 @@ public class EncontroController extends GenericController implements Serializabl
             default:
                 break;
         }
-        listaAluno       = this.getUsuarioService().listaAlunos();
+        listaAluno = this.getUsuarioService().listaAlunos();
         listaProfessores = this.getUsuarioService().listaProfessores();
-       
+
     }
 
     public String salvar() {
@@ -144,7 +144,7 @@ public class EncontroController extends GenericController implements Serializabl
         return "listar.xhtml?faces-redirect=true";
     }
 
-    // ============ METODOS DE AÇÕES NA TELA ===========
+    /* ============ METODOS DE AÇÕES NA TELA =========== */
     public String doIncluir() {
         return "incluir.xhtml?faces-redirect=true";
     }
@@ -164,16 +164,16 @@ public class EncontroController extends GenericController implements Serializabl
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
-    
-    public String doIncluirRelatorio(){
+
+    public String doIncluirRelatorio() {
         return "/paginas/aluno/relatorios/incluir.xhtml?faces-redirect=true";
     }
-    
-    public String doAlterarStatus(){
+
+    public String doAlterarStatus() {
         return "alterarStatus.xhtml?faces-redirect=true";
     }
 
-    // ============ GETS AND SETS =========== 
+    /* ============ GETS AND SETS =========== */
     public Encontro getEncontroSelecionado() {
         return encontroSelecionado;
     }

@@ -52,11 +52,12 @@ public class FiltroSistema implements Filter {
 
         String requestPath;
         requestPath = req.getRequestURI().toLowerCase(); //o que o usuario registrou para entrar no sistema
-
-/*        if((!usuario.getTipoUsuario().equals("Universidade")) && (requestPath.contains("/paginas/universidade/"))){
-            res.sendRedirect(req.getContextPath() + "/paginas/principal/index.xhtml?faces-redirect=true");
+        //System.out.println("Antes IF = " + req.getContextPath());
+       /* if((!usuario.getTipoUsuario().equals("Universidade")) && (requestPath.contains("/paginas/universidade/"))){
+            res.sendRedirect(req.getContextPath() + "/principal/index.xhtml?faces-redirect=true");
+            System.out.println("Dentro IF = " + requestPath + " +++ " + req.getContextPath() );
         }*/
-        
+       //System.out.println("Depois IF = " + requestPath);
         /*if se o tipo usuario for diferente de Admin e mesmo assim o usuario quiser ir pra pagina do admin
         ele será redirecionado para a index*/
         /*if ((!"Admin".equals(usuario.getTipoUsuario())) && (requestPath.contains("/paginas/administrador/"))) {

@@ -13,16 +13,6 @@ public class UsuarioDAO implements Serializable {
 
     public UsuarioDAO() {
     }
-
-    public String msg;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
     
     public void salvar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();

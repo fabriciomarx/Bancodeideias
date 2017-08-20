@@ -9,17 +9,13 @@ import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
-import org.primefaces.event.SelectEvent;
 
 @Named(value = "propostaTccController")
 @SessionScoped
@@ -34,8 +30,7 @@ public class PropostaTccController extends GenericController implements Serializ
     private List<PropostaTcc>           listaPropostasPendentes;
     private List<PropostaTcc>           listaPropostasPendentesDaUniv; 
     private List<PropostaTcc>           listarPropostasQueOrientadorParticipa;
-   
-    private List<PropostaTcc>           listaProjetos;
+    
     private List<PropostaTcc>           listaPropostasPendentesDaUnivParaCoordenador ;
     
     private List<Ideia>                 listaIdeias;
@@ -62,9 +57,7 @@ public class PropostaTccController extends GenericController implements Serializ
         listarPropostasQueOrientadorParticipa           = new ArrayList<>();
         listaPropostasPendentes                         = new ArrayList<>();
         listaPropostasPendentesDaUniv                   = new ArrayList<>();
-        
-        listaProjetos                                   = new ArrayList<>();
-
+      
         listaPropostasPendentesDaUnivParaCoordenador    = new ArrayList<>();
         
         listaIdeias                                     = new ArrayList<>();
@@ -125,8 +118,7 @@ public class PropostaTccController extends GenericController implements Serializ
                 break;
             case "Universidade":
                 listaPropostasPendentesDaUniv = this.getPropostaTccService().listaPropostasPendentesDaUniv();
-                listaProjetos = this.getPropostaTccService().listarProjetos();
-                listaPropostaTcc = this.getPropostaTccService().listaPropostasDaUniv();
+                listaPropostaTcc    = this.getPropostaTccService().listaPropostasDaUniv();
              case "Professor":
                 listaPropostaTcc = this.getPropostaTccService().listarPropostasParaOrientador();
                 listarPropostasQueOrientadorParticipa = this.getPropostaTccService().listarPropostasQueOrientadorParticipa();
@@ -341,14 +333,6 @@ public class PropostaTccController extends GenericController implements Serializ
         this.ideiaService = ideiaService;
     }
 
-    public List<PropostaTcc> getListaProjetos() {
-        return listaProjetos;
-    }
-
-    public void setListaProjetos(List<PropostaTcc> listaProjetos) {
-        this.listaProjetos = listaProjetos;
-    }
-
     public List<PropostaTcc> getListaPropostasPendentesDaUniv() {
         return listaPropostasPendentesDaUniv;
     }
@@ -380,9 +364,6 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setListarPropostasQueOrientadorParticipa(List<PropostaTcc> listarPropostasQueOrientadorParticipa) {
         this.listarPropostasQueOrientadorParticipa = listarPropostasQueOrientadorParticipa;
     }
-    
-    
-    
 
     public Usuario getUsuario() {
         return usuario;

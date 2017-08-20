@@ -32,15 +32,15 @@
                                                   #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
                                                   #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Situação</f:facet>
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
@@ -57,7 +57,7 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Usuario Nome</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
@@ -79,7 +79,7 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
-                            
+
                             <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>

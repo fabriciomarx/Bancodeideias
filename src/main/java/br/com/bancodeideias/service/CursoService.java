@@ -1,6 +1,7 @@
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Curso;
+import br.com.bancodeideias.domain.Encontro;
 import br.com.bancodeideias.repository.CursoDAO;
 import java.io.Serializable;
 import java.util.List;
@@ -8,28 +9,20 @@ import java.util.List;
 public class CursoService implements Serializable {
 
     private CursoDAO cursoDAO;
-    
-    public String msgService;
+    private String msgService;
 
-    public String getMsgService() {
-        return msgService;
-    }
-
-    public void setMsgService(String msgService) {
-        this.msgService = msgService;
-    }
-    
     public CursoService() {
         cursoDAO = new CursoDAO();
     }
 
     public void salvar(Curso curso) {
-        this.getCursoDAO().salvar(curso);
         this.setMsgService(this.getCursoDAO().getMsg());
+        this.getCursoDAO().salvar(curso);
     }
 
     public void alterar(Curso curso) {
-        this.getCursoDAO().alterar(curso);
+        this.setMsgService(this.getCursoDAO().getMsg());
+       // this.getCursoDAO().alterar(curso);
     }
 
     public void remover(Curso curso) {
@@ -56,8 +49,15 @@ public class CursoService implements Serializable {
         lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(id);
         return lista;
     }
-
-    // ============ Gets and sets ===========
+    
+    /* Listar apenas os cursos da universidade escolhida - Usuario ADMIN */
+    public List<Curso> listarCursosUniversidadeSelecionada(int id) {
+        List<Curso> lista;
+        lista = this.getCursoDAO().listarCursosUniversidadeSelecionada(id);
+        return lista;
+    }
+    
+    /* ============ GETS AND SETS =========== */
     public CursoDAO getCursoDAO() {
         return cursoDAO;
     }
@@ -65,4 +65,13 @@ public class CursoService implements Serializable {
     public void setCursoDAO(CursoDAO cursoDAO) {
         this.cursoDAO = cursoDAO;
     }
+
+    public String getMsgService() {
+        return msgService;
+    }
+
+    public void setMsgService(String msgService) {
+        this.msgService = msgService;
+    }
+
 }

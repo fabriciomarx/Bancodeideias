@@ -12,10 +12,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 
 @Named(value = "usuarioController")
 @SessionScoped
@@ -84,14 +80,14 @@ public class UsuarioController extends GenericController implements Serializable
     
     private void listar() {
         
-        listaUsuario = this.getUsuarioService().listar();
-        listaUniversidades = this.getUsuarioService().listUniversidades();
+        listaUsuario                = this.getUsuarioService().listar();
+        listaUniversidades          = this.getUsuarioService().listUniversidades();
         listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
-        listaAluno = this.getUsuarioService().listaAlunos();
+        listaAluno                  = this.getUsuarioService().listaAlunos();
 
-        listaCurso = this.getCursoService().listar(); // Todos os cursos do sistema ADMIN
+        listaCurso                  = this.getCursoService().listar(); // Todos os cursos do sistema ADMIN
 
-        listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
+        listaAcademicosUniLogada    = this.getUsuarioService().listaAcademicosUniLogada();
   
     }
 
@@ -124,6 +120,7 @@ public class UsuarioController extends GenericController implements Serializable
         try {
             HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+            
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) { //SE O USUARIO FOR UMA UNIVERSIDADE
                 this.getUsuarioSelecionado().setSituacao("Ativo"); // SALVANDO A SITUACAO AUTOMATICO
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador); // SALVANDO A UNIVERSDADE AUTOMATICO
@@ -148,7 +145,7 @@ public class UsuarioController extends GenericController implements Serializable
         try {
             /* Se o usuario for admin quer dizer que ele esta alterando outros usuarios "usuario selecionado"
              nao alterado ele "usuario logado" */
-            if (usuarioLogador.getTipoUsuario().equals("Admin")) {
+            if (usuarioLogador.getTipoUsuario().equals("Admin") || usuarioLogador.getTipoUsuario().equals("Universidade")) {
                 this.getUsuarioService().alterar(usuarioSelecionado);
             } else {
                 this.getUsuarioService().alterar(usuarioLogado);

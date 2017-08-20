@@ -39,7 +39,7 @@ public class EncontroService implements Serializable {
         lista = this.getEncontroDAO().listarEncontrosProfessorSelecionado(id);
         return lista;
     }
-    
+
     public List<Encontro> listarEncontrosAcademicoSelecionadoParaProfessor(int id) {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listarEncontrosAcademicoSelecionadoParaProfessor(id);
@@ -73,7 +73,7 @@ public class EncontroService implements Serializable {
         lista = this.getEncontroDAO().listarEncontrosAlu_Prof();
         return lista;
     }
-    
+
     /* Listar apenas os encontros do aluno logado que já foram realizados 
         metodo utilizado na hora de incluir relatorios */
     public List<Encontro> listarEncontrosRealizadosAluno() {
@@ -81,9 +81,9 @@ public class EncontroService implements Serializable {
         lista = this.getEncontroDAO().listarEncontrosRealizadosAluno();
         return lista;
     }
-    
 
-    //getts and setts
+
+    /* ============ GETS AND SETS =========== */
     public EncontroDAO getEncontroDAO() {
         return encontroDAO;
     }

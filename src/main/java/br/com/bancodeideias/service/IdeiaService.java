@@ -61,6 +61,13 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasdaUniversidade();
         return lista;
     }
+    
+    /*Metodo que universidade utiliza para verificar a lista de analise das ideias dos alunos */
+    public List<Ideia> listarAnaliseIdeiasParaUniversidade() {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarAnaliseIdeiasParaUniversidade();
+        return lista;
+    }
 
     /* LISTA DE IDEIAS PENDENTES DOS ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Ideia> listarIdeiasPendentesdaUniversidade() {

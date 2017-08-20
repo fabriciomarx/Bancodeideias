@@ -15,25 +15,36 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-               <h:form>
+                <h:form>
                     <p:fieldset legend="Lista de cursos">
                         <b:panel look="primary" collapsible="false">
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Universidade:" value="#{cursoController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{cursoController.usuario}"/>
+                                        <f:selectItems value="#{cursoController.listaUniversidade}" var="item"
+                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                        <f:ajax render="cursoData" event="change" listener="#{cursoController.listCursos()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{cursoController.listaCurso}"
-                                         var="item" searching="true" border="false"
+                                         var="iten" searching="true" border="false" id="cursoData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 
-                                    <h:outputText value="#{item.nome}"/>
+                                    <h:outputText value="#{iten.nome}"/>
                                 </h:column> 
                                 <h:column>
                                     <f:facet name="header">Sigla</f:facet> 
-                                    <h:outputText value="#{item.sigla}"/>
+                                    <h:outputText value="#{iten.sigla}"/>
                                 </h:column> 
                                 <h:column>
                                     <f:facet name="header">Universidade</f:facet> 
-                                    <h:outputText value="#{item.universidade.nome}"/>
+                                    <h:outputText value="#{iten.universidade.nome}"/>
                                 </h:column> 
 
 
@@ -41,18 +52,19 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{cursoController.doEditar()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit">
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{cursoController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{cursoController.doExcluir()}" class="btn btn-danger" value=""
                                                      icon="glyphicon glyphicon-remove">
-                                        <f:setPropertyActionListener value="#{item}" target="#{cursoController.cursoSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{cursoController.cursoSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
+                            
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"

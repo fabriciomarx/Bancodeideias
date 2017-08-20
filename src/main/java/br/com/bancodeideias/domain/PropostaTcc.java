@@ -21,8 +21,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "proposta_tcc")
-@NamedQueries({
-    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")})
 public class PropostaTcc implements Serializable {
 
     private static final long serialVersionUID = 1L;

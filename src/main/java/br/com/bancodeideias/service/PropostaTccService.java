@@ -79,13 +79,6 @@ public class PropostaTccService implements Serializable {
         return lista;
     }
 
-    /* LISTA DE PROJETOS, JA ACEITO PELO ORIENTADOR E PELO COORDENADOR */
-    public List<PropostaTcc> listarProjetos() {
-        List<PropostaTcc> lista;
-        lista = this.getPropostaTccDAO().listarProjetos();
-        return lista;
-    }
-
     /* LISTA DE PROPOSTAS QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
     public List<PropostaTcc> listarPropostasParaOrientador() {
         List<PropostaTcc> lista;

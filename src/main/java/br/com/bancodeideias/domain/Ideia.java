@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -22,8 +27,23 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "ideia")
+@NamedQueries({
+    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")
+    , @NamedQuery(name = "Ideia.findByIdIdeia", query = "SELECT i FROM Ideia i WHERE i.idIdeia = :idIdeia")
+    , @NamedQuery(name = "Ideia.findByComentario", query = "SELECT i FROM Ideia i WHERE i.comentario = :comentario")
+    , @NamedQuery(name = "Ideia.findByDataAnalise", query = "SELECT i FROM Ideia i WHERE i.dataAnalise = :dataAnalise")
+    , @NamedQuery(name = "Ideia.findByDataInscricao", query = "SELECT i FROM Ideia i WHERE i.dataInscricao = :dataInscricao")
+    , @NamedQuery(name = "Ideia.findByDescricao", query = "SELECT i FROM Ideia i WHERE i.descricao = :descricao")
+    , @NamedQuery(name = "Ideia.findByDisponibilidade", query = "SELECT i FROM Ideia i WHERE i.disponibilidade = :disponibilidade")
+    , @NamedQuery(name = "Ideia.findBySituacao", query = "SELECT i FROM Ideia i WHERE i.situacao = :situacao")
+    , @NamedQuery(name = "Ideia.findByTipoIdeia", query = "SELECT i FROM Ideia i WHERE i.tipoIdeia = :tipoIdeia")
+    , @NamedQuery(name = "Ideia.findByTitulo", query = "SELECT i FROM Ideia i WHERE i.titulo = :titulo")})
 public class Ideia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,11 +52,27 @@ public class Ideia implements Serializable {
     @Basic(optional = false)
     @Column(name = "idIdeia")
     private Integer idIdeia;
+    @Size(max = 250)
+    @Column(name = "comentario")
+    private String comentario;
+    @Column(name = "dataAnalise")
+    @Temporal(TemporalType.DATE)
+    private Date dataAnalise;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataInscricao")
     @Temporal(TemporalType.DATE)
     private Date dataInscricao;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "descricao")
+    private String descricao;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 40)
+    @Column(name = "disponibilidade")
+    private String disponibilidade;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 15)
@@ -50,24 +86,8 @@ public class Ideia implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
-    @Column(name = "descricao")
-    private String descricao;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 40)
-    @Column(name = "disponibilidade")
-    private String disponibilidade;
-    @Column(name = "dataAnalise")
-    @Temporal(TemporalType.DATE)
-    private Date dataAnalise;
-    @Size(max = 250)
-    @Column(name = "comentario")
-    private String comentario;
     @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario analista;
@@ -84,14 +104,14 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public Ideia(Integer idIdeia, Date dataInscricao, String situacao, String tipoIdeia, String descricao, String titulo, String disponibilidade) {
+    public Ideia(Integer idIdeia, Date dataInscricao, String descricao, String disponibilidade, String situacao, String tipoIdeia, String titulo) {
         this.idIdeia = idIdeia;
         this.dataInscricao = dataInscricao;
+        this.descricao = descricao;
+        this.disponibilidade = disponibilidade;
         this.situacao = situacao;
         this.tipoIdeia = tipoIdeia;
-        this.descricao = descricao;
         this.titulo = titulo;
-        this.disponibilidade = disponibilidade;
     }
 
     public Integer getIdIdeia() {
@@ -102,12 +122,44 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Date getDataAnalise() {
+        return dataAnalise;
+    }
+
+    public void setDataAnalise(Date dataAnalise) {
+        this.dataAnalise = dataAnalise;
+    }
+
     public Date getDataInscricao() {
         return dataInscricao;
     }
 
     public void setDataInscricao(Date dataInscricao) {
         this.dataInscricao = dataInscricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 
     public String getSituacao() {
@@ -126,44 +178,12 @@ public class Ideia implements Serializable {
         this.tipoIdeia = tipoIdeia;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public String getTitulo() {
         return titulo;
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-    }
-
-    public String getDisponibilidade() {
-        return disponibilidade;
-    }
-
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
-    }
-
-    public Date getDataAnalise() {
-        return dataAnalise;
-    }
-
-    public void setDataAnalise(Date dataAnalise) {
-        this.dataAnalise = dataAnalise;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
     }
 
     public Usuario getAnalista() {
@@ -212,9 +232,7 @@ public class Ideia implements Serializable {
 
     @Override
     public String toString() {
-        return "Ideia{" + "idIdeia=" + idIdeia + ", dataInscricao=" + dataInscricao + ", situacao=" + situacao + ", tipoIdeia=" + tipoIdeia + ", descricao=" + descricao + ", titulo=" + titulo + ", disponibilidade=" + disponibilidade + ", usuario=" + usuario.getNome() + '}';
+        return "br.com.bancodeideias.domain.Ideia[ idIdeia=" + idIdeia + " ]";
     }
-
-   
-
+    
 }

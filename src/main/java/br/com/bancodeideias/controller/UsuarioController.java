@@ -56,10 +56,10 @@ public class UsuarioController extends GenericController implements Serializable
         listaUniversidadesPendentes         = new ArrayList<>();
         listaAcademicosUniLogada            = new ArrayList<>();
 
-        usuarioLogado                       = new Usuario();
+        //usuarioLogado                       = new Usuario(); //estava dando erro apos inserir academico, usuario universidade
 
         listaCurso                          = new ArrayList<>();
-        listarCursosUniversidadeEscolhida   = new ArrayList<>();
+       // listarCursosUniversidadeEscolhida   = new ArrayList<>(); //estava dando erro apos inserir academico, usuario universidade
         cursoService                        = new CursoService();
         
         
@@ -133,7 +133,7 @@ public class UsuarioController extends GenericController implements Serializable
         } catch (Exception e) {
             addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
         }
-        //this.resset();
+        this.resset();
         this.listar();
         //this.listarCursosUniversidadeEscolhida();
         return "listar.xhtml?faces-redirect=true";

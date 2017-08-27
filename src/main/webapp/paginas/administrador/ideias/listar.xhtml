@@ -17,15 +17,19 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Minhas ideias"> 
+                    <p:fieldset legend="Lista Ideias"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                         responsive="true" id="ideiaData"
-                                         scroll-size="500px"
-                                         scroll-x="false">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
+                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                </h:column>
+                                
                                 <h:column>
                                     <f:facet name="header" >Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
@@ -35,20 +39,15 @@
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
                                 </h:column>
-
+                                
                                 <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao}"
-                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
+                                    <f:facet name="header">Usuario</f:facet>
+                                    <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
-                                <h:column>
-                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
-                                    <h:outputText value="#{item.disponibilidade}"
-                                                  styleClass="#{item.disponibilidade == 'Disponível' ? 'aprovado' : null}
-                                                  #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
-                                                  #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                
+                                 <h:column>
+                                    <f:facet name="header">Universidade</f:facet>
+                                    <h:outputText value="#{item.usuario.universidade.nome}"/>
                                 </h:column>
 
                                 <h:column>

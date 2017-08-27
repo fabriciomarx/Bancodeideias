@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -19,8 +24,28 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "proposta_tcc")
+@NamedQueries({
+    @NamedQuery(name = "PropostaTcc.findAll", query = "SELECT p FROM PropostaTcc p")
+    , @NamedQuery(name = "PropostaTcc.findByIdProposta", query = "SELECT p FROM PropostaTcc p WHERE p.idProposta = :idProposta")
+    , @NamedQuery(name = "PropostaTcc.findByAprovacaoOrientador", query = "SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = :aprovacaoOrientador")
+    , @NamedQuery(name = "PropostaTcc.findByBibliografia", query = "SELECT p FROM PropostaTcc p WHERE p.bibliografia = :bibliografia")
+    , @NamedQuery(name = "PropostaTcc.findByComentario", query = "SELECT p FROM PropostaTcc p WHERE p.comentario = :comentario")
+    , @NamedQuery(name = "PropostaTcc.findByCronograma", query = "SELECT p FROM PropostaTcc p WHERE p.cronograma = :cronograma")
+    , @NamedQuery(name = "PropostaTcc.findByDataAnalise", query = "SELECT p FROM PropostaTcc p WHERE p.dataAnalise = :dataAnalise")
+    , @NamedQuery(name = "PropostaTcc.findByDataInscricao", query = "SELECT p FROM PropostaTcc p WHERE p.dataInscricao = :dataInscricao")
+    , @NamedQuery(name = "PropostaTcc.findByJustificativa", query = "SELECT p FROM PropostaTcc p WHERE p.justificativa = :justificativa")
+    , @NamedQuery(name = "PropostaTcc.findByMaterias", query = "SELECT p FROM PropostaTcc p WHERE p.materias = :materias")
+    , @NamedQuery(name = "PropostaTcc.findByMetodologia", query = "SELECT p FROM PropostaTcc p WHERE p.metodologia = :metodologia")
+    , @NamedQuery(name = "PropostaTcc.findByObjetivo", query = "SELECT p FROM PropostaTcc p WHERE p.objetivo = :objetivo")
+    , @NamedQuery(name = "PropostaTcc.findBySituacao", query = "SELECT p FROM PropostaTcc p WHERE p.situacao = :situacao")
+    , @NamedQuery(name = "PropostaTcc.findByTipoTcc", query = "SELECT p FROM PropostaTcc p WHERE p.tipoTcc = :tipoTcc")
+    , @NamedQuery(name = "PropostaTcc.findByTitulo", query = "SELECT p FROM PropostaTcc p WHERE p.titulo = :titulo")})
 public class PropostaTcc implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,11 +62,17 @@ public class PropostaTcc implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "bibliografia")
     private String bibliografia;
+    @Size(max = 250)
+    @Column(name = "comentario")
+    private String comentario;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "cronograma")
     private String cronograma;
+    @Column(name = "dataAnalise")
+    @Temporal(TemporalType.DATE)
+    private Date dataAnalise;
     @Basic(optional = false)
     @NotNull
     @Column(name = "dataInscricao")
@@ -82,12 +113,6 @@ public class PropostaTcc implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
-    @Column(name = "dataAnalise")
-    @Temporal(TemporalType.DATE)
-    private Date dataAnalise;
-    @Size(max = 250)
-    @Column(name = "comentario")
-    private String comentario;
     @JoinColumn(name = "problema", referencedColumnName = "idIdeia")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Ideia problema;
@@ -97,12 +122,12 @@ public class PropostaTcc implements Serializable {
     @JoinColumn(name = "academico", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario academico;
-    @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario orientador;
     @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario analista;
+    @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario orientador;
 
     public PropostaTcc() {
     }
@@ -149,12 +174,28 @@ public class PropostaTcc implements Serializable {
         this.bibliografia = bibliografia;
     }
 
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
     public String getCronograma() {
         return cronograma;
     }
 
     public void setCronograma(String cronograma) {
         this.cronograma = cronograma;
+    }
+
+    public Date getDataAnalise() {
+        return dataAnalise;
+    }
+
+    public void setDataAnalise(Date dataAnalise) {
+        this.dataAnalise = dataAnalise;
     }
 
     public Date getDataInscricao() {
@@ -221,22 +262,6 @@ public class PropostaTcc implements Serializable {
         this.titulo = titulo;
     }
 
-    public Date getDataAnalise() {
-        return dataAnalise;
-    }
-
-    public void setDataAnalise(Date dataAnalise) {
-        this.dataAnalise = dataAnalise;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
     public Ideia getProblema() {
         return problema;
     }
@@ -261,20 +286,20 @@ public class PropostaTcc implements Serializable {
         this.academico = academico;
     }
 
-    public Usuario getOrientador() {
-        return orientador;
-    }
-
-    public void setOrientador(Usuario orientador) {
-        this.orientador = orientador;
-    }
-
     public Usuario getAnalista() {
         return analista;
     }
 
     public void setAnalista(Usuario analista) {
         this.analista = analista;
+    }
+
+    public Usuario getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(Usuario orientador) {
+        this.orientador = orientador;
     }
 
     @Override
@@ -301,5 +326,5 @@ public class PropostaTcc implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.PropostaTcc[ idProposta=" + idProposta + " ]";
     }
-
+    
 }

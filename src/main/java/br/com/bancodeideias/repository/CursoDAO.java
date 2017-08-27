@@ -15,45 +15,22 @@ public class CursoDAO implements Serializable {
     public CursoDAO() {
     }
 
-    public String msg;
-
     public void salvar(Curso curso) {
         EntityManager entityManager = JPAConnection.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(curso);
+        entityManager.getTransaction().commit();
+        entityManager.close();
 
-        List<Curso> listaCurso = new ArrayList<>();
-        Query query = entityManager.createQuery("SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
-        listaCurso = query.getResultList();
-        if (listaCurso.isEmpty()) {
-            entityManager.getTransaction().begin();
-            entityManager.persist(curso);
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            this.setMsg("Curso salvo com sucesso");
-        } else {
-            entityManager.close();
-            System.out.println("Erro ao incluir, já existe um curso com o mesmo nome"); //provisorio
-            this.setMsg("Já existe um curso com o mesmo nome");
-        }
     }
 
     public void alterar(Curso curso) {
         EntityManager entityManager = JPAConnection.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(curso);
+        entityManager.getTransaction().commit();
+        entityManager.close();
 
-        List<Curso> listaCurso = new ArrayList<>();
-        Query query = entityManager.createQuery(
-                "SELECT u FROM Curso u where u.nome =  '" + curso.getNome() + "'");
-        listaCurso = query.getResultList();
-        if (listaCurso.isEmpty()) {
-            entityManager.getTransaction().begin();
-            entityManager.merge(curso);
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            this.setMsg("Curso alterado com sucesso");
-        } else {
-            entityManager.close();
-            System.out.println("Erro ao alterar, já existe um curso com o mesmo nome"); //provisorio
-            this.setMsg("Já existe um curso com o mesmo nome e/ou sigla");
-        }
     }
 
     public void remover(int id) {
@@ -126,14 +103,5 @@ public class CursoDAO implements Serializable {
         }
         entityManager.close();
         return lista;
-    }
-
-    /* ============ GETS AND SETS =========== */
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 }

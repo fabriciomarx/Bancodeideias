@@ -9,20 +9,17 @@ import java.util.List;
 public class CursoService implements Serializable {
 
     private CursoDAO cursoDAO;
-    private String msgService;
 
     public CursoService() {
         cursoDAO = new CursoDAO();
     }
 
     public void salvar(Curso curso) {
-        this.setMsgService(this.getCursoDAO().getMsg());
         this.getCursoDAO().salvar(curso);
     }
 
     public void alterar(Curso curso) {
-        this.setMsgService(this.getCursoDAO().getMsg());
-       // this.getCursoDAO().alterar(curso);
+       this.getCursoDAO().alterar(curso);
     }
 
     public void remover(Curso curso) {
@@ -65,13 +62,4 @@ public class CursoService implements Serializable {
     public void setCursoDAO(CursoDAO cursoDAO) {
         this.cursoDAO = cursoDAO;
     }
-
-    public String getMsgService() {
-        return msgService;
-    }
-
-    public void setMsgService(String msgService) {
-        this.msgService = msgService;
-    }
-
 }

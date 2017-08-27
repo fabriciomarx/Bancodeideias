@@ -15,14 +15,14 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar proposta de tcc"> 
+                <p:fieldset legend="Editar Proposta de TCC"> 
                     <h:form>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Titulo"/><br/>
                                 <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}"
-                                                 placeholder="Insira o titulo da Proposta de Tcc" 
+                                                 placeholder="Insira o titulo da Proposta de TCC" 
                                                  rows="5" cols="160" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo Titulo é obrigatorio"/>
                                 <h:outputText id="idTituloProposta" style="float: right;"/>
@@ -48,7 +48,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}">
+                                <b:selectOneMenu  label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
                                     <f:selectItem itemLabel="Trabalho Cientifico" itemValue="Trabalho Cientifico" />
@@ -125,7 +125,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
-                                             label="Participante" readonly="true"/>
+                                             label="Aluno Participante" readonly="true"/>
                             </b:column>
                         </b:row>
 

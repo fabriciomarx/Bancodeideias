@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.util;
 
-import org.apache.commons.mail.DefaultAuthenticator;
+/*import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -16,11 +11,12 @@ public class EmailJava {
     public EmailJava() {
     }
 
-    /* Aprendi na video aula 
-       https://www.youtube.com/watch?v=t0KfBaZjKIo&t=416s */
+    Aprendi na video aula 
+       https://www.youtube.com/watch?v=t0KfBaZjKIo&t=416s
     
-    /* Para funcionar preciso desativar o antivirus e ativar no google 
-       atraves do site https://myaccount.google.com/lesssecureapps?pli=1 */
+    Para funcionar preciso desativar o antivirus e ativar no google 
+       atraves do site https://myaccount.google.com/lesssecureapps?pli=1 
+
     public void enviarEmail() {
         try {
             Email email = new SimpleEmail();
@@ -48,4 +44,4 @@ public class EmailJava {
     }
     
    
-}
+}*/

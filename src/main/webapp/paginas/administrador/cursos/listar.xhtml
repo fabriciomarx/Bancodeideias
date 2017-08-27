@@ -28,7 +28,7 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{cursoController.listaCurso}"
                                          var="iten" searching="true" border="false" id="cursoData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
@@ -42,6 +42,17 @@
                                     <f:facet name="header">Sigla</f:facet> 
                                     <h:outputText value="#{iten.sigla}"/>
                                 </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">Ano</f:facet> 
+                                    <h:outputText value="#{iten.ano}"/>
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">Semestre</f:facet> 
+                                    <h:outputText value="#{iten.semestre == 1 ? '1º Semestre' : '2º Semestre'}"/>
+                                </h:column> 
+
                                 <h:column>
                                     <f:facet name="header">Universidade</f:facet> 
                                     <h:outputText value="#{iten.universidade.nome}"/>
@@ -64,7 +75,7 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
-                            
+
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"

@@ -34,8 +34,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
+                                <b:inputTextarea value="#{usuarioController.usuarioSelecionado.nome}" 
+                                                 label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
                             </b:column>
                         </b:row>
 
@@ -50,8 +50,9 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <!-- FALTA FAZER QUANDO A UNIVERSIDADE FOR SELECIONADA, CARREGAR SO OS CURSOS 
                                 DELA-->
-                                <h:outputLabel value="Universidade"/>
-                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}">
+                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}"
+                                                 rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"
+                                                 label="Universidade">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{usuarioController.listaUniversidades}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -70,7 +71,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
+                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}"
+                                                 rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
                                     <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>

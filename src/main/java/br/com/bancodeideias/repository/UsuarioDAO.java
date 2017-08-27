@@ -75,7 +75,7 @@ public class UsuarioDAO implements Serializable {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u");
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario != 'Admin'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe Usuario DAO");
@@ -178,12 +178,13 @@ public class UsuarioDAO implements Serializable {
         return listaUsuarios;
     }
 
-    /* LISTA DE UNIVERSIDADES CADASTRADAS NO SISTEMA */
+    /* LISTA DE UNIVERSIDADES CADASTRADAS NO SISTEMA QUE ESTAO ATIVAS */
     public List<Usuario> listaUniversidades() {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade'");
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade'"
+                    + " AND u.situacao = 'Ativo'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaUniversidades - Classe Usuario DAO");

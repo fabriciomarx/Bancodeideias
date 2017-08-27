@@ -15,27 +15,31 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar Proposta de TCC">
+                <p:fieldset legend="Editar Proposta de TCC"> 
                     <h:form>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
-                                             label="Titulo" required="true" required-message="O campo titulo é obrigatorio"/>
+                                <h:outputLabel value="Titulo"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}"
+                                                 placeholder="Insira o titulo da Proposta de TCC" 
+                                                 rows="5" cols="160" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Titulo é obrigatorio"/>
+                                <h:outputText id="idTituloProposta" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.problema.titulo}" 
-                                             label="Problema" readonly="true"/>
+                                <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.problema.titulo}" 
+                                                 label="Problema" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.problema}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                    <f:selectItem itemLabel="-- Deseja alterar o problema ? --" noSelectionOption="true" itemValue="#{propostaTccController.propostaTccSelecionada.problema}"/>
                                     <f:selectItems value="#{propostaTccController.listaIdeias}" var="item"
                                                    itemLabel="#{item.titulo}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
@@ -44,7 +48,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}">
+                                <b:selectOneMenu  label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
                                     <f:selectItem itemLabel="Trabalho Cientifico" itemValue="Trabalho Cientifico" />
@@ -54,75 +58,115 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.objetivo}"
-                                                 label="Objetivos" required="true" required-message="O campo Objetivos é obrigatorio"/>
+                                <h:outputLabel value="Objetivos"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.objetivo}"
+                                                 placeholder="Insira o(s) objetivo(s) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idObjetivos" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Objetivos é obrigatorio"/>
+                                <h:outputText id="idObjetivos" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.justificativa}"
-                                                 label="Justificativas" required="true" required-message="O campo Justificativas é obrigatorio"/>
+                                <h:outputLabel value="Justificativas"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.justificativa}"
+                                                 placeholder="Insira a(s) justificativa(s) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idJustificativas" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Justificativas é obrigatorio"/>
+                                <h:outputText id="idJustificativas" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.metodologia}"
-                                                 label="Metodologias" required="true" required-message="O campo Metodologias é obrigatorio"/>
+                                <h:outputLabel value="Metodologias"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.metodologia}"
+                                                 placeholder="Insira a(s) metodologia(s) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idMetodologias" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Metodologias é obrigatorio"/>
+                                <h:outputText id="idMetodologias" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.materias}"
-                                                 label="Materiais" required="true" required-message="O campo Materiais é obrigatorio"/>
+                                <h:outputLabel value="Materiais"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.materias}"
+                                                 placeholder="Insira o(s) material(ais) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idMateriais" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Materiais é obrigatorio"/>
+                                <h:outputText id="idMateriais" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.cronograma}"
-                                                 label="Cronograma" required="true" required-message="O campo Cronograma é obrigatorio"/>
+                                <h:outputLabel value="Cronograma"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.cronograma}"
+                                                 placeholder="Insira o(s) cronograma(s) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idCronograma" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Cronograma é obrigatorio"/>
+                                <h:outputText id="idCronograma" style="float: right;"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea placeholder="Type something here..." value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
-                                                 label="Bibliografia" required="true" required-message="O campo Bibliografia é obrigatorio"/>
+                                <h:outputLabel value="Bibliografia"/><br/>
+                                <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.bibliografia}"
+                                                 placeholder="Insira a(s) bibliografia(s) da Proposta de Tcc" 
+                                                 rows="5" cols="160" counter="idBibliografia" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo Bibliografia é obrigatorio"/>
+                                <h:outputText id="idBibliografia" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}" 
-                                             label="Academico" readonly="true"/>
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.academico}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                <b:selectOneMenu label="Aluno" value="#{propostaTccController.propostaTccSelecionada.academico}">
+                                    <f:selectItem itemLabel="-- Deseja alterar o participante ? --" noSelectionOption="true" itemValue="#{propostaTccController.propostaTccSelecionada.participante}"/>
                                     <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
+                                             label="Aluno Participante" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.participante}">
+                                    <f:selectItem itemLabel="-- Deseja alterar o participante ? --" noSelectionOption="true" itemValue="#{propostaTccController.propostaTccSelecionada.participante}"/>
+                                    <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
+                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.orientador.nome}" 
-                                             label="Orientador" required="true" required-message="O campo Orientador é obrigatorio"
-                                             disabled="true"/>
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.orientador}">
-                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" itemValue=""/>
+                                    <f:selectItem itemLabel="-- Deseja alterar o orientador ? --" noSelectionOption="true" itemValue="#{propostaTccController.propostaTccSelecionada.orientador}"/>
                                     <f:selectItems value="#{propostaTccController.listaProfessores}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>
@@ -132,15 +176,21 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" title="RETORNAR" />
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{propostaTccController.alterar()}"
-                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
+                                <b:commandButton value="Enviar" action="#{propostaTccController.alterar()}" title="ENVIAR">
+                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
+                                </b:commandButton>
                             </b:column>
                         </b:row>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.alterar()}"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </h:form>
-                </p:fieldset> 
+                </p:fieldset>   
 
             </ui:define>    
         </ui:composition>

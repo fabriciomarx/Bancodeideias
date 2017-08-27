@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -18,8 +23,19 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "curso")
+@NamedQueries({
+    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c")
+    , @NamedQuery(name = "Curso.findByIdCurso", query = "SELECT c FROM Curso c WHERE c.idCurso = :idCurso")
+    , @NamedQuery(name = "Curso.findByNome", query = "SELECT c FROM Curso c WHERE c.nome = :nome")
+    , @NamedQuery(name = "Curso.findBySigla", query = "SELECT c FROM Curso c WHERE c.sigla = :sigla")
+    , @NamedQuery(name = "Curso.findByAno", query = "SELECT c FROM Curso c WHERE c.ano = :ano")
+    , @NamedQuery(name = "Curso.findBySemestre", query = "SELECT c FROM Curso c WHERE c.semestre = :semestre")})
 public class Curso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,6 +54,14 @@ public class Curso implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "sigla")
     private String sigla;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ano")
+    private int ano;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "semestre")
+    private int semestre;
     @JoinColumn(name = "universidade", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario universidade;
@@ -51,10 +75,12 @@ public class Curso implements Serializable {
         this.idCurso = idCurso;
     }
 
-    public Curso(Integer idCurso, String nome, String sigla) {
+    public Curso(Integer idCurso, String nome, String sigla, int ano, int semestre) {
         this.idCurso = idCurso;
         this.nome = nome;
         this.sigla = sigla;
+        this.ano = ano;
+        this.semestre = semestre;
     }
 
     public Integer getIdCurso() {
@@ -79,6 +105,22 @@ public class Curso implements Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
     }
 
     public Usuario getUniversidade() {
@@ -119,9 +161,7 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "Curso{" + "idCurso=" + idCurso + ", nome=" + nome + ", sigla=" + sigla + ", universidade=" + universidade.getNome() + '}';
+        return "br.com.bancodeideias.domain.Curso[ idCurso=" + idCurso + " ]";
     }
-
     
-
 }

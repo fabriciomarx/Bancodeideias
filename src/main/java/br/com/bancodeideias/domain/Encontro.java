@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -22,8 +27,20 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "encontro")
+@NamedQueries({
+    @NamedQuery(name = "Encontro.findAll", query = "SELECT e FROM Encontro e")
+    , @NamedQuery(name = "Encontro.findByIdEncontro", query = "SELECT e FROM Encontro e WHERE e.idEncontro = :idEncontro")
+    , @NamedQuery(name = "Encontro.findByDataEncontro", query = "SELECT e FROM Encontro e WHERE e.dataEncontro = :dataEncontro")
+    , @NamedQuery(name = "Encontro.findByDescricao", query = "SELECT e FROM Encontro e WHERE e.descricao = :descricao")
+    , @NamedQuery(name = "Encontro.findByHora", query = "SELECT e FROM Encontro e WHERE e.hora = :hora")
+    , @NamedQuery(name = "Encontro.findByLocalEncontro", query = "SELECT e FROM Encontro e WHERE e.localEncontro = :localEncontro")
+    , @NamedQuery(name = "Encontro.findByStatus", query = "SELECT e FROM Encontro e WHERE e.status = :status")})
 public class Encontro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +56,14 @@ public class Encontro implements Serializable {
     private Date dataEncontro;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "hora")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "descricao")
     private String descricao;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "hora")
+    @Temporal(TemporalType.TIME)
+    private Date hora;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 250)
@@ -57,12 +74,12 @@ public class Encontro implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "status")
     private String status;
-    @JoinColumn(name = "aluno", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario aluno;
     @JoinColumn(name = "orientador", referencedColumnName = "idUsuario")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario orientador;
+    @JoinColumn(name = "aluno", referencedColumnName = "idUsuario")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario aluno;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encontro", fetch = FetchType.LAZY)
     private List<Relatorio> relatorioList;
 
@@ -73,11 +90,11 @@ public class Encontro implements Serializable {
         this.idEncontro = idEncontro;
     }
 
-    public Encontro(Integer idEncontro, Date dataEncontro, Date hora, String descricao, String localEncontro, String status) {
+    public Encontro(Integer idEncontro, Date dataEncontro, String descricao, Date hora, String localEncontro, String status) {
         this.idEncontro = idEncontro;
         this.dataEncontro = dataEncontro;
-        this.hora = hora;
         this.descricao = descricao;
+        this.hora = hora;
         this.localEncontro = localEncontro;
         this.status = status;
     }
@@ -98,20 +115,20 @@ public class Encontro implements Serializable {
         this.dataEncontro = dataEncontro;
     }
 
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
     }
 
     public String getLocalEncontro() {
@@ -130,20 +147,20 @@ public class Encontro implements Serializable {
         this.status = status;
     }
 
-    public Usuario getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Usuario aluno) {
-        this.aluno = aluno;
-    }
-
     public Usuario getOrientador() {
         return orientador;
     }
 
     public void setOrientador(Usuario orientador) {
         this.orientador = orientador;
+    }
+
+    public Usuario getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Usuario aluno) {
+        this.aluno = aluno;
     }
 
     public List<Relatorio> getRelatorioList() {
@@ -178,5 +195,5 @@ public class Encontro implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Encontro[ idEncontro=" + idEncontro + " ]";
     }
-
+    
 }

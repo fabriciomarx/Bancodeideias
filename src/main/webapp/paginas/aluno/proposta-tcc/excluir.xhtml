@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Excluir proposta de tcc"> 
+                <p:fieldset legend="Excluir Proposta de TCC"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -34,7 +34,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
-                                                readonly="true">
+                                                 readonly="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
                                     <f:selectItem itemLabel="Trabalho Cientifico" itemValue="Trabalho Cientifico" />
@@ -107,14 +107,14 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}" 
-                                             label="Academico" readonly="true"/>
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
-                                             label="Participante" readonly="true"/>
+                                             label="Aluno Participante" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -136,7 +136,7 @@
                                 </p:commandButton>
                             </b:column>
                         </b:row>
-                        
+
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.remover()}"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

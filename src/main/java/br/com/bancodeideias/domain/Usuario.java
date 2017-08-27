@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -20,8 +25,21 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "usuario")
+@NamedQueries({
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
+    , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
+    , @NamedQuery(name = "Usuario.findByMatricula", query = "SELECT u FROM Usuario u WHERE u.matricula = :matricula")
+    , @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome")
+    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")
+    , @NamedQuery(name = "Usuario.findBySituacao", query = "SELECT u FROM Usuario u WHERE u.situacao = :situacao")
+    , @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,9 +87,9 @@ public class Usuario implements Serializable {
     private List<PropostaTcc> propostaTccList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "academico", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList1;
-    @OneToMany(mappedBy = "orientador", fetch = FetchType.LAZY)
-    private List<PropostaTcc> propostaTccList2;
     @OneToMany(mappedBy = "analista", fetch = FetchType.LAZY)
+    private List<PropostaTcc> propostaTccList2;
+    @OneToMany(mappedBy = "orientador", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList3;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "universidade", fetch = FetchType.LAZY)
     private List<Curso> cursoList;
@@ -83,24 +101,13 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "universidade", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario universidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno", fetch = FetchType.LAZY)
-    private List<Encontro> encontroList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador", fetch = FetchType.LAZY)
+    private List<Encontro> encontroList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno", fetch = FetchType.LAZY)
     private List<Encontro> encontroList1;
-
+    
     @Transient
     private String confirmarSenha;
-
-    @Transient
-    private String senhaGerada;
-
-    public String getConfirmarSenha() {
-        return confirmarSenha;
-    }
-
-    public void setConfirmarSenha(String confirmarSenha) {
-        this.confirmarSenha = confirmarSenha;
-    }
 
     public Usuario() {
     }
@@ -271,13 +278,15 @@ public class Usuario implements Serializable {
         this.encontroList1 = encontroList1;
     }
 
-    public String getSenhaGerada() {
-        return senhaGerada;
+    public String getConfirmarSenha() {
+        return confirmarSenha;
     }
 
-    public void setSenhaGerada(String senhaGerada) {
-        this.senhaGerada = senhaGerada;
+    public void setConfirmarSenha(String confirmarSenha) {
+        this.confirmarSenha = confirmarSenha;
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -303,5 +312,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-
+    
 }

@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Consultar proposta de tcc"> 
+                <p:fieldset legend="Consultar Proposta de TCC"> 
                     <h:form>
 
                         <b:row>
@@ -108,14 +108,14 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.academico.nome}" 
-                                             label="Academico" readonly="true"/>
+                                             label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
                         
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
-                                             label="Participante" readonly="true"/>
+                                             label="Aluno Participante" readonly="true"/>
                             </b:column>
                         </b:row>
 

@@ -128,7 +128,8 @@ public class IdeiaDAO implements Serializable {
         try {
             Query query = entityManager.createQuery(
                     "SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
-                    + usuarioLogado.getIdUsuario() + " AND u.usuario.tipoUsuario = 'Aluno'");
+                    + usuarioLogado.getIdUsuario() + " AND u.usuario.tipoUsuario = 'Aluno'"
+                    + " AND u.situacao = 'Aprovado'");
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarAnaliseIdeiasParaUniversidade - Classe Ideia DAO");

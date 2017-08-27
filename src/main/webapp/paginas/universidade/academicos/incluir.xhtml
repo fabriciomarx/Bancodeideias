@@ -61,7 +61,7 @@
                                 <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                                   itemLabel="#{item.sigla}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
                             </b:column>
                         </b:row>

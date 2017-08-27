@@ -18,15 +18,77 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
-                                                 label="Nome" required="true" requiredMessage="O campo nome é obrigatorio"/>
+                                <b:inputText value="#{cursoController.cursoSelecionado.ano}"
+                                             label="Ano" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
-                                                 label="Sigla" required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                <b:selectOneMenu value="#{cursoController.cursoSelecionado.ano}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true" 
+                                                  itemValue="#{cursoController.cursoSelecionado.ano}" />
+                                    <f:selectItem itemLabel="2010" itemValue="2010" />
+                                    <f:selectItem itemLabel="2011" itemValue="2011" />
+                                    <f:selectItem itemLabel="2012" itemValue="2012" />
+                                    <f:selectItem itemLabel="2013" itemValue="2013" />
+                                    <f:selectItem itemLabel="2014" itemValue="2014" />
+                                    <f:selectItem itemLabel="2015" itemValue="2015" />
+                                    <f:selectItem itemLabel="2016" itemValue="2016" />
+                                    <f:selectItem itemLabel="2017" itemValue="2017" />
+                                    <f:selectItem itemLabel="2018" itemValue="2018" />
+                                    <f:selectItem itemLabel="2019" itemValue="2019" />
+                                    <f:selectItem itemLabel="2020" itemValue="2020" />
+                                    <f:selectItem itemLabel="2021" itemValue="2021" />
+                                    <f:selectItem itemLabel="2022" itemValue="2022" />
+                                    <f:selectItem itemLabel="2023" itemValue="2023" />
+                                    <f:selectItem itemLabel="2024" itemValue="2024" />
+                                    <f:selectItem itemLabel="2025" itemValue="2025" />
+                                    <f:selectItem itemLabel="2026" itemValue="2026" />
+                                    <f:selectItem itemLabel="2027" itemValue="2027" />
+                                    <f:selectItem itemLabel="2028" itemValue="2028" />
+                                    <f:selectItem itemLabel="2029" itemValue="2029" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{cursoController.cursoSelecionado.semestre == 1 ? '1º Semestre' : '2º Semestre'}"
+                                             label="Semestre" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu value="#{cursoController.cursoSelecionado.semestre}">
+                                    <f:selectItem itemLabel="-- Deseja alterar ? --" noSelectionOption="true"
+                                                  itemValue="#{cursoController.cursoSelecionado.semestre}"/>
+                                    <f:selectItem itemLabel="1º Semestre" itemValue="1" />
+                                    <f:selectItem itemLabel="2º Semestre" itemValue="2" />
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Nome *"/><br/>
+                                <p:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
+                                                 placeholder="Insira o nome do Curso" 
+                                                 rows="5" cols="160" counter="idNome" maxlength="70" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo nome é obrigatorio"/>
+                                <h:outputText id="idNome" style="float: right;"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="Sigla *"/><br/>
+                                <p:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
+                                                 placeholder="Insira a sigla do Curso" 
+                                                 rows="5" cols="160" counter="idSigla" maxlength="10" counterTemplate="{0} caracteres restantes." 
+                                                 required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                <h:outputText id="idSigla" style="float: right;"/>
                             </b:column>
                         </b:row>
 

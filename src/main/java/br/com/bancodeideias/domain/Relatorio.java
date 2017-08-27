@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -19,8 +24,22 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ *
+ * @author fabri
+ */
 @Entity
 @Table(name = "relatorio")
+@NamedQueries({
+    @NamedQuery(name = "Relatorio.findAll", query = "SELECT r FROM Relatorio r")
+    , @NamedQuery(name = "Relatorio.findByIdRelatorio", query = "SELECT r FROM Relatorio r WHERE r.idRelatorio = :idRelatorio")
+    , @NamedQuery(name = "Relatorio.findByAtividadesRealizadas", query = "SELECT r FROM Relatorio r WHERE r.atividadesRealizadas = :atividadesRealizadas")
+    , @NamedQuery(name = "Relatorio.findByAutoAvaliacao", query = "SELECT r FROM Relatorio r WHERE r.autoAvaliacao = :autoAvaliacao")
+    , @NamedQuery(name = "Relatorio.findByDataFim", query = "SELECT r FROM Relatorio r WHERE r.dataFim = :dataFim")
+    , @NamedQuery(name = "Relatorio.findByDataInicio", query = "SELECT r FROM Relatorio r WHERE r.dataInicio = :dataInicio")
+    , @NamedQuery(name = "Relatorio.findByDataInscricao", query = "SELECT r FROM Relatorio r WHERE r.dataInscricao = :dataInscricao")
+    , @NamedQuery(name = "Relatorio.findByJustificativa", query = "SELECT r FROM Relatorio r WHERE r.justificativa = :justificativa")
+    , @NamedQuery(name = "Relatorio.findByStatus", query = "SELECT r FROM Relatorio r WHERE r.status = :status")})
 public class Relatorio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,14 +60,6 @@ public class Relatorio implements Serializable {
     private String autoAvaliacao;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "dataInscricao")
-    @Temporal(TemporalType.DATE)
-    private Date dataInscricao;
-    @Size(max = 250)
-    @Column(name = "justificativa")
-    private String justificativa;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "dataFim")
     @Temporal(TemporalType.DATE)
     private Date dataFim;
@@ -57,6 +68,14 @@ public class Relatorio implements Serializable {
     @Column(name = "dataInicio")
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dataInscricao")
+    @Temporal(TemporalType.DATE)
+    private Date dataInscricao;
+    @Size(max = 250)
+    @Column(name = "justificativa")
+    private String justificativa;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -73,13 +92,13 @@ public class Relatorio implements Serializable {
         this.idRelatorio = idRelatorio;
     }
 
-    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataInscricao, Date dataFim, Date dataInicio, String status) {
+    public Relatorio(Integer idRelatorio, String atividadesRealizadas, String autoAvaliacao, Date dataFim, Date dataInicio, Date dataInscricao, String status) {
         this.idRelatorio = idRelatorio;
         this.atividadesRealizadas = atividadesRealizadas;
         this.autoAvaliacao = autoAvaliacao;
-        this.dataInscricao = dataInscricao;
         this.dataFim = dataFim;
         this.dataInicio = dataInicio;
+        this.dataInscricao = dataInscricao;
         this.status = status;
     }
 
@@ -107,22 +126,6 @@ public class Relatorio implements Serializable {
         this.autoAvaliacao = autoAvaliacao;
     }
 
-    public Date getDataInscricao() {
-        return dataInscricao;
-    }
-
-    public void setDataInscricao(Date dataInscricao) {
-        this.dataInscricao = dataInscricao;
-    }
-
-    public String getJustificativa() {
-        return justificativa;
-    }
-
-    public void setJustificativa(String justificativa) {
-        this.justificativa = justificativa;
-    }
-
     public Date getDataFim() {
         return dataFim;
     }
@@ -137,6 +140,22 @@ public class Relatorio implements Serializable {
 
     public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public Date getDataInscricao() {
+        return dataInscricao;
+    }
+
+    public void setDataInscricao(Date dataInscricao) {
+        this.dataInscricao = dataInscricao;
+    }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
     }
 
     public String getStatus() {
@@ -179,5 +198,5 @@ public class Relatorio implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Relatorio[ idRelatorio=" + idRelatorio + " ]";
     }
-
+    
 }

@@ -34,8 +34,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" readonly="true"/>
+                                <b:inputTextarea value="#{usuarioController.usuarioSelecionado.nome}" 
+                                                 label="Nome" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -49,7 +49,8 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
-                                             label="Universidade" readonly="true"/>
+                                             label="Universidade" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"/>
                             </b:column>
                         </b:row>
 
@@ -63,7 +64,8 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
-                                             label="Curso" readonly="true"/>
+                                             label="Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"/>
                             </b:column>
                         </b:row>
 

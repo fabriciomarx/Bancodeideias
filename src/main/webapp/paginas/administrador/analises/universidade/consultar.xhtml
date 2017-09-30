@@ -49,20 +49,33 @@
                             </b:column>
                         </b:row>
 
+                         <b:row>   
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.situacao}"
+                                                 label="Situação" required="true" requiredMessage="O campo situação é obrigatorio">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Aceito" itemValue="Ativo"/>
+                                    <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+
+
+
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
-                                                 immediate="true" action="#{usuarioController.doCancelar()}"/>
+                                <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
+                                                 immediate="true" action="#{usuarioController.cancelar()}" title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Aceitar" action="#{usuarioController.aceitar()}" >
+                                <p:commandButton value="Enviar" action="#{usuarioController.alterar()}" class="btn btn-primary" title="ENVIAR">
                                     <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </b:column>
                         </b:row>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{usuarioController.aceitar()}"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{usuarioController.alterar()}"/>
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
                     </h:form>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+        <ui:composition template="/WEB-INF/templates/template.xhtml">
+            <ui:define name="conteudo">
+
+                <h:form>
+                    <p:fieldset legend="Encontros com alunos"> 
+                        <b:panel look="primary" collapsible="false">
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Aluno:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaAluno}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="encontroDataProf" event="change" listener="#{encontroController.listEncontrosParaProfessor()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            <b:dataTable value="#{encontroController.listaEncontro}"
+                                         var="item" searching="true" border="false" id="encontroDataProf"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         styleClass="table table-striped">
+                                
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{encontroController.doAlterarStatus()}" class="btn btn-info" value=""
+                                                     icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS" 
+                                                     disabled="#{item.status == 'Realizado'}">
+                                                    <!-- disabled="#{item.aluno.idUsuario == usuarioLogado.idUsuario or item.orientador.idUsuario == usuarioLogado.idUsuario or item.status == 'Realizado'}">-->
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column> 
+                                
+                                <h:column>
+                                    <f:facet name="header">Status</f:facet> 
+                                    <h:outputText value="#{item.status}"
+                                                  styleClass="#{item.status == 'Ainda não visualizado' ? 'enviado_naovisto' : null}
+                                                  #{item.status == 'Aceito' ? 'enviado_vistoaceito' : null}
+                                                  #{item.status == 'Recusado' ? 'enviado_vistocancelado' : null}
+                                                  #{item.status == 'Realizado' ? 'ja_realizado' : null}
+                                                  #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
+                                </h:column> 
+                                
+                                <h:column>
+                                    <f:facet name="header">Data</f:facet>
+                                    <h:outputText value="#{item.dataEncontro}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Hora</f:facet>
+                                    <h:outputText value="#{item.hora}">
+                                        <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet> 
+                                    <h:outputText value="#{item.descricao}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Local</f:facet>
+                                    <h:outputText value="#{item.localEncontro}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Aluno</f:facet> 
+                                    <h:outputText value="#{item.aluno.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Orientador</f:facet> 
+                                    <h:outputText value="#{item.orientador.nome}"/>
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.orientador.idUsuario != usuarioLogado.idUsuario}">
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
+                                                     icon="glyphicon glyphicon-search" >
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                    <b:commandButton action="#{encontroController.doExcluir()}" class="btn btn-danger" value=""
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.orientador.idUsuario != usuarioLogado.idUsuario}">
+                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column>                                   
+                            </b:dataTable> 
+
+                            <f:facet name="footer">
+                                <b:commandButton value="Incluir Novo" action="#{encontroController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info"/>
+                            </f:facet>
+                        </b:panel>
+                    </p:fieldset>
+                </h:form>             
+            </ui:define>    
+        </ui:composition>
+    </body>
+</html>

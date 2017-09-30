@@ -16,7 +16,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Propostas de TCC"> 
+                    <p:fieldset legend="Todas Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
                             
                             <b:row>
@@ -87,7 +87,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Participante</f:facet>
+                                    <f:facet name="header">Aluno Participante</f:facet>
                                     <h:outputText value="#{iten.participante == null ? 'SEM PARTICIPANTE' : iten.participante.nome}"/>
                                 </h:column>
 

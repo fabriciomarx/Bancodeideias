@@ -14,7 +14,7 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Incluir analise de Proposta de TCC">
+                <p:fieldset legend="Incluir Analise de Proposta de TCC">
                     <h:form>  
 
                         <b:row>
@@ -30,14 +30,15 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.comentario}" 
-                                                 label="Comentario" placeholder="Escreva seu(s) comentario(s) caso seja necessario"/>
+                                                 label="Comentario(s)" placeholder="Escreva seu(s) comentario(s) caso seja necessario"/>
                             </b:column>
                         </b:row>
                         
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{propostaTccController.cancelar()}" />
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" 
+                                                 title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" action="#{propostaTccController.alterar()}"

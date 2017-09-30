@@ -16,7 +16,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista Propostas de TCC"> 
+                    <p:fieldset legend="Todas Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" searching="true" border="false"
@@ -74,7 +74,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Participante</f:facet>
+                                    <f:facet name="header">Aluno Participante</f:facet>
                                     <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
                                 </h:column>
 

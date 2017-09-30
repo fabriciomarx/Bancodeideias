@@ -36,7 +36,7 @@
                     <b:navLink value="Todas Ideias de TCC" href="#{request.contextPath}/paginas/aluno/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
                 </b:dropMenu>
                 <b:navLink value="Propostas de TCC" href="#{request.contextPath}/paginas/aluno/proposta-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
-                <b:navLink value="Encontros" href="#{request.contextPath}/paginas/aluno/encontros-orientador/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
+                <b:navLink value="Encontros" href="#{request.contextPath}/paginas/aluno/encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
                 <b:navLink value="Relatorios" href="#{request.contextPath}/paginas/aluno/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Aluno'}"/>
 
                 <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO COORDENADOR -->
@@ -54,18 +54,18 @@
                 </b:dropMenu>
 
                 <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO ORIENTADOR -->
-                <b:navLink value="Meu Cadastro" href="#{request.contextPath}/paginas/orientador/cadastro/editar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                <b:navLink value="Meu Cadastro" href="#{request.contextPath}/paginas/professor/cadastro/editar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 <b:dropMenu value="Ideias de TCC" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
-                    <b:navLink value="Minhas Ideias de TCC" href="#{request.contextPath}/paginas/orientador/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                    <b:navLink value="Todas Ideias de TCC" href="#{request.contextPath}/paginas/orientador/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                    <b:navLink value="Ideias de TCC Pendentes" href="#{request.contextPath}/paginas/orientador/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Minhas Ideias de TCC" href="#{request.contextPath}/paginas/professor/minhas-ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Todas Ideias de TCC" href="#{request.contextPath}/paginas/professor/ideias/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Ideias de TCC Pendentes" href="#{request.contextPath}/paginas/professor/ideias-pendentes/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 </b:dropMenu>
                 <b:dropMenu value="Propostas de TCC" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}">
-                    <b:navLink value="Todas Propostas de TCC" href="#{request.contextPath}/paginas/orientador/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                    <b:navLink value="Analise de Proposta de TCC Convidado" href="#{request.contextPath}/paginas/orientador/aprovacoes-propostas/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Todas Propostas de TCC" href="#{request.contextPath}/paginas/professor/propostas-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                    <b:navLink value="Analise de Proposta de TCC Convidado" href="#{request.contextPath}/paginas/professor/aprovacoes-propostas/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
                 </b:dropMenu>
-                <b:navLink value="Encontros" href="#{request.contextPath}/paginas/orientador/encontros-aluno/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
-                <b:navLink value="Relatorios" href="#{request.contextPath}/paginas/orientador/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                <b:navLink value="Encontros" href="#{request.contextPath}/paginas/professor/encontros/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
+                <b:navLink value="Relatorios" href="#{request.contextPath}/paginas/professor/relatorios/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Professor'}"/>
 
 
                 <!-- MOSTRAR QUANDO O USUARIO FOR DO TIPO UNIVERSIDADE -->
@@ -87,6 +87,12 @@
                     <b:navLink value="Analise Proposta de TCC" href="#{request.contextPath}/paginas/universidade/analises/proposta-tcc/listar.xhtml" rendered="#{usuarioController.usuarioLogado.tipoUsuario == 'Universidade'}"/>
                 </b:dropMenu>
             </b:navbarLinks>
+            <h:form>
+                <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
+                                 icon="glyphicon glyphicon-log-out"
+                                 style="margin-top: 10px;"
+                                 disabled="#{usuarioController.usuarioLogado.idUsuario == null}"/>
+            </h:form>
         </b:navBar>
     </h:body>
 </ui:composition>

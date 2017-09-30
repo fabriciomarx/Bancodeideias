@@ -56,8 +56,6 @@ public class UsuarioController extends GenericController implements Serializable
         listaUniversidadesPendentes         = new ArrayList<>();
         listaAcademicosUniLogada            = new ArrayList<>();
 
-        //usuarioLogado                       = new Usuario(); //estava dando erro apos inserir academico, usuario universidade
-
         listaCurso                          = new ArrayList<>();
        // listarCursosUniversidadeEscolhida   = new ArrayList<>(); //estava dando erro apos inserir academico, usuario universidade
         cursoService                        = new CursoService();
@@ -68,9 +66,12 @@ public class UsuarioController extends GenericController implements Serializable
         tipoUsuario                         = "";
     }
     
-    //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
     public void listAcademicos() {
         listaAcademicosUniLogada = this.getUsuarioService().listarAcademicosCursoSelecionado(curso.getIdCurso());
+    }
+    
+    public void listUsuariosPorUniversidade() {
+        listaUsuario = this.getUsuarioService().listaUsuariosPorUniversidade(usuarioSelecionado.getIdUsuario());
     }
     
     //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
@@ -92,7 +93,7 @@ public class UsuarioController extends GenericController implements Serializable
     }
 
     private void listarCursosUniversidadeEscolhida() {
-        listarCursosUniversidadeEscolhida   = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
+        listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
     }
 
     /* SALVAR USUARIO A PARTIR DO LOGIN , SEM USUARIO NA SESSAO */
@@ -114,13 +115,13 @@ public class UsuarioController extends GenericController implements Serializable
         }
         //return "login.xhtml?faces-redirect=true"; 
     }
-    
+
     /* SALVAR USUARIO A PARTIR DA TELA DE LISTAGEM DE USUARIOS .. COM USUARIO NA SESSAO */
     public String salvar() {
         try {
             HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
-            
+
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) { //SE O USUARIO FOR UMA UNIVERSIDADE
                 this.getUsuarioSelecionado().setSituacao("Ativo"); // SALVANDO A SITUACAO AUTOMATICO
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador); // SALVANDO A UNIVERSDADE AUTOMATICO
@@ -139,17 +140,20 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    public String alterar() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
+    /*Metodo diferente pois no caso da universidade, existe a opção de alterar meu cadastro e alterar cadastro aluno*/
+    public String alterarMeuCadastro() {
         try {
-            /* Se o usuario for admin quer dizer que ele esta alterando outros usuarios "usuario selecionado"
-             nao alterado ele "usuario logado" */
-            if (usuarioLogador.getTipoUsuario().equals("Admin") || usuarioLogador.getTipoUsuario().equals("Universidade")) {
-                this.getUsuarioService().alterar(usuarioSelecionado);
-            } else {
-                this.getUsuarioService().alterar(usuarioLogado);
-            }
+            this.getUsuarioService().alterar(usuarioLogado); //altera o usuario logado
+            addSucessMessage("Cadastro alterado com sucesso");
+        } catch (Exception e) {
+            addErrorMessage("Erro ao alterar cadastro");
+        }
+        return "listar.xhtml?faces-redirect=true";
+    }
+
+    public String alterar() {
+        try {
+            this.getUsuarioService().alterar(usuarioSelecionado);
             addSucessMessage("Usuario alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar usuario");
@@ -158,7 +162,7 @@ public class UsuarioController extends GenericController implements Serializable
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
-    
+
     /* Metodo utilizado apenas para alteração de senha */
     public String alterarSenha() {
         try {
@@ -176,7 +180,6 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
- 
     public String remover() {
         try {
             this.getUsuarioService().remover(usuarioSelecionado);
@@ -208,33 +211,31 @@ public class UsuarioController extends GenericController implements Serializable
             session.setAttribute("usuarioLogado", usuarioLogado); //Este usuarioLogado é meu objeto modelo que pode ser persistido.
             System.out.println("Usuario logado na sessao: " + usuarioLogado.getEmail()); //provisorio
 
-            
             //coloquei aqui porque estava dando erro se eu colocasse no metodo "listar"
-            this.listarCursosUniversidadeEscolhida();
+            //this.listarCursosUniversidadeEscolhida();
             //listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
-            return "/paginas/principal/index.xhtml?faces-redirect=true";
             
+            return "/paginas/principal/index.xhtml?faces-redirect=true";
         } else {
+            //addErrorMessage(this.getUsuarioService().getMsg());
             return "/login/login.xhtml?faces-redirect=true";
         }
 
     }
 
-    //LOGOUT PROVISORIO
+    //LOGOUT
     public String doLogout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login/login.xhtml?faces-redirect=true";
-
     }
 
-    
     public void solicitarNovaSenha() {
         Usuario usuario = this.getUsuarioService().solicitarNovaSenha(this.usuarioSelecionado.getEmail(),
-                        this.usuarioSelecionado.getMatricula());
+                this.usuarioSelecionado.getMatricula());
 
         if (usuario != null) {
             setSenhaGerada(this.getUsuarioService().gerarNovaSenha());
-            System.out.println("Senha gerada: " + getSenhaGerada());
+            //System.out.println("Senha gerada: " + getSenhaGerada());
             usuario.setSenha(getSenhaGerada());
             this.getUsuarioService().alterarSenha(usuario);
             addSucessMessage("Nova senha gerada com sucesso ! SENHA: " + getSenhaGerada());
@@ -243,74 +244,6 @@ public class UsuarioController extends GenericController implements Serializable
             addErrorMessage("Usuario não encontrado ou dados invalidos");
         }
         //return "/login/login.xhtml?faces-redirect=true";
-    }
-
-    /*
-    public void enviarEmail() {
-        try {
-            Email email = new SimpleEmail();
-            email.setHostName("smtp.googlemail.com");
-            email.setSmtpPort(465); //porta padrao
-            email.setDebug(true); //para ver o processo de envio
-            email.setAuthenticator(new DefaultAuthenticator("famarx.29@gmail.com", "estrela2911"));
-            email.setSSLOnConnect(true); //conexao segura
-            email.setFrom("famarx.29@gmail.com"); //de quem é esse email
-            email.setSubject("TestMail"); // assunto
-            email.setMsg("This is a test mail ... :-)"); //mensagem
-            email.addTo("fabricio_m.s@hotmail.com");  //para quem vai esse email
-            email.send(); //fazer envio do email
-            email.setTLS(true);
-            email.setSSL(true);
-
-            System.out.println("Email enviado");
-        } catch (EmailException e) {
-            System.out.println("Email não enviado " + e.getMessage());
-
-        }
-
-    }
-
-   
-    public void enviarEmail(String destinatario, String mensagem) {
-        try {
-            Email email = new SimpleEmail();
-            email.setHostName("smtp.googlemail.com");
-            email.setSmtpPort(465); //porta padrao
-            email.setDebug(true); //para ver o processo de envio no console
-            email.setAuthenticator(new DefaultAuthenticator("famarx.29@gmail.com", "estrela2911"));
-            email.setSSLOnConnect(true); //conexao segura
-            email.setFrom("famarx.29@gmail.com"); //de quem é esse email
-            email.setSubject("Solicitação de nova senha"); // assunto
-            email.setMsg(
-                    "Utilize a nova senha -> " + mensagem + " <- para acessar o sistema Banco de ideias,"
-                            + " não se esqueça de altera - lá após login para sua segurança" ); //mensagem
-            email.addTo(destinatario);  //para quem vai esse email
-            email.addReplyTo("famarx.29@gmail.com"); //a pessoa pode responder para esse email ( o mesmo que envio )
-            email.send(); //fazer envio do email
-            
-            System.out.println("EMAIL ENVIADO"); // para aparecer no console
-            addSucessMessage("Senha enviada para o email"); // para aparecer ao usuario
-        } catch (EmailException e) {
-             System.out.println("EMAIL NÃO ENVIADO " + e.getMessage() ); // para aparecer no console
-             addErrorMessage("Erro ao enviar email, tente novamente mais tarde"); //para aparecer ao usuario
-            
-        }
-
-    }*/
-
- /*Metodo para aceitar universidades, serve para o usuario adm*/
-    public String aceitar() {
-        try {
-            this.getUsuarioSelecionado().setSituacao("Ativo");
-            this.getUsuarioService().alterar(usuarioSelecionado);
-            addSucessMessage("Universidade aceita com sucesso");
-           
-        } catch (Exception e) {
-            addErrorMessage("Erro ao aceitar universidade: " + usuarioSelecionado.toString());
-        }
-        //this.resset();
-        this.listar();
-        return "listar.xhtml?faces-redirect=true";
     }
 
     // ============ METODOS DE AÇÕES NA TELA ===========
@@ -333,12 +266,12 @@ public class UsuarioController extends GenericController implements Serializable
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
-    
-    public String doCancelarLogin(){
+
+    public String doCancelarLogin() {
         return "login.xhtml?faces-redirect=true";
     }
-    
-    public String doSolicitarSenha(){
+
+    public String doSolicitarSenha() {
         return "solicitar_senha.xhtml?faces-redirect=true";
     }
 
@@ -454,6 +387,5 @@ public class UsuarioController extends GenericController implements Serializable
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-    
-    
+
 }

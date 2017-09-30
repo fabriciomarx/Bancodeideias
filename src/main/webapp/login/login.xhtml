@@ -13,7 +13,11 @@
 
     </h:head>
     <h:body>
-        <b:growl id="msgLogin"/> 
+        <b:growl id="msg" placementFrom="top" show-detail="false" global-only="false" 
+                 show-summary="true" allow-dismiss="true"
+                 animation-enter="animated bounceInDown"
+                 animation-exit="animated flipOutX"
+                 escape="true" />
         <div class="principal">
             <h:form class="form-login">       
                 <h2 class="form-login-heading">Faça seu Login</h2>

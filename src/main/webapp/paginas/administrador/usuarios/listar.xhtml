@@ -18,11 +18,20 @@
                     <p:fieldset legend="Lista Usuarios">
                         <b:panel look="primary" collapsible="false">
 
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Universidade:" value="#{usuarioController.usuarioSelecionado}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{usuarioController.usuarioSelecionado}"/>
+                                        <f:selectItems value="#{usuarioController.listaUniversidades}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="usuDataAdmin" event="change" listener="#{usuarioController.listUsuariosPorUniversidade()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
 
                             <b:dataTable value="#{usuarioController.listaUsuario}"
-                                         var="item" searching="true"  border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         var="item" searching="true"  border="false" id="usuDataAdmin"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 

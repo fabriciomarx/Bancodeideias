@@ -17,7 +17,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Propostas de TCC pendentes"> 
+                    <p:fieldset legend="Todas Propostas de TCC Pendentes"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{propostaTccController.listaPropostasPendentesDaUnivParaCoordenador}"
                                          var="item" searching="true" border="false"
@@ -75,7 +75,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Participante</f:facet>
+                                    <f:facet name="header">Aluno Participante</f:facet>
                                     <h:outputText value="#{item.participante == null ? 'SEM PARTICIPANTE' : item.participante.nome}"/>
                                 </h:column>
 

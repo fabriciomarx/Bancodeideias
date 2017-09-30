@@ -15,6 +15,19 @@ public class UsuarioService implements Serializable {
     public UsuarioService() {
         usuarioDAO = new UsuarioDAO();
     }
+    
+    /*public String Msg;
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }*/
+    
+    
+    
 
     public void salvar(Usuario usuario) {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
@@ -45,8 +58,6 @@ public class UsuarioService implements Serializable {
         if (usuario != null) {
             if (usuario.getSenha().equals(this.convertStringToMd5(senha))) {
                 return usuario;
-            } else {
-                System.out.println("Usuario e/ou senha invalidos");
             }
         } else {
             System.out.println("Usuario não encontrado");
@@ -74,6 +85,12 @@ public class UsuarioService implements Serializable {
     public List<Usuario> listarAcademicosCursoSelecionado(int id) {
         List<Usuario> lista;
         lista = this.getUsuarioDAO().listarAcademicosCursoSelecionado(id);
+        return lista;
+    } 
+    
+    public List<Usuario> listaUsuariosPorUniversidade(int id) {
+        List<Usuario> lista;
+        lista = this.getUsuarioDAO().listaUsuariosPorUniversidade(id);
         return lista;
     } 
             

@@ -8,14 +8,12 @@
         <div class="mdl-mini-footer__left-section">
             <div class="mdl-logo">Banco de ideias</div>
         </div>
-        <div style="margin-left: 750px">
+        <div style="margin-left: 550px">
             <h:form>
-                USUARIO: #{usuarioController.usuarioLogado.nome == null ? 'Nenhum usuario logado' : usuarioController.usuarioLogado.nome}
-
-                <b:commandButton value="Sair " action="#{usuarioController.doLogout()}"
-                                 icon="glyphicon glyphicon-log-out"
-                                 style="margin-left: 10px;"
-                                 disabled="#{usuarioController.usuarioLogado.idUsuario == null}"/>
+                USUARIO LOGADO:<br/>
+                #{usuarioController.usuarioLogado.nome == null ? 'Nenhum usuario identificado' : usuarioController.usuarioLogado.nome}
+                <br/>TIPO:
+                #{usuarioController.usuarioLogado.tipoUsuario == null ? 'Nenhum tipo identificado' : usuarioController.usuarioLogado.tipoUsuario}
             </h:form>
         </div>
     </footer>

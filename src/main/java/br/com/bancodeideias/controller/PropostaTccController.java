@@ -15,7 +15,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.primefaces.event.FlowEvent;
 
 @Named(value = "propostaTccController")
 @SessionScoped
@@ -68,27 +67,6 @@ public class PropostaTccController extends GenericController implements Serializ
         
         usuarioService                                  = new UsuarioService();
     }
-   
-    /* WIZARD */
-    private boolean pular;
-
-    public boolean isSkip() {
-        return pular;
-    }
-
-    public void setPular(boolean pular) {
-        this.pular = pular;
-    }
-
-    public String onFlowProcess(FlowEvent event) {
-        if (pular) {
-            pular = false; //reset in case user goes back
-            return "confirm";
-        } else {
-            return event.getNewStep();
-        }
-    }
-    /* WIZARD */
     
     /*Utilizado no filtro, usuario orientador-professsor - pagina aprovações de propostas*/
     public void listaPropostas() {
@@ -198,34 +176,6 @@ public class PropostaTccController extends GenericController implements Serializ
     }
 
     public String cancelar() {
-        this.resset();
-        this.listar();
-        return "listar.xhtml?faces-redirect=true";
-    }
-
-    /*Metodo para aceitar proposta de tcc, serve para o usuario professor*/
-    public String aceitar() {
-        try {
-            this.getPropostaTccSelecionada().setAprovacaoOrientador("Aprovado");
-            this.getPropostaTccService().alterar(propostaTccSelecionada);
-            addSucessMessage("Proposta Tcc aceita com sucesso");
-        } catch (Exception e) {
-            addErrorMessage("Erro ao aceitar proposta Tcc: " + propostaTccSelecionada.toString());
-        }
-        this.resset();
-        this.listar();
-        return "listar.xhtml?faces-redirect=true";
-    }
-
-    /*Metodo para recusar proposta de tcc, serve para o usuario professor*/
-    public String recusar() {
-        try {
-            this.getPropostaTccSelecionada().setAprovacaoOrientador("Recusado");
-            this.getPropostaTccService().alterar(propostaTccSelecionada);
-            addSucessMessage("Proposta Tcc recusada com sucesso");
-        } catch (Exception e) {
-            addErrorMessage("Erro ao recusar proposta Tcc: " + propostaTccSelecionada.toString());
-        }
         this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";

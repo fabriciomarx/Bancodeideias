@@ -41,6 +41,13 @@
                                     <f:facet name="header">Tipo Usuario</f:facet>
                                     <h:outputText value="#{item.tipoUsuario}"/>
                                 </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Situação</f:facet>
+                                    <h:outputText value="#{item.situacao}"
+                                                  styleClass="#{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                              #{item.situacao == 'Pendente' ? 'em_analise' : null}"/>
+                                </h:column>
 
 
                                 <h:column>

@@ -20,7 +20,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioLogado.nome}" 
-                                             label="Nome" required="true" required-message="O campo nome é obrigatorio"
+                                             label="Nome" required="true" required-message="O campo nome é obrigatório"
                                              validatorMessage="O tamanho do nome deve ser entre 1 e 250 caracteres"/>
                             </b:column>
                         </b:row>
@@ -28,23 +28,24 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioLogado.email}" 
-                                             label="Email" required="true" required-message="O campo email é obrigatorio">
+                                             label="Email" required="true" required-message="O campo email é obrigatório"
+                                             validatorMessage="O email deve ser no seguinte padrão 'email@email.com'">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>
                             </b:column>
                         </b:row>
-                        
+
                         <br/><br/>
-                        
+
                         <b:row>
                             <b:column span="1" offset-md="10">
-                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterar()}"
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterarMeuCadastro()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>
                 </p:fieldset>   
-                
+
                 <p:fieldset legend="Alterar Senha">
                     <h:form>
                         <b:row>
@@ -53,7 +54,7 @@
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" 
+                                            required="true" requiredMessage="O campo senha é obrigatório" 
                                             validatorMessage="O campo senha deve estar entre 1 e 50 caracteres"/>
 
                                 <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
@@ -66,7 +67,7 @@
                         </b:row>
 
                         <br/><br/><br/><br/>
-                        
+
                         <b:row>
                             <b:column span="1" offset-md="10">
                                 <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.alterarSenha()}"

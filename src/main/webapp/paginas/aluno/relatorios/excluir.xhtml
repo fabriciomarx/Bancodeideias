@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Excluir relatorio"> 
+                <p:fieldset legend="Excluir Relatorio"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
@@ -86,7 +86,7 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{relatorioController.cancelar()}" title="RETORNAR"/>
+                                                 immediate="true" action="#{relatorioController.cancelar()}" title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
                                 <p:commandButton value="Enviar" action="#{relatorioController.remover()}" class="btn btn-primary" title="ENVIAR">

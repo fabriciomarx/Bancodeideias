@@ -64,7 +64,7 @@
                                 <h:outputLabel value="Nome *"/><br/>
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
                                                  placeholder="Insira o nome do Curso" 
-                                                 rows="5" cols="160" counter="idNome" maxlength="70" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="169" counter="idNome" maxlength="70" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo nome é obrigatorio"/>
                                 <h:outputText id="idNome" style="float: right;"/>
                             </b:column>
@@ -75,7 +75,7 @@
                                 <h:outputLabel value="Sigla *"/><br/>
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
                                                  placeholder="Insira a sigla do Curso" 
-                                                 rows="5" cols="160" counter="idSigla" maxlength="10" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="169" counter="idSigla" maxlength="10" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo sigla é obrigatorio"/>
                                 <h:outputText id="idSigla" style="float: right;"/>
                             </b:column>
@@ -84,7 +84,7 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{cursoController.doCancelar()}"
-                                                 icon="glyphicon glyphicon-arrow-left"/>
+                                                 icon="glyphicon glyphicon-arrow-left" title="RETORNAR" class="btn-primary"/>
                             </b:column>
 
                             <b:row>

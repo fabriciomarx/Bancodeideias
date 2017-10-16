@@ -26,6 +26,7 @@ public class EncontroController extends GenericController implements Serializabl
 
     private List<Usuario>           listaAluno;
     private List<Usuario>           listaProfessores;
+    private List<Usuario>           listaUniversidades;
     
     private UsuarioService          usuarioService;
 
@@ -45,21 +46,27 @@ public class EncontroController extends GenericController implements Serializabl
 
         listaAluno                  = new ArrayList<>();
         listaProfessores            = new ArrayList<>();
+        listaUniversidades          = new ArrayList<>();
         
         usuarioService              = new UsuarioService();
     }
     
-    /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    /* METODO PARA FILTRAR OS ENCONTROS POR UNIVERSIDADE. USUARIO ADMIN UTILIZA */
+    public void listEncontrosAdmin() {
+        listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionadoParaAdmin(usuario.getIdUsuario());
+    }
+    
+    /* METODO PARA FILTRAR OS ENCONTROS POR ALUNO. USUARIOS UNIVERSIDADE, COORDENADOR E ADMIN UTILIZAM */
     public void listEncontros() {
         listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionado(usuario.getIdUsuario());
     }
 
-    /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    /*  METODO PARA FILTRAR OS ENCONTROS POR PROFESSOR. USUARIOS UNIVERSIDADE, COORDENADOR E ADMIN UTILIZAM  */
     public void listEncontrosPro() {
         listaEncontro = this.getEncontroService().listarEncontrosProfessorSelecionado(usuario.getIdUsuario());
     }
 
-    /* Metodo para alterar a lista de encontros, filtrando por alunos */
+    /* METODO PARA FILTRAR OS ENCONTROS POR ALUNO. USUARIO PROFESSOR UTILIZA  */
     public void listEncontrosParaProfessor() {
         listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionadoParaProfessor(usuario.getIdUsuario());
     }
@@ -85,6 +92,7 @@ public class EncontroController extends GenericController implements Serializabl
             default:
                 break;
         }
+        listaUniversidades = this.getUsuarioService().listUniversidades();
         listaAluno = this.getUsuarioService().listaAlunos();
         listaProfessores = this.getUsuarioService().listaProfessores();
 
@@ -229,4 +237,14 @@ public class EncontroController extends GenericController implements Serializabl
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public List<Usuario> getListaUniversidades() {
+        return listaUniversidades;
+    }
+
+    public void setListaUniversidades(List<Usuario> listaUniversidades) {
+        this.listaUniversidades = listaUniversidades;
+    }
+    
+    
 }

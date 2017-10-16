@@ -19,6 +19,16 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
+                                <p:outputLabel value="Classificação"/><br/>
+                                <p:rating value="#{ideiaController.ideiaSelecionada.estrelas}"
+                                          required="true"/>
+                            </b:column>
+                        </b:row>
+                        
+                        <br/>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
                                                  label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true" />
@@ -60,7 +70,7 @@
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{ideiaController.salvar()}"
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{ideiaController.salvar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

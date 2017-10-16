@@ -35,8 +35,19 @@ public class IdeiaController extends GenericController implements Serializable {
     private UsuarioService                  usuarioService;
     
     private String                          tipoIdeiaFiltro; //filtro de ideias por tipo
-       
+    /*
+    private Double estrelas;
 
+    public Double getEstrelas() {
+        return estrelas;
+    }
+
+    public void setEstrelas(Double estrelas) {
+        this.estrelas = estrelas;
+    }*/
+    
+    
+    
     @PostConstruct
     public void preRenderPage() {
         this.resset();
@@ -79,6 +90,8 @@ public class IdeiaController extends GenericController implements Serializable {
             case "Aluno":
                 listaIdeiasLogado   = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
                 listaIdeia          = this.getIdeiaService().listarIdeiasAprovadas();
+                //estrelas            = this.getIdeiaService().qtdEstrelas();
+                //System.out.println("Qtd cont = " + estrelas);
                 break;
             case "Universidade":
                 listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
@@ -124,6 +137,19 @@ public class IdeiaController extends GenericController implements Serializable {
     }
 
     public String alterar() {
+        try {
+            this.getIdeiaService().alterar(ideiaSelecionada);
+            addSucessMessage("Ideia editada com sucesso");
+        } catch (Exception e) {
+            addErrorMessage("Erro ao editar ideia: " + ideiaSelecionada.toString());
+        }
+        this.resset();
+        this.listar();
+        return "listar.xhtml?faces-redirect=true";
+    }
+    
+    /* Serve para alterar a situacao */
+    public String alterarSituacaoProblema() {
         try {
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia editada com sucesso");

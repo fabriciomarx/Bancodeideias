@@ -87,8 +87,9 @@
                                 <b:commandButton value="Retornar" look="sucess"  immediate="true" action="#{ideiaController.doCancelar()}" 
                                                  icon="glyphicon glyphicon-arrow-left" title="RETORNAR" class="btn-primary"/>
                             </b:column>
-                            <b:column span="1" offset-md="8">
-                                <b:commandButton value="Analisar Ideia" look="info" action="#{ideiaController.doIncluir()}"/>
+                            <b:column span="1" offset-md="7">
+                                <b:commandButton value="Analisar Ideia" look="info" title="ENVIAR" action="#{ideiaController.doIncluir()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

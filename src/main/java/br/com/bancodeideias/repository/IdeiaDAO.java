@@ -65,6 +65,7 @@ public class IdeiaDAO implements Serializable {
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe Ideia DAO");
         }
+        
         entityManager.close();
         return listaIdeia;
     }
@@ -193,5 +194,15 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
         return listaIdeiaPendentes;
     }
+    
+    /*
+    public Double qtdEstrelas() {
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        Query query = entityManager.createQuery("SELECT COUNT(i) FROM Ideia i");
+        Double qtd = Double.parseDouble(query.getSingleResult().toString());
+        System.out.println("Qtd dao = " + qtd);
+        entityManager.close();
+        return qtd;
+    }*/
 
 }

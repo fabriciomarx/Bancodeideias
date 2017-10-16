@@ -40,7 +40,7 @@ public class UsuarioDAO implements Serializable {
         entityManager.close();
     }
     
-    /*Filtrar por usuarios do tipo universidade..utilizado na lista de usuarios, pelo admin*/
+    /* FILTRAR USUARIOS POR UNIVERSIDADE - UTILIZADO NA LISTA DE USUARIOS NO ADMIN */
     public List<Usuario> listaUsuariosPorUniversidade(int id) {
         List<Usuario> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -49,13 +49,13 @@ public class UsuarioDAO implements Serializable {
                     + "WHERE u.universidade.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
-            System.err.println("Erro no metodo listUsuariosPorUniversidade - EncontroDAO");
+            System.err.println("Erro no metodo listUsuariosPorUniversidade - UsuarioDAO");
         }
         entityManager.close();
         return lista;
     }
     
-    /* LISTA DE Academicos filtrados por curso Metodo que a universidade usa */
+    /* LISTA DE ACADEMICOS FILTRADOS POR CURSO, USUARIO UNIVERSIDADE QUE UTILIZA */
     public List<Usuario> listarAcademicosCursoSelecionado(int id) {
         List<Usuario> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -64,13 +64,13 @@ public class UsuarioDAO implements Serializable {
                     + "WHERE u.curso.idCurso = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarAcademicosCursoSelecionado - Classe UsuarioDAO");
+            System.err.println("Erro no metodo listarAcademicosCursoSelecionado - Classe UsuarioDAO");
         }
         entityManager.close();
         return lista;
     }
     
-    /* Filtrar academicos por tipo selecionado - Universidade - academicos */
+    /* FILTRAR ACADEMICOS POR TIPO SELECIONADO, USUARIO UNIVERSIDADE QUE UTILIZA */
     public List<Usuario> listarAcademicosTipoSelecionado(String tipo) {
         List<Usuario> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -79,7 +79,7 @@ public class UsuarioDAO implements Serializable {
                     + "WHERE u.tipoUsuario like " + tipo);
             lista = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarAcademicosTipoSelecionado - Classe UsuarioDAO");
+            System.err.println("Erro no metodo listarAcademicosTipoSelecionado - Classe UsuarioDAO");
         }
         entityManager.close();
         return lista;
@@ -94,7 +94,7 @@ public class UsuarioDAO implements Serializable {
                     + " AND u.situacao = 'Ativo'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listar - Classe Usuario DAO");
+            System.err.println("Erro no metodo listar - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
@@ -104,19 +104,16 @@ public class UsuarioDAO implements Serializable {
     public Usuario buscarEmail(String emailUsuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Usuario usuario = (Usuario) entityManager
-                    .createQuery(
-                            "SELECT u from Usuario u where u.email = :emailUsuario AND u.situacao = 'Ativo'")
-                    .setParameter("emailUsuario", emailUsuario)
-                    .getSingleResult();
+            Usuario usuario = (Usuario) entityManager.createQuery("SELECT u from Usuario u where u.email = :emailUsuario AND u.situacao = 'Ativo'")
+                    .setParameter("emailUsuario", emailUsuario).getSingleResult();
             return usuario;
         } catch (Exception e) {
-            System.out.println("Erro no metodo buscarEmail - Classe Usuario DAO");
+            System.err.println("Erro no metodo buscarEmail - Classe UsuarioDAO");
             return null;
         }
     }
 
-    /* LISTA DE ACADEMICOS(alunos) CADASTRADOS NO SISTEMA */
+    /* LISTA DE ACADEMICOS CADASTRADOS NO SISTEMA */
     public List<Usuario> listaAlunos() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -142,7 +139,7 @@ public class UsuarioDAO implements Serializable {
             Query query = entityManager.createQuery(sql);
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaAcademicos - Classe Usuario DAO");
+            System.err.println("Erro no metodo listaAcademicos - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
@@ -160,7 +157,7 @@ public class UsuarioDAO implements Serializable {
                     + " AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaAcademicosUniLogada - Classe Usuario DAO");
+            System.err.println("Erro no metodo listaAcademicosUniLogada - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
@@ -177,7 +174,6 @@ public class UsuarioDAO implements Serializable {
             String sql = "";
             if (usuarioLogado.getTipoUsuario().equals("Admin")) {
                 sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor'";
-
             } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
                 sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor' "
                         + "AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario();
@@ -188,13 +184,13 @@ public class UsuarioDAO implements Serializable {
             Query query = entityManager.createQuery(sql);
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaProfessores - Classe Usuario DAO");
+            System.err.println("Erro no metodo listaProfessores - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
     }
 
-    /* LISTA DE UNIVERSIDADES CADASTRADAS NO SISTEMA QUE ESTAO ATIVAS */
+    /* LISTA DE UNIVERSIDADES CADASTRADAS NO SISTEMA QUE ESTAO ATIVAS - USUARIO ADMIN QUE UTILIZA */
     public List<Usuario> listaUniversidades() {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -203,19 +199,18 @@ public class UsuarioDAO implements Serializable {
                     + " AND u.situacao = 'Ativo'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaUniversidades - Classe Usuario DAO");
+            System.err.println("Erro no metodo listaUniversidades - Classe Usuario DAO");
         }
         entityManager.close();
         return listaUsuarios;
     }
 
-    /* LISTA DE UNIVERSIDADES PENDENTES CADASTRADAS NO SISTEMA */
+    /* LISTA DE UNIVERSIDADES PENDENTES CADASTRADAS NO SISTEMA - USUARIO ADMIN QUE UTILIZA */
     public List<Usuario> listaUniversidadesPendentes() {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade' and u.situacao = 'Pendente'"
-                    + " OR u.situacao = 'Recusado'");
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade' and u.situacao = 'Pendente''");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listaUniversidadesPendentes - Classe Usuario DAO");

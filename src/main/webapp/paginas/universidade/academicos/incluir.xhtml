@@ -60,7 +60,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
-                                    <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
+                                    <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.sigla}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
                             </b:column>
@@ -72,7 +72,8 @@
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"/>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{usuarioController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

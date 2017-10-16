@@ -39,7 +39,7 @@
                                 <h:outputLabel value="Local do encontro"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  placeholder="Insira o local do Encontro" 
-                                                 rows="5" cols="160" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo local é obrigatorio"/>
                                 <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
@@ -50,7 +50,7 @@
                                 <h:outputLabel value="Descrição"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
                                                  placeholder="Insira a descrição do Encontro" 
-                                                 rows="5" cols="160" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
+                                                 rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
                                                  required="true" requiredMessage="O campo descrição é obrigatorio"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
@@ -73,16 +73,10 @@
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{encontroController.salvar()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{encontroController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{encontroController.salvar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset> 
 

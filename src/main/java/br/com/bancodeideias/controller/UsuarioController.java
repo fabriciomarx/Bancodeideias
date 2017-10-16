@@ -28,12 +28,11 @@ public class UsuarioController extends GenericController implements Serializable
     
     private Usuario             usuarioLogado;
 
-    private List<Curso>         listaCurso; //todos cursos do sistema
+    private List<Curso>         listaCurso; 
     private List<Curso>         listarCursosUniversidadeEscolhida;
     private CursoService        cursoService;
     
     private Curso               curso;
-    
      
     private String              senhaGerada;
     
@@ -43,8 +42,6 @@ public class UsuarioController extends GenericController implements Serializable
     public void preRenderPage() {
         this.resset();
         this.listar();
-        //FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-
     }
 
     private void resset() {
@@ -80,7 +77,6 @@ public class UsuarioController extends GenericController implements Serializable
     }
     
     private void listar() {
-        
         listaUsuario                = this.getUsuarioService().listar();
         listaUniversidades          = this.getUsuarioService().listUniversidades();
         listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
@@ -113,7 +109,6 @@ public class UsuarioController extends GenericController implements Serializable
             addErrorMessage(e.getMessage());
             this.resset();
         }
-        //return "login.xhtml?faces-redirect=true"; 
     }
 
     /* SALVAR USUARIO A PARTIR DA TELA DE LISTAGEM DE USUARIOS .. COM USUARIO NA SESSAO */
@@ -140,15 +135,14 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    /*Metodo diferente pois no caso da universidade, existe a opção de alterar meu cadastro e alterar cadastro aluno*/
-    public String alterarMeuCadastro() {
+    /* Metodo diferente pois no caso da universidade, existe a opção de alterar meu cadastro e alterar cadastro aluno*/
+    public void alterarMeuCadastro() {
         try {
-            this.getUsuarioService().alterar(usuarioLogado); //altera o usuario logado
+            this.getUsuarioService().alterar(usuarioLogado);
             addSucessMessage("Cadastro alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar cadastro");
         }
-        return "listar.xhtml?faces-redirect=true";
     }
 
     public String alterar() {
@@ -163,8 +157,8 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    /* Metodo utilizado apenas para alteração de senha */
-    public String alterarSenha() {
+    /* Metodo utilizado apenas para alteração de senha do usuario logado */
+    public void alterarSenha() {
         try {
             if (this.getUsuarioLogado().getSenha().equals(this.getUsuarioLogado().getConfirmarSenha())) {
                 this.getUsuarioService().alterarSenha(usuarioLogado);
@@ -173,11 +167,8 @@ public class UsuarioController extends GenericController implements Serializable
                 addErrorMessage("As senhas são diferentes, digite novamente");
             }
         } catch (Exception e) {
-            addErrorMessage("Erro ao alterar senha usuario: " + usuarioSelecionado.toString());
+            addErrorMessage("Erro ao alterar senha do usuario ");
         }
-        //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
-        this.listar();
-        return "listar.xhtml?faces-redirect=true";
     }
 
     public String remover() {
@@ -185,7 +176,7 @@ public class UsuarioController extends GenericController implements Serializable
             this.getUsuarioService().remover(usuarioSelecionado);
             addSucessMessage("Usuario removido com sucesso !");
         } catch (Exception e) {
-            addErrorMessage("Erro ao remover usuario: " + usuarioSelecionado.toString());
+            addErrorMessage("Erro ao remover usuario ");
         }
         //this.resset();
         this.listar();
@@ -202,7 +193,6 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    //LOGAR NO SISTEMA PROVISORIO
     public String doLogin() {
         usuarioLogado = this.getUsuarioService().doLogin(this.usuarioSelecionado.getEmail(),
                 this.usuarioSelecionado.getSenha());
@@ -223,7 +213,7 @@ public class UsuarioController extends GenericController implements Serializable
 
     }
 
-    //LOGOUT
+    /* LOGOUT */
     public String doLogout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login/login.xhtml?faces-redirect=true";
@@ -235,7 +225,6 @@ public class UsuarioController extends GenericController implements Serializable
 
         if (usuario != null) {
             setSenhaGerada(this.getUsuarioService().gerarNovaSenha());
-            //System.out.println("Senha gerada: " + getSenhaGerada());
             usuario.setSenha(getSenhaGerada());
             this.getUsuarioService().alterarSenha(usuario);
             addSucessMessage("Nova senha gerada com sucesso ! SENHA: " + getSenhaGerada());
@@ -243,7 +232,6 @@ public class UsuarioController extends GenericController implements Serializable
         } else {
             addErrorMessage("Usuario não encontrado ou dados invalidos");
         }
-        //return "/login/login.xhtml?faces-redirect=true";
     }
 
     // ============ METODOS DE AÇÕES NA TELA ===========

@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,17 +34,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "ideia")
-@NamedQueries({
-    @NamedQuery(name = "Ideia.findAll", query = "SELECT i FROM Ideia i")
-    , @NamedQuery(name = "Ideia.findByIdIdeia", query = "SELECT i FROM Ideia i WHERE i.idIdeia = :idIdeia")
-    , @NamedQuery(name = "Ideia.findByComentario", query = "SELECT i FROM Ideia i WHERE i.comentario = :comentario")
-    , @NamedQuery(name = "Ideia.findByDataAnalise", query = "SELECT i FROM Ideia i WHERE i.dataAnalise = :dataAnalise")
-    , @NamedQuery(name = "Ideia.findByDataInscricao", query = "SELECT i FROM Ideia i WHERE i.dataInscricao = :dataInscricao")
-    , @NamedQuery(name = "Ideia.findByDescricao", query = "SELECT i FROM Ideia i WHERE i.descricao = :descricao")
-    , @NamedQuery(name = "Ideia.findByDisponibilidade", query = "SELECT i FROM Ideia i WHERE i.disponibilidade = :disponibilidade")
-    , @NamedQuery(name = "Ideia.findBySituacao", query = "SELECT i FROM Ideia i WHERE i.situacao = :situacao")
-    , @NamedQuery(name = "Ideia.findByTipoIdeia", query = "SELECT i FROM Ideia i WHERE i.tipoIdeia = :tipoIdeia")
-    , @NamedQuery(name = "Ideia.findByTitulo", query = "SELECT i FROM Ideia i WHERE i.titulo = :titulo")})
 public class Ideia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -88,6 +78,8 @@ public class Ideia implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
+    @Column(name = "estrelas")
+    private Integer estrelas;
     @JoinColumn(name = "analista", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario analista;
@@ -96,6 +88,7 @@ public class Ideia implements Serializable {
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "problema", fetch = FetchType.LAZY)
     private List<PropostaTcc> propostaTccList;
+    
 
     public Ideia() {
     }
@@ -104,7 +97,7 @@ public class Ideia implements Serializable {
         this.idIdeia = idIdeia;
     }
 
-    public Ideia(Integer idIdeia, Date dataInscricao, String descricao, String disponibilidade, String situacao, String tipoIdeia, String titulo) {
+    public Ideia(Integer idIdeia, Date dataInscricao, String descricao, String disponibilidade, String situacao, String tipoIdeia, String titulo, Integer estrelas) {
         this.idIdeia = idIdeia;
         this.dataInscricao = dataInscricao;
         this.descricao = descricao;
@@ -112,6 +105,7 @@ public class Ideia implements Serializable {
         this.situacao = situacao;
         this.tipoIdeia = tipoIdeia;
         this.titulo = titulo;
+        this.estrelas = estrelas;
     }
 
     public Integer getIdIdeia() {
@@ -209,6 +203,16 @@ public class Ideia implements Serializable {
     public void setPropostaTccList(List<PropostaTcc> propostaTccList) {
         this.propostaTccList = propostaTccList;
     }
+
+    public Integer getEstrelas() {
+        return estrelas;
+    }
+
+    public void setEstrelas(Integer estrelas) {
+        this.estrelas = estrelas;
+    }
+    
+    
 
     @Override
     public int hashCode() {

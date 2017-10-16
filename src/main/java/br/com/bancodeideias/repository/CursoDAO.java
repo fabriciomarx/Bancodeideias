@@ -89,19 +89,4 @@ public class CursoDAO implements Serializable {
         entityManager.close();
         return listaCurso;
     }
-
-    /* Listar apenas os cursos da universidade escolhida - Usuario ADMIN */
-    public List<Curso> listarCursosUniversidadeSelecionada(int id) {
-        List<Curso> lista = new ArrayList<>();
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        try {
-            Query query = entityManager.createQuery("SELECT c FROM Curso c "
-                    + "WHERE c.universidade.idUsuario = " + id);
-            lista = query.getResultList();
-        } catch (Exception e) {
-            System.err.println("Erro no metodo listarCursosUniversidadeSelecionada - CursoDAO");
-        }
-        entityManager.close();
-        return lista;
-    }
 }

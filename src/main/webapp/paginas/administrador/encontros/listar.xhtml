@@ -19,11 +19,38 @@
                 <h:form>
                     <p:fieldset legend="Lista Encontros"> 
                         <b:panel look="primary" collapsible="false">
-
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Aluno:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaAluno}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="encontroDataAdmin" event="change" listener="#{encontroController.listEncontros()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Professor:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaProfessores}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="encontroDataAdmin" event="change" listener="#{encontroController.listEncontrosPro()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar por Universidade:" value="#{encontroController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
+                                        <f:selectItems value="#{encontroController.listaUniversidades}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="encontroDataAdmin" event="change" listener="#{encontroController.listEncontrosAdmin()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
                             <b:dataTable value="#{encontroController.listaEncontro}"
                                          var="item" searching="true"  border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         id="encontroDataAdmin">
 
                                 <h:column>
                                     <f:facet name="header">Status</f:facet> 
@@ -39,13 +66,6 @@
                                     <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
-                                    </h:outputText>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Hora</f:facet>
-                                    <h:outputText value="#{item.hora}">
-                                        <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
 
@@ -67,6 +87,11 @@
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet> 
                                     <h:outputText value="#{item.orientador.nome}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Universidade</f:facet> 
+                                    <h:outputText value="#{item.aluno.universidade.nome}"/>
                                 </h:column>
 
                                 <h:column>

@@ -49,14 +49,14 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
+                                <p:outputLabel value="Senha *" style="margin-right: 10px;"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
                                             required="true" requiredMessage="O campo senha é obrigatório" 
                                             validatorMessage="O campo senha deve estar entre 1 e 50 caracteres"/>
 
-                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
+                                <p:outputLabel value="Digite novamente *" style="margin-right: 10px;"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioLogado.senha}" required="true" 

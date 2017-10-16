@@ -89,6 +89,14 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasPendentes();
         return lista;
     }
+    /*
+    public Double qtdEstrelas() {
+        Double qtd = this.getIdeiaDAO().qtdEstrelas();
+        qtd = qtd / 5;
+        System.out.println("Qtd ser = " + qtd);
+        return qtd;
+        
+    }*/
 
     //getss and setts
     public IdeiaDAO getIdeiaDAO() {

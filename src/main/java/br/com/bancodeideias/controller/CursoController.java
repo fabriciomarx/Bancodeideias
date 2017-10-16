@@ -5,8 +5,8 @@ import br.com.bancodeideias.domain.Usuario;
 import br.com.bancodeideias.service.CursoService;
 import br.com.bancodeideias.service.UsuarioService;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -27,7 +27,6 @@ public class CursoController extends GenericController implements Serializable {
 
     private List<Usuario>                   listaUniversidade;
     private UsuarioService                  usuarioService;
- 
 
     @PostConstruct
     public void preRenderPage() {
@@ -49,21 +48,19 @@ public class CursoController extends GenericController implements Serializable {
     
     /* Utilizado filtro - Usuario Admin */
     public void listCursos() {
-        listaCurso = this.getCursoService().listarCursosUniversidadeSelecionada(usuario.getIdUsuario());
+        listaCurso = this.getCursoService().listarCursosUniversidadeEscolhida(usuario.getIdUsuario());
     }
     
-        private void listar() {
+    private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
         switch (usuarioLogado.getTipoUsuario()) {
-            case "Universidade":
+            case "Universidade": /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
                 listaCurso = this.getCursoService().listarCursoLogado();
-                /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
                 break;
-            case "Admin":
+            case "Admin":  /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
                 listaCurso = this.getCursoService().listar();
-                /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
                 listaUniversidade = this.getUsuarioService().listUniversidades();
                 break;
         }
@@ -72,11 +69,16 @@ public class CursoController extends GenericController implements Serializable {
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-
+        
+        Calendar cal = Calendar.getInstance(); // pegando o ano atual para salvar na hora de incluir o curso
+        int anoAtual = cal.get(Calendar.YEAR);
+        
         try {
             if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
+                this.getCursoSelecionado().setAno(anoAtual);
                 this.getCursoService().salvar(cursoSelecionado);
             } else {
+                this.getCursoSelecionado().setAno(anoAtual);
                 this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
                 this.getCursoService().salvar(cursoSelecionado);
             }

@@ -1,7 +1,6 @@
 package br.com.bancodeideias.service;
 
 import br.com.bancodeideias.domain.Curso;
-import br.com.bancodeideias.domain.Encontro;
 import br.com.bancodeideias.repository.CursoDAO;
 import java.io.Serializable;
 import java.util.List;
@@ -19,7 +18,7 @@ public class CursoService implements Serializable {
     }
 
     public void alterar(Curso curso) {
-       this.getCursoDAO().alterar(curso);
+        this.getCursoDAO().alterar(curso);
     }
 
     public void remover(Curso curso) {
@@ -41,19 +40,12 @@ public class CursoService implements Serializable {
     }
 
     /* LISTAR OS CURSOS DA UNIVERSIDADE ESCOLHIDA (na hora do cadastro de usuario)*/
-    public List<Curso> listarCursosUniversidadeEscolhida(int id) {
+    public List<Curso> listarCursosUniversidadeEscolhida(int idUniversidade) {
         List<Curso> lista;
-        lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(id);
+        lista = this.getCursoDAO().listarCursosUniversidadeEscolhida(idUniversidade);
         return lista;
     }
-    
-    /* Listar apenas os cursos da universidade escolhida - Usuario ADMIN */
-    public List<Curso> listarCursosUniversidadeSelecionada(int id) {
-        List<Curso> lista;
-        lista = this.getCursoDAO().listarCursosUniversidadeSelecionada(id);
-        return lista;
-    }
-    
+
     /* ============ GETS AND SETS =========== */
     public CursoDAO getCursoDAO() {
         return cursoDAO;

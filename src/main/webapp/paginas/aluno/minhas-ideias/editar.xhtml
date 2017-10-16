@@ -61,16 +61,10 @@
                                                  class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{ideiaController.alterar()}"  class="btn btn-primary" title="ENVIAR">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{ideiaController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{ideiaController.alterar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset> 
 

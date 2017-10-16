@@ -20,7 +20,8 @@
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{cursoController.listaCurso}"
                                          var="item" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                                         id="cursData">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 
@@ -33,7 +34,7 @@
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Ano</f:facet> 
+                                    <f:facet name="header">Ano Letivo</f:facet> 
                                     <h:outputText value="#{item.ano}"/>
                                 </h:column> 
 

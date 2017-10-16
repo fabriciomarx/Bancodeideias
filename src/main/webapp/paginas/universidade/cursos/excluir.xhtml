@@ -19,7 +19,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{cursoController.cursoSelecionado.ano}"
-                                             label="Ano" readonly="true"/>
+                                             label="Ano Letivo" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -57,16 +57,10 @@
                                                  icon="glyphicon glyphicon-arrow-left" title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{cursoController.remover()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{cursoController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{cursoController.remover()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>
             </ui:define>    

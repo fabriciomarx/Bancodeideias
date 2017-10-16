@@ -30,6 +30,13 @@ public class PropostaTccService implements Serializable {
         lista = this.getPropostaTccDAO().listarPropostasAlunoSelecionado(id);
         return lista;
     }
+    
+    /*Filtro utilizado no usuario universidade, nas propostas de tcc dos alunos*/
+     public List<PropostaTcc> listarPropostasAlunoSelecionadoParaUniversidade(int id) {
+        List<PropostaTcc> lista;
+        lista = this.getPropostaTccDAO().listarPropostasAlunoSelecionadoParaUniversidade(id);
+        return lista;
+    }
 
     public List<PropostaTcc> listarPropostasAlunoSelecionadoCoord(int id) {
         List<PropostaTcc> lista;
@@ -72,7 +79,7 @@ public class PropostaTccService implements Serializable {
         return lista;
     }
 
-    /* LISTA DE PROPOSTAS PENDENTES DA UNIVERSIDADE LOGADA */
+    /* LISTA DE PROPOSTAS DOS ALUNOS DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasDaUniv() {
         List<PropostaTcc> lista;
         lista = this.getPropostaTccDAO().listaPropostasDaUniv();

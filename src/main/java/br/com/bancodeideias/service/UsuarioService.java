@@ -15,19 +15,6 @@ public class UsuarioService implements Serializable {
     public UsuarioService() {
         usuarioDAO = new UsuarioDAO();
     }
-    
-    /*public String Msg;
-
-    public String getMsg() {
-        return Msg;
-    }
-
-    public void setMsg(String Msg) {
-        this.Msg = Msg;
-    }*/
-    
-    
-    
 
     public void salvar(Usuario usuario) {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
@@ -35,7 +22,7 @@ public class UsuarioService implements Serializable {
         this.getUsuarioDAO().salvar(usuario);
     }
 
-    /* Metodo apenas para alterar a senha do usuario */
+    /* METODO PARA ALTERAR A SENHA DO USUARIO */
     public void alterarSenha(Usuario usuario) {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
         usuario.setSenha(senha);
@@ -51,7 +38,7 @@ public class UsuarioService implements Serializable {
         this.getUsuarioDAO().remover(usuario.getIdUsuario());
     }
 
-    //Fazer Login 
+    /* METODO PARA FAZER LOGIN */
     public Usuario doLogin(String email, String senha) {
         Usuario usuario = this.getUsuarioDAO().buscarEmail(email);
 
@@ -81,56 +68,48 @@ public class UsuarioService implements Serializable {
         }
     }
 
-    //Utilizado para filtrar os academicos do curso selecionado (universidade - academicos)
     public List<Usuario> listarAcademicosCursoSelecionado(int id) {
         List<Usuario> lista;
         lista = this.getUsuarioDAO().listarAcademicosCursoSelecionado(id);
         return lista;
-    } 
-    
+    }
+
     public List<Usuario> listaUsuariosPorUniversidade(int id) {
         List<Usuario> lista;
         lista = this.getUsuarioDAO().listaUsuariosPorUniversidade(id);
         return lista;
-    } 
-            
-    //Utilizado para filtrar os academicos do tipo selecionado (universidade - academicos)
+    }
+
     public List<Usuario> listarAcademicosTipoSelecionado(String tipo) {
         List<Usuario> lista;
         lista = this.getUsuarioDAO().listarAcademicosTipoSelecionado(tipo);
         return lista;
     }
-    
-    /* Listar todos os usuarios */
+
     public List<Usuario> listar() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listar();
         return listaUsuario;
     }
 
-    /* Lista de academicos (aluno)*/
     public List<Usuario> listaAlunos() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaAlunos();
         return listaUsuario;
     }
 
-    /* Lista de academicos da universidade logada */
     public List<Usuario> listaAcademicosUniLogada() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaAcademicosUniLogada();
         return listaUsuario;
     }
 
-    /* Lista de professoes que estudao na universdade do aluno logado 
-        -> metodo utilizado no encontro controller, para adicionar o participante no encontro*/
     public List<Usuario> listaProfessores() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaProfessores();
         return listaUsuario;
     }
 
-    /* LISTA DE UNIVERSIDADES PENDENTES CADASTRADAS NO SISTEMA */
     public List<Usuario> listaUniversidadesPendentes() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaUniversidadesPendentes();
@@ -146,6 +125,7 @@ public class UsuarioService implements Serializable {
         }
     }
 
+    /* METODO QUE GERA A SENHA ALEATORIA */
     public String gerarNovaSenha() {
         String[] carct = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
@@ -163,7 +143,6 @@ public class UsuarioService implements Serializable {
         return senha;
     }
 
-    /* Lista de universidades */
     public List<Usuario> listUniversidades() {
         List<Usuario> listaUsuario;
         listaUsuario = this.getUsuarioDAO().listaUniversidades();

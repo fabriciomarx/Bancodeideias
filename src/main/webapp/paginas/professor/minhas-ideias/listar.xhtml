@@ -63,6 +63,12 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Classificação</f:facet>
+                                    <p:rating value="#{item.estrelas}"
+                                              readonly="true"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>

@@ -55,7 +55,22 @@ public class EncontroDAO implements Serializable {
         return listaEncontros;
     }
 
-    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno) Metodo que a universidade usa */
+    /* METODO PARA FILTRAR OS ENCONTROS POR UNIVERSIDADE. USUARIO ADMIN UTILIZA */
+    public List<Encontro> listarEncontrosAcademicoSelecionadoParaAdmin(int id) {
+        List<Encontro> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT e FROM Encontro e "
+                    + "WHERE e.aluno.universidade.idUsuario = " + id);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("Erro no metodo listarEncontrosAcademicoSelecionadoParaAdmin - EncontroDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+    
+    /* METODO PARA FILTRAR OS ENCONTROS POR ALUNO. USUARIOS UNIVERSIDADE, COORDENADOR E ADMIN UTILIZAM */
     public List<Encontro> listarEncontrosAcademicoSelecionado(int id) {
         List<Encontro> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -70,7 +85,7 @@ public class EncontroDAO implements Serializable {
         return lista;
     }
 
-    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (professor) Metodo que a universidade usa */
+     /* METODO PARA FILTRAR OS ENCONTROS POR PROFESSOR. USUARIOS UNIVERSIDADE, COORDENADOR E ADMIN UTILIZAM */
     public List<Encontro> listarEncontrosProfessorSelecionado(int id) {
         List<Encontro> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -86,7 +101,7 @@ public class EncontroDAO implements Serializable {
         return lista;
     }
 
-    /* LISTA DE ENCONTROS FILTRADOS POR ACADEMICO (aluno) Metodo que a professor usa */
+    /* METODO PARA FILTRAR OS ENCONTROS POR ALUNO. USUARIO PROFESSOR UTILIZA  */
     public List<Encontro> listarEncontrosAcademicoSelecionadoParaProfessor(int id) {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -113,9 +128,8 @@ public class EncontroDAO implements Serializable {
         List<Encontro> listaEncontros = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Encontro u "
-                    + "WHERE u.aluno.universidade.idUsuario = "
-                    + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT e FROM Encontro e "
+                    + "WHERE e.aluno.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
             listaEncontros = query.getResultList();
         } catch (Exception e) {
             System.err.println("Erro no metodo listarEncontrosParaUniv - EncontroDAO");
@@ -133,8 +147,7 @@ public class EncontroDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT e FROM Encontro e "
-                    + "WHERE e.aluno.curso.idCurso = "
-                    + usuarioLogado.getCurso().getIdCurso());
+                    + "WHERE e.aluno.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
             listaEncontros = query.getResultList();
         } catch (Exception e) {
             System.err.println("Erro no metodo listarEncontrosParaCoord - EncontroDAO");
@@ -176,7 +189,7 @@ public class EncontroDAO implements Serializable {
                     + " AND e.status = 'Realizado'");
             listaEncontros = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listarEncontrosRealizadosAluno - EncontroDAO");
+            System.err.println("Erro no metodo listarEncontrosRealizadosAluno - EncontroDAO");
         }
         entityManager.close();
         return listaEncontros;

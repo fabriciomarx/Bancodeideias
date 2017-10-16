@@ -10,7 +10,6 @@
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-
     <body>
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
@@ -47,6 +46,12 @@
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Classificação</f:facet>
+                                    <p:rating value="#{item.estrelas}"
+                                              readonly="true"/>
                                 </h:column>
 
                                 <h:column>

@@ -18,10 +18,20 @@
                 <h:form>
                     <p:fieldset legend="Todas Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
+                            <b:row>
+                                <b:column medium-screen="3" span="3">
+                                    <b:selectOneMenu label="Filtrar proposta de tcc por Aluno:" value="#{propostaTccController.usuario}">
+                                        <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{propostaTccController.usuario}"/>
+                                        <f:selectItems value="#{propostaTccController.listaAluno}" var="iten"
+                                                       itemLabel="#{iten.nome}" itemValue="#{iten}"/>
+                                        <f:ajax render="propostaDataUni" event="change" listener="#{propostaTccController.listaPropostasParaUni()}"/> 
+                                    </b:selectOneMenu>
+                                </b:column>
+                            </b:row>
+                            
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
-                                         var="item" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         var="item" searching="true" border="false" id="propostaDataUni"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Data Inscrição</f:facet>

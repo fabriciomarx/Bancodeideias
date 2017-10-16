@@ -16,7 +16,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista de cursos">
+                    <p:fieldset legend="Lista de Cursos">
                         <b:panel look="primary" collapsible="false">
                             <b:row>
                                 <b:column medium-screen="3" span="3">
@@ -31,8 +31,7 @@
 
                             <b:dataTable value="#{cursoController.listaCurso}"
                                          var="iten" searching="true" border="false" id="cursoData"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 
@@ -78,8 +77,7 @@
 
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
-                                                 icon="glyphicon glyphicon-plus" icon-align="right"
-                                                 class="btn btn-info"/>
+                                                 icon="glyphicon glyphicon-plus" icon-align="right" class="btn btn-info"/>
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

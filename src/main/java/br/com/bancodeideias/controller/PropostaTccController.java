@@ -39,6 +39,7 @@ public class PropostaTccController extends GenericController implements Serializ
     private List<Usuario>               listaAluno;
     
     private UsuarioService              usuarioService;
+    
 
     @PostConstruct
     public void preRenderPage() {
@@ -77,6 +78,11 @@ public class PropostaTccController extends GenericController implements Serializ
     /*Utilizado no filtro, usuario coordenador - pagina propostas de tcc */
     public void listaPropostasCoord() {
         listaPropostaTcc = this.getPropostaTccService().listarPropostasAlunoSelecionadoCoord(usuario.getIdUsuario());
+    }
+    
+    /*Filtro utilizado no usuario universidade, nas propostas de tcc dos alunos*/
+    public void listaPropostasParaUni() {
+        listaPropostaTcc = this.getPropostaTccService().listarPropostasAlunoSelecionadoParaUniversidade(usuario.getIdUsuario());
     }
 
     private void listar() {
@@ -120,6 +126,10 @@ public class PropostaTccController extends GenericController implements Serializ
                     this.getPropostaTccSelecionada().setAprovacaoOrientador("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
                     this.getPropostaTccSelecionada().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
                     this.getPropostaTccSelecionada().setAcademico(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+                    
+                    this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Em analise"); //ALTERANDO A SITUACAO DA IDEIA, PARA EM ANALISE
+                    this.getIdeiaService().alterar(this.getPropostaTccSelecionada().getProblema());
+
                     this.getPropostaTccService().salvar(propostaTccSelecionada);
                     break;
                 case "Admin":
@@ -138,16 +148,21 @@ public class PropostaTccController extends GenericController implements Serializ
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
-
+    
     public String alterar() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
         try {
             if (usuarioLogado.getTipoUsuario().equals("Coordenador")) {
-                //Ideia ideia = new Ideia();
-                //ideia.setDisponibilidade("Indisponivel");
-                //this.getPropostaTccSelecionada().setProblema(ideia);
+                if (this.getPropostaTccSelecionada().getSituacao().equals("Aprovado")) {
+                    this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Indisponível");
+                    this.getIdeiaService().alterar(this.getPropostaTccSelecionada().getProblema());
+                }else{
+                    this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Disponível");
+                    this.getIdeiaService().alterar(this.getPropostaTccSelecionada().getProblema()); 
+                }
+                
                 this.getPropostaTccSelecionada().setDataAnalise(new Date()); // se o usuario for coordenador, setar a data automatico
                 this.getPropostaTccSelecionada().setAnalista(usuarioLogado);
                 this.getPropostaTccService().alterar(propostaTccSelecionada);
@@ -168,7 +183,7 @@ public class PropostaTccController extends GenericController implements Serializ
             this.getPropostaTccService().remover(propostaTccSelecionada);
             addSucessMessage("Proposta Tcc deletada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao deletar proposta Tcc: " + propostaTccSelecionada.toString());
+            addErrorMessage("Erro ao deletar proposta Tcc");
         }
         this.resset();
         this.listar();

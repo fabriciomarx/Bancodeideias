@@ -61,7 +61,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
                                     <f:selectItem itemLabel="-- Deseja alterar o curso ? --" noSelectionOption="true" itemValue="#{usuarioController.usuarioSelecionado.curso}"/>
-                                    <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
+                                    <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
                             </b:column>
@@ -73,7 +73,8 @@
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.alterar()}"/>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{usuarioController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
                     </h:form>

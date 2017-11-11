@@ -34,15 +34,15 @@
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Ano Letivo</f:facet> 
-                                    <h:outputText value="#{item.ano}"/>
-                                </h:column> 
-
-                                <h:column>
                                     <f:facet name="header">Semestre</f:facet> 
                                     <h:outputText value="#{item.semestre == 1 ? '1º Semestre' : '2º Semestre'}"/>
                                 </h:column> 
-
+                                
+                                <h:column>
+                                    <f:facet name="header">Ano Letivo</f:facet> 
+                                    <h:outputText value="#{item.ano}"/>
+                                </h:column> 
+                                
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{cursoController.doEditar()}" class="btn btn-success" value=""

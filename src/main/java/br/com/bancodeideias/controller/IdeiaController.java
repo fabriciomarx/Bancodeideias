@@ -18,6 +18,8 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class IdeiaController extends GenericController implements Serializable {
 
+    private Usuario                         usuario; //utilizado no filtro de ideias
+    
     private Ideia                           ideiaSelecionada;
     private IdeiaService                    ideiaService;
     
@@ -35,18 +37,6 @@ public class IdeiaController extends GenericController implements Serializable {
     private UsuarioService                  usuarioService;
     
     private String                          tipoIdeiaFiltro; //filtro de ideias por tipo
-    /*
-    private Double estrelas;
-
-    public Double getEstrelas() {
-        return estrelas;
-    }
-
-    public void setEstrelas(Double estrelas) {
-        this.estrelas = estrelas;
-    }*/
-    
-    
     
     @PostConstruct
     public void preRenderPage() {
@@ -55,6 +45,8 @@ public class IdeiaController extends GenericController implements Serializable {
     }
 
     public void resset() {
+        usuario                             = new Usuario();
+        
         ideiaSelecionada                    = new Ideia();
         ideiaService                        = new IdeiaService();
         
@@ -75,6 +67,16 @@ public class IdeiaController extends GenericController implements Serializable {
     public void listarTiposIdeiaSelecionado() {
         listaIdeiasdaUniversidade = this.getIdeiaService().listarTiposIdeiaSelecionado(tipoIdeiaFiltro);
     }
+    
+    /*Utilizado no filtro pelo admin - lista ideias */
+    public void listarTiposIdeiaSelecionadaAdmin() {
+        listaIdeia = this.getIdeiaService().listarTiposIdeiaSelecionado(tipoIdeiaFiltro);
+    }
+    
+    /*Utilizado no filtro pelo admin - lista ideias */
+    public void listaIdeiasUniversidadeSelecionada() {
+        listaIdeia = this.getIdeiaService().listarIdeiasUniversidadeSelecionada(usuario.getIdUsuario());
+    }
 
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -90,23 +92,20 @@ public class IdeiaController extends GenericController implements Serializable {
             case "Aluno":
                 listaIdeiasLogado   = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
                 listaIdeia          = this.getIdeiaService().listarIdeiasAprovadas();
-                //estrelas            = this.getIdeiaService().qtdEstrelas();
-                //System.out.println("Qtd cont = " + estrelas);
                 break;
             case "Universidade":
-                listaIdeiasdaUniversidade = this.getIdeiaService().listarIdeiasdaUniversidade();
+                listaIdeiasdaUniversidade           = this.getIdeiaService().listarIdeiasdaUniversidade();
                 listarIdeiasPendentesdaUniversidade = this.getIdeiaService().listarIdeiasPendentesdaUniversidade();
                 listarAnaliseIdeiasParaUniversidade = this.getIdeiaService().listarAnaliseIdeiasParaUniversidade();
                 break;
             case "Admin":
-                listaIdeia          = this.getIdeiaService().listar(); //  todas ideias
-                listaUsuario        = this.getUsuarioService().listar();
+                listaIdeia      = this.getIdeiaService().listar(); //  todas ideias
+                listaUsuario    = this.getUsuarioService().listar();
                 break;
             default:
                 break;
         }
-         
-        
+
     }
 
     public String salvar() {
@@ -115,21 +114,19 @@ public class IdeiaController extends GenericController implements Serializable {
         try {
             //SE O USUARIO FOR ALUNO QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É PENDENTE COMO DEFAUT
             if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
-                this.getIdeiaSelecionada().setSituacao("Em analise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
-                this.getIdeiaSelecionada().setDisponibilidade("Em analise"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
+                this.getIdeiaSelecionada().setSituacao("Em análise"); //INSERINDO A SITUAÇÃO PENDENTE COMO DEFAUT
+                this.getIdeiaSelecionada().setDisponibilidade("Em análise"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
             } else {
                 this.getIdeiaSelecionada().setDisponibilidade("Disponível"); //SALVANDO A DISPONIBILIDADE AUTOMATICO
                 this.getIdeiaSelecionada().setSituacao("Aprovado"); //INSERINDO A SITUAÇÃO ATIVO COMO DEFAUT
             }
-            //SE O USUARIO FOR ADMIN QUANDO ELE INSERIR UMA IDEIA A SITUAÇÃO É ATIVO COMO DEFAUT
 
-            
             this.getIdeiaSelecionada().setDataInscricao(new Date());  //SALVANDO A DATA ATUAL AUTOMATICO
             this.getIdeiaSelecionada().setUsuario(usuarioLogado); //INSERINDO O USUARIO AUTOMATICO
             this.getIdeiaService().salvar(ideiaSelecionada);
             addSucessMessage("Ideia salva com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar ideia: " + ideiaSelecionada.toString());
+            addErrorMessage("Erro ao salvar ideia. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -141,26 +138,13 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia editada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao editar ideia: " + ideiaSelecionada.toString());
+            addErrorMessage("Erro ao editar ideia. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
-    
-    /* Serve para alterar a situacao */
-    public String alterarSituacaoProblema() {
-        try {
-            this.getIdeiaService().alterar(ideiaSelecionada);
-            addSucessMessage("Ideia editada com sucesso");
-        } catch (Exception e) {
-            addErrorMessage("Erro ao editar ideia: " + ideiaSelecionada.toString());
-        }
-        this.resset();
-        this.listar();
-        return "listar.xhtml?faces-redirect=true";
-    }
-    
+
     /* Metodo que Universidade/Coordenador/Professor utiliza para analisar a ideia pendente*/
     public String alterarParaAnalise() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -172,7 +156,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia analisada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao analisar ideia: " + ideiaSelecionada.toString());
+            addErrorMessage("Erro ao analisar ideia. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -184,7 +168,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().remover(ideiaSelecionada);
             addSucessMessage("Ideia deletada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao deletar ideia: " + ideiaSelecionada.toString());
+            addErrorMessage("Erro ao deletar ideia. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -217,7 +201,7 @@ public class IdeiaController extends GenericController implements Serializable {
     public String doConsultar() {
         return "consultar.xhtml?faces-redirect=true";
     }
-    
+
     /* Metodo para chamar a pagina de inclusao de proposta */
     public String doIncluirNaProposta() {
         return "/paginas/aluno/proposta-tcc/incluir.xhtml?faces-redirect=true";
@@ -311,8 +295,12 @@ public class IdeiaController extends GenericController implements Serializable {
     public void setListarAnaliseIdeiasParaUniversidade(List<Ideia> listarAnaliseIdeiasParaUniversidade) {
         this.listarAnaliseIdeiasParaUniversidade = listarAnaliseIdeiasParaUniversidade;
     }
-    
-    
-    
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

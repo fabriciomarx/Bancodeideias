@@ -75,11 +75,11 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{relatorioController.relatorioSelecionado.status}"
-                                                 disabled="#{!relatorioController.relatorioSelecionado.status.endsWith('visualizado')}"
-                                                 label="Status" required="true" requiredMessage="O campo status é obrigatorio">
+                                                 label="Status" disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Aceito" itemValue="Aceito"/>
                                     <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
+                                    <f:selectItem itemLabel="Ainda não visualizado" itemValue="Ainda não visualizado"/>
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -89,11 +89,6 @@
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
                                                  immediate="true" action="#{relatorioController.cancelar()}" 
                                                  title="RETORNAR" class="btn-primary"/>
-                            </b:column>
-
-                            <b:column span="1" offset-md="7" >
-                                <b:commandButton value="Escolher status" look="sucess" icon="glyphicon glyphicon-send" 
-                                                 action="#{relatorioController.alterar()}" icon-align="right"/>
                             </b:column>
                         </b:row>
                        

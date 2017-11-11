@@ -28,7 +28,7 @@
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Hora do Encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.hora}"
-                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo Data do Encontro é obrigatorio"
+                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo hora do encontro é obrigatório"
                                             placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>
@@ -37,9 +37,9 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Descrição"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
-                                                 placeholder="Insira a descrição do Encontro" 
+                                                 placeholder="Insira a descrição do encontro" 
                                                  rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo descrição é obrigatório"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -48,9 +48,9 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Local do encontro"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
-                                                 placeholder="Insira o local do Encontro" 
+                                                 placeholder="Insira o local do encontro" 
                                                  rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo local é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo local é obrigatório"/>
                                 <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
                         </b:row>

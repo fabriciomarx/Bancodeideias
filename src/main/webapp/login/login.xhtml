@@ -9,7 +9,6 @@
         <title>Banco de ideias</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="../resources/css/login.css" type="text/css"/>
-        <link rel="stylesheet" href="../resources/css/bootstrap.css" type="text/css"/>
 
     </h:head>
     <h:body>
@@ -39,13 +38,18 @@
                                  onclick="PF('dlgCarregando').show();"
                                  oncomplete="PF('dlgCarregando').hide();"
                                  ajax="false" icon="glyphicon glyphicon-log-in" icon-align="right"/>
+
                 <p:commandButton value="Esqueci minha senha" title="ESQUECI MINHA SENHA"
                                  class="btn btn-lg btn-primary btn-block"
-                                 action="#{usuarioController.doSolicitarSenha()}" process="@this"/>
-                <!-- icon="glyphicon glyphicon-question-sign" icon-align="right"--> 
+                                 action="#{usuarioController.doSolicitarSenha()}" process="@this"
+                                 onclick="PF('dlgCarregando').show();"
+                                 oncomplete="PF('dlgCarregando').hide();"/>
+
                 <p:commandButton value="Registrar(Somente Universidades)" title="REGISTRO DE UNIVERSIDADES"
                                  class="btn btn-lg btn-primary btn-block"
-                                 action="#{usuarioController.doIncluir()}" process="@this"/>
+                                 action="#{usuarioController.doIncluir()}" process="@this"
+                                 onclick="PF('dlgCarregando').show();"
+                                 oncomplete="PF('dlgCarregando').hide();"/>
             </h:form>
         </div>
 

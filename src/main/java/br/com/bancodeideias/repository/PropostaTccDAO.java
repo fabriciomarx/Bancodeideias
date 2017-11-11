@@ -50,9 +50,9 @@ public class PropostaTccDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM PropostaTcc u WHERE u.aprovacaoOrientador like 'Aprovado' "
-                    + "AND u.orientador.idUsuario = " + usuarioLogado.getIdUsuario()
-                    + "AND u.academico.idUsuario = " + id + " OR u.participante.idUsuario = " + id);
+                    "SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador like 'Aprovado' "
+                    + "AND p.orientador.idUsuario = " + usuarioLogado.getIdUsuario()
+                    + "AND p.academico.idUsuario = " + id + " OR p.participante.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasAlunoSelecionado - Classe PropostaTcc DAO");
@@ -60,7 +60,7 @@ public class PropostaTccDAO implements Serializable {
         entityManager.close();
         return lista;
     }
-    
+
     /*Filtro utilizado no usuario universidade, nas propostas de tcc dos alunos*/
     public List<PropostaTcc> listarPropostasAlunoSelecionadoParaUniversidade(int id) {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -69,8 +69,8 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-           Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Aprovado' AND u.academico.universidade.idUsuario = "
-                    + usuarioLogado.getIdUsuario() + " AND u.academico.idUsuario = " + id);
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p where p.situacao = 'Aprovado' AND p.academico.universidade.idUsuario = "
+                    + usuarioLogado.getIdUsuario() + " AND p.academico.idUsuario = " + id + " OR p.participante.idUsuario = " + id);
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasAlunoSelecionadoParaUniversidade - Classe PropostaTcc DAO");
@@ -88,9 +88,9 @@ public class PropostaTccDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "Select u From PropostaTcc u where u.academico.idUsuario = "
-                    + id + " OR u.participante.idUsuario = " + id + " AND u.situacao = 'Aprovado' "
-                    + "AND u.academico.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
+                    "Select p From PropostaTcc p where p.academico.idUsuario = "
+                    + id + " OR p.participante.idUsuario = " + id + " AND p.situacao = 'Aprovado' "
+                    + "AND p.academico.curso.idCurso = " + usuarioLogado.getCurso().getIdCurso());
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasAlunoSelecionadoCoord - Classe PropostaTcc DAO");
@@ -104,7 +104,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u");
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p");
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe PropostaTcc DAO");
@@ -121,10 +121,9 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.academico.idUsuario = "
-                    + usuarioLogado.getIdUsuario() + " OR u.participante.idUsuario = " + usuarioLogado.getIdUsuario());
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p where p.academico.idUsuario = "
+                    + usuarioLogado.getIdUsuario() + " OR p.participante.idUsuario = " + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
-            //System.out.println("DEU CERTO LISTAR LOGADO");
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasLogado - Classe PropostaTcc DAO");
         }
@@ -140,7 +139,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Aprovado' AND u.academico.curso.idCurso = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p where p.situacao = 'Aprovado' AND p.academico.curso.idCurso = "
                     + usuarioLogado.getCurso().getIdCurso());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
@@ -159,10 +158,10 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u "
-                    + "where u.situacao = 'Em analise' "
-                    + "AND u.aprovacaoOrientador = 'Aprovado'"
-                    + "AND u.academico.curso.idCurso = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p "
+                    + "where p.situacao = 'Em análise' "
+                    + "AND p.aprovacaoOrientador = 'Aprovado'"
+                    + "AND p.academico.curso.idCurso = "
                     + usuarioLogado.getCurso().getIdCurso());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
@@ -180,7 +179,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Em analise' AND u.academico.universidade.idUsuario = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p where u.situacao = 'Em análise' AND p.academico.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
@@ -190,7 +189,7 @@ public class PropostaTccDAO implements Serializable {
         return listaPropostaTcc;
     }
 
-    /* LISTA DE PROPOSTAS DOS ALUNOS DA UNIVERSIDADE LOGADA */
+    /* LISTA DE PROPOSTAS APROVADAS DOS ALUNOS DA UNIVERSIDADE LOGADA */
     public List<PropostaTcc> listaPropostasDaUniv() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado");
@@ -198,10 +197,9 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u where u.situacao = 'Aprovado' AND u.academico.universidade.idUsuario = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p where p.situacao = 'Aprovado' AND p.academico.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
-            System.out.println("PROPOSTAS DA UNIVESIDADE = " + listaPropostaTcc.size());
         } catch (Exception e) {
             System.err.println("Erro no metodo listaPropostasDaUniv - Classe PropostaTcc DAO");
         }
@@ -209,7 +207,7 @@ public class PropostaTccDAO implements Serializable {
         return listaPropostaTcc;
     }
 
-    /* LISTA DE PROPOSTAS QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
+    /* LISTA DE PROPOSTAS DE TCC PENDENTES QUE O PROFESSOR FOI ESCOLHIDO COMO ORIENTADOR */
     public List<PropostaTcc> listarPropostasParaOrientador() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado");
@@ -217,7 +215,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u WHERE u.aprovacaoOrientador = 'Em analise' AND u.orientador.idUsuario = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = 'Em análise' AND p.orientador.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
@@ -227,7 +225,7 @@ public class PropostaTccDAO implements Serializable {
         return listaPropostaTcc;
     }
 
-    /* LISTA DE PROPOSTAS QUE O PROFESSOR PARTICIPA */
+    /* LISTA DE PROPOSTAS DE TCC QUE O PROFESSOR PARTICIPA (APROVOU) */
     public List<PropostaTcc> listarPropostasQueOrientadorParticipa() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado");
@@ -235,7 +233,7 @@ public class PropostaTccDAO implements Serializable {
         List<PropostaTcc> listaPropostaTcc = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM PropostaTcc u WHERE u.aprovacaoOrientador = 'Aprovado' AND u.orientador.idUsuario = "
+            Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = 'Aprovado' AND p.orientador.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {

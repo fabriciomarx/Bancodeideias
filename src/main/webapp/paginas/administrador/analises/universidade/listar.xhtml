@@ -33,12 +33,17 @@
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Matricula</f:facet> 
+                                    <f:facet name="header">Matrícula</f:facet> 
                                     <h:outputText value="#{item.matricula}"/>
-                                </h:column> 
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">CNPJ</f:facet> 
+                                    <h:outputText value="#{item.cpf_cnpj}"/>
+                                </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Tipo Usuario</f:facet>
+                                    <f:facet name="header">Tipo Usuário</f:facet>
                                     <h:outputText value="#{item.tipoUsuario}"/>
                                 </h:column>
                                 

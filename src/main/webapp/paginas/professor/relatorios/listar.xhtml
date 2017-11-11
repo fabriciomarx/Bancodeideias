@@ -35,7 +35,15 @@
                                          var="itemm" searching="true" border="false" id="relatorioData"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                                          styleClass="table table-striped">
-
+                                 <h:column>
+                                    <f:facet name="header">Ações</f:facet>
+                                    <b:commandButton action="#{relatorioController.doAlterarStatus()}" class="btn btn-info" value=""
+                                                     icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS" 
+                                                     disabled="#{itemm.status == 'Aceito'}">
+                                        <f:setPropertyActionListener value="#{itemm}" target="#{relatorioController.relatorioSelecionado}"/>
+                                    </b:commandButton>
+                                </h:column> 
+                                
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
                                     <h:outputText value="#{itemm.status}"
@@ -61,11 +69,6 @@
                                 <h:column>
                                     <f:facet name="header">Atividade Realizadas</f:facet>
                                     <h:outputText value="#{itemm.atividadesRealizadas}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Orientador</f:facet>
-                                    <h:outputText value="#{itemm.encontro.orientador.nome}"/>
                                 </h:column>
                                 
                                 <h:column>

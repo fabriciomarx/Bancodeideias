@@ -26,16 +26,13 @@
                                          styleClass="table table-striped">
 
                                 <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao}"
-                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
-                                </h:column>
-
-                                <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
                                 </h:column>
 
                                 <h:column>
@@ -51,7 +48,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Usuario Nome</f:facet>
+                                    <f:facet name="header">Usuario</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
 

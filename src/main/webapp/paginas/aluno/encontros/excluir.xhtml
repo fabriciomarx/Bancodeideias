@@ -22,14 +22,13 @@
                             <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
-                                            placeholder="__/__/__" mindate="new Date()"
-                                            required="true" pages="3" />
+                                            placeholder="__/__/__"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Hora do Encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.hora}"
-                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo Data do Encontro é obrigatorio"
+                                            pattern="HH:mm" timeOnly="true"
                                             placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>

@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista Usuarios">
+                    <p:fieldset legend="Lista Usuários">
                         <b:panel look="primary" collapsible="false">
 
                             <b:row>
@@ -59,7 +59,7 @@
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Tipo Usuario</f:facet>
+                                    <f:facet name="header">Tipo Usuário</f:facet>
                                     <h:outputText value="#{item.tipoUsuario}"/>
                                 </h:column>
 
@@ -88,7 +88,11 @@
                                 </h:column>                           
                             </b:dataTable>   
                             <f:facet name="footer">
-                                <b:commandButton value="Incluir Novo" action="#{usuarioController.doIncluir()}"
+                                <b:commandButton value="Incluir Nova Universidade" action="#{usuarioController.doIncluirUniversidade()}"
+                                                 icon="glyphicon glyphicon-plus" icon-align="right"
+                                                 class="btn btn-info" style="margin-right: 15px;"/>
+
+                                <b:commandButton value="Incluir Novo Acadêmico" action="#{usuarioController.doIncluirAcademico()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
                                                  class="btn btn-info"/>
                             </f:facet>

@@ -38,7 +38,7 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doAlterarStatus()}" class="btn btn-info" value=""
                                                      icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS" 
-                                                     disabled="#{item.status == 'Realizado'}">
+                                                     disabled="#{item.status == 'Realizado' or item.status == 'Recusado'}">
                                                     <!-- disabled="#{item.aluno.idUsuario == usuarioLogado.idUsuario or item.orientador.idUsuario == usuarioLogado.idUsuario or item.status == 'Realizado'}">-->
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>

@@ -36,7 +36,7 @@
                                     <h:outputText value="#{item.aprovacaoOrientador}"
                                                   styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
                                                   #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                  #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{item.aprovacaoOrientador == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
@@ -44,7 +44,7 @@
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
                                                   #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{item.situacao == 'Em análise' ? 'em_analise' : null}">
                                     </h:outputText>
                                     <br/>
                                     <b:commandButton action="#{propostaTccController.doConsultarPropostaRecusada()}" class="btn btn-info" value=""
@@ -54,7 +54,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 
@@ -81,7 +81,7 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit" disabled="#{item.situacao == 'Aprovado'}" title="EDITAR PROPOSTA DE TCC">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.aprovacaoOrientador == 'Aprovado'}" title="EDITAR PROPOSTA DE TCC">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
@@ -89,7 +89,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove" disabled="#{item.situacao == 'Aprovado'}" title="EXCLUIR PROPOSTA DE TCC">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.aprovacaoOrientador == 'Aprovado'}" title="EXCLUIR PROPOSTA DE TCC">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column> 

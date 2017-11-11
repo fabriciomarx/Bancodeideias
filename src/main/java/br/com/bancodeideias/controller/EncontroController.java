@@ -53,9 +53,9 @@ public class EncontroController extends GenericController implements Serializabl
     
     /* METODO PARA FILTRAR OS ENCONTROS POR UNIVERSIDADE. USUARIO ADMIN UTILIZA */
     public void listEncontrosAdmin() {
-        listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionadoParaAdmin(usuario.getIdUsuario());
+        listaEncontro = this.getEncontroService().listarEncontrosUniversidadeSelecionadaParaAdmin(usuario.getIdUsuario());
     }
-    
+
     /* METODO PARA FILTRAR OS ENCONTROS POR ALUNO. USUARIOS UNIVERSIDADE, COORDENADOR E ADMIN UTILIZAM */
     public void listEncontros() {
         listaEncontro = this.getEncontroService().listarEncontrosAcademicoSelecionado(usuario.getIdUsuario());
@@ -92,9 +92,9 @@ public class EncontroController extends GenericController implements Serializabl
             default:
                 break;
         }
-        listaUniversidades = this.getUsuarioService().listUniversidades();
-        listaAluno = this.getUsuarioService().listaAlunos();
-        listaProfessores = this.getUsuarioService().listaProfessores();
+        listaUniversidades  = this.getUsuarioService().listUniversidades();
+        listaAluno          = this.getUsuarioService().listaAlunos();
+        listaProfessores    = this.getUsuarioService().listaProfessores();
 
     }
 
@@ -115,7 +115,7 @@ public class EncontroController extends GenericController implements Serializabl
             this.getEncontroService().salvar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar encontro: " + encontroSelecionado.toString());
+            addErrorMessage("Erro ao salvar encontro. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -127,7 +127,7 @@ public class EncontroController extends GenericController implements Serializabl
             this.getEncontroService().alterar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao editar encontro: " + encontroSelecionado.toString());
+            addErrorMessage("Erro ao editar encontro. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -139,7 +139,7 @@ public class EncontroController extends GenericController implements Serializabl
             this.getEncontroService().remover(encontroSelecionado);
             addSucessMessage("Encontro deletado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao excluir encontro: " + encontroSelecionado.toString());
+            addErrorMessage("Erro ao excluir encontro. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -245,6 +245,4 @@ public class EncontroController extends GenericController implements Serializabl
     public void setListaUniversidades(List<Usuario> listaUniversidades) {
         this.listaUniversidades = listaUniversidades;
     }
-    
-    
 }

@@ -15,11 +15,11 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar Relatorio"> 
+                <p:fieldset legend="Editar Relatório"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Data Inicio"/><br/>
+                                <h:outputLabel value="Data Início"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
                                             required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
@@ -35,9 +35,9 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Atividades Realizadas"/><br/>
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
-                                                 placeholder="Escreva a(s) atividade(s) realizada(s) no periodo" 
+                                                 placeholder="Escreva a(s) atividade(s) realizada(s) no período" 
                                                  rows="5" cols="169" counter="idAtividade" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo atividades é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo atividades é obrigatório"/>
                                 <h:outputText id="idAtividade" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -48,7 +48,7 @@
                                 <p:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
                                                  placeholder="Escreva a sua auto avaliação" 
                                                  rows="5" cols="169" counter="idAvaliacao" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo auto avaliacao é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo auto avaliação é obrigatório"/>
                                 <h:outputText id="idAvaliacao" style="float: right;"/>
                             </b:column>
                         </b:row>

@@ -15,15 +15,12 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Consultar Usuario">
+                <p:fieldset legend="Consultar Usuário">
                     <h:form>
-
-                        <!--Quando o admin for adicionar uma unversidade, esconder os campos universidade e curso-->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
+                                <b:selectOneMenu label="Tipo Usuário" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
                                     <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
@@ -42,10 +39,29 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula" readonly="true"/>
+                                             label="Matrícula" readonly="true"/>
                             </b:column>
                         </b:row>
 
+                        <!-- MOSTRAR APENAS SE O USUARIO FOR DIFERENTE DO TIPO UNIVERSIDADE -->
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CPF" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <!-- MOSTRAR APENAS SE O USUARIO FOR DO TIPO UNIVERSIDADE -->
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CNPJ" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario == 'Universidade'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <!-- MOSTRAR APENAS SE O USUARIO FOR DIFERENTE DO TIPO UNIVERSIDADE -->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
@@ -61,6 +77,7 @@
                             </b:column>
                         </b:row>
 
+                        <!-- MOSTRAR APENAS SE O USUARIO FOR DIFERENTE DO TIPO UNIVERSIDADE -->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
@@ -78,7 +95,6 @@
                         </b:row>
                     </h:form>
                 </p:fieldset>   
-
             </ui:define>    
         </ui:composition>
     </body>

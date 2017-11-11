@@ -55,6 +55,11 @@
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
                                 </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Usuário</f:facet>
+                                    <h:outputText value="#{item.usuario.nome}"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Data da Inclusão</f:facet>

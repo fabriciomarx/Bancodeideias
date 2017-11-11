@@ -26,41 +26,30 @@
                                          styleClass="table table-striped">
                                 
                                 <h:column>
-                                    <f:facet name="header">Disponibilidade para utilizar no TCC</f:facet>
-                                    <h:outputText value="#{item.disponibilidade}"
-                                                  styleClass="#{item.disponibilidade == 'Disponível' ? 'aprovado' : null}
-                                                  #{item.disponibilidade == 'Indisponível' ? 'recusado' : null}
-                                                  #{item.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">Situação</f:facet>
-                                    <h:outputText value="#{item.situacao}"
-                                                  styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em analise' ? 'em_analise' : null}"/>
-                                </h:column>
-
-                                <h:column>
                                     <f:facet name="header">Titulo</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
-
+                                
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{item.descricao}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">Usuário</f:facet>
+                                    <h:outputText value="#{item.usuario.nome}"/>
+                                </h:column>
+                                
                                 <h:column>
                                     <f:facet name="header">Tipo da Ideia</f:facet>
                                     <h:outputText value="#{item.tipoIdeia}"/>
                                 </h:column>
-
+                                
                                 <h:column>
                                     <f:facet name="header">Data da Inclusão</f:facet>
                                     <h:outputText value="#{item.dataInscricao}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
-                                </h:column>
-
-                                <h:column>
-                                    <f:facet name="header">Usuario Nome</f:facet>
-                                    <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
 
                                 <h:column>

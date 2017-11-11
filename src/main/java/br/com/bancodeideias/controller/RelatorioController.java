@@ -20,19 +20,19 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class RelatorioController extends GenericController implements Serializable {
 
-    private Usuario             usuario;
+    private Usuario                     usuario;
     
-    private Relatorio           relatorioSelecionado;
-    private RelatorioService    relatorioService;
+    private Relatorio                   relatorioSelecionado;
+    private RelatorioService            relatorioService;
     
-    private List<Relatorio>     listaRelatorio;
+    private List<Relatorio>             listaRelatorio;
    
-    private List<Usuario>       listaAluno;
-    private List<Usuario>       listaProfessores;
-    private UsuarioService      usuarioService;
+    private List<Usuario>               listaAluno;
+    private List<Usuario>               listaProfessores;
+    private UsuarioService              usuarioService;
     
-    private List<Encontro>      listaEncontros;
-    private EncontroService     encontroService;
+    private List<Encontro>              listaEncontros;
+    private EncontroService             encontroService;
     
 
     @PostConstruct
@@ -103,8 +103,6 @@ public class RelatorioController extends GenericController implements Serializab
     }
 
     public String salvar() {
-        HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
         try {
             this.getRelatorioSelecionado().setDataInscricao(new Date()); //SALVANDO A DATA ATUAL AUTOMATICO
             this.getRelatorioSelecionado().setStatus("Ainda não visualizado"); //SALVANDO O STATUS AUTOMATICO
@@ -152,6 +150,10 @@ public class RelatorioController extends GenericController implements Serializab
     // ============ METODOS DE AÇÕES NA TELA ===========
     public String doIncluir() {
         return "incluir.xhtml?faces-redirect=true";
+    }
+    
+    public String doAlterarStatus() {
+        return "alterarStatus.xhtml?faces-redirect=true";
     }
 
     public String doCancelar() {

@@ -27,10 +27,17 @@ public class IdeiaService implements Serializable {
         this.getIdeiaDAO().remover(ideia.getIdIdeia());
     }
     
-     /* LISTA DE Academicos filtrados por curso Metodo que a universidade usa */
+     /* LISTA DE ideias filtrados por tipo ideia Metodo que a universidade usa */
     public List<Ideia> listarTiposIdeiaSelecionado(String tipo) {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listarTiposIdeiaSelecionado(tipo);
+        return lista;
+    }
+    
+    /*Lista de ideias filtradaas por universidade .. usuario admin que utiliza */
+    public List<Ideia> listarIdeiasUniversidadeSelecionada(Integer idUniversidade) {
+        List<Ideia> lista;
+        lista = this.getIdeiaDAO().listarIdeiasUniversidadeSelecionada(idUniversidade);
         return lista;
     }
     
@@ -48,12 +55,12 @@ public class IdeiaService implements Serializable {
         return lista;
     }
 
-    /* LISTAR TODAS AS IDEIAS RECUSADAS NO SISTEMA*/
+    /* LISTAR TODAS AS IDEIAS RECUSADAS NO SISTEMA
     public List<Ideia> listarIdeiasRecusadas() {
         List<Ideia> lista;
         lista = this.getIdeiaDAO().listarIdeiasRecusadas();
         return lista;
-    }
+    }*/
 
     /* LISTA DE IDEIAS CADASTRADAS POR ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Ideia> listarIdeiasdaUniversidade() {
@@ -89,14 +96,6 @@ public class IdeiaService implements Serializable {
         lista = this.getIdeiaDAO().listarIdeiasPendentes();
         return lista;
     }
-    /*
-    public Double qtdEstrelas() {
-        Double qtd = this.getIdeiaDAO().qtdEstrelas();
-        qtd = qtd / 5;
-        System.out.println("Qtd ser = " + qtd);
-        return qtd;
-        
-    }*/
 
     //getss and setts
     public IdeiaDAO getIdeiaDAO() {

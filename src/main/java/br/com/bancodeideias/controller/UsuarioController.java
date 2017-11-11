@@ -44,6 +44,12 @@ public class UsuarioController extends GenericController implements Serializable
         this.listar();
     }
 
+    /* provisorio, pois na hora de inserir um novo usuario ele estava trazendo os dados (email)
+        do usuario logado */
+    public void ressetUsuario() {
+        usuarioSelecionado = new Usuario();
+    }
+    
     private void resset() {
         usuarioSelecionado                  = new Usuario();
         usuarioService                      = new UsuarioService();
@@ -63,7 +69,13 @@ public class UsuarioController extends GenericController implements Serializable
         tipoUsuario                         = "";
     }
     
-    public void listAcademicos() {
+    /* Admin que utiliza na hora de inserir um usuario 
+     ao selecionar a universidade, é carregado somente os cursos dela */
+    public void listaCursoUniversidadeEscolhida() {
+        listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioSelecionado.getUniversidade().getIdUsuario());
+    }
+    
+    public void listAcademicosPorCurso() {
         listaAcademicosUniLogada = this.getUsuarioService().listarAcademicosCursoSelecionado(curso.getIdCurso());
     }
     
@@ -77,19 +89,23 @@ public class UsuarioController extends GenericController implements Serializable
     }
     
     private void listar() {
+        /*HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogadoo = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
+        
+        if (usuarioLogadoo.getTipoUsuario().equals("Universidade")) {
+            listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
+
+        }*/
+        
         listaUsuario                = this.getUsuarioService().listar();
         listaUniversidades          = this.getUsuarioService().listUniversidades();
         listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
         listaAluno                  = this.getUsuarioService().listaAlunos();
 
         listaCurso                  = this.getCursoService().listar(); // Todos os cursos do sistema ADMIN
-
         listaAcademicosUniLogada    = this.getUsuarioService().listaAcademicosUniLogada();
+        
   
-    }
-
-    private void listarCursosUniversidadeEscolhida() {
-        listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
     }
 
     /* SALVAR USUARIO A PARTIR DO LOGIN , SEM USUARIO NA SESSAO */
@@ -118,20 +134,17 @@ public class UsuarioController extends GenericController implements Serializable
             Usuario usuarioLogador = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
 
             if (usuarioLogador.getTipoUsuario().equals("Universidade")) { //SE O USUARIO FOR UMA UNIVERSIDADE
-                this.getUsuarioSelecionado().setSituacao("Ativo"); // SALVANDO A SITUACAO AUTOMATICO
                 this.getUsuarioSelecionado().setUniversidade(usuarioLogador); // SALVANDO A UNIVERSDADE AUTOMATICO
-                this.getUsuarioSelecionado().setSenha(this.getUsuarioSelecionado().getMatricula()); // SALVANDO A SENHA IGUAL A MATRICULA DO USUARIO
-                this.getUsuarioService().salvar(usuarioSelecionado);
-            } else {
-                this.getUsuarioSelecionado().setSituacao("Ativo");
-                this.getUsuarioService().salvar(usuarioSelecionado);
             }
+            this.getUsuarioSelecionado().setSenha(this.getUsuarioSelecionado().getMatricula()); // SALVANDO A SENHA IGUAL A MATRICULA DO USUARIO
+            this.getUsuarioSelecionado().setSituacao("Ativo");
+            this.getUsuarioService().salvar(usuarioSelecionado);
+            addSucessMessage(this.getUsuarioService().getUsuarioDAO().getMensagem());
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar usuario: " + usuarioSelecionado.toString());
+            addErrorMessage(this.getUsuarioService().getUsuarioDAO().getMensagem());
         }
         this.resset();
         this.listar();
-        //this.listarCursosUniversidadeEscolhida();
         return "listar.xhtml?faces-redirect=true";
     }
 
@@ -148,11 +161,10 @@ public class UsuarioController extends GenericController implements Serializable
     public String alterar() {
         try {
             this.getUsuarioService().alterar(usuarioSelecionado);
-            addSucessMessage("Usuario alterado com sucesso");
+            addSucessMessage("Usuário alterado com sucesso");
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar usuario");
         }
-        //this.resset(); comentei porque estava dando erro no aluno/cadastro/editar
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
@@ -221,7 +233,7 @@ public class UsuarioController extends GenericController implements Serializable
 
     public void solicitarNovaSenha() {
         Usuario usuario = this.getUsuarioService().solicitarNovaSenha(this.usuarioSelecionado.getEmail(),
-                this.usuarioSelecionado.getMatricula());
+                this.usuarioSelecionado.getCpf_cnpj());
 
         if (usuario != null) {
             setSenhaGerada(this.getUsuarioService().gerarNovaSenha());
@@ -236,7 +248,22 @@ public class UsuarioController extends GenericController implements Serializable
 
     // ============ METODOS DE AÇÕES NA TELA ===========
     public String doIncluir() {
+        /* provisorio, pois na hora de inserir um novo usuario ele estava trazendo os dados (email)
+        do usuario logado */
+        this.ressetUsuario(); 
         return "incluir.xhtml?faces-redirect=true";
+    }
+    
+    /* Metodo utilizado pelo Admin para inserir Academico */
+    public String doIncluirAcademico() {
+        this.ressetUsuario(); 
+        return "incluirAcademico.xhtml?faces-redirect=true";
+    }
+    
+    /* Metodo utilizado pelo Admin para inserir Universidade */
+    public String doIncluirUniversidade() {
+        this.ressetUsuario(); 
+        return "incluirUniversidade.xhtml?faces-redirect=true";
     }
 
     public String doCancelar() {

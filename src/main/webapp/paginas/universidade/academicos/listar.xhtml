@@ -15,13 +15,13 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Lista academicos">
+                <p:fieldset legend="Lista Acadêmicos">
                     <h:form>
                         <b:panel look="primary" collapsible="false">
-                            
+
                             <b:row>
                                 <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar por Tipo Usuario:" value="#{usuarioController.tipoUsuario}">
+                                    <b:selectOneMenu label="Filtrar por Tipo Usuário:" value="#{usuarioController.tipoUsuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" value="#{usuarioController.tipoUsuario}"/>
                                         <f:selectItem itemLabel="Aluno" itemValue="'Aluno'"/>
                                         <f:selectItem itemLabel="Professor" itemValue="'Professor'"/>
@@ -34,46 +34,45 @@
                                 <b:column medium-screen="3" span="3">
                                     <b:selectOneMenu label="Filtrar por Curso:" value="#{usuarioController.curso}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{usuarioController.curso}"/>
-                                        <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
-                                                       itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                        <f:ajax render="academicosData" event="change" listener="#{usuarioController.listAcademicos()}"/> 
+                                        <f:selectItems value="#{usuarioController.listaCurso}" var="item"
+                                                   itemLabel="#{item.nome.concat(' - ').concat(item.sigla).concat(' - ').concat(item.semestre).concat('/').concat(item.ano)}" itemValue="#{item}"/>
+                                        <f:ajax render="academicosData" event="change" listener="#{usuarioController.listAcademicosPorCurso()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{usuarioController.listaAcademicosUniLogada}"
-                                         var="item" searching="true" border="false" id="academicosData"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         var="iten" searching="true" border="false" id="academicosData"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 
-                                    <h:outputText value="#{item.nome}"/>
+                                    <h:outputText value="#{iten.nome}"/>
                                 </h:column> 
 
                                 <h:column>
                                     <f:facet name="header">Email</f:facet> 
-                                    <h:outputText value="#{item.email}"/>
+                                    <h:outputText value="#{iten.email}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Matricula</f:facet> 
-                                    <h:outputText value="#{item.matricula}"/>
+                                    <f:facet name="header">Matrícula</f:facet> 
+                                    <h:outputText value="#{iten.matricula}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Universidade</f:facet> 
-                                    <h:outputText value="#{item.universidade.nome}"/>
-                                </h:column> 
+                                    <f:facet name="header">CPF</f:facet> 
+                                    <h:outputText value="#{iten.cpf_cnpj}"/>
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Curso</f:facet> 
-                                    <h:outputText value="#{item.curso.nome}"/>
+                                    <h:outputText value="#{iten.curso.nome}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Tipo Usuario</f:facet>
-                                    <h:outputText value="#{item.tipoUsuario}"/>
+                                    <f:facet name="header">Tipo Usuário</f:facet>
+                                    <h:outputText value="#{iten.tipoUsuario}"/>
                                 </h:column>
 
 
@@ -81,15 +80,15 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{usuarioController.doEditar()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit">
-                                        <f:setPropertyActionListener value="#{item}" target="#{usuarioController.usuarioSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{usuarioController.usuarioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{usuarioController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{usuarioController.usuarioSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{usuarioController.usuarioSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{usuarioController.doExcluir()}" class="btn btn-danger" value=""
                                                      icon="glyphicon glyphicon-remove">
-                                        <f:setPropertyActionListener value="#{item}" target="#{usuarioController.usuarioSelecionado}"/>
+                                        <f:setPropertyActionListener value="#{iten}" target="#{usuarioController.usuarioSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   

@@ -27,7 +27,7 @@
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doAlterarStatus()}" class="btn btn-info" value=""
                                                      icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS"
-                                                     disabled="#{item.status == 'Realizado'}">
+                                                     disabled="#{item.status == 'Realizado' or item.status == 'Recusado'}">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>    
@@ -91,7 +91,7 @@
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit" disabled="#{item.status == 'Realizado'}" title="EDITAR ENCONTRO">
+                                                     icon="glyphicon glyphicon-edit" disabled="#{item.status == 'Realizado' or item.status == 'Aceito'}" title="EDITAR ENCONTRO">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{encontroController.doConsultar()}" class="btn btn-primary" value=""
@@ -99,7 +99,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                     <b:commandButton action="#{encontroController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove" disabled="#{item.status == 'Realizado'}" title="EXCLUIR ENCONTRO">
+                                                     icon="glyphicon glyphicon-remove" disabled="#{item.status == 'Realizado' or item.status == 'Aceito'}" title="EXCLUIR ENCONTRO">
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>                                   

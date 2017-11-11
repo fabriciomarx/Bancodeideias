@@ -15,14 +15,12 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar Usuario">
+                <p:fieldset legend="Editar Usuário">
                     <h:form>
-
-                        <!--Quando o admin for adicionar uma unversidade, esconder os campos universidade e curso-->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
-                                                 required="true" required-message="O campo tipo é obrigatorio">
+                                <b:selectOneMenu label="Tipo Usuário" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
+                                                 required="true" required-message="O campo tipo é obrigatório">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
                                     <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
@@ -35,27 +33,44 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{usuarioController.usuarioSelecionado.nome}" 
-                                                 label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
+                                                 label="Nome" required="true" required-message="O campo nome é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula" required="true" required-message="O campo matricula é obrigatorio"/>
+                                             label="Matrícula" required="true" requiredMessage="O campo matricula é obrigatório"/>
+                            </b:column>
+                        </b:row>
+                        
+                         <!-- MOSTRAR APENAS SE O USUARIO FOR DIFERENTE DO TIPO UNIVERSIDADE -->
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CPF" required="true" requiredMessage="O campo CPF é obrigatório"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <!-- MOSTRAR APENAS SE O USUARIO FOR DO TIPO UNIVERSIDADE -->
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CNPJ" required="true" requiredMessage="O campo CNPJ é obrigatório"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario == 'Universidade'}"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <!-- FALTA FAZER QUANDO A UNIVERSIDADE FOR SELECIONADA, CARREGAR SO OS CURSOS 
-                                DELA-->
                                 <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}"
                                                  rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"
                                                  label="Universidade">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{usuarioController.listaUniversidades}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                    <f:ajax render="listCursosUniSelecionada" event="change" listener="#{usuarioController.listaCursoUniversidadeEscolhida()}"/> 
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -71,12 +86,30 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}"
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
+                                             label="Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}" id="listCursosUniSelecionada"
                                                  rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Universidade'}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{usuarioController.listaCurso}" var="item"
+                                    <f:selectItem itemLabel="-- Deseja alterar o curso ? --" noSelectionOption="true" itemValue="#{usuarioController.usuarioSelecionado.curso}"/>
+                                    <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
+                            </b:column>
+                        </b:row>
+                        
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Situação" value="#{usuarioController.usuarioSelecionado.situacao}">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
+                                    <f:selectItem itemLabel="Ativo" itemValue="Ativo"/>
+                                    <f:selectItem itemLabel="Inativo" itemValue="Inativo"/>
+                                </b:selectOneMenu>
                             </b:column>
                         </b:row>
 

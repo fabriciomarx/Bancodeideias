@@ -18,21 +18,21 @@
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:outputLabel value="Estrelas"/><br/>
+                                <p:outputLabel value="Classificação"/><br/>
                                 <p:rating value="#{ideiaController.ideiaSelecionada.estrelas}"
-                                          required="true"/>
+                                          required="true" requiredMessage="O campo classificação é obrigatorio"/>
                             </b:column>
                         </b:row>
-                        
+
                         <br/>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario}" 
                                                  label="Comentario" required="true" requiredMessage="O campo comentario é obrigatorio" />
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Situação" value="#{ideiaController.ideiaSelecionada.situacao}"
@@ -43,14 +43,14 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
                                                  immediate="true" action="#{ideiaController.doCancelar()}"
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
-                            
+
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{ideiaController.alterarParaAnalise()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>

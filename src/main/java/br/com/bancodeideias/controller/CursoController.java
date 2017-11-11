@@ -50,16 +50,18 @@ public class CursoController extends GenericController implements Serializable {
     public void listCursos() {
         listaCurso = this.getCursoService().listarCursosUniversidadeEscolhida(usuario.getIdUsuario());
     }
-    
+
     private void listar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
 
         switch (usuarioLogado.getTipoUsuario()) {
-            case "Universidade": /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
+            case "Universidade":
+                /* SE O USUARIO LOGADO FOR UNIVERSIDADE CARREGAR O METODO LISTAR LOGADO*/
                 listaCurso = this.getCursoService().listarCursoLogado();
                 break;
-            case "Admin":  /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
+            case "Admin":
+                /* SE O USUARIO LOGADO FOR ADMIN CARREGAR O METODO LISTAR TODOS OS CURSOS*/
                 listaCurso = this.getCursoService().listar();
                 listaUniversidade = this.getUsuarioService().listUniversidades();
                 break;
@@ -69,22 +71,19 @@ public class CursoController extends GenericController implements Serializable {
     public String salvar() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
+
         Calendar cal = Calendar.getInstance(); // pegando o ano atual para salvar na hora de incluir o curso
         int anoAtual = cal.get(Calendar.YEAR);
-        
+
         try {
-            if (usuarioLogado.getTipoUsuario().equals("Admin")) { //SE O USUARIO FOR ADMIN NAO SALVAR A UNIVERSIDADE AUTOMATICO
-                this.getCursoSelecionado().setAno(anoAtual);
-                this.getCursoService().salvar(cursoSelecionado);
-            } else {
-                this.getCursoSelecionado().setAno(anoAtual);
+            if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
                 this.getCursoSelecionado().setUniversidade(usuarioLogado); //INSERINDO A UNIVERSIDADE AUTOMATICO
-                this.getCursoService().salvar(cursoSelecionado);
             }
-            addSucessMessage("Curso salvo com sucesso");
+            this.getCursoSelecionado().setAno(anoAtual);
+            this.getCursoService().salvar(cursoSelecionado);
+            addSucessMessage(this.getCursoService().getCursoDAO().getMensagem());
         } catch (Exception e) {
-           addErrorMessage("Erro ao salvar curso. Entre em contato com o administrador");
+            addErrorMessage("Erro ao salvar curso. Entre em contato com o administrador");
         }
         this.resset();
         this.listar();
@@ -190,6 +189,4 @@ public class CursoController extends GenericController implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
 }

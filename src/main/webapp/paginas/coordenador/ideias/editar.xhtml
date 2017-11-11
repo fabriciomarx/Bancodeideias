@@ -24,9 +24,9 @@
                                           required="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <br/>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
@@ -40,7 +40,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Titulo"/><br/>
@@ -62,19 +62,19 @@
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left" 
                                                  immediate="true" action="#{ideiaController.doCancelar()}"
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
-                            
+
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{ideiaController.alterar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
-                            
+
                         </b:row>
                     </h:form>
                 </p:fieldset>

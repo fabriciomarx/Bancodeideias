@@ -20,8 +20,7 @@
 
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Data da analise</f:facet>       
@@ -29,21 +28,35 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>   
-
                                 
                                 <h:column>
                                     <f:facet name="header">Comentarios</f:facet> 
-                                    <h:outputText value="#{item.comentarios}"/>
+                                    <h:outputText value="#{item.comentario}"/>
                                 </h:column> 
 
                                 <h:column>
                                     <f:facet name="header">Proposta de Tcc</f:facet> 
-                                    <h:outputText value="#{item.propostaTcc.titulo}"/>
+                                    <h:outputText value="#{item.titulo}"/>
+                                </h:column> 
+                                
+                                 <h:column>
+                                    <f:facet name="header">Aluno</f:facet> 
+                                    <h:outputText value="#{item.academico.nome}"/>
+                                </h:column> 
+                                
+                                <h:column>
+                                    <f:facet name="header">Curso</f:facet> 
+                                    <h:outputText value="#{item.academico.curso.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Orientador</f:facet> 
+                                    <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Academico</f:facet> 
-                                    <h:outputText value="#{item.academicoAnalista.nome}"/>
+                                    <f:facet name="header">Academico Analista</f:facet> 
+                                    <h:outputText value="#{item.analista.nome}"/>
                                 </h:column> 
 
                                 <h:column>

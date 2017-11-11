@@ -28,11 +28,11 @@
                                     <h:outputText value="#{itemm.disponibilidade}"
                                                   styleClass="#{itemm.disponibilidade == 'Disponível' ? 'aprovado' : null}
                                                               #{itemm.disponibilidade == 'Indisponível' ? 'recusado' : null}
-                                                              #{itemm.disponibilidade == 'Em analise' ? 'em_analise' : null}"/>
+                                                              #{itemm.disponibilidade == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
                                 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{itemm.titulo}"/>
                                 </h:column>
 
@@ -42,7 +42,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Usuario que sugeriu</f:facet>
+                                    <f:facet name="header">Usuário que sugeriu</f:facet>
                                     <h:outputText value="#{itemm.usuario.nome}"/>
                                 </h:column>
                                 

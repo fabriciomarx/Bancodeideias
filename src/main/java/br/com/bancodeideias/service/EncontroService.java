@@ -26,9 +26,9 @@ public class EncontroService implements Serializable {
 
     }
 
-    public List<Encontro> listarEncontrosAcademicoSelecionadoParaAdmin(int id) {
+    public List<Encontro> listarEncontrosUniversidadeSelecionadaParaAdmin(int id) {
         List<Encontro> lista;
-        lista = this.getEncontroDAO().listarEncontrosAcademicoSelecionadoParaAdmin(id);
+        lista = this.getEncontroDAO().listarEncontrosUniversidadeSelecionadaParaAdmin(id);
         return lista;
     }
     

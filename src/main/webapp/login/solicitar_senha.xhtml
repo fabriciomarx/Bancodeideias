@@ -18,17 +18,17 @@
                     <h:form id="form">
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                                 label="Matricula" required="true" required-message="O campo matricula é obrigatorio"/>
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CPF/CNPJ" required="true" required-message="O campo cpf/cnpj é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" required="true" required-message="O campo email é obrigatorio"
+                                             label="Email" required="true" required-message="O campo email é obrigatório"
                                              validatorMessage="O email deve ser no padrão: Seuemail@seuemail.com">
-                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
+                                    <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>
                             </b:column>
                         </b:row>
@@ -37,7 +37,7 @@
                                 <p:messages/>
                             </b:column>
                         </b:row>
-                        
+
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         <b:row>
                             <b:column span="1" offset-md="1">
@@ -47,7 +47,8 @@
                             </b:column>
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" actionListener="#{usuarioController.solicitarNovaSenha()}" 
-                                                 class="btn btn-info" title="ENVIAR"/>
+                                                 class="btn btn-info" title="ENVIAR"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
 

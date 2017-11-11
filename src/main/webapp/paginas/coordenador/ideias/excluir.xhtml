@@ -24,7 +24,7 @@
 
                             </b:column>
                         </b:row><br/>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
@@ -38,7 +38,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
@@ -75,7 +75,7 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}"
@@ -89,12 +89,12 @@
                                                  immediate="true" action="#{ideiaController.doCancelar()}"
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
-                            
+
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{ideiaController.remover()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
-                            
+
                         </b:row>
                     </h:form>
                 </p:fieldset>  

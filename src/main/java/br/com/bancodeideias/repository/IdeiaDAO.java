@@ -39,8 +39,8 @@ public class IdeiaDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    
-    /* LISTA DE ideias filtrados por tipo Metodo que a universidade usa */
+
+    /* LISTA DE ideias filtrados por tipo Metodo que a universidade e admin utilizam */
     public List<Ideia> listarTiposIdeiaSelecionado(String tipo) {
         List<Ideia> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -50,6 +50,21 @@ public class IdeiaDAO implements Serializable {
             lista = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarTiposIdeiaSelecionado - Classe IdeiaDAO");
+        }
+        entityManager.close();
+        return lista;
+    }
+
+    /* LISTA DE ideias filtrados por universidade, usuario admin que usa */
+    public List<Ideia> listarIdeiasUniversidadeSelecionada(Integer idUniversidade) {
+        List<Ideia> lista = new ArrayList<>();
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        try {
+            Query query = entityManager.createQuery("SELECT u FROM Ideia u "
+                    + "WHERE u.usuario.universidade.idUsuario = " + idUniversidade);
+            lista = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("Erro no metodo listarIdeiasUniversidadeSelecionada - Classe IdeiaDAO");
         }
         entityManager.close();
         return lista;
@@ -65,7 +80,7 @@ public class IdeiaDAO implements Serializable {
         } catch (Exception e) {
             System.out.println("Erro no metodo listar - Classe Ideia DAO");
         }
-        
+
         entityManager.close();
         return listaIdeia;
     }
@@ -85,7 +100,7 @@ public class IdeiaDAO implements Serializable {
         return listaIdeia;
     }
 
-    /* LISTAR TODAS AS IDEIAS RECUSADAS NO SISTEMA*/
+    /* LISTAR TODAS AS IDEIAS RECUSADAS NO SISTEMA
     public List<Ideia> listarIdeiasRecusadas() {
         List<Ideia> listaIdeia = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
@@ -97,9 +112,9 @@ public class IdeiaDAO implements Serializable {
         }
         entityManager.close();
         return listaIdeia;
-    }
+    }*/
 
-    /* LISTA DE IDEIAS CADASTRADAS POR ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
+ /* LISTA DE IDEIAS CADASTRADAS POR ALUNOS PERTENCENTES A UNIVERSIDADE LOGADA */
     public List<Ideia> listarIdeiasdaUniversidade() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO
@@ -110,7 +125,7 @@ public class IdeiaDAO implements Serializable {
             Query query = entityManager.createQuery(
                     "SELECT u FROM Ideia u WHERE u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario() + " OR u.usuario.idUsuario = " + usuarioLogado.getIdUsuario());
-                    /* OR serve para mostrar as ideias que a universidade sugeriu tbm */
+            /* OR serve para mostrar as ideias que a universidade sugeriu tbm */
             listaIdeia = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarIdeiasdaUniversidade - Classe Ideia DAO");
@@ -118,7 +133,7 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
         return listaIdeia;
     }
-    
+
     /*Metodo que universidade utiliza para verificar a lista de analise das ideias dos alunos */
     public List<Ideia> listarAnaliseIdeiasParaUniversidade() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -148,7 +163,7 @@ public class IdeiaDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM Ideia u WHERE u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
+                    "SELECT u FROM Ideia u WHERE u.situacao = 'Em análise' AND u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getIdUsuario());
             listaIdeia = query.getResultList();
         } catch (Exception e) {
@@ -185,7 +200,7 @@ public class IdeiaDAO implements Serializable {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Query query = entityManager.createQuery(
-                    "SELECT u FROM Ideia u where u.situacao = 'Em analise' AND u.usuario.universidade.idUsuario = "
+                    "SELECT u FROM Ideia u where u.situacao = 'Em análise' AND u.usuario.universidade.idUsuario = "
                     + usuarioLogado.getUniversidade().getIdUsuario());
             listaIdeiaPendentes = query.getResultList();
         } catch (Exception e) {
@@ -194,15 +209,4 @@ public class IdeiaDAO implements Serializable {
         entityManager.close();
         return listaIdeiaPendentes;
     }
-    
-    /*
-    public Double qtdEstrelas() {
-        EntityManager entityManager = JPAConnection.getEntityManager();
-        Query query = entityManager.createQuery("SELECT COUNT(i) FROM Ideia i");
-        Double qtd = Double.parseDouble(query.getSingleResult().toString());
-        System.out.println("Qtd dao = " + qtd);
-        entityManager.close();
-        return qtd;
-    }*/
-
 }

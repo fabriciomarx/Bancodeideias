@@ -17,9 +17,14 @@ public class UsuarioService implements Serializable {
     }
 
     public void salvar(Usuario usuario) {
-        String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
-        usuario.setSenha(senha);
-        this.getUsuarioDAO().salvar(usuario);
+        try {
+            String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
+            usuario.setSenha(senha);
+            this.getUsuarioDAO().salvar(usuario);
+        } catch (Exception e) {
+            //this.getUsuarioDAO().getMensagem();
+        }
+       
     }
 
     /* METODO PARA ALTERAR A SENHA DO USUARIO */
@@ -116,8 +121,8 @@ public class UsuarioService implements Serializable {
         return listaUsuario;
     }
 
-    public Usuario solicitarNovaSenha(String email, String matricula) {
-        Usuario usuario = this.getUsuarioDAO().solicitarNovaSenha(email, matricula);
+    public Usuario solicitarNovaSenha(String email, String cpf) {
+        Usuario usuario = this.getUsuarioDAO().solicitarNovaSenha(email, cpf);
         if (usuario != null) {
             return usuario;
         } else {

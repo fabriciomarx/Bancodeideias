@@ -15,13 +15,27 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Excluir academico">
+                <p:fieldset legend="Excluir Acadêmico">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
+                                <h:outputLabel value="CPF"/><br/>
+                                <p:inputMask mask="999.999.999-99" value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             readonly="true"/>
+                            </b:column>
+                        </b:row><br/>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
+                                             label="Nome" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:selectOneMenu label="Tipo Usuário" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  disabled="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
                                     <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
@@ -31,43 +45,53 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" disabled="true"/>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula" disabled="true"/>
+                                             label="Matrícula" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.universidade.nome}" 
-                                             label="Universidade" disabled="true"/>
+                                             label="Universidade" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" disabled="true"/>
+                                             label="Email" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
-                                             label="Curso" disabled="true"/>
+                                             label="Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Professor'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.curso.semestre  == 1 ? '1º Semestre' : '2º Semestre'}" 
+                                             label="Semestre Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario == 'Aluno'}"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{usuarioController.usuarioSelecionado.curso.ano}" 
+                                             label="Ano Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario == 'Aluno'}"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
-                                <b:commandButton value="Retornar" look="sucess" icon="cancel" immediate="true" action="#{usuarioController.doCancelar()}" 
-                                                 title="RETORNAR" class="btn-primary"/>
+                                <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{usuarioController.doCancelar()}" 
+                                                 icon="glyphicon glyphicon-arrow-left" title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
                                 <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{usuarioController.remover()}"

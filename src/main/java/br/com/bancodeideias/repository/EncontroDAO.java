@@ -1,4 +1,4 @@
-package br.com.bancodeideias.repository;
+  package br.com.bancodeideias.repository;
 
 import br.com.bancodeideias.domain.Encontro;
 import br.com.bancodeideias.domain.Usuario;
@@ -56,7 +56,7 @@ public class EncontroDAO implements Serializable {
     }
 
     /* METODO PARA FILTRAR OS ENCONTROS POR UNIVERSIDADE. USUARIO ADMIN UTILIZA */
-    public List<Encontro> listarEncontrosAcademicoSelecionadoParaAdmin(int id) {
+    public List<Encontro> listarEncontrosUniversidadeSelecionadaParaAdmin(int id) {
         List<Encontro> lista = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {

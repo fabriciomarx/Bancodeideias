@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -17,29 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "usuario")
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
-    , @NamedQuery(name = "Usuario.findByMatricula", query = "SELECT u FROM Usuario u WHERE u.matricula = :matricula")
-    , @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome")
-    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")
-    , @NamedQuery(name = "Usuario.findBySituacao", query = "SELECT u FROM Usuario u WHERE u.situacao = :situacao")
-    , @NamedQuery(name = "Usuario.findByTipoUsuario", query = "SELECT u FROM Usuario u WHERE u.tipoUsuario = :tipoUsuario")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,6 +59,11 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "tipoUsuario")
     private String tipoUsuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "cpf_cnpj")
+    private String cpf_cnpj;
     @OneToMany(mappedBy = "analista", fetch = FetchType.LAZY)
     private List<Ideia> ideiaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
@@ -105,7 +90,7 @@ public class Usuario implements Serializable {
     private List<Encontro> encontroList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno", fetch = FetchType.LAZY)
     private List<Encontro> encontroList1;
-    
+
     @Transient
     private String confirmarSenha;
 
@@ -116,7 +101,7 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Integer idUsuario, String email, String matricula, String nome, String senha, String situacao, String tipoUsuario) {
+    public Usuario(Integer idUsuario, String email, String matricula, String nome, String senha, String situacao, String tipoUsuario, String cpf_cnpj) {
         this.idUsuario = idUsuario;
         this.email = email;
         this.matricula = matricula;
@@ -124,6 +109,7 @@ public class Usuario implements Serializable {
         this.senha = senha;
         this.situacao = situacao;
         this.tipoUsuario = tipoUsuario;
+        this.cpf_cnpj = cpf_cnpj;
     }
 
     public Integer getIdUsuario() {
@@ -286,6 +272,13 @@ public class Usuario implements Serializable {
         this.confirmarSenha = confirmarSenha;
     }
     
+    public String getCpf_cnpj() {
+        return cpf_cnpj;
+    }
+
+    public void setCpf_cnpj(String cpf_cnpj) {
+        this.cpf_cnpj = cpf_cnpj;
+    }
     
 
     @Override
@@ -312,5 +305,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

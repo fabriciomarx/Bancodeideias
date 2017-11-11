@@ -69,14 +69,14 @@
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Nome *"/><br/>
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
                                                  placeholder="Insira o nome do Curso" 
                                                  rows="5" cols="169" counter="idNome" maxlength="70" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo nome é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo nome é obrigatório"/>
                                 <h:outputText id="idNome" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -87,11 +87,11 @@
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
                                                  placeholder="Insira a sigla do Curso" 
                                                  rows="5" cols="169" counter="idSigla" maxlength="10" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo sigla é obrigatório"/>
                                 <h:outputText id="idSigla" style="float: right;"/>
                             </b:column>
                         </b:row>
-
+                        <br/><br/>
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" immediate="true" action="#{cursoController.doCancelar()}" 

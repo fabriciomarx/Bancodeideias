@@ -15,16 +15,13 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Incluir Usuario">
+                <p:fieldset legend="Incluir Usuario Acadêmico">
                     <h:form>
-
-                        <!--Quando o admin for adicionar uma unversidade, esconder os campos universidade e curso-->
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
                                                  required="true" required-message="O campo tipo é obrigatorio">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
-                                    <f:selectItem itemLabel="Universidade" itemValue="Universidade"/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
                                     <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
@@ -48,13 +45,12 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <!-- FALTA FAZER QUANDO A UNIVERSIDADE FOR SELECIONADA, CARREGAR SO OS CURSOS 
-                                DELA-->
                                 <h:outputLabel value="Universidade"/>
                                 <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.universidade}">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{usuarioController.listaUniversidades}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
+                                    <f:ajax render="listCursosUni" event="change" listener="#{usuarioController.listaCursoUniversidadeEscolhida()}"/> 
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -62,7 +58,8 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" required="true" required-message="O campo email é obrigatorio">
+                                             label="Email" required="true" required-message="O campo email é obrigatorio"
+                                             placeholder="email@email.com" validatorMessage="O email deve ser no padrão: email@email.com">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>
                             </b:column>
@@ -70,29 +67,25 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <p:outputLabel value="Senha" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
-                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioLogado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" />
-
-                                <p:outputLabel value="Digite novamente" style="margin-right: 10px;"/>
-                                <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte"
-                                            label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
-                                            value="#{usuarioController.usuarioLogado.senha}" required="true" 
-                                            requiredMessage="O campo senha deve ser digitado duas vezes" />
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue=""/>
-                                    <f:selectItems value="#{usuarioController.listaCurso}" var="item"
+                                <b:selectOneMenu label="Curso" value="#{usuarioController.usuarioSelecionado.curso}"
+                                                 id="listCursosUni">
+                                    <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" itemValue="#{usuarioController.usuarioSelecionado.curso}"/>
+                                    <f:selectItems value="#{usuarioController.listarCursosUniversidadeEscolhida}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>
                                 </b:selectOneMenu>  
                             </b:column>
                         </b:row>
+                        
+                        <br/>
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <h:outputLabel value="CPF *" style="margin-right: 15px;" />
+                                <p:inputMask mask="999.999.999-99" value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             required="true" requiredMessage="O campo CPF é obrigatório"
+                                             placeholder="000.000.000-00"/>
+                            </b:column>
+                        </b:row>
+                        <br/>
 
                         <b:row>
                             <b:column span="1" offset-md="1">
@@ -101,7 +94,7 @@
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" look="info" action="#{usuarioController.salvar()}"
+                                <b:commandButton value="Enviar" look="info" actionListener="#{usuarioController.salvar()}"
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>

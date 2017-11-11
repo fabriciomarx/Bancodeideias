@@ -11,9 +11,12 @@ import javax.servlet.http.HttpSession;
 
 public class UsuarioDAO implements Serializable {
 
+    public String mensagem;
+    
     public UsuarioDAO() {
     }
     
+    /* salvar antigo 
     public void salvar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -21,8 +24,47 @@ public class UsuarioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
 
-    }
+    }*/
+    
+    public void salvar(Usuario usuario) {
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        entityManager.getTransaction().begin();
 
+        Query query = entityManager.createQuery("Select u From Usuario u where u.email = :emailUsuario"
+                + " OR u.cpf_cnpj  = :cpfUsuario OR u.matricula = :matriculaUsuario")
+                .setParameter("emailUsuario", usuario.getEmail())
+                .setParameter("cpfUsuario", usuario.getCpf_cnpj())
+                .setParameter("matriculaUsuario", usuario.getMatricula());
+
+        if (query.getResultList().isEmpty()) {
+            entityManager.persist(usuario);
+            this.setMensagem("Usuário salvo com sucesso !");
+        } else {
+            this.setMensagem("O Email e/ou CPF/CNPJ e/ou Matrícula já esta cadastrado!");
+        }
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+    /*
+    public void alterar(Usuario usuario) {
+        EntityManager entityManager = JPAConnection.getEntityManager();
+        entityManager.getTransaction().begin();
+        
+        Query query = entityManager.createQuery("Select u From Usuario u where u.email = :emailUsuario")
+                .setParameter("emailUsuario", usuario.getEmail());
+
+        if (query.getResultList().isEmpty()) {
+             entityManager.merge(usuario);
+            this.setMensagem("Usuário alterado com sucesso !");
+        } else {
+            this.setMensagem("O email já esta cadastrado! Tente outro email valido");
+        }
+        
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }*/
+    
     public void alterar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -133,7 +175,7 @@ public class UsuarioDAO implements Serializable {
                 sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
                         + "AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario();
             } else {
-                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' "
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' AND u.situacao = 'Ativo' "
                         + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
             }
             Query query = entityManager.createQuery(sql);
@@ -155,6 +197,7 @@ public class UsuarioDAO implements Serializable {
         try {
             Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Aluno' OR u.tipoUsuario = 'Professor' OR u.tipoUsuario = 'Coordenador'"
                     + " AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario());
+            System.out.println("Qutd " + query.getMaxResults());
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
             System.err.println("Erro no metodo listaAcademicosUniLogada - Classe Usuario DAO");
@@ -210,28 +253,38 @@ public class UsuarioDAO implements Serializable {
         List<Usuario> listaUsuarios = new ArrayList<>();
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
-            Query query = entityManager.createQuery("SELECT u FROM Usuario u where u.tipoUsuario = 'Universidade' and u.situacao = 'Pendente''");
+            Query query = entityManager.createQuery("SELECT u FROM Usuario u WHERE u.tipoUsuario = 'Universidade' AND u.situacao = 'Pendente'");
             listaUsuarios = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Erro no metodo listaUniversidadesPendentes - Classe Usuario DAO");
+            System.out.println("Erro no metodo listaUniversidadesPendentes - Classe Usuario DAO " 
+             + e.getMessage());
         }
         entityManager.close();
         return listaUsuarios;
     }
 
     /* METODO PARA SOLICITAR NOVA SENHA */
-    public Usuario solicitarNovaSenha(String emailUsuario, String matriculaUsuario) {
+    public Usuario solicitarNovaSenha(String emailUsuario, String cpfUsuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         try {
             Usuario usuario = (Usuario) entityManager
-                    .createQuery("Select u from Usuario u where u.email = :emailUsuario and u.matricula = :matriculaUsuario")
+                    .createQuery("Select u from Usuario u where u.email = :emailUsuario and u.cpf_cnpj = :cpfUsuario")
                     .setParameter("emailUsuario", emailUsuario)
-                    .setParameter("matriculaUsuario", matriculaUsuario)
+                    .setParameter("cpfUsuario", cpfUsuario)
                     .getSingleResult();
             return usuario;
         } catch (Exception e) {
             System.out.println("USUARIO NÃO ENCONTRADO - DAO");
             return null;
         }
+    }
+    
+    /* ================= Gets and Sets =================== */
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }

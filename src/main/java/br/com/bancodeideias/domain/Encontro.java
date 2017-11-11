@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bancodeideias.domain;
 
 import java.io.Serializable;
@@ -18,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,20 +20,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author fabri
- */
 @Entity
 @Table(name = "encontro")
-@NamedQueries({
-    @NamedQuery(name = "Encontro.findAll", query = "SELECT e FROM Encontro e")
-    , @NamedQuery(name = "Encontro.findByIdEncontro", query = "SELECT e FROM Encontro e WHERE e.idEncontro = :idEncontro")
-    , @NamedQuery(name = "Encontro.findByDataEncontro", query = "SELECT e FROM Encontro e WHERE e.dataEncontro = :dataEncontro")
-    , @NamedQuery(name = "Encontro.findByDescricao", query = "SELECT e FROM Encontro e WHERE e.descricao = :descricao")
-    , @NamedQuery(name = "Encontro.findByHora", query = "SELECT e FROM Encontro e WHERE e.hora = :hora")
-    , @NamedQuery(name = "Encontro.findByLocalEncontro", query = "SELECT e FROM Encontro e WHERE e.localEncontro = :localEncontro")
-    , @NamedQuery(name = "Encontro.findByStatus", query = "SELECT e FROM Encontro e WHERE e.status = :status")})
 public class Encontro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -195,5 +176,5 @@ public class Encontro implements Serializable {
     public String toString() {
         return "br.com.bancodeideias.domain.Encontro[ idEncontro=" + idEncontro + " ]";
     }
-    
+
 }

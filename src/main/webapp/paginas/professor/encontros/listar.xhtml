@@ -17,7 +17,7 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Encontros com alunos"> 
+                    <p:fieldset legend="Encontros com Alunos"> 
                         <b:panel look="primary" collapsible="false">
                             <b:row>
                                 <b:column medium-screen="3" span="3">
@@ -31,19 +31,17 @@
                             </b:row>
                             <b:dataTable value="#{encontroController.listaEncontro}"
                                          var="item" searching="true" border="false" id="encontroDataProf"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
-                                
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doAlterarStatus()}" class="btn btn-info" value=""
                                                      icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS" 
                                                      disabled="#{item.status == 'Realizado' or item.status == 'Recusado'}">
-                                                    <!-- disabled="#{item.aluno.idUsuario == usuarioLogado.idUsuario or item.orientador.idUsuario == usuarioLogado.idUsuario or item.status == 'Realizado'}">-->
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{item.status}"
@@ -53,7 +51,7 @@
                                                   #{item.status == 'Realizado' ? 'ja_realizado' : null}
                                                   #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
@@ -77,7 +75,7 @@
                                     <f:facet name="header">Local</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet> 
                                     <h:outputText value="#{item.aluno.nome}"/>

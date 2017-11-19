@@ -17,12 +17,13 @@
                  animation-enter="animated bounceInDown"
                  animation-exit="animated flipOutX"
                  escape="true" />
+
         <div class="principal">
             <h:form class="form-login">       
                 <h2 class="form-login-heading">Faça seu Login</h2>
                 <b:inputText placeholder="Digite seu email" 
                              value="#{usuarioController.usuarioSelecionado.email}" size="35"
-                             required="true" requiredMessage="O campo EMAIL é obrigatorio!" 
+                             required="true" requiredMessage="O campo EMAIL é obrigatório!" 
                              validatorMessage="O email deve ser da seguinte forma : seuemail@seuemail.com"
                              label="Email:" class="form-control">
                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" /> 
@@ -30,7 +31,7 @@
 
                 <b:inputSecret placeholder="Digite sua senha" label="Senha:" 
                                value="#{usuarioController.usuarioSelecionado.senha}"
-                               required="true" requiredMessage="O campo SENHA é obrigatorio!"
+                               required="true" requiredMessage="O campo SENHA é obrigatório!"
                                class="form-control"/>
 
                 <b:commandButton value="Acessar"  action="#{usuarioController.doLogin()}"
@@ -57,6 +58,6 @@
         <!-- Dialog carregando-->
         <p:dialog widgetVar="dlgCarregando" closable="false" resizable="false"
                   draggable="false" modal="true" appendTo="@(body)"
-                  header="Aguarde">Carregando...aguarde</p:dialog>
+                  header="Aguarde">CARREGANDO...AGUARDE !</p:dialog>
     </h:body>
 </html>

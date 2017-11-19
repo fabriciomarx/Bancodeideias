@@ -63,13 +63,15 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.curso.nome}" 
-                                             label="Curso" readonly="true"/>
+                                             label="Curso" readonly="true"
+                                             rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Professor'}"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.curso}">
+                                <b:selectOneMenu value="#{usuarioController.usuarioSelecionado.curso}"
+                                                 rendered="#{usuarioController.usuarioSelecionado.tipoUsuario != 'Professor'}">
                                     <f:selectItem itemLabel="-- Deseja alterar o curso ? --" noSelectionOption="true" itemValue="#{usuarioController.usuarioSelecionado.curso}"/>
                                     <f:selectItems value="#{usuarioController.listaCurso}" var="item"
                                                    itemLabel="#{item.nome.concat(' - ').concat(item.sigla).concat(' - ').concat(item.semestre).concat('/').concat(item.ano)}" itemValue="#{item}"/>

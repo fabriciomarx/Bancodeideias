@@ -51,22 +51,21 @@ public class UsuarioController extends GenericController implements Serializable
     }
     
     private void resset() {
-        usuarioSelecionado                  = new Usuario();
-        usuarioService                      = new UsuarioService();
-        listaUsuario                        = new ArrayList<>();
-        listaAluno                          = new ArrayList<>();
-        listaUniversidades                  = new ArrayList<>();
-        listaUniversidadesPendentes         = new ArrayList<>();
-        listaAcademicosUniLogada            = new ArrayList<>();
+        usuarioSelecionado          = new Usuario();
+        usuarioService              = new UsuarioService();
+        
+        listaUsuario                = new ArrayList<>();
+        listaAluno                  = new ArrayList<>();
+        listaUniversidades          = new ArrayList<>();
+        listaUniversidadesPendentes = new ArrayList<>();
+        listaAcademicosUniLogada    = new ArrayList<>();
 
-        listaCurso                          = new ArrayList<>();
-       // listarCursosUniversidadeEscolhida   = new ArrayList<>(); //estava dando erro apos inserir academico, usuario universidade
-        cursoService                        = new CursoService();
-        
-        
-        curso                               = new Curso();
-        
-        tipoUsuario                         = "";
+        listaCurso                  = new ArrayList<>();
+        cursoService                = new CursoService();
+
+        curso                       = new Curso();
+
+        tipoUsuario                 = "";
     }
     
     /* Admin que utiliza na hora de inserir um usuario 
@@ -89,23 +88,12 @@ public class UsuarioController extends GenericController implements Serializable
     }
     
     private void listar() {
-        /*HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogadoo = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO    
-        
-        if (usuarioLogadoo.getTipoUsuario().equals("Universidade")) {
-            listaAcademicosUniLogada = this.getUsuarioService().listaAcademicosUniLogada();
-
-        }*/
-        
-        listaUsuario                = this.getUsuarioService().listar();
-        listaUniversidades          = this.getUsuarioService().listUniversidades();
-        listaUniversidadesPendentes = this.getUsuarioService().listaUniversidadesPendentes();
-        listaAluno                  = this.getUsuarioService().listaAlunos();
-
-        listaCurso                  = this.getCursoService().listar(); // Todos os cursos do sistema ADMIN
-        listaAcademicosUniLogada    = this.getUsuarioService().listaAcademicosUniLogada();
-        
-  
+        listaUsuario                    = this.getUsuarioService().listar(); //todos os usuarios
+        listaUniversidades              = this.getUsuarioService().listUniversidades(); // todas as universidades
+        listaUniversidadesPendentes     = this.getUsuarioService().listaUniversidadesPendentes(); //todas as universidades pendentes
+        listaAluno                      = this.getUsuarioService().listaAlunos(); // todos os alunos
+        listaCurso                      = this.getCursoService().listar(); // todos os cursos
+        listaAcademicosUniLogada        = this.getUsuarioService().listaAcademicosUniLogada(); // todos os alunos da universidade logada
     }
 
     /* SALVAR USUARIO A PARTIR DO LOGIN , SEM USUARIO NA SESSAO */
@@ -116,7 +104,7 @@ public class UsuarioController extends GenericController implements Serializable
 
             if (this.getUsuarioSelecionado().getSenha().equals(this.getUsuarioSelecionado().getConfirmarSenha())) {
                 this.getUsuarioService().salvar(usuarioSelecionado);
-                addSucessMessage("Inserido com sucesso ! Aguarde a analise do Administrador para acessar o sistema");
+                addSucessMessage(this.getUsuarioService().getUsuarioDAO().getMensagem());
                 this.resset();
             } else {
                 addErrorMessage("As senhas são diferentes, digite novamente");
@@ -148,7 +136,8 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    /* Metodo diferente pois no caso da universidade, existe a opção de alterar meu cadastro e alterar cadastro aluno*/
+    /* Metodo diferente pois no caso da universidade, 
+       existe a opção de alterar meu cadastro e alterar cadastro aluno */
     public void alterarMeuCadastro() {
         try {
             this.getUsuarioService().alterar(usuarioLogado);
@@ -163,7 +152,7 @@ public class UsuarioController extends GenericController implements Serializable
             this.getUsuarioService().alterar(usuarioSelecionado);
             addSucessMessage("Usuário alterado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao alterar usuario");
+            addErrorMessage("Erro ao alterar usuário");
         }
         this.listar();
         return "listar.xhtml?faces-redirect=true";
@@ -176,21 +165,20 @@ public class UsuarioController extends GenericController implements Serializable
                 this.getUsuarioService().alterarSenha(usuarioLogado);
                 addSucessMessage("Senha alterada com sucesso");
             } else {
-                addErrorMessage("As senhas são diferentes, digite novamente");
+                addErrorMessage("As senhas são diferentes, tente novamente");
             }
         } catch (Exception e) {
-            addErrorMessage("Erro ao alterar senha do usuario ");
+            addErrorMessage("Erro ao alterar senha do usuário ");
         }
     }
 
     public String remover() {
         try {
             this.getUsuarioService().remover(usuarioSelecionado);
-            addSucessMessage("Usuario removido com sucesso !");
+            addSucessMessage("Usuário removido com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao remover usuario ");
+            addErrorMessage("Erro ao remover usuário");
         }
-        //this.resset();
         this.listar();
         return "listar.xhtml?faces-redirect=true";
     }
@@ -213,13 +201,8 @@ public class UsuarioController extends GenericController implements Serializable
             session.setAttribute("usuarioLogado", usuarioLogado); //Este usuarioLogado é meu objeto modelo que pode ser persistido.
             System.out.println("Usuario logado na sessao: " + usuarioLogado.getEmail()); //provisorio
 
-            //coloquei aqui porque estava dando erro se eu colocasse no metodo "listar"
-            //this.listarCursosUniversidadeEscolhida();
-            //listarCursosUniversidadeEscolhida = this.getCursoService().listarCursosUniversidadeEscolhida(usuarioLogado.getIdUsuario());
-            
             return "/paginas/principal/index.xhtml?faces-redirect=true";
         } else {
-            //addErrorMessage(this.getUsuarioService().getMsg());
             return "/login/login.xhtml?faces-redirect=true";
         }
 
@@ -242,7 +225,7 @@ public class UsuarioController extends GenericController implements Serializable
             addSucessMessage("Nova senha gerada com sucesso ! SENHA: " + getSenhaGerada());
             this.resset();
         } else {
-            addErrorMessage("Usuario não encontrado ou dados invalidos");
+            addErrorMessage("Usuario não encontrado ou dados inválidos");
         }
     }
 
@@ -402,5 +385,4 @@ public class UsuarioController extends GenericController implements Serializable
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-
 }

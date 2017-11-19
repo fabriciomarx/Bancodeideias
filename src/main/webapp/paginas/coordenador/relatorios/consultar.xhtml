@@ -14,46 +14,44 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Consultar Relatorio">
+                <p:fieldset legend="Consultar Relatório">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Periodo Inicio"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <h:outputLabel value="Periodo Início"/><br/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Periodo Fim"/><br/>
-                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"/>
                             </b:column>
                         </b:row><br/>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.atividadesRealizadas}"
-                                                 label="Atividades Realizadas" disabled="true"/>
+                                                 label="Atividades Realizadas" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.autoAvaliacao}"
-                                                 label="Auto avaliação" disabled="true"/>
+                                                 label="Auto avaliação" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{relatorioController.relatorioSelecionado.justificativa}"
-                                                 label="Justificativa" disabled="true"/>
+                                                 label="Justificativa" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Data Relatorio"/>
+                                <h:outputLabel value="Data Relatório"/>
                                 <b:dateTimePicker value="#{relatorioController.relatorioSelecionado.dataInscricao}"
                                                   show-time="false"/>
                             </b:column>
@@ -62,14 +60,14 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.aluno.nome}"
-                                             label="Academico" disabled="true"/>
+                                             label="Acadêmico" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{relatorioController.relatorioSelecionado.encontro.orientador.nome}"
-                                             label="Orientador" disabled="true"/>
+                                             label="Orientador" readonly="true"/>
                             </b:column>
                         </b:row>
 

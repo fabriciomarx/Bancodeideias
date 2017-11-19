@@ -85,7 +85,7 @@ public class IdeiaController extends GenericController implements Serializable {
         switch (usuarioLogado.getTipoUsuario()) {
             case "Coordenador":
             case "Professor":
-                listaIdeia          = this.getIdeiaService().listarIdeiasAprovadas(); //  todas ideias
+                listaIdeia          = this.getIdeiaService().listarIdeiasAprovadas(); //  todas ideias aprovadas
                 listaIdeiasPendente = this.getIdeiaService().listarIdeiasPendentes(); // ideias pendentes somente da universidade
                 listaIdeiasLogado   = this.getIdeiaService().listarIdeiasLogado(); // somente as ideias do usuario logado
                 break;

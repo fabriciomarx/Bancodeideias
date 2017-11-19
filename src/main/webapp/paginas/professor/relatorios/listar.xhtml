@@ -17,12 +17,12 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Todos Relatorios"> 
+                    <p:fieldset legend="Todos Relatórios"> 
                         <b:panel look="primary" collapsible="false">
-                            
+
                             <b:row>
                                 <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar relatorios por Aluno:" value="#{relatorioController.usuario}">
+                                    <b:selectOneMenu label="Filtrar relatórios por Aluno:" value="#{relatorioController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{relatorioController.usuario}"/>
                                         <f:selectItems value="#{relatorioController.listaAluno}" var="item"
                                                        itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -30,12 +30,11 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
                                          var="itemm" searching="true" border="false" id="relatorioData"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
-                                 <h:column>
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+                                <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doAlterarStatus()}" class="btn btn-info" value=""
                                                      icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS" 
@@ -43,7 +42,7 @@
                                         <f:setPropertyActionListener value="#{itemm}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
                                     <h:outputText value="#{itemm.status}"
@@ -53,7 +52,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data Inicio</f:facet>
+                                    <f:facet name="header">Data Início</f:facet>
                                     <h:outputText value="#{itemm.dataInicio}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
@@ -70,7 +69,7 @@
                                     <f:facet name="header">Atividade Realizadas</f:facet>
                                     <h:outputText value="#{itemm.atividadesRealizadas}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
                                     <h:outputText value="#{itemm.encontro.aluno.nome}"/>
@@ -101,7 +100,7 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
-                           
+
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

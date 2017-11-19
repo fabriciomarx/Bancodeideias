@@ -15,14 +15,14 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar encontro"> 
+                <p:fieldset legend="Editar Encontro"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Data encontro"/><br/>
+                                <h:outputLabel value="Data Encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
                                             placeholder="__/__/__" mindate="new Date()"
-                                            required="true" pages="3" />
+                                            required="true" pages="3" requiredMessage="O campo data do encontro é obrigatório"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
@@ -35,7 +35,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Local do encontro"/><br/>
+                                <h:outputLabel value="Local do Encontro"/><br/>
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  placeholder="Insira o local do encontro" 
                                                  rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
@@ -54,7 +54,7 @@
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.orientador.nome}"

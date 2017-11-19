@@ -18,7 +18,7 @@
                 <h:form>
                     <p:fieldset legend="Todas Propostas de TCC"> 
                         <b:panel look="primary" collapsible="false">
-                            
+
                             <b:row>
                                 <b:column medium-screen="3" span="3">
                                     <b:selectOneMenu label="Filtrar proposta de tcc por Aluno:" value="#{propostaTccController.usuario}">
@@ -29,12 +29,10 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="iten" searching="true" border="false" id="propostaDataCoord"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
-
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Data Inscrição</f:facet>
@@ -48,7 +46,7 @@
                                     <h:outputText value="#{iten.aprovacaoOrientador}"
                                                   styleClass="#{iten.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
                                                   #{iten.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                  #{iten.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{iten.aprovacaoOrientador == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
@@ -56,13 +54,13 @@
                                     <h:outputText value="#{iten.situacao}"
                                                   styleClass="#{iten.situacao == 'Aprovado' ? 'aprovado' : null}
                                                   #{iten.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{iten.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{iten.situacao == 'Em análise' ? 'em_analise' : null}">
                                     </h:outputText>
 
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{iten.titulo}"/>
                                 </h:column>
 
@@ -80,7 +78,7 @@
                                     <f:facet name="header">Orientador</f:facet>
                                     <h:outputText value="#{iten.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
                                     <h:outputText value="#{iten.academico.nome}"/>

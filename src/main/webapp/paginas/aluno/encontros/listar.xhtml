@@ -17,21 +17,12 @@
             <ui:define name="conteudo">
 
                 <h:form>
-                    <p:fieldset legend="Encontros com orientador"> 
+                    <p:fieldset legend="Encontros com Orientador"> 
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{encontroController.listaEncontro}"
                                          var="item" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
-                                
-                                <h:column>
-                                    <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton action="#{encontroController.doAlterarStatus()}" class="btn btn-info" value=""
-                                                     icon="glyphicon glyphicon-list-alt" title="EDITAR STATUS"
-                                                     disabled="#{item.status == 'Realizado' or item.status == 'Recusado'}">
-                                        <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
-                                    </b:commandButton>
-                                </h:column>    
-                                
+
                                 <h:column>
                                     <f:facet name="header">Status</f:facet> 
                                     <h:outputText value="#{item.status}"
@@ -41,7 +32,7 @@
                                                   #{item.status == 'Realizado' ? 'ja_realizado' : null}
                                                   #{item.status == 'Cancelado' ? 'enviado_vistocancelado' : null}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Data</f:facet>
                                     <h:outputText value="#{item.dataEncontro}">
@@ -55,7 +46,7 @@
                                         <f:convertDateTime pattern="HH:mm" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Descrição</f:facet> 
                                     <h:outputText value="#{item.descricao}"/>
@@ -65,7 +56,7 @@
                                     <f:facet name="header">Local</f:facet>
                                     <h:outputText value="#{item.localEncontro}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet> 
                                     <h:outputText value="#{item.aluno.nome}"/>
@@ -75,7 +66,7 @@
                                     <f:facet name="header">Orientador</f:facet> 
                                     <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <!-- Se o relatorio foi realizado aparecer a frase "Fazer relatorio" se não aparecer " - " 
                                          O botão incluir relatorio só vai aparecer quando o encontro foi realizado -->
@@ -87,7 +78,7 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{encontroController.encontroSelecionado}"/>
                                     </b:commandButton>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{encontroController.doEditar()}" class="btn btn-success" value=""

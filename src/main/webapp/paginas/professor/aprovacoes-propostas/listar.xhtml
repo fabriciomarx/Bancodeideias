@@ -22,15 +22,14 @@
 
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="itemm" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
-                                
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+
                                 <h:column>
                                     <f:facet name="header">Aprovação do Orientador</f:facet>
                                     <h:outputText value="#{itemm.aprovacaoOrientador}"
                                                   styleClass="#{itemm.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
                                                   #{itemm.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                  #{itemm.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{itemm.aprovacaoOrientador == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
@@ -38,10 +37,10 @@
                                     <h:outputText value="#{itemm.situacao}"
                                                   styleClass="#{itemm.situacao == 'Aprovado' ? 'aprovado' : null}
                                                   #{itemm.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{itemm.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{itemm.situacao == 'Em análise' ? 'em_analise' : null}">
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Data Inscrição</f:facet>
                                     <h:outputText value="#{itemm.dataInscricao}">
@@ -50,7 +49,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{itemm.titulo}"/>
                                 </h:column>
 
@@ -88,7 +87,7 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable> 
-                            
+
                             <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>

@@ -125,13 +125,15 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
-                                             label="Aluno Participante (Não obrigatório)" readonly="true"/>
+                                             label="Aluno Participante (Não obrigatório)" readonly="true"
+                                             rendered="#{propostaTccController.propostaTccSelecionada.participante != null}"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.participante}">
+                                <b:selectOneMenu value="#{propostaTccController.propostaTccSelecionada.participante}"
+                                                 rendered="#{propostaTccController.propostaTccSelecionada.participante != null}">
                                     <f:selectItem itemLabel="-- Deseja alterar o participante ? --" noSelectionOption="true" itemValue="#{propostaTccController.propostaTccSelecionada.participante}"/>
                                     <f:selectItems value="#{propostaTccController.listaAluno}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>

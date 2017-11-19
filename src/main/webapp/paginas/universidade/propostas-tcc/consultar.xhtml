@@ -20,7 +20,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.titulo}" 
-                                             label="Titulo" readonly="true"/>
+                                             label="Título" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -107,11 +107,12 @@
                                              label="Aluno" readonly="true"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante == null ? 'Sem participante' : propostaTccController.propostaTccSelecionada.participante.nome}"
-                                             label="Aluno Participante" readonly="true"/>
+                                <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante}"
+                                             label="Aluno Participante" readonly="true"
+                                             rendered="#{propostaTccController.propostaTccSelecionada.participante != null}"/>
                             </b:column>
                         </b:row>
 

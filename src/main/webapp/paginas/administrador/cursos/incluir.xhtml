@@ -21,7 +21,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{cursoController.cursoSelecionado.semestre}" required="true"
-                                                 requiredMessage="O campo semestre é obrigatorio" label="Semestre">
+                                                 requiredMessage="O campo semestre é obrigatório" label="Semestre">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true" />
                                     <f:selectItem itemLabel="1º Semestre" itemValue="1" />
                                     <f:selectItem itemLabel="2º Semestre" itemValue="2" />
@@ -35,7 +35,7 @@
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.nome}"
                                                  placeholder="Insira o nome do curso" 
                                                  rows="5" cols="169" counter="idNome" maxlength="70" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo nome é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo nome é obrigatório"/>
                                 <h:outputText id="idNome" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -46,7 +46,7 @@
                                 <p:inputTextarea value="#{cursoController.cursoSelecionado.sigla}"
                                                  placeholder="Insira a sigla do curso" 
                                                  rows="5" cols="169" counter="idSigla" maxlength="10" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo sigla é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo sigla é obrigatório"/>
                                 <h:outputText id="idSigla" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -54,7 +54,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Universidade" value="#{cursoController.cursoSelecionado.universidade}"
-                                                 required="true" requiredMessage="O campo Universidade é obrigatorio">
+                                                 required="true" requiredMessage="O campo Universidade é obrigatório">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                     <f:selectItems value="#{cursoController.listaUniversidade}" var="item"
                                                    itemLabel="#{item.nome}" itemValue="#{item}"/>

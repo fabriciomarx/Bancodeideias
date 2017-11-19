@@ -15,18 +15,18 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <p:fieldset legend="Solicitar Nova Senha">
-                    <h:form id="form">
+                    <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
-                                             label="CPF/CNPJ" required="true" required-message="O campo cpf/cnpj é obrigatório"/>
+                                             label="CPF/CNPJ" required="true" requiredMessage="O campo cpf/cnpj é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" required="true" required-message="O campo email é obrigatório"
+                                             label="Email" required="true" requiredMessage="O campo email é obrigatório"
                                              validatorMessage="O email deve ser no padrão: Seuemail@seuemail.com">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>

@@ -16,12 +16,12 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Todos Relatorios"> 
+                    <p:fieldset legend="Todos Relatórios"> 
                         <b:panel look="primary" collapsible="false">
-                            
+
                             <b:row>
                                 <b:column medium-screen="3" span="3">
-                                    <b:selectOneMenu label="Filtrar relatorios por aluno:" value="#{relatorioController.usuario}">
+                                    <b:selectOneMenu label="Filtrar relatórios por aluno:" value="#{relatorioController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{relatorioController.usuario}"/>
                                         <f:selectItems value="#{relatorioController.listaAluno}" var="item"
                                                        itemLabel="#{item.nome}" itemValue="#{item}"/>
@@ -29,12 +29,10 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{relatorioController.listaRelatorio}"
-                                         var="itemm" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped"
-                                          id="relatoriosData">
+                                         var="itemm" searching="true" border="false" id="relatoriosData"
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Status</f:facet>
@@ -45,7 +43,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Data Inicio</f:facet>
+                                    <f:facet name="header">Data Início</f:facet>
                                     <h:outputText value="#{itemm.dataInicio}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
@@ -62,12 +60,12 @@
                                     <f:facet name="header">Atividade Realizadas</f:facet>
                                     <h:outputText value="#{itemm.atividadesRealizadas}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Orientador</f:facet>
                                     <h:outputText value="#{itemm.encontro.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
                                     <h:outputText value="#{itemm.encontro.aluno.nome}"/>
@@ -89,7 +87,7 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""

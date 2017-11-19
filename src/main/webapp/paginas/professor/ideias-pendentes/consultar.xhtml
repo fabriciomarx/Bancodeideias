@@ -20,7 +20,6 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="Data Inclusão"/><br/>
                                 <p:calendar value="#{ideiaController.ideiaSelecionada.dataInscricao}"/>
-
                             </b:column>
                         </b:row><br/>
                         
@@ -41,7 +40,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
-                                                 label="Titulo" readonly="true"/>
+                                                 label="Título" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -58,7 +57,7 @@
                                                  disabled="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" noSelectionOption="true"/>
                                    <f:selectItem itemLabel="Aprovado" itemValue="Aprovado"/>
-                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise"/>
+                                    <f:selectItem itemLabel="Em análise" itemValue="Em análise"/>
                                     <f:selectItem itemLabel="Recusado" itemValue="Recusado"/>
                                 </b:selectOneMenu>
                             </b:column>
@@ -66,10 +65,10 @@
                         
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu label="Disponivel para utilizar no TCC" value="#{ideiaController.ideiaSelecionada.disponibilidade}"
+                                <b:selectOneMenu label="Disponibilidade para utilizar no TCC" value="#{ideiaController.ideiaSelecionada.disponibilidade}"
                                                  disabled="true">
                                     <f:selectItem itemLabel="Disponível" itemValue="Disponível"/>
-                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise"/>
+                                    <f:selectItem itemLabel="Em análise" itemValue="Em análise"/>
                                     <f:selectItem itemLabel="Indisponível" itemValue="Indisponível"/>
                                 </b:selectOneMenu>
                             </b:column>

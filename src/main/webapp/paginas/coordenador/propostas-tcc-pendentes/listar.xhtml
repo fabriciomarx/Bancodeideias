@@ -44,13 +44,13 @@
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
                                                   #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{item.situacao == 'Em análise' ? 'em_analise' : null}">
                                     </h:outputText>
 
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 
@@ -68,7 +68,7 @@
                                     <f:facet name="header">Orientador</f:facet>
                                     <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
                                     <h:outputText value="#{item.academico.nome}"/>
@@ -86,17 +86,15 @@
                                                      icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
-                                    <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
+                                    <b:commandButton action="#{propostaTccController.doIncluir()}" class="btn btn-success" value=""
                                                      icon="glyphicon glyphicon-edit">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable> 
-                            
-                            <br/><br/><br/><br/><br/>
-                            <br/><br/><br/><br/><br/>
-                            <br/><br/><br/>
-                            
+
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
                         </b:panel>
                     </p:fieldset>
                 </h:form>  

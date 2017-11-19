@@ -21,7 +21,7 @@
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <p:outputLabel value="Classificação"/><br/>
                                 <p:rating value="#{ideiaController.ideiaSelecionada.estrelas}"
-                                          required="true"/>
+                                          required="true" requiredMessage="O campo classificação é obrigatório"/>
                             </b:column>
                         </b:row>
 
@@ -30,7 +30,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{ideiaController.ideiaSelecionada.tipoIdeia}"
-                                                 label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatorio">
+                                                 label="Tipo Ideia" required="true" requiredMessage="O campo tipo de ideia é obrigatário">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Estudo de caso" itemValue="Estudo de caso"/>
                                     <f:selectItem itemLabel="Revisão da bibliografia" itemValue="Revisão da bibliografia"/>
@@ -43,11 +43,11 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Titulo"/><br/>
+                                <h:outputLabel value="Título"/><br/>
                                 <p:inputTextarea value="#{ideiaController.ideiaSelecionada.titulo}"
                                                  placeholder="Insira o titulo da Ideia" 
                                                  rows="5" cols="169" counter="idTitulo" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo Titulo é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo Título é obrigatório"/>
                                 <h:outputText id="idTitulo" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -58,7 +58,7 @@
                                 <p:inputTextarea value="#{ideiaController.ideiaSelecionada.descricao}"
                                                  placeholder="Insira a descrição da Ideia" 
                                                  rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo descrição é obrigatório"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>

@@ -19,7 +19,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{usuarioController.usuarioSelecionado.nome}" 
-                                                 label="Nome da Universidade" required="true" required-message="O campo nome é obrigatorio"
+                                                 label="Nome da Universidade" required="true" required-message="O campo nome é obrigatório"
                                                  placeholder="Digite o nome da universidade/instituição/faculdade"/>
                             </b:column>
                         </b:row>
@@ -27,15 +27,15 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula do Usuário " required="true" required-message="O campo matricula é obrigatorio"
-                                             placeholder="Digite sua matricula (Acadêmico responsável pelo cadastro)"/>
+                                             label="Matricula do Usuário " required="true" required-message="O campo matrícula é obrigatório"
+                                             placeholder="Digite sua matrícula (Acadêmico responsável pelo cadastro)"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email da Universidade" required="true" required-message="O campo email é obrigatorio"
+                                             label="Email da Universidade" required="true" required-message="O campo email é obrigatório"
                                              placeholder="Digite o email da universidade/instituição/faculdade"
                                              validatorMessage="O email deve ser no padrão: email@email.com">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)"/>
@@ -43,8 +43,8 @@
                             </b:column>
                         </b:row>
                         <br/>
-                        
-                        
+
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <h:outputLabel value="CNPJ *" style="margin-right: 15px;" />
@@ -52,14 +52,14 @@
                                              required="true" requiredMessage="O campo CNPJ é obrigatório"/>
                             </b:column>
                         </b:row><br/>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <p:outputLabel value="Senha" style="margin-right: 10px;" for="idSenha"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenha"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioSelecionado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" />
+                                            required="true" requiredMessage="O campo senha é obrigatório" />
 
                                 <p:outputLabel value="Digite novamente" style="margin-right: 10px;" for="idSenhaNovamente"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenhaNovamente"

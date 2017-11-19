@@ -79,27 +79,27 @@ public class RelatorioController extends GenericController implements Serializab
 
         switch (usuarioLogado.getTipoUsuario()) {
             case "Admin":
-                listaRelatorio = this.getRelatorioService().listar();
+                listaRelatorio      = this.getRelatorioService().listar();
                 break;
             case "Aluno":
-                listaRelatorio = this.getRelatorioService().listaRelatorioLogado();
-                listaEncontros = this.getEncontroService().listarEncontrosRealizadosAluno(); //provisorio
+                listaRelatorio      = this.getRelatorioService().listaRelatorioLogado();
+                listaEncontros      = this.getEncontroService().listarEncontrosRealizadosAluno(); //provisorio
                 break;
             case "Universidade":
-                listaRelatorio = this.getRelatorioService().listaRelatoriosUniLogada();
+                listaRelatorio      = this.getRelatorioService().listaRelatoriosUniLogada();
                 break;
             case "Coordenador":
-                listaRelatorio = this.getRelatorioService().listaRelatoriosCoordLogado();
+                listaRelatorio      = this.getRelatorioService().listaRelatoriosCoordLogado();
                 break;
             case "Professor":
-                listaRelatorio = this.getRelatorioService().listaRelatoriosOrientadorLogado();
+                listaRelatorio      = this.getRelatorioService().listaRelatoriosOrientadorLogado();
                 break;
             default:
                 break;
 
         }
-        listaProfessores = this.getUsuarioService().listaProfessores();
-        listaAluno       = this.getUsuarioService().listaAlunos();
+        listaProfessores            = this.getUsuarioService().listaProfessores();
+        listaAluno                  = this.getUsuarioService().listaAlunos();
     }
 
     public String salvar() {
@@ -108,9 +108,9 @@ public class RelatorioController extends GenericController implements Serializab
             this.getRelatorioSelecionado().setStatus("Ainda não visualizado"); //SALVANDO O STATUS AUTOMATICO
             this.getRelatorioService().salvar(relatorioSelecionado);
 
-            addSucessMessage("Relatorio salvo com sucesso");
+            addSucessMessage("Relatório salvo com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar Relatorio: " + relatorioSelecionado.toString());
+            addErrorMessage("Erro ao salvar Relatório");
         }
         this.resset();
         this.listar();
@@ -120,9 +120,9 @@ public class RelatorioController extends GenericController implements Serializab
     public String alterar() {
         try {
             this.getRelatorioService().alterar(relatorioSelecionado);
-            addSucessMessage("Relatorio editado com sucesso");
+            addSucessMessage("Relatório alterado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao editar Relatorio: " + relatorioSelecionado.toString());
+            addErrorMessage("Erro ao alterar Relatório");
         }
         this.resset();
         this.listar();
@@ -132,9 +132,9 @@ public class RelatorioController extends GenericController implements Serializab
     public String remover() {
         try {
             this.getRelatorioService().remover(relatorioSelecionado);
-            addSucessMessage("Relatorio delatado com sucesso");
+            addSucessMessage("Relatório removido com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao deletar Relatorio: " + relatorioSelecionado.toString());
+            addErrorMessage("Erro ao remover Relatório");
         }
         this.resset();
         this.listar();
@@ -243,9 +243,5 @@ public class RelatorioController extends GenericController implements Serializab
 
     public void setEncontroService(EncontroService encontroService) {
         this.encontroService = encontroService;
-    }
-    
-    
-    
-    
+    }    
 }

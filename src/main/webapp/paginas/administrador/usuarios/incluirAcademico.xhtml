@@ -20,7 +20,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Tipo Usuario" value="#{usuarioController.usuarioSelecionado.tipoUsuario}"
-                                                 required="true" required-message="O campo tipo é obrigatorio">
+                                                 required="true" required-message="O campo tipo é obrigatório">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue=""/>
                                     <f:selectItem itemLabel="Aluno" itemValue="Aluno"/>
                                     <f:selectItem itemLabel="Professor" itemValue="Professor"/>
@@ -32,14 +32,14 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
+                                             label="Nome" required="true" required-message="O campo nome é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula" required="true" required-message="O campo matricula é obrigatorio"/>
+                                             label="Matricula" required="true" required-message="O campo matricula é obrigatório"/>
                             </b:column>
                         </b:row>
 
@@ -58,7 +58,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email" required="true" required-message="O campo email é obrigatorio"
+                                             label="Email" required="true" required-message="O campo email é obrigatório"
                                              placeholder="email@email.com" validatorMessage="O email deve ser no padrão: email@email.com">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)" />
                                 </b:inputText>

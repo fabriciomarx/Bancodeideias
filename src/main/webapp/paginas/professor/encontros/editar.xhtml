@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Editar encontro"> 
+                <p:fieldset legend="Editar Encontro"> 
                     <h:form>
 
                         <b:row>
@@ -23,13 +23,13 @@
                                 <h:outputLabel value="Data encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.dataEncontro}"
                                             placeholder="__/__/__" mindate="new Date()"
-                                            required="true" pages="3" />
+                                            required="true" pages="3" requiredMessage="O campo data do encontro é obrigatório"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Hora do Encontro"/><br/>
                                 <p:calendar value="#{encontroController.encontroSelecionado.hora}"
-                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo Data do Encontro é obrigatorio"
+                                            pattern="HH:mm" timeOnly="true" required="true" requiredMessage="O campo hora do encontro é obrigatório"
                                             placeholder="__:__"/>
                             </b:column>
                         </b:row><br/>
@@ -40,7 +40,7 @@
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.localEncontro}"
                                                  placeholder="Insira o local do Encontro" 
                                                  rows="5" cols="169" counter="idLocal" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo local é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo local é obrigatório"/>
                                 <h:outputText id="idLocal" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -51,25 +51,15 @@
                                 <p:inputTextarea value="#{encontroController.encontroSelecionado.descricao}"
                                                  placeholder="Insira a descrição do Encontro" 
                                                  rows="5" cols="169" counter="idDescricao" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo descrição é obrigatorio"/>
+                                                 required="true" requiredMessage="O campo descrição é obrigatório"/>
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.aluno.nome}"
                                              label="Aluno" readonly="true"/>
-                            </b:column>
-                        </b:row>
-                        
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu value="#{encontroController.encontroSelecionado.aluno}">
-                                    <f:selectItem itemLabel=" Deseja alterar o aluno ? " noSelectionOption="true" itemValue="#{encontroController.encontroSelecionado.aluno}"/>
-                                    <f:selectItems value="#{encontroController.listaAluno}" var="item"
-                                                   itemLabel="#{item.nome}" itemValue="#{item}"/>
-                                </b:selectOneMenu> 
                             </b:column>
                         </b:row>
 

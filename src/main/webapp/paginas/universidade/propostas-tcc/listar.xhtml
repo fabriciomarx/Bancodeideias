@@ -28,7 +28,7 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
                                          var="item" searching="true" border="false" id="propostaDataUni"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
@@ -45,7 +45,7 @@
                                     <h:outputText value="#{item.aprovacaoOrientador}"
                                                   styleClass="#{item.aprovacaoOrientador == 'Aprovado' ? 'aprovado' : null}
                                                   #{item.aprovacaoOrientador == 'Recusado' ? 'recusado' : null}
-                                                  #{item.aprovacaoOrientador == 'Em analise' ? 'em_analise' : null}"/>
+                                                  #{item.aprovacaoOrientador == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
 
                                 <h:column>
@@ -53,13 +53,13 @@
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
                                                   #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                  #{item.situacao == 'Em analise' ? 'em_analise' : null}">
+                                                  #{item.situacao == 'Em análise' ? 'em_analise' : null}">
                                     </h:outputText>
 
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 

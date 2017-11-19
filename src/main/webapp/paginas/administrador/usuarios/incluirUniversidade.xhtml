@@ -19,21 +19,21 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.nome}" 
-                                             label="Nome" required="true" required-message="O campo nome é obrigatorio"/>
+                                             label="Nome" required="true" required-message="O campo nome é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.matricula}" 
-                                             label="Matricula do Usuário Responsável" required="true" requiredMessage="O campo matricula é obrigatorio"/>
+                                             label="Matricula do Usuário Responsável" required="true" requiredMessage="O campo matricula é obrigatório"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 
-                                             label="Email da Universidade" required="true" requiredMessage="O campo email é obrigatorio"
+                                             label="Email da Universidade" required="true" requiredMessage="O campo email é obrigatório"
                                              validatorMessage="O email deve ser no padrão: email@email.com">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)"/>
                                 </b:inputText>
@@ -55,7 +55,7 @@
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenha"
                                             label="Senha" promptLabel="Por favor digite a senha" weakLabel="Senha fraca"
                                             value="#{usuarioController.usuarioSelecionado.senha}" style="margin-right: 10px;"
-                                            required="true" requiredMessage="O campo senha é obrigatorio" />
+                                            required="true" requiredMessage="O campo senha é obrigatório" />
 
                                 <p:outputLabel value="Digite novamente" style="margin-right: 10px;" for="idSenhaNovamente"/>
                                 <p:password goodLabel="Senha boa" feedback="true" strongLabel="Senha forte" id="idSenhaNovamente"

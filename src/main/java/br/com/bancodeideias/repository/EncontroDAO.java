@@ -189,7 +189,7 @@ public class EncontroDAO implements Serializable {
                     + " AND e.status = 'Realizado'");
             listaEncontros = query.getResultList();
         } catch (Exception e) {
-            System.err.println("Erro no metodo listarEncontrosRealizadosAluno - EncontroDAO");
+            System.err.println("Erro no metodo listarEncontrosRealizadosAluno - EncontroDAO" );
         }
         entityManager.close();
         return listaEncontros;

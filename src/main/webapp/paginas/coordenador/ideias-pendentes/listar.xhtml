@@ -23,7 +23,7 @@
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
-                                    <f:facet name="header">Titulo</f:facet>
+                                    <f:facet name="header">Título</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 
@@ -38,7 +38,7 @@
                                 </h:column>
 
                                 <h:column>
-                                    <f:facet name="header">Usuario</f:facet>
+                                    <f:facet name="header">Usuário</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
 
@@ -51,7 +51,7 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton value="Analisar" action="#{ideiaController.doConsultar()}"
+                                    <b:commandButton value="Analisar" action="#{ideiaController.doIncluir()}"
                                                      class="btn btn-success btn-sm">                                    
                                         <f:setPropertyActionListener value="#{item}" target="#{ideiaController.ideiaSelecionada}"/>
                                     </b:commandButton>

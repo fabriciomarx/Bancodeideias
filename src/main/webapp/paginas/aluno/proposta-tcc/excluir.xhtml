@@ -33,7 +33,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
+                                <b:selectOneMenu label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
                                                  readonly="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
@@ -94,9 +94,8 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
-                                                 readonly="true">
-                                    <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
+                                <b:selectOneMenu label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
+                                                 disabled="true">
                                     <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
                                     <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
                                     <f:selectItem itemLabel="Em análise" itemValue="Em análise" />
@@ -114,7 +113,8 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{propostaTccController.propostaTccSelecionada.participante.nome}" 
-                                             label="Aluno Participante" readonly="true"/>
+                                             label="Aluno Participante" readonly="true"
+                                             rendered="#{propostaTccController.propostaTccSelecionada.participante != null}"/>
                             </b:column>
                         </b:row>
 

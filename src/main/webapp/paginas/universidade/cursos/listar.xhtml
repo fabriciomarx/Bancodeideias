@@ -20,8 +20,7 @@
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{cursoController.listaCurso}"
                                          var="item" searching="true" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         id="cursData">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
                                     <f:facet name="header">Nome</f:facet> 
@@ -37,12 +36,12 @@
                                     <f:facet name="header">Semestre</f:facet> 
                                     <h:outputText value="#{item.semestre == 1 ? '1º Semestre' : '2º Semestre'}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Ano Letivo</f:facet> 
                                     <h:outputText value="#{item.ano}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{cursoController.doEditar()}" class="btn btn-success" value=""
@@ -59,7 +58,8 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
-
+                            
+                            <br/><br/><br/><br/><br/>
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{cursoController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"

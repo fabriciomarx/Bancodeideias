@@ -30,7 +30,7 @@
                             </b:row>
 
                             <b:dataTable value="#{cursoController.listaCurso}"
-                                         var="iten" searching="true" border="false" id="cursoData"
+                                         var="iten" searching="true" border="false"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
@@ -43,7 +43,7 @@
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Ano</f:facet> 
+                                    <f:facet name="header">Ano Letivo</f:facet> 
                                     <h:outputText value="#{iten.ano}"/>
                                 </h:column> 
 

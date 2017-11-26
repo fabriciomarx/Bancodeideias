@@ -78,8 +78,8 @@ public class EncontroService implements Serializable {
         return lista;
     }
 
-    /* Listar apenas os encontros do aluno logado que já foram realizados 
-        metodo utilizado na hora de incluir relatorios */
+    /* LISTAR APENAS OS ENCONTROS DO ALUNO LOGADO QUE JA FORAM REALIZADOS 
+       METODO UTILIZADO NA HORA DE INCLUIR UM RELATORIO */
     public List<Encontro> listarEncontrosRealizadosAluno() {
         List<Encontro> lista;
         lista = this.getEncontroDAO().listarEncontrosRealizadosAluno();

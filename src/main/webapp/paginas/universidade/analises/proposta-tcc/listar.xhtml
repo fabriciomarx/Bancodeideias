@@ -15,7 +15,7 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista Analise de Proposta de TCC">
+                    <p:fieldset legend="Lista Análise de Proposta de TCC">
                         <b:panel look="primary" collapsible="false">
 
                             <b:dataTable value="#{propostaTccController.listaPropostaTcc}"
@@ -23,27 +23,27 @@
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
-                                    <f:facet name="header">Data da analise</f:facet>       
+                                    <f:facet name="header">Data da análise</f:facet>       
                                     <h:outputText value="#{item.dataAnalise}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>   
-                                
+
                                 <h:column>
-                                    <f:facet name="header">Comentarios</f:facet> 
+                                    <f:facet name="header">Comentários</f:facet> 
                                     <h:outputText value="#{item.comentario}"/>
                                 </h:column> 
 
                                 <h:column>
-                                    <f:facet name="header">Proposta de Tcc</f:facet> 
+                                    <f:facet name="header">Proposta de TCC</f:facet> 
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column> 
-                                
-                                 <h:column>
+
+                                <h:column>
                                     <f:facet name="header">Aluno</f:facet> 
                                     <h:outputText value="#{item.academico.nome}"/>
                                 </h:column> 
-                                
+
                                 <h:column>
                                     <f:facet name="header">Curso</f:facet> 
                                     <h:outputText value="#{item.academico.curso.nome}"/>
@@ -74,7 +74,8 @@
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
-                            </b:dataTable>  
+                            </b:dataTable> 
+                            <br/><br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

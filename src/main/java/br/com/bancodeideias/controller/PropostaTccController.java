@@ -29,6 +29,7 @@ public class PropostaTccController extends GenericController implements Serializ
     private List<PropostaTcc>           listaPropostasPendentes;
     private List<PropostaTcc>           listaPropostasPendentesDaUniv; 
     private List<PropostaTcc>           listarPropostasQueOrientadorParticipa;
+    private List<PropostaTcc>           listaPropostasQueCoordFoiConvidado;
     
     private List<PropostaTcc>           listaPropostasPendentesDaUnivParaCoordenador ;
     
@@ -57,6 +58,7 @@ public class PropostaTccController extends GenericController implements Serializ
         listarPropostasQueOrientadorParticipa           = new ArrayList<>();
         listaPropostasPendentes                         = new ArrayList<>();
         listaPropostasPendentesDaUniv                   = new ArrayList<>();
+        listaPropostasQueCoordFoiConvidado              = new ArrayList<>();
       
         listaPropostasPendentesDaUnivParaCoordenador    = new ArrayList<>();
         
@@ -90,11 +92,12 @@ public class PropostaTccController extends GenericController implements Serializ
 
         switch (usuarioLogado.getTipoUsuario()) {
             case "Aluno":
-                listaPropostaTcc = this.getPropostaTccService().listarPropostasLogado();
+                listaPropostaTcc                                = this.getPropostaTccService().listarPropostasLogado();
                 break;
             case "Coordenador":
                 listaPropostaTcc                                = this.getPropostaTccService().listarPropostasParaCoord();
                 listaPropostasPendentesDaUnivParaCoordenador    = this.getPropostaTccService().listaPropostasPendentesDaUnivParaCoordenador();
+                listaPropostasQueCoordFoiConvidado              = this.getPropostaTccService().listarPropostasParaOrientador();
                 break;
             case "Admin":
                 listaPropostaTcc                                = this.getPropostaTccService().listar();
@@ -169,6 +172,9 @@ public class PropostaTccController extends GenericController implements Serializ
 
     public String remover() {
         try {
+            /* Se o aluno excluir a proposta, é alterado a disponibilidade */
+            this.getPropostaTccSelecionada().getProblema().setDisponibilidade("Disponível");
+            this.getIdeiaService().alterar(this.getPropostaTccSelecionada().getProblema());
             this.getPropostaTccService().remover(propostaTccSelecionada);
             addSucessMessage("Proposta Tcc deletada com sucesso");
         } catch (Exception e) {
@@ -324,4 +330,14 @@ public class PropostaTccController extends GenericController implements Serializ
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public List<PropostaTcc> getListaPropostasQueCoordFoiConvidado() {
+        return listaPropostasQueCoordFoiConvidado;
+    }
+
+    public void setListaPropostasQueCoordFoiConvidado(List<PropostaTcc> listaPropostasQueCoordFoiConvidado) {
+        this.listaPropostasQueCoordFoiConvidado = listaPropostasQueCoordFoiConvidado;
+    }
+    
+    
 }

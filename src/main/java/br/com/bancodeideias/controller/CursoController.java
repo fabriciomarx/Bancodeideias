@@ -83,7 +83,7 @@ public class CursoController extends GenericController implements Serializable {
             this.getCursoService().salvar(cursoSelecionado);
             addSucessMessage(this.getCursoService().getCursoDAO().getMensagem());
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar curso. Entre em contato com o administrador");
+            addErrorMessage("Erro ao salvar curso");
         }
         this.resset();
         this.listar();
@@ -95,7 +95,7 @@ public class CursoController extends GenericController implements Serializable {
             this.getCursoService().alterar(cursoSelecionado);
             addSucessMessage("Curso alterado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao alterar curso. Entre em contato com o administrador");
+            addErrorMessage("Erro ao alterar curso");
         }
         this.resset();
         this.listar();
@@ -107,7 +107,7 @@ public class CursoController extends GenericController implements Serializable {
             this.getCursoService().remover(cursoSelecionado);
             addSucessMessage("Curso deletado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao deletar curso. Entre em contato com o administrador");
+            addErrorMessage("Erro ao deletar curso");
         }
         this.resset();
         this.listar();

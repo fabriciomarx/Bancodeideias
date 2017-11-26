@@ -84,16 +84,18 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
                                 </h:column>
-
+                                
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{relatorioController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
                                         <f:setPropertyActionListener value="#{itemm}" target="#{relatorioController.relatorioSelecionado}"/>
                                     </b:commandButton>
-                                </h:column>                            
+                                </h:column>
+                                
+                              
                             </b:dataTable>   
-
+                            <br/><br/><br/><br/><br/><br/><br/>
                         </b:panel>
                     </p:fieldset>
                 </h:form>             

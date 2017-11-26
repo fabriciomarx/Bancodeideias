@@ -9,6 +9,7 @@
     <head>
         <title></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     </head>
 
     <body>
@@ -16,13 +17,32 @@
             <ui:define name="conteudo">
                 <p:fieldset legend="Solicitar Nova Senha">
                     <h:form>
+                        <!--
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
-                                             label="CPF/CNPJ" required="true" requiredMessage="O campo cpf/cnpj é obrigatório"/>
-                            </b:column>
-                        </b:row>
+                                
+                                <b:button value="CPF" onclick="Mudarestado('cpf')"/>
+                                <b:button value="CNPJ" onclick="Mudarestado('cnpj')"/>
 
+                                <div id="cpf" style="display: none">
+                                    <h:outputLabel value="CPF *" style="margin-right: 15px;" /><br/>
+                                    <p:inputMask mask="999.999.999-99" value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                                 required="true" requiredMessage="O campo CPF é obrigatório"/>
+                                </div>
+                                <div id="cnpj" style="display: none">
+                                    <h:outputLabel value="CNPJ *" style="margin-right: 15px;" /><br/>
+                                    <p:inputMask mask="99.999.999/9999-99" value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                                 required="true" requiredMessage="O campo CNPJ é obrigatório"/>
+                                </div>
+                            </b:column>
+                        </b:row><br/>
+                        -->
+                         <b:row>
+                             <b:column medium-screen="3" span="10" offset-md="1">
+                                 <b:inputText value="#{usuarioController.usuarioSelecionado.cpf_cnpj}" 
+                                             label="CPF/CNPJ" required="true" requiredMessage="O campo cpf/cnpj é obrigatório"/>
+                             </b:column>
+                         </b:row>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioSelecionado.email}" 

@@ -93,6 +93,8 @@ public class Usuario implements Serializable {
 
     @Transient
     private String confirmarSenha;
+    @Transient
+    private String emailString;
 
     public Usuario() {
     }
@@ -279,6 +281,16 @@ public class Usuario implements Serializable {
     public void setCpf_cnpj(String cpf_cnpj) {
         this.cpf_cnpj = cpf_cnpj;
     }
+
+    public String getEmailString() {
+        return emailString;
+    }
+
+    public void setEmailString(String emailString) {
+        this.emailString = emailString;
+    }
+    
+    
     
 
     @Override

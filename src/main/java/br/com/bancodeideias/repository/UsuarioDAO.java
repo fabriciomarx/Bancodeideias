@@ -46,7 +46,8 @@ public class UsuarioDAO implements Serializable {
         entityManager.getTransaction().commit();
         entityManager.close();
     }
-    /*
+    
+    /* Com validação de email */
     public void alterar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -63,9 +64,10 @@ public class UsuarioDAO implements Serializable {
         
         entityManager.getTransaction().commit();
         entityManager.close();
-    }*/
+    }
     
-    public void alterar(Usuario usuario) {
+    /* Sem validação, serve por exemplo para alterar senha */
+    public void alterar2(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(usuario);
@@ -220,8 +222,8 @@ public class UsuarioDAO implements Serializable {
             } else if (usuarioLogado.getTipoUsuario().equals("Universidade")) {
                 sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor' "
                         + "AND u.universidade.idUsuario = " + usuarioLogado.getIdUsuario();
-            } else {
-                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor'"
+            } else { /*Fiz or 'Coordenador', para o caso do aluno escolher o coordenador como orientador'*/
+                sql = "SELECT u FROM Usuario u where u.tipoUsuario = 'Professor' OR u.tipoUsuario = 'Coordenador' "
                         + "AND u.universidade.idUsuario = " + usuarioLogado.getUniversidade().getIdUsuario();
             }
             Query query = entityManager.createQuery(sql);

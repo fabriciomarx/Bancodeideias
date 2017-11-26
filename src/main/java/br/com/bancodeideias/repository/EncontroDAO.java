@@ -175,8 +175,8 @@ public class EncontroDAO implements Serializable {
         return listaEncontros;
     }
 
-    /* Listar apenas os encontros do aluno logado que já foram realizados 
-        metodo utilizado na hora de incluir relatorios */
+    /* LISTAR APENAS OS ENCONTROS DO ALUNO LOGADO QUE JA FORAM REALIZADOS 
+       METODO UTILIZADO NA HORA DE INCLUIR UM RELATORIO */
     public List<Encontro> listarEncontrosRealizadosAluno() {
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Usuario usuarioLogado = (Usuario) sessao.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO LOGADO NA SESSAO

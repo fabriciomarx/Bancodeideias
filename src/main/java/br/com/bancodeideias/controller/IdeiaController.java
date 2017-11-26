@@ -126,7 +126,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().salvar(ideiaSelecionada);
             addSucessMessage("Ideia salva com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar ideia. Entre em contato com o administrador");
+            addErrorMessage("Erro ao salvar ideia");
         }
         this.resset();
         this.listar();
@@ -138,7 +138,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia editada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao editar ideia. Entre em contato com o administrador");
+            addErrorMessage("Erro ao editar ideia");
         }
         this.resset();
         this.listar();
@@ -156,7 +156,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().alterar(ideiaSelecionada);
             addSucessMessage("Ideia analisada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao analisar ideia. Entre em contato com o administrador");
+            addErrorMessage("Erro ao analisar ideia");
         }
         this.resset();
         this.listar();
@@ -168,7 +168,7 @@ public class IdeiaController extends GenericController implements Serializable {
             this.getIdeiaService().remover(ideiaSelecionada);
             addSucessMessage("Ideia deletada com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao deletar ideia. Entre em contato com o administrador");
+            addErrorMessage("Erro ao deletar ideia");
         }
         this.resset();
         this.listar();

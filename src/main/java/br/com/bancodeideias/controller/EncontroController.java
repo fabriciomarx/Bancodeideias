@@ -72,29 +72,29 @@ public class EncontroController extends GenericController implements Serializabl
     }
 
     private void listar() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
+        HttpSession session     = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario usuarioLogado   = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         switch (usuarioLogado.getTipoUsuario()) {
             case "Admin":
-                listaEncontro = this.getEncontroService().listar();
+                listaEncontro   = this.getEncontroService().listar();
                 break;
             case "Aluno":
             case "Professor":
-                listaEncontro = this.getEncontroService().listarEncontrosAlu_Prof();
+                listaEncontro   = this.getEncontroService().listarEncontrosAlu_Prof();
                 break;
             case "Coordenador":
-                listaEncontro = this.getEncontroService().listarEncontrosParaCoord();
+                listaEncontro   = this.getEncontroService().listarEncontrosParaCoord();
                 break;
             case "Universidade":
-                listaEncontro = this.getEncontroService().listarEncontrosParaUniv();
+                listaEncontro   = this.getEncontroService().listarEncontrosParaUniv();
                 break;
             default:
                 break;
         }
-        listaUniversidades  = this.getUsuarioService().listUniversidades();
-        listaAluno          = this.getUsuarioService().listaAlunos();
-        listaProfessores    = this.getUsuarioService().listaProfessores();
+        listaUniversidades      = this.getUsuarioService().listUniversidades();
+        listaAluno              = this.getUsuarioService().listaAlunos();
+        listaProfessores        = this.getUsuarioService().listaProfessores();
 
     }
 
@@ -103,19 +103,16 @@ public class EncontroController extends GenericController implements Serializabl
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado"); //RECUPERANDO O USUARIO SALVO NA SESSÃO  
 
         try {
-            switch (usuarioLogado.getTipoUsuario()) {
-                case "Professor":
-                    this.getEncontroSelecionado().setOrientador(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
-                    break;
-                case "Aluno":
-                    this.getEncontroSelecionado().setAluno(usuarioLogado);
-                    break;
+            if (usuarioLogado.getTipoUsuario().equals("Professor")) {
+                this.getEncontroSelecionado().setOrientador(usuarioLogado); //INSERINDO O ACADEMICO AUTOMATICO
+            } else if (usuarioLogado.getTipoUsuario().equals("Aluno")) {
+                this.getEncontroSelecionado().setAluno(usuarioLogado);
             }
             this.getEncontroSelecionado().setStatus("Ainda não visualizado"); // INSERINDO O STATUS DO ENCONTRO AUTOMATICO
             this.getEncontroService().salvar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao salvar encontro. Entre em contato com o administrador");
+            addErrorMessage("Erro ao salvar encontro");
         }
         this.resset();
         this.listar();
@@ -127,7 +124,7 @@ public class EncontroController extends GenericController implements Serializabl
             this.getEncontroService().alterar(encontroSelecionado);
             addSucessMessage("Encontro salvo com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao editar encontro. Entre em contato com o administrador");
+            addErrorMessage("Erro ao editar encontro");
         }
         this.resset();
         this.listar();
@@ -139,7 +136,7 @@ public class EncontroController extends GenericController implements Serializabl
             this.getEncontroService().remover(encontroSelecionado);
             addSucessMessage("Encontro deletado com sucesso");
         } catch (Exception e) {
-            addErrorMessage("Erro ao excluir encontro. Entre em contato com o administrador");
+            addErrorMessage("Erro ao excluir encontro");
         }
         this.resset();
         this.listar();

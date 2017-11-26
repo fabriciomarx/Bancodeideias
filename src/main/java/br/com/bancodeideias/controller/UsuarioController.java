@@ -140,8 +140,12 @@ public class UsuarioController extends GenericController implements Serializable
        existe a opção de alterar meu cadastro e alterar cadastro aluno */
     public void alterarMeuCadastro() {
         try {
+            if (!this.usuarioLogado.getEmailString().equals(usuarioLogado.getEmail())) {
+                this.usuarioLogado.setEmail(usuarioLogado.getEmailString());
+            }
             this.getUsuarioService().alterar(usuarioLogado);
-            addSucessMessage("Cadastro alterado com sucesso");
+
+            addSucessMessage(this.getUsuarioService().getUsuarioDAO().getMensagem());
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar cadastro");
         }
@@ -167,6 +171,7 @@ public class UsuarioController extends GenericController implements Serializable
             } else {
                 addErrorMessage("As senhas são diferentes, tente novamente");
             }
+            
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar senha do usuário ");
         }

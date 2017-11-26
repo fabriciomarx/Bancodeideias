@@ -217,6 +217,7 @@ public class PropostaTccDAO implements Serializable {
         try {
             Query query = entityManager.createQuery("SELECT p FROM PropostaTcc p WHERE p.aprovacaoOrientador = 'Em análise' AND p.orientador.idUsuario = "
                     + usuarioLogado.getIdUsuario());
+            System.out.println("PASSOU");
             listaPropostaTcc = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro no metodo listarPropostasParaOrientador - Classe PropostaTcc DAO");

@@ -25,8 +25,11 @@ public class UsuarioService implements Serializable {
     /* METODO PARA ALTERAR A SENHA DO USUARIO */
     public void alterarSenha(Usuario usuario) {
         String senha = this.convertStringToMd5(usuario.getSenha()); //Convertendo a senha para MD5
+        //System.out.println("Senha1 = " + senha);
+        
         usuario.setSenha(senha);
-        this.getUsuarioDAO().alterar2(usuario);
+       // System.out.println("Senha2 = " + usuario.getSenha());
+        this.getUsuarioDAO().alterar(usuario);
     }
 
     public void alterar(Usuario usuario) {
@@ -137,7 +140,9 @@ public class UsuarioService implements Serializable {
 
         for (int x = 0; x < 10; x++) {
             int j = (int) (Math.random() * carct.length);
+            //System.out.println("Número aleatorio = " + j);
             senha += carct[j];
+            //System.out.println("Posição = " + x + " Caracter Gerado = " + senha);
         }
         return senha;
     }

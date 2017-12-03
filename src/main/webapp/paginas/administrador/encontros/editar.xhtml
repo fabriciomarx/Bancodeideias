@@ -14,10 +14,8 @@
     <body>
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-
                 <p:fieldset legend="Editar Encontro"> 
                     <h:form>
-
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
                                 <h:outputLabel value="Data encontro"/><br/>
@@ -55,15 +53,14 @@
                                 <h:outputText id="idDescricao" style="float: right;"/>
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.aluno.nome}"
                                              label="Aluno" readonly="true"/>
-
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu value="#{encontroController.encontroSelecionado.aluno}">
@@ -73,15 +70,14 @@
                                 </b:selectOneMenu> 
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{encontroController.encontroSelecionado.orientador.nome}"
                                              label="Orientador" readonly="true"/>
-
                             </b:column>
                         </b:row>
-                        
+
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:selectOneMenu label="Orientador" value="#{encontroController.encontroSelecionado.orientador}">
@@ -103,7 +99,7 @@
                                                  icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-                        
+
                     </h:form>
                 </p:fieldset> 
 

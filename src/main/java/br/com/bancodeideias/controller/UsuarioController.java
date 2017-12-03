@@ -140,11 +140,7 @@ public class UsuarioController extends GenericController implements Serializable
        existe a opção de alterar meu cadastro e alterar cadastro aluno */
     public void alterarMeuCadastro() {
         try {
-            if (!this.usuarioLogado.getEmailString().equals(usuarioLogado.getEmail())) {
-                this.usuarioLogado.setEmail(usuarioLogado.getEmailString());
-            }
             this.getUsuarioService().alterar(usuarioLogado);
-
             addSucessMessage(this.getUsuarioService().getUsuarioDAO().getMensagem());
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar cadastro");
@@ -162,16 +158,19 @@ public class UsuarioController extends GenericController implements Serializable
         return "listar.xhtml?faces-redirect=true";
     }
 
-    /* Metodo utilizado apenas para alteração de senha do usuario logado */
+    /* Metodo utilizado apenas para alteração de senha do usuario */
     public void alterarSenha() {
         try {
-            if (this.getUsuarioLogado().getSenha().equals(this.getUsuarioLogado().getConfirmarSenha())) {
-                this.getUsuarioService().alterarSenha(usuarioLogado);
-                addSucessMessage("Senha alterada com sucesso");
-            } else {
-                addErrorMessage("As senhas são diferentes, tente novamente");
+            if (usuarioLogado != null) {/* Quando o proprio usuario vai trocar a senha */
+                if (this.getUsuarioLogado().getSenha().equals(this.getUsuarioLogado().getConfirmarSenha())) {
+                    this.getUsuarioService().alterarSenha(usuarioLogado);
+                    addSucessMessage("Senha alterada com sucesso");
+                } else {
+                    addErrorMessage("As senhas são diferentes, tente novamente");
+                }
+            } else {/* Quando o usuario esqueceu sua senha, e é gerado uma senha aleatoria */ 
+                this.getUsuarioService().alterarSenha(usuarioSelecionado);
             }
-            
         } catch (Exception e) {
             addErrorMessage("Erro ao alterar senha do usuário ");
         }

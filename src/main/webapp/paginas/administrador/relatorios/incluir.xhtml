@@ -15,19 +15,19 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
 
-                <p:fieldset legend="Incluir relatorio"> 
+                <p:fieldset legend="Incluir Relatório"> 
                     <h:form>
                         <b:row>
                             <b:column medium-screen="6" span="8" offset-md="1">
-                                <h:outputLabel value="Data Inicio"/><br/>
+                                <h:outputLabel value="Data Início"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.dataInicio}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                            required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
 
                             <b:column medium-screen="6" span="3">
                                 <h:outputLabel value="Data Fim"/><br/>
                                 <p:calendar value="#{relatorioController.relatorioSelecionado.dataFim}"
-                                            mindate="new date()" required="true" pages="3" placeholder="__/__/__"/>
+                                            required="true" pages="3" placeholder="__/__/__"/>
                             </b:column>
                         </b:row><br/>
 
@@ -76,20 +76,14 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{relatorioController.cancelar()}" 
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" 
                                                  title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" action="#{relatorioController.salvar()}" class="btn btn-primary">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </b:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{propostaTccController.salvar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{relatorioController.salvar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
 

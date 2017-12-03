@@ -27,15 +27,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputText value="#{usuarioController.usuarioLogado.email}" 
-                                             label="Email" readonly="true">
-                                </b:inputText>
-                            </b:column>
-                        </b:row>
-
-                        <b:row>
-                            <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{usuarioController.usuarioLogado.emailString}" 
-                                             label="Novo Email" 
+                                             label="Email" 
                                              validatorMessage="O email deve ser no seguinte padrão 'email@email.com'">
                                     <f:validateRegex pattern="([^.@]+)(\.[^.@]+)*@([^.@]+\.)+([^.@]+)"/>
                                 </b:inputText>

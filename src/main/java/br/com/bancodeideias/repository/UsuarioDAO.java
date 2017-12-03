@@ -40,14 +40,14 @@ public class UsuarioDAO implements Serializable {
             entityManager.persist(usuario);
             this.setMensagem("Usuário salvo com sucesso !");
         } else {
-            this.setMensagem("O Email e/ou CPF/CNPJ e/ou Matrícula já esta cadastrado!");
+            this.setMensagem("O Email ou CPF/CNPJ ou Matrícula já esta cadastrado!");
         }
 
         entityManager.getTransaction().commit();
         entityManager.close();
     }
     
-    /* Com validação de email */
+    /* Com validação de email 
     public void alterar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -64,10 +64,10 @@ public class UsuarioDAO implements Serializable {
         
         entityManager.getTransaction().commit();
         entityManager.close();
-    }
+    }*/
     
     /* Sem validação, serve por exemplo para alterar senha */
-    public void alterar2(Usuario usuario) {
+    public void alterar(Usuario usuario) {
         EntityManager entityManager = JPAConnection.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(usuario);

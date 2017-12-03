@@ -16,33 +16,42 @@
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
                 <h:form>
-                    <p:fieldset legend="Lista Analise de Ideia">
+                    <p:fieldset legend="Lista Análise de Ideia">
                         <b:panel look="primary" collapsible="false">
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" border="false"
-                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                                         styleClass="table table-striped">
+                                         customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
 
                                 <h:column>
-                                    <f:facet name="header">Data da analise</f:facet> 
-                                    <h:outputText value="#{item.dataAnalise}">
+                                    <f:facet name="header">Data da análise</f:facet> 
+                                    <h:outputText value="#{item.dataAnalise == null ? 'Sem dados ' : item.dataAnalise}">
                                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="America/Sao_Paulo"/>
                                     </h:outputText>
-                                </h:column> 
-
-                                <h:column>
-                                    <f:facet name="header">Comentarios</f:facet> 
-                                    <h:outputText value="#{item.comentario}"/>
-                                </h:column> 
-
-                                <h:column>
-                                    <f:facet name="header">Academico Analista</f:facet> 
-                                    <h:outputText value="#{item.analista.nome}"/>
-                                </h:column> 
+                                </h:column>
 
                                 <h:column>
                                     <f:facet name="header">Ideia</f:facet> 
                                     <h:outputText value="#{item.titulo}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Comentários</f:facet> 
+                                    <h:outputText value="#{item.comentario  == null ? 'Sem dados ' : item.comentario}"/>
+                                </h:column> 
+
+                                <h:column>
+                                    <f:facet name="header">Acadêmico Analista</f:facet> 
+                                    <h:outputText value="#{item.analista.nome  == null ? 'Sem dados ' : item.analista.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Acadêmico que sugeriu</f:facet> 
+                                    <h:outputText value="#{item.usuario.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Universidade</f:facet> 
+                                    <h:outputText value="#{item.usuario.universidade.nome  == null ? 'Sem dados ' : item.usuario.universidade.nome}"/>
                                 </h:column> 
 
                                 <h:column>

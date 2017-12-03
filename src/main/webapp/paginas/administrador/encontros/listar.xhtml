@@ -28,7 +28,7 @@
                                         <f:ajax render="encontroDataAdmin" event="change" listener="#{encontroController.listEncontros()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
-                            
+
                                 <b:column medium-screen="3" span="3">
                                     <b:selectOneMenu label="Filtrar por Professor:" value="#{encontroController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
@@ -37,7 +37,7 @@
                                         <f:ajax render="encontroDataAdmin" event="change" listener="#{encontroController.listEncontrosPro()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
-                            
+
                                 <b:column medium-screen="3" span="3">
                                     <b:selectOneMenu label="Filtrar por Universidade:" value="#{encontroController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{encontroController.usuario}"/>
@@ -88,7 +88,7 @@
                                     <f:facet name="header">Orientador</f:facet> 
                                     <h:outputText value="#{item.orientador.nome}"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Universidade</f:facet> 
                                     <h:outputText value="#{item.aluno.universidade.nome}"/>
@@ -110,12 +110,12 @@
                                     </b:commandButton>
                                 </h:column>                          
                             </b:dataTable>   
+
                             <br/><br/><br/><br/><br/><br/><br/>
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{encontroController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"
                                                  class="btn btn-info"/>
-
                             </f:facet>
                         </b:panel>
                     </p:fieldset>

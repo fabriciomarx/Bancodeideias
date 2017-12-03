@@ -15,7 +15,7 @@
 
         <ui:composition template="/WEB-INF/templates/template.xhtml">
             <ui:define name="conteudo">
-                <p:fieldset legend="Consultar Analise de Ideia"> <!--Teste com fildset-->
+                <p:fieldset legend="Consultar Análise de Ideia">
                     <h:form>
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
@@ -26,23 +26,37 @@
 
                         <b:row>
                             <b:column medium-screen="6" span="10" offset-md="1">
-                                <h:outputLabel value="Data Analise"/>
-                                <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataAnalise}"
+                                <h:outputLabel value="Data Análise"/>
+                                <b:dateTimePicker value="#{ideiaController.ideiaSelecionada.dataAnalise  == null ? 'Sem dados ' : ideiaController.ideiaSelecionada.dataAnalise}"
                                                   show-time="false" />
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario}" 
-                                                 label="Comentario" readonly="true"/>
+                                <b:inputTextarea value="#{ideiaController.ideiaSelecionada.comentario   == null ? 'Sem dados ' : ideiaController.ideiaSelecionada.comentario}" 
+                                                 label="Comentários" readonly="true"/>
                             </b:column>
                         </b:row>
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:inputText value="#{ideiaController.ideiaSelecionada.analista.nome}" 
-                                             label="Academico analista" readonly="true"/>
+                                <b:inputText value="#{ideiaController.ideiaSelecionada.analista.nome   == null ? 'Sem dados ' : ideiaController.ideiaSelecionada.analista.nome}" 
+                                             label="Acadêmico analista" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.nome}" 
+                                             label="Acadêmico que sugeriu" readonly="true"/>
+                            </b:column>
+                        </b:row>
+
+                        <b:row>
+                            <b:column medium-screen="3" span="10" offset-md="1">
+                                <b:inputText value="#{ideiaController.ideiaSelecionada.usuario.universidade.nome   == null ? 'Sem dados ' : ideiaController.ideiaSelecionada.usuario.universidade.nome}" 
+                                             label="Universidade" readonly="true"/>
                             </b:column>
                         </b:row>
 

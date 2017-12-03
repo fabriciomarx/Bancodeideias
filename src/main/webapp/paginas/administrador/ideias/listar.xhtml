@@ -31,7 +31,7 @@
                                         <f:ajax render="ideiasDataAdmin" event="change" listener="#{ideiaController.listarTiposIdeiaSelecionadaAdmin()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
-                                
+
                                 <b:column medium-screen="3" span="3">
                                     <b:selectOneMenu label="Filtrar por Universidade:" value="#{ideiaController.usuario}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{ideiaController.usuario}"/>
@@ -41,7 +41,7 @@
                                     </b:selectOneMenu>
                                 </b:column>
                             </b:row>
-                            
+
                             <b:dataTable value="#{ideiaController.listaIdeia}"
                                          var="item" searching="true" border="false" id="ideiasDataAdmin"
                                          customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
@@ -49,12 +49,12 @@
                                     <f:facet name="header">Situação</f:facet>
                                     <h:outputText value="#{item.situacao}"
                                                   styleClass="#{item.situacao == 'Aprovado' ? 'aprovado' : null}
-                                                              #{item.situacao == 'Recusado' ? 'recusado' : null}
-                                                              #{item.situacao == 'Em análise' ? 'em_analise' : null}"/>
+                                                  #{item.situacao == 'Recusado' ? 'recusado' : null}
+                                                  #{item.situacao == 'Em análise' ? 'em_analise' : null}"/>
                                 </h:column>
-                                
+
                                 <h:column>
-                                    <f:facet name="header" >Titulo</f:facet>
+                                    <f:facet name="header" >Título</f:facet>
                                     <h:outputText value="#{item.titulo}"/>
                                 </h:column>
 
@@ -62,13 +62,13 @@
                                     <f:facet name="header">Descrição</f:facet>
                                     <h:outputText value="#{item.descricao}"/>
                                 </h:column>
-                                
+
                                 <h:column>
-                                    <f:facet name="header">Usuario</f:facet>
+                                    <f:facet name="header">Usuário</f:facet>
                                     <h:outputText value="#{item.usuario.nome}"/>
                                 </h:column>
-                                
-                                 <h:column>
+
+                                <h:column>
                                     <f:facet name="header">Universidade</f:facet>
                                     <h:outputText value="#{item.usuario.universidade.nome}"/>
                                 </h:column>
@@ -78,7 +78,7 @@
                                     <p:rating value="#{item.estrelas}"
                                               readonly="true"/>
                                 </h:column>
-                                
+
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
                                     <b:commandButton action="#{ideiaController.doEditar()}" class="btn btn-success" value=""

@@ -35,7 +35,7 @@
                                     <b:selectOneMenu label="Filtrar por Curso:" value="#{usuarioController.curso}">
                                         <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="#{usuarioController.curso}"/>
                                         <f:selectItems value="#{usuarioController.listaCurso}" var="item"
-                                                   itemLabel="#{item.nome.concat(' - ').concat(item.sigla).concat(' - ').concat(item.semestre).concat('/').concat(item.ano)}" itemValue="#{item}"/>
+                                                       itemLabel="#{item.nome.concat(' - ').concat(item.sigla).concat(' - ').concat(item.semestre).concat('/').concat(item.ano)}" itemValue="#{item}"/>
                                         <f:ajax render="academicosData" event="change" listener="#{usuarioController.listAcademicosPorCurso()}"/> 
                                     </b:selectOneMenu>
                                 </b:column>
@@ -92,9 +92,9 @@
                                     </b:commandButton>
                                 </h:column>                            
                             </b:dataTable>   
-                            
+
                             <br/><br/><br/><br/><br/><br/>
-                            
+
                             <f:facet name="footer">
                                 <b:commandButton value="Incluir Novo" action="#{usuarioController.doIncluir()}"
                                                  icon="glyphicon glyphicon-plus" icon-align="right"

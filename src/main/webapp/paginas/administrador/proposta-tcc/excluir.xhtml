@@ -20,7 +20,7 @@
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
                                 <b:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}" 
-                                                 label="Titulo" readonly="true"/>
+                                                 label="Título" readonly="true"/>
                             </b:column>
                         </b:row>
 
@@ -33,7 +33,7 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="tipo" label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
+                                <b:selectOneMenu label="Tipo TCC" value="#{propostaTccController.propostaTccSelecionada.tipoTcc}"
                                                  readonly="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Sistema da Informação" itemValue="Sistema da Informação" />
@@ -94,12 +94,12 @@
 
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <b:selectOneMenu id="situacao" label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
+                                <b:selectOneMenu label="Situação" value="#{propostaTccController.propostaTccSelecionada.situacao}"
                                                  readonly="true">
                                     <f:selectItem itemLabel="-- Escolha uma opção --" itemValue="" />
                                     <f:selectItem itemLabel="Aprovado" itemValue="Aprovado" />
                                     <f:selectItem itemLabel="Recusado" itemValue="Recusado" />
-                                    <f:selectItem itemLabel="Em analise" itemValue="Em analise" />
+                                    <f:selectItem itemLabel="Em análise" itemValue="Em análise" />
                                 </b:selectOneMenu>
                             </b:column>
                         </b:row>
@@ -128,19 +128,14 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{propostaTccController.cancelar()}" title="RETORNAR" class="btn-primary"/>
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" 
+                                                 title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <p:commandButton value="Enviar" action="#{propostaTccController.remover()}" title="ENVIAR">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </p:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{propostaTccController.remover()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.remover()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
 

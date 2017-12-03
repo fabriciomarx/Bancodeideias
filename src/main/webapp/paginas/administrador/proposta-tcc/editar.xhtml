@@ -17,14 +17,13 @@
 
                 <p:fieldset legend="Editar Proposta de TCC"> 
                     <h:form>
-
                         <b:row>
                             <b:column medium-screen="3" span="10" offset-md="1">
-                                <h:outputLabel value="Titulo"/><br/>
+                                <h:outputLabel value="Título"/><br/>
                                 <p:inputTextarea value="#{propostaTccController.propostaTccSelecionada.titulo}"
-                                                 placeholder="Insira o titulo da Proposta de TCC" 
+                                                 placeholder="Insira o título da Proposta de TCC" 
                                                  rows="5" cols="160" counter="idTituloProposta" maxlength="250" counterTemplate="{0} caracteres restantes." 
-                                                 required="true" requiredMessage="O campo Titulo é obrigatório"/>
+                                                 required="true" requiredMessage="O campo Título é obrigatório"/>
                                 <h:outputText id="idTituloProposta" style="float: right;"/>
                             </b:column>
                         </b:row>
@@ -176,19 +175,14 @@
                         <b:row>
                             <b:column span="1" offset-md="1">
                                 <b:commandButton value="Retornar" look="sucess" icon="glyphicon glyphicon-arrow-left"
-                                                 immediate="true" action="#{propostaTccController.cancelar()}" title="RETORNAR" class="btn-primary" />
+                                                 immediate="true" action="#{propostaTccController.cancelar()}" 
+                                                 title="RETORNAR" class="btn-primary"/>
                             </b:column>
                             <b:column span="1" offset-md="8">
-                                <b:commandButton value="Enviar" action="#{propostaTccController.alterar()}" title="ENVIAR">
-                                    <p:confirm header="Confirmação" message="Você tem certeza ?" icon="ui-icon-alert" />
-                                </b:commandButton>
+                                <b:commandButton value="Enviar" look="info" title="ENVIAR" action="#{propostaTccController.alterar()}"
+                                                 icon="glyphicon glyphicon-send" icon-align="right"/>
                             </b:column>
                         </b:row>
-
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{propostaTccController.alterar()}"/>
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
                     </h:form>
                 </p:fieldset>   
 

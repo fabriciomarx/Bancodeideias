@@ -61,16 +61,8 @@
 
                                 <h:column>
                                     <f:facet name="header">Ações</f:facet>
-                                    <b:commandButton action="#{propostaTccController.doEditar()}" class="btn btn-success" value=""
-                                                     icon="glyphicon glyphicon-edit">
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </b:commandButton>
                                     <b:commandButton action="#{propostaTccController.doConsultar()}" class="btn btn-primary" value=""
                                                      icon="glyphicon glyphicon-search">
-                                        <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
-                                    </b:commandButton>
-                                    <b:commandButton action="#{propostaTccController.doExcluir()}" class="btn btn-danger" value=""
-                                                     icon="glyphicon glyphicon-remove">
                                         <f:setPropertyActionListener value="#{item}" target="#{propostaTccController.propostaTccSelecionada}"/>
                                     </b:commandButton>
                                 </h:column>                            
